@@ -1,0 +1,50 @@
+/* Colors */
+/* Font Sizes */
+/* Font Families */
+/* Container Sizes and Padding */
+.ci-accordion-block .accordion-wrp ul h3 {
+  margin-bottom: 0;
+}
+.ci-accordion-block .accordion-wrp .uk-accordion-title {
+  position: relative;
+  padding-right: 3.5rem;
+  text-decoration: none !important;
+}
+.ci-accordion-block .accordion-wrp .uk-accordion-title:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 0.2rem;
+  background: #124a7d;
+}
+.ci-accordion-block .accordion-wrp .uk-accordion-title:after {
+  content: "";
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 2rem;
+  width: 0.2rem;
+  background: #124a7d;
+  transition: all 0.3s ease;
+}
+.ci-accordion-block .accordion-wrp li.uk-open {
+  background: #f8f9fa;
+}
+.ci-accordion-block .accordion-wrp li.uk-open .uk-accordion-title:after {
+  transform: translateY(-50%) rotate(90deg);
+}
+.ci-accordion-block .accordion-wrp.gray-bgr li.uk-open {
+  background: #fff;
+}
+.ci-accordion-block .accordion-wrp .uk-accordion > :nth-child(n+2) {
+  margin-top: 1.2rem;
+}
+.ci-accordion-block .accordion-wrp .uk-accordion > li {
+  border-bottom: 1px solid rgba(2, 75, 108, 0.2);
+  padding: 2.5rem 2.5rem 3.5rem;
+  transition: background 0.3s ease;
+}

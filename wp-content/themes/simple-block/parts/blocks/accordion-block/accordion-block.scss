@@ -1,0 +1,51 @@
+@use '../../../assets/css/sass/custom/theme-variables' as *;
+
+.ci-accordion-block {
+	.accordion-wrp ul h3 {
+		margin-bottom: 0;
+	}
+	.accordion-wrp .uk-accordion-title {
+		position: relative;
+		padding-right: 3.5rem;
+		text-decoration: none!important;
+	}
+	.accordion-wrp .uk-accordion-title:before {
+		content: "";
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 2rem;
+		height: .2rem;
+		background: #124a7d;
+	}
+	.accordion-wrp .uk-accordion-title:after {
+		content: "";
+		position: absolute;
+		right: .9rem;
+		top: 50%;
+		transform: translateY(-50%);
+		height: 2rem;
+		width: .2rem;
+		background: #124a7d;
+		transition: all .3s ease;
+	}
+	.accordion-wrp li.uk-open {
+		background: #f8f9fa;
+	}
+	.accordion-wrp li.uk-open .uk-accordion-title:after {
+		transform: translateY(-50%) rotate(90deg);
+	}
+	.accordion-wrp.gray-bgr li.uk-open {
+		background: #fff;
+	}
+	.accordion-wrp .uk-accordion > :nth-child(n+2) {
+		margin-top: 1.2rem;
+	}
+	.accordion-wrp .uk-accordion > li {
+		border-bottom: 1px solid rgba(2, 75, 108, .2);
+		padding: 2.5rem 2.5rem 3.5rem;
+		transition: background .3s ease;
+	}
+}
+

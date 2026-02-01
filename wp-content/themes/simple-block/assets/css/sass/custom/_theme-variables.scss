@@ -1,0 +1,30 @@
+/* Colors */
+$base-color: var(--wp--preset--color--base);
+$base-2-color: var(--wp--preset--color--base-2);
+$contrast-color: var(--wp--preset--color--contrast);
+$contrast-2-color: var(--wp--preset--color--contrast-2);
+$contrast-3-color: var(--wp--preset--color--contrast-3);
+$accent-color: var(--wp--preset--color--accent);
+$accent-2-color: var(--wp--preset--color--accent-2);
+$accent-3-color: var(--wp--preset--color--accent-3);
+$accent-4-color: var(--wp--preset--color--accent-4);
+$accent-5-color: var(--wp--preset--color--accent-5);
+
+/* Font Sizes */
+$p-font-size: var(--wp--preset--font-size--paragraph);
+$h1-font-size: var(--wp--preset--font-size--heading-1);
+$h2-font-size: var(--wp--preset--font-size--heading-2);
+$h3-font-size: var(--wp--preset--font-size--heading-3);
+$h4-font-size: var(--wp--preset--font-size--heading-4);
+$h5-font-size: var(--wp--preset--font-size--heading-5);
+$h6-font-size: var(--wp--preset--font-size--heading-6);
+
+/* Font Families */
+$main-font: var(--wp--preset--font-family--body);
+$heading-font: var(--wp--preset--font-family--rubik);
+
+/* Container Sizes and Padding */
+$content-size: var(--wp--style--global--content-size);
+$wide-size: var(--wp--style--global--wide-size);
+$g-padding-left: var(--wp--style--root--padding-left);
+$g-padding-right: var(--wp--style--root--padding-right);

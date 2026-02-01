@@ -1,0 +1,62 @@
+@use '../../../assets/css/sass/custom/theme-variables' as *;
+
+.site-footer {
+	margin-top: 0 !important;
+	padding-left: $g-padding-left;
+	padding-right: $g-padding-right;
+	position: relative;
+	z-index: 4;
+	background-color: $accent-color;
+	a {
+		text-decoration: none;
+		&:hover:not(.footer-logo) {
+			text-decoration: underline;
+			color: #fff;
+		}
+	}
+	* {
+		color: #fff;
+	}
+	h3 {
+		font-size: 2rem;
+		text-transform: uppercase;
+	}
+	.footer-logo {
+		img {
+			max-width: 20rem;
+		}
+	}
+	.address, .phone, .email {
+		margin-bottom: 1.5rem;
+	}
+	.address {
+		&:before {
+			background-image: url('../../../assets/images/ico-location-white.svg');
+		}
+	}
+	.phone {
+		&:before {
+			background-image: url('../../../assets/images/ico-phone-white.svg');
+		}
+	}
+	.email {
+		&:before {
+			background-image: url('../../../assets/images/ico-email-white.svg');
+		}
+	}
+	.footer-top {
+		position: relative;
+		padding-top: 7rem;
+		p {
+			margin-bottom: 1.5rem;
+		}
+	}
+	.site-info {
+		border-top: 1px solid #fff;
+		padding: 2.5rem 0;
+		text-align: center;
+		p {
+			margin-bottom: 0;
+		}
+	}
+}

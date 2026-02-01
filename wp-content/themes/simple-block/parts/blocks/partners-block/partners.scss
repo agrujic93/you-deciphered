@@ -1,0 +1,25 @@
+@use '../../../assets/css/sass/custom/theme-variables' as *;
+
+.ci-partners-block {
+	position: relative;
+	overflow: hidden;
+	.swiper-slide {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		img {
+			width: 70%;
+			height: 100%;
+			object-fit: contain;
+			aspect-ratio: 16 / 9;
+		}
+		a {
+			position: absolute;
+			display: inline-block;
+			width: 70%;
+			height: 100%;
+			z-index: 5;
+		}
+	}
+}

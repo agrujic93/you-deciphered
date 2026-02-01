@@ -1,0 +1,30 @@
+@use '../../../assets/css/sass/custom/theme-variables' as *;
+
+.ci-grid-block {
+	position: relative;
+	.columm-wrp {
+		&.ci-has-background {
+			padding: 3rem;
+			border-radius: 1rem;
+			overflow: hidden;
+			height: 100%;
+			@media screen and (max-width: 769px) {
+				padding: 2rem;
+			}
+		}
+	}
+	table {
+		width: 100%;
+		border: 1px solid #ccc;
+		border-collapse: collapse;
+		tr {
+			&:nth-child(odd) {
+				background: #efefef;
+			}
+		}
+		th,td {
+			border: 1px solid #ccc;
+			padding: 1rem;
+		}
+	}
+}

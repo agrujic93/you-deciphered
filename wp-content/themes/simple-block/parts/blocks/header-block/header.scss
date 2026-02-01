@@ -1,0 +1,432 @@
+@use '../../../assets/css/sass/custom/theme-variables' as *;
+
+.site-header {
+	position: relative;
+	z-index: 15;
+	width: 100%;
+	background: #fff;
+	.address, .phone, .email {
+		color: #fff;
+		&:hover {
+			color: #fff;
+		}
+	}
+	.address {
+		&:before {
+			background-image: url('../../../assets/images/ico-location-white.svg');
+		}
+	}
+	.phone {
+		&:before {
+			background-image: url('../../../assets/images/ico-phone-white.svg');
+		}
+	}
+	.email {
+		&:before {
+			background-image: url('../../../assets/images/ico-email-white.svg');
+		}
+	}
+	.top-menu, .bottom-menu {
+		padding-left: $g-padding-left;
+		padding-right: $g-padding-right;
+	}
+	.top-menu {
+		position: relative;
+		z-index: 1000;
+		background-color: $contrast-color;
+		a {
+			text-decoration: none;
+		}
+		@media screen and (max-width: 1024px) {
+			display: none;
+		}
+	}
+	.top-menu-wrp {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem 5rem;
+		border-bottom: 1px solid rgba(2, 75, 108, 0.20);
+		padding: 1.2rem 0;
+	}
+	.contact-informations {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 1rem 2rem;
+		flex-wrap: wrap;
+		a {
+			font-size: 1.5rem;
+		}
+	}
+	.bottom-menu {
+		position: relative;
+		box-shadow: rgba(0, 0, 0, 0.03) 0px 9px 10px;
+		background: #fff;
+		.container {
+			position: relative;
+		}
+	}
+	.bottom-menu-wrp {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 4rem;
+		padding: 1.5rem 0;
+		@media screen and (max-width: 1160px) {
+			padding: 0;
+		}
+	}
+	.site-branding {
+		position: relative;
+		background: #fff;
+		a {
+			display: inline-block;
+		}
+		img {
+			max-width: 18rem;
+		}
+		@media screen and (max-width: 1280px) {
+			img {
+				max-width: 14rem;
+			}
+		}
+		@media screen and (max-width: 1160px) {
+			z-index: 1000;
+			flex: 1;
+			padding: 1.5rem 0;
+		}
+	}
+	.navigation-wrp {
+		position: relative;
+		display: flex;
+		align-items: center;
+		z-index: 20;
+		.search-wrp {
+			.uk-navbar-toggle {
+				padding: 0 0 0 3rem;
+				min-height: 4rem;
+			}
+			.uk-search-input {
+				color: $contrast-color;
+				font-weight: 400;
+				border: 1px solid $accent-color;
+				outline: none;
+				height: 4rem;
+				padding-left: 1rem;
+				padding-right: 1rem;
+			}
+			.uk-drop {
+				background: #fff;
+				&.uk-open {
+					top: 50% !important;
+					left: 0 !important;
+					transform: translateY(-50%);
+					width: calc(100% - 5rem);
+				}
+			}
+			svg {
+				width: 2rem;
+				color: $accent-color;
+			}
+			.search-btn {
+				right: -5.2rem;
+				width: 5rem;
+				height: 100%;
+				position: absolute;
+				margin: 0;
+				color: transparent;
+				border: none;
+				background: transparent;
+				cursor: pointer;
+			}
+		}
+		@media screen and (max-width: 1160px) {
+			position: fixed;
+			overflow-y: scroll;
+			left: 0;
+			display: block;
+			pointer-events: none;
+			padding-top: 15rem;
+			padding-bottom: 3rem;
+			opacity: 0;
+			visibility: hidden;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			transform: translateY(-5rem);
+			transition: all 0.4s ease;
+			background: #fff;
+			.search-wrp {
+				position: relative;
+				.uk-navbar-toggle {
+					justify-content: flex-start;
+					padding-left: $g-padding-left;
+				}
+				.uk-drop {
+					&.uk-open {
+						left: 6rem !important;
+						width: calc(100% - 8.5rem);
+						max-width: 30rem !important;
+					}
+				}
+				.search-btn {
+					left: -5rem;
+				}
+			}
+			&.open {
+				pointer-events: all;
+				opacity: 1;
+				visibility: visible;
+				transform: none;
+				.wp-block-navigation__container {
+					.wp-block-navigation__submenu-container {
+						pointer-events: all;
+					}
+				}
+			}
+		}
+		@media screen and (max-width: 1024px) {
+			&.open {
+				padding-top: 10rem;
+			}
+		}
+	}
+	.wp-block-navigation__container {
+		display: flex;
+		margin-bottom: 0;
+		padding-top: 1rem;
+		list-style-type: none;
+		gap: 2.5rem;
+		li {
+			color: $accent-color;
+		}
+		a {
+			font-size: 1.5rem;
+			transition: all 0.3s ease;
+			text-decoration: none;
+		}
+		> li {
+			position: relative;
+			text-transform: uppercase;
+			&.has-child {
+				&:last-child, &:nth-last-child(2) {
+					.wp-block-navigation__submenu-container {
+						left: auto;
+						right: 0;
+						transform: none;
+					}
+				}
+				> a {
+					&:after {
+						display: none;
+					}
+				}
+			}
+			> a {
+				position: relative;
+				padding: 0 0 1rem 0;
+				color: $accent-color;
+				&:after {
+					content: '';
+					display: block;
+					position: absolute;
+					bottom: -.3rem;
+					left: 0;
+					width: 0%;
+					height: .3rem;
+					background: transparent;
+					transition: all 0.3s ease;
+				}
+				&:hover {
+					color: $accent-color;
+					&:after {
+						width: 100%;
+						background-color: $accent-2-color;
+					}
+				}
+			}
+			.wp-block-navigation__submenu-container {
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+				position: absolute;
+				transition: all .3s ease;
+				transform: translateY(1rem) translateX(-50%);
+				top: 100%;
+				left: 50%;
+				min-width: 18rem !important;
+				border-bottom-left-radius: 1rem;
+				border-bottom-right-radius: 1rem;
+				height: auto;
+				padding: 2.5rem 0 1.3rem;
+				background: #fff;
+				list-style-type: none;
+				transition: all .3s ease;
+				box-shadow: 0 1px 10px 0 rgba(000,000,000,0.1);
+				&:before {
+					position: absolute;
+					content: '';
+					display: block;
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: .3rem;
+					background: $accent-2-color;
+				}
+				li {
+					position: relative;
+					padding: 0 2rem 1.5rem;
+					text-align: left;
+					&:last-child {
+						margin: 0;
+					}
+					a {
+						display: block;
+						padding: 0;
+						font-weight: 400;
+						text-transform: none;
+						color: $accent-color;
+						&:hover {
+							color: $accent-color;
+						}
+					}
+					&:hover {
+						.wp-block-navigation__submenu-container {
+							@media screen and (min-width: 1160px) {
+								left: 100%;
+								top: -1rem;
+								opacity: 1;
+								visibility: visible;
+								transform: none;
+							}
+						}
+					}
+				}
+			}
+			&:hover > .wp-block-navigation__submenu-container {
+				@media screen and (min-width: 1160px) {
+					opacity: 1;
+					visibility: visible;
+					transform: translateY(0) translateX(-50%);
+					pointer-events: all;
+				}
+			}
+		}
+		@media screen and (max-width: 1160px) {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 1rem;
+			padding-left: 2rem;
+			li {
+				display: block;
+				margin-bottom: 0;
+				color: $contrast-color;
+				a {
+					&:after {
+						display: none;
+					}
+				}
+				&.current-menu-item {
+					> a {
+						color: $accent-color;
+					}
+				}
+				.wp-block-navigation__submenu-container {
+					position: relative;
+					top: auto;
+					left: 0;
+					visibility: visible;
+					border: none;
+					opacity: 1;
+					transform: translateY(0);
+					margin-bottom: 2rem;
+					padding: 0 1rem 0 2rem;
+					min-width: 0 !important;
+					width: 100%;
+					background-color: transparent;
+					box-shadow: none;
+					&:before {
+						display: none;
+					}
+					li {
+						position: relative;
+						margin-bottom: 1rem;
+						padding: 0;
+						&:before {
+							content: '\00bb';
+							display: block;
+							position: absolute;
+							top: -.3rem;
+							left: -1.8rem;
+						}
+						a {
+							color: $contrast-color;
+							padding: 0;
+						}
+					}
+				}
+			}
+		}
+	}/*.wp-block-navigation__container*/
+} /*.site-header-block*/
+
+/*trigger menu*/
+.open-menu {
+	display: none;
+	overflow: hidden;
+	position: absolute;
+	z-index: 1100;
+	top: 50%;
+	right: 0;
+	width: 3.4rem;
+	height: 3.4rem;
+	background: transparent;
+	transform: translateY(-50%);
+	transition: .5s ease-in-out;
+	cursor: pointer;
+	@media screen and (max-width: 1160px) {
+		display: block;
+	}
+	.icon-bar {
+		position: absolute;
+		height: .3rem;
+		width: 100%;
+		top: 0;
+		right: 0;
+		opacity: 1;
+		margin: 0;
+		background-color: $accent-color;
+		transform: rotate(0deg);
+		transition: .25s ease-in-out;
+		&:nth-child(1) {
+			top: .4rem;
+		}
+		&:nth-child(2) {
+			top: 1.4rem;
+		}
+		&:nth-child(3) {
+			top: 2.4rem;
+		}
+	}
+	&.open {
+		.icon-bar {
+			&:nth-child(1) {
+				top: 1.4rem;
+				transform: rotate(135deg);
+				background: $accent-color;
+			}
+			&:nth-child(2) {
+				opacity: 0;
+				right: -6rem;
+				background: $accent-color;
+			}
+			&:nth-child(3) {
+				top: 1.4rem;
+				transform: rotate(-135deg);
+				background: $accent-color;
+			}
+		}
+	}
+}

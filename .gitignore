@@ -1,0 +1,98 @@
+# WP ignores #
+##############
+.docksal/
+.ddev
+.htaccess
+wp-content/blogs.dir/
+wp-content/upgrade/
+wp-content/backup-db/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+sitemap.xml
+wp-content/cache/
+wp-content/backups/
+sitemap.xml.gz
+
+# Ignore everything in the uploads folder
+wp-content/uploads/*
+
+# But do not ignore the test folder inside uploads
+!wp-content/uploads/acf-json/
+
+# Allow tracking files inside the test folder
+!wp-content/uploads/acf-json/*
+
+# WP custom #
+#############
+wp-config.php
+wp-config-local.php
+wp-config-ddev.php
+db_dump/
+wp-content/wflogs/
+
+# General ignore rules #
+########################
+adminer.php
+searchreplacedb2.php
+srdb/
+k3rb3r/
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node artifact files
+node_modules/
+
+# Compiled Java class files
+*.class
+
+# Compiled Python bytecode
+*.py[cod]
+
+# Maven
+target/
+
+# JetBrains IDE
+.idea/
+
+# Unit test reports
+TEST*.xml
+
+# Applications
+*.app
+*.exe
+*.war
+
+# Large media files
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv

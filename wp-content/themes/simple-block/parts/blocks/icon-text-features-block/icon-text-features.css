@@ -1,0 +1,52 @@
+/* Colors */
+/* Font Sizes */
+/* Font Families */
+/* Container Sizes and Padding */
+.ci-icon-text-features-block .feature-wrp {
+  position: relative;
+  border-radius: 1rem;
+  padding: 0 3rem 3rem;
+  height: 100%;
+  overflow: hidden;
+}
+.ci-icon-text-features-block .feature-wrp:hover .feature-icon img {
+  transform: translateY(-0.5rem);
+}
+.ci-icon-text-features-block .feature-link {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+}
+.ci-icon-text-features-block .feature-icon {
+  position: relative;
+  margin: 0.7rem auto 2rem;
+  z-index: 5;
+  margin-bottom: 2rem;
+  aspect-ratio: 1/1;
+  width: 40%;
+}
+.ci-icon-text-features-block .feature-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transition: all 0.5s ease;
+}
+.ci-icon-text-features-block .feature-icon:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: calc(-75% - 3rem);
+  top: 50%;
+  height: 2000px;
+  width: calc(250% + 6rem);
+  background-color: var(--wp--preset--color--base);
+  border-radius: 1rem;
+}
+.ci-icon-text-features-block .feature-text {
+  position: relative;
+  z-index: 10;
+}

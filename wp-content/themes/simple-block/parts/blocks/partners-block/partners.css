@@ -1,0 +1,27 @@
+/* Colors */
+/* Font Sizes */
+/* Font Families */
+/* Container Sizes and Padding */
+.ci-partners-block {
+  position: relative;
+  overflow: hidden;
+}
+.ci-partners-block .swiper-slide {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ci-partners-block .swiper-slide img {
+  width: 70%;
+  height: 100%;
+  object-fit: contain;
+  aspect-ratio: 16/9;
+}
+.ci-partners-block .swiper-slide a {
+  position: absolute;
+  display: inline-block;
+  width: 70%;
+  height: 100%;
+  z-index: 5;
+}

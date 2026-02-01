@@ -1,0 +1,162 @@
+@use '../../../assets/css/sass/custom/theme-variables' as *;
+
+.ci-hero-block {
+	background: $contrast-2-color !important;
+	position: relative;
+	&.ci-hero-text {
+		&:not(.has-text-color) {
+			*:not(.btn, span) {
+				color: #fff;
+			}
+		}
+	}
+	&.ci-hero-image, &.ci-hero-slider {
+		position: relative;
+		overflow: hidden;
+		margin-bottom: 4rem;
+		padding-bottom: 0 !important;
+		&.ci-has-background {
+			margin-bottom: 4rem;
+		}
+		& + section {
+			margin-top: 4rem;
+		}
+		&:after {
+			content: '';
+			position: relative;
+			z-index: 10;
+			left: 50%;
+			bottom: -.2rem;
+			margin-top: 8rem;
+			display: block;
+			width: 100vw;
+			aspect-ratio: 300 / 30;
+			background-image: url('../../../assets/images/hero-wave-small.svg');
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center bottom;
+			transform: translateX(-50%);
+			@media screen and (max-width: 769px) {
+				margin-top: 4rem;
+			}
+		}
+		.hero-content-wrp {
+			min-height: calc(60vh - 20rem);
+			display: flex;
+			align-items: center;
+			@media screen and (max-width: 769px) {
+				min-height: calc(60vh - 8rem);
+			}
+		}
+	}
+	&.ci-hero-slider {
+		&:after {
+			position: absolute;
+			margin-top: 0;
+			pointer-events: none;
+		}
+	}
+	&.has-text-color *:not(.btn, span),
+	.has-text-color *:not(.btn, span) {
+		color: inherit !important;
+	}
+	.hero-image-overlay,
+	.hero-background-image {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+	}
+	.hero-background-image {
+		object-fit: cover;
+		object-position: center;
+	}
+	.hero-image-overlay {
+		z-index: 5;
+		mix-blend-mode: multiply;
+	}
+	.hero-wrp {
+		position: relative;
+		z-index: 10;
+	}
+	.swiper {
+		margin-left: calc($g-padding-left * -1) !important;
+		margin-right: calc($g-padding-right * -1) !important;
+		width: calc(100% + $g-padding-left + $g-padding-right) !important;
+		.swiper-pagination {
+			z-index: 20;
+			aspect-ratio: 300 / 30;
+			@media screen and (max-width: 769px) {
+				bottom: 2rem;
+			}
+		}
+		.swiper-pagination-bullet {
+			margin: 0 .6rem;
+			width: 1.3rem;
+			height: 1.3rem;
+			background-color: #fff;
+		}
+		.swiper-pagination-bullet-active {
+			background-color: $accent-2-color;
+		}
+	}
+	.swiper-initialized {
+		.hero-slider-img {
+			transition: all 2.2s ease;
+		}
+	}
+	.swiper-slide {
+		position: relative;
+		padding-left: $g-padding-left;
+		padding-right: $g-padding-right;
+		padding-bottom: 0;
+		padding-top: 10rem;
+		width: 100%;
+		height: auto;
+		display: flex;
+		flex-direction: column;
+		@media screen and (max-width: 769px) {
+			padding-top: 4rem;
+		}
+		.hero-slide-content {
+			position: relative;
+			z-index: 10;
+			display: flex;
+			align-items: center;
+			flex: 1;
+			min-height: calc(70vh - 20rem);
+			@media screen and (max-width: 769px) {
+				min-height: calc(70vh - 8rem);
+			}
+		}
+		&:after {
+			content: '';
+			position: relative;
+			left: 50%;
+			bottom: 0;
+			margin-top: 8rem;
+			display: block;
+			width: 100vw;
+			aspect-ratio: 300 / 30;
+			transform: translateX(-50%);
+			@media screen and (max-width: 769px) {
+				margin-top: 4rem;
+			}
+		}
+		.hero-slider-img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+		}
+		&.swiper-slide-active {
+			.hero-slider-img {
+				transform: scale(1.16);
+			}
+		}
+	}
+}

@@ -1,0 +1,832 @@
+@use 'theme-variables' as *;
+
+html * {
+	box-sizing: border-box;
+}
+html {
+	font-size: 62.5%;
+	height: 100%;
+	@media (min-width: 1920px) {
+		font-size: 78%;
+	}
+	@media (min-width: 2560px) {
+		font-size: 85%;
+	}
+}
+
+:root :where(.is-layout-constrained) > .ci-block:first-child:not(.ci-has-background, .ci-hero-block) {
+	margin-block-start: 10rem;
+	@media screen and (max-width: 769px) {
+		margin-block-start: 4rem;
+	}
+}
+
+:root :where(.is-layout-constrained) > .ci-block:last-child:not(.ci-has-background) {
+	margin-block-end: 10rem;
+	@media screen and (max-width: 769px) {
+		margin-block-end: 4rem;
+	}
+}
+
+.wp-site-blocks, .editor-styles-wrapper {
+	/*Sticky Footer*/
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	> main {
+		flex: 1 0 auto;
+		&.site-main {
+			margin-top: 0;
+		}
+	}
+	.loaded & {
+		a {
+			transition: all .3s ease;
+		}
+	}
+	h1, .h1 {
+		margin: 0 0 3rem;
+	}
+	h2, .h2 {
+		margin: 0 0 3rem;
+	}
+	h3, .h3 {
+		margin: 0 0 3rem;
+	}
+	h4, .h4 {
+		margin: 0 0 3rem;
+	}
+	h5, .h5 {
+		margin: 0 0 3rem;
+	}
+	h6, .h6 {
+		margin: 0 0 3rem;
+	}
+	.h1, .h2, .h3, .h4, .h5, .h6 {
+		font-family: $heading-font;
+		font-weight: 500;
+		line-height: 1.4;
+		color: $accent-color;
+	}
+	.h1 {
+		font-size: $h1-font-size;
+	}
+	.h2 {
+		font-size: $h2-font-size;
+	}
+	.h3 {
+		font-size: $h3-font-size;
+	}
+	.h4 {
+		font-size: $h4-font-size;
+	}
+	.h5 {
+		font-size: $h5-font-size;
+	}
+	.h6 {
+		font-size: $h6-font-size;
+	}
+	p, ul, ol, dl, table, hr, pre, blockquote {
+		margin: 0 0 3rem;
+	}
+	p, h1, h2, h3, h4, h5, h6, li {
+		a {
+			word-break: break-word;
+		}
+	}
+	h1 a:where(:not(.wp-element-button, .btn)),
+	h2 a:where(:not(.wp-element-button, .btn)),
+	h3 a:where(:not(.wp-element-button, .btn)),
+	h4 a:where(:not(.wp-element-button, .btn)),
+	h5 a:where(:not(.wp-element-button, .btn)),
+	p a:where(:not(.wp-element-button, .btn)),
+	li a:where(:not(.wp-element-button, .btn)),
+	h6 a:where(:not(.wp-element-button, .btn)) {
+		font-family: inherit;
+		font-size: inherit;
+		line-height: inherit;
+		text-decoration: none;
+	}
+	input, textarea, select {
+		padding: 1.5rem;
+		background-color: $base-color;
+		font-size: $p-font-size;
+		font-family: $main-font;
+		border: .1rem solid $base-color;
+		border-radius: 1rem;
+	}
+	input[type="submit"] {
+		cursor: pointer;
+	}
+	input::-webkit-input-placeholder {
+		font-family: $main-font;
+		margin-top: 5px;
+		font-size: 1.5rem;
+		color: rgba(2,75,108,.4);
+		letter-spacing: 1px;
+		font-weight: 400;
+	}
+
+	input:-moz-placeholder {
+		font-family: $main-font;
+		margin-top: 5px;
+		font-size: 1.5rem;
+		color: rgba(2,75,108,.4);
+		letter-spacing: 1px;
+		font-weight: 400;
+	} /* FF 4-18 */
+
+	input::-moz-placeholder {
+		font-family: $main-font;
+		margin-top: 5px;
+		font-size: 1.5rem;
+		color: rgba(2,75,108,.4);
+		letter-spacing: 1px;
+		font-weight: 400;
+	} /* FF 19+ */
+
+	input:-ms-input-placeholder {
+		font-family: $main-font;
+		margin-top: 5px;
+		font-size: 1.5rem;
+		color: rgba(2,75,108,.4);
+		letter-spacing: 1px;
+		font-weight: 400;
+	} /* IE 10+ */
+
+	textarea::-webkit-input-placeholder {
+		font-family: $main-font;
+		font-size: 1.5rem;
+		color: rgba(2,75,108,.4);
+		letter-spacing: 1px;
+		font-weight: 400;
+	}
+
+	textarea:-moz-placeholder {
+		font-family: $main-font;
+		font-size: 1.5rem;
+		color: rgba(2,75,108,.4);
+		letter-spacing: 1px;
+		font-weight: 400;
+	} /* FF 4-18 */
+
+	textarea::-moz-placeholder {
+		font-family: $main-font;
+		font-size: 1.5rem;
+		color: rgba(2,75,108,.4);
+		letter-spacing: 1px;
+		font-weight: 400;
+	} /* FF 19+ */
+
+	textarea:-ms-input-placeholder {
+		font-family: $main-font;
+		font-size: 1.5rem;
+		color: rgba(2,75,108,.4);
+		letter-spacing: 1px;
+		font-weight: 400;
+	} /* IE 10+ */
+
+	input:focus::-webkit-input-placeholder {
+		color:transparent;
+	}
+
+	input:focus:-moz-placeholder {
+		color: transparent;
+	} /* FF 4-18 */
+
+	input:focus::-moz-placeholder {
+		color: transparent;
+	} /* FF 19+ */
+
+	input:focus:-ms-input-placeholder {
+		color: transparent;
+	} /* IE 10+ */
+
+	textarea:focus::-webkit-input-placeholder {
+		color: transparent;
+	}
+
+	textarea:focus:-moz-placeholder {
+		color: transparent;
+	} /* FF 4-18 */
+
+	textarea:focus::-moz-placeholder {
+		color: transparent;
+	} /* FF 19+ */
+
+	textarea:focus:-ms-input-placeholder {
+		color: transparent;
+	} /* IE 10+ */
+	blockquote {
+		font-size: 1.8rem;
+		cite {
+			font-weight: bold;
+		}
+	}
+	.wp-element-button,
+	.wp-block-button__link,
+	.btn {
+		display: inline-block;
+		border-radius: 1rem;
+		padding: 1rem 2rem;
+		border: .2rem solid $accent-2-color;
+		background-color: $accent-2-color;
+		font-size: $p-font-size;
+		font-weight: 600;
+		color: #fff;
+		line-height: 1.3;
+		text-decoration: none;
+		transition: all .3s ease;
+		&:hover {
+			text-decoration: none;
+			color: #fff;
+		}
+		&.has-background, &.has-text-color {
+			border-width: 0;
+		}
+	}
+	.wp-block-button.is-style-outline {
+		> .wp-block-button__link:not(.has-text-color, .has-background),
+		> .wp-element-button:not(.has-text-color, .has-background) {
+			background-color: #fff;
+			color: $accent-2-color;
+			&:hover {
+				color: #fff;
+				background-color: $accent-2-color;
+			}
+		}
+	}
+	// fix uikit animation fade in on scroll (Homepage swiper demo)
+	.animation-fade-container {
+		.animation-fade-item {
+			visibility: hidden;
+			&.uk-scrollspy-inview {
+				visibility: visible;
+			}
+		}
+	}
+	*[data-attr="not-animated"] {
+		.animation-fade-item {
+			visibility: visible !important;
+			opacity: 1 !important;
+		}
+	}
+	.big-gap {
+		margin-top: 10rem;
+		margin-bottom: 10rem;
+		&.ci-has-background {
+			margin-top: 0;
+			margin-bottom: 0;
+			padding-top: 10rem;
+			padding-bottom: 10rem;
+		}
+		@media (max-width: 769px) {
+			margin-top: 4rem;
+			margin-bottom: 4rem;
+			&.ci-has-background {
+				margin-top: 0;
+				margin-bottom: 0;
+				padding-top: 4rem;
+				padding-bottom: 4rem;
+			}
+		}
+	}
+
+	.small-gap {
+		margin-top: 4rem;
+		margin-bottom: 4rem;
+		&.ci-has-background {
+			margin-top: 0;
+			margin-bottom: 0;
+			padding-top: 4rem;
+			padding-bottom: 4rem;
+		}
+	}
+
+	section {
+		margin-top: 10rem;
+		margin-bottom: 10rem;
+		&.small-gap {
+			margin-top: 4rem;
+			margin-bottom: 4rem;
+		}
+		&.ci-has-background {
+			margin-top: 0;
+			margin-bottom: 0;
+			padding-top: 10rem;
+			padding-bottom: 10rem;
+			&.small-gap {
+				margin-top: 0;
+				margin-bottom: 0;
+				padding-top: 4rem;
+				padding-bottom: 4rem;
+			}
+		}
+		@media screen and (max-width: 769px) {
+			margin-top: 4rem;
+			margin-bottom: 4rem;
+			&.small-gap {
+				margin-top: 4rem;
+				margin-bottom: 4rem;
+			}
+			&.ci-has-background {
+				margin-top: 0;
+				margin-bottom: 0;
+				padding-top: 4rem;
+				padding-bottom: 4rem;
+				&.small-gap {
+					margin-top: 0;
+					margin-bottom: 0;
+					padding-top: 4rem;
+					padding-bottom: 4rem;
+				}
+			}
+		}
+	}
+	.section-full-width {
+		margin-left: calc($g-padding-left * -1) !important;
+		margin-right: calc($g-padding-right * -1) !important;
+		padding-left: $g-padding-left;
+		padding-right: $g-padding-right;
+		max-width: calc(100% + $g-padding-left + $g-padding-right) !important;
+		.container {
+			max-width: $content-size;
+		}
+	}
+	.section-container {
+		margin-left: calc($g-padding-left * -1) !important;
+		margin-right: calc($g-padding-right * -1) !important;
+		padding-left: $g-padding-left;
+		padding-right: $g-padding-right;
+		max-width: calc(100% + $g-padding-left + $g-padding-right) !important;
+		.container {
+			max-width: $content-size;
+		}
+	}
+	.section-container-wide {
+		margin-left: calc($g-padding-left * -1) !important;
+		margin-right: calc($g-padding-right * -1) !important;
+		padding-left: $g-padding-left;
+		padding-right: $g-padding-right;
+		max-width: calc(100% + $g-padding-left + $g-padding-right) !important;
+		.container {
+			max-width: $wide-size;
+		}
+	}
+	.container {
+		margin: 0 auto;
+		padding-left: 0;
+		padding-right: 0;
+		width: 100%;
+		max-width: $content-size;
+	}
+	/* Text meant only for screen readers. */
+	.screen-reader-text {
+		border: 0;
+		clip: rect(1px, 1px, 1px, 1px);
+		clip-path: inset(50%);
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute !important;
+		width: 1px;
+		word-wrap: normal !important; /* Many screen reader and browser combinations announce broken words as they would appear visually. */
+	}
+	.screen-reader-text:focus {
+		background-color: #eee;
+		clip: auto !important;
+		clip-path: none;
+		color: #444;
+		display: block;
+		font-size: 1em;
+		height: auto;
+		left: .5rem;
+		line-height: normal;
+		padding: 1.5rem 2rem 1.5rem;
+		text-decoration: none;
+		top: 5px;
+		width: auto;
+		z-index: 100000;
+		/* Above WP toolbar. */
+	}
+	//editor styles
+	img {
+		&.alignleft {
+			float: left;
+			margin: 0 3rem 3rem 0;
+
+			@media (max-width: 580px) {
+				display: block;
+				float: none;
+				margin-right: 0;
+			}
+		}
+
+		&.alignright {
+			float: right;
+			margin: 0 0 3rem 3rem;
+
+			@media (max-width: 580px) {
+				display: block;
+				float: none;
+				margin-left: 0;
+			}
+		}
+		&.aligncenter {
+			display: block;
+			margin: 0 auto;
+		}
+	}
+
+	.ci-has-text-color {
+		*:not(.btn) {
+			color: inherit;
+		}
+	}
+
+	section.ci-has-background:has(.section-background-image ) {
+		position: relative;
+		overflow: hidden;
+		.container {
+			position: relative;
+			z-index: 5;
+		}
+		.section-background-image {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 120%;
+			object-fit: cover;
+			object-position: center;
+			z-index: 1;
+		}
+		.section-img-overlay {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 3;
+			mix-blend-mode: multiply;
+			& + * {
+				position: relative;
+				z-index: 5;
+			}
+		}
+	}
+
+	p:empty {
+		display: none;
+	}
+
+	//section 508 focus fix
+	.uk-link-toggle:focus {
+		outline: auto;
+	}
+	.uk-icon-link:focus {
+		outline: auto;
+	}
+	.uk-icon-button:focus {
+		outline: auto;
+	}
+	.uk-range:focus {
+		outline: auto;
+	}
+	.uk-input:focus,.uk-select:focus,.uk-textarea:focus {
+		outline: auto;
+	}
+	.uk-radio:focus,.uk-checkbox:focus {
+		outline: auto;
+	}
+	.uk-button:focus {
+		outline: auto;
+	}
+	.uk-close:focus {
+		outline: auto;
+	}
+	.uk-totop:focus {
+		outline: auto;
+	}
+	.uk-marker:focus {
+		outline: auto;
+	}
+	.uk-badge:focus {
+		outline: auto;
+	}
+	.uk-search-input:focus {
+		outline: auto;
+	}
+	.uk-search-icon:focus {
+		outline: auto;
+	}
+	.uk-accordion-title:focus {
+		outline: auto;
+	}
+	.uk-slideshow-items>:focus {
+		outline: auto;
+	}
+	.uk-slider-items>:focus {
+		outline: auto;
+	}
+	.uk-nav li>a:focus {
+		outline: auto;
+	}
+	.uk-navbar-nav>li>a:focus,.uk-navbar-nav>li>a.uk-open {
+		outline: auto;
+	}
+	.uk-navbar-toggle:focus,.uk-navbar-toggle.uk-open {
+		outline: auto;
+	}
+	.uk-subnav>*>a:focus {
+		outline: auto;
+	}
+	.uk-slidenav:focus {
+		outline: auto;
+	}
+	.uk-dotnav>*>:focus {
+		outline: auto;
+	}
+	.uk-thumbnav>*>:focus {
+		outline: auto;
+	}
+	.uk-iconnav>*>a:focus {
+		outline: auto;
+	}
+	.uk-lightbox-items>:focus {
+		outline: auto;
+	}
+	.uk-animation-toggle:focus {
+		outline: auto;
+	}
+	.uk-logo:hover,.uk-logo:focus {
+		outline: auto;
+	}
+	.uk-transition-toggle:focus {
+		outline: auto;
+	}
+	.uk-visible-toggle:focus {
+		outline: auto;
+	}
+	//END section 508 focus fix
+
+	/* Helper classes */
+	.rm-last-child-margin > * {
+		&:last-child {
+			margin-bottom: 0 !important;
+		}
+	}
+	.main-gradient {
+		background: $accent-2-color;
+		background: linear-gradient(45deg, $accent-2-color 0%, $accent-color 100%);
+	}
+	.social-icons {
+		display: flex;
+		align-items: center;
+		gap: 1rem 1.5rem;
+		a {
+			display: inline-block;
+		}
+		img, svg {
+			height: 2.1rem;
+			max-width: 2.2rem;
+			width: auto;
+			@media all and (-ms-high-contrast:none) {
+				height: 100%;
+				max-height: 2rem;
+			}
+		}
+	}
+	*.ci-label {
+		display: inline-block;
+		width: 100%;
+		margin-bottom: 1rem;
+		line-height: 1.4;
+		font-size: 1.4rem;
+		color: $contrast-color;
+		font-family: $heading-font;
+		&.ci-label-box {
+			> span {
+				display: inline-block;
+				border-radius: 0.5rem;
+				font-size: 1.2rem;
+				background-color: $accent-2-color;
+				color: #fff;
+				padding: 0.5rem 1rem;
+				text-transform: uppercase;
+				letter-spacing: .1rem;
+			}
+		}
+	}
+	p:has(> .ci-label-text) {
+		margin-bottom: 1.2rem;
+	}
+	*.ci-label-text {
+		text-transform: uppercase;
+		font-size: 1.4rem;
+		letter-spacing: 1.5px;
+		line-height: 1.3;
+	}
+	.sr-only {
+		border: 0 !important;
+		clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+		-webkit-clip-path: inset(50%) !important;
+			clip-path: inset(50%) !important;  /* 2 */
+		height: 1px !important;
+		margin: -1px !important;
+		overflow: hidden !important;
+		padding: 0 !important;
+		position: absolute !important;
+		width: 1px !important;
+		white-space: nowrap !important;            /* 3 */
+	}
+	.site-footer, .site-header {
+		.address, .phone, .email {
+			display: block;
+			position: relative;
+			padding-left: 2.5rem;
+			&:before {
+				content: '';
+				position: absolute;
+				width: 1.6rem;
+				height: 2rem;
+				left: 0;
+				top: 0;
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-size: contain;
+			}
+		}
+	}
+	.ci-query-posts-block {
+		.image-wrapper {
+			display: block;
+			position: relative;
+			width: 100%;
+			aspect-ratio: 16 / 9;
+			border-top-left-radius: 1rem;
+			border-top-right-radius: 1rem;
+			overflow: hidden;
+			img {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: all 1s ease;
+			}
+			&:hover {
+				img {
+					transform: scale(1.06);
+				}
+			}
+		}
+		.query-posts-card {
+			display: flex;
+			flex-direction: column;
+			padding: 2rem;
+			background-color: $base-color;
+			background-color: rgb(242,242,242);
+			border-radius: 1rem;
+			border: .2rem solid $base-color;
+			height: 100%;
+			transition: box-shadow .3s ease;
+			&.white-card {
+				background-color: #fff;
+			}
+			a.post-title {
+				text-decoration: none;
+				h3 {
+					margin: 0;
+					color: $accent-color;
+					transition: all .3s ease;
+				}
+				&:hover {
+					h3 {
+						color: $accent-2-color;
+					}
+				}
+			}
+			p {
+				color: $contrast-color !important;
+			}
+			&:hover {
+				box-shadow: rgba(0, 0, 0, .03) 1px 7px 7px 3px;
+			}
+		}
+	}
+}
+
+.navigation.pagination {
+	margin-top: 5rem;
+	text-align: center;
+	.nav-links {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: .6rem;
+	}
+	.current {
+		color: $accent-color;
+	}
+	a {
+		text-decoration: none;
+		color: $accent-2-color;
+		&:hover {
+			color: $accent-color;
+		}
+	}
+}
+
+.info-cf7-map-section {
+	margin-bottom: 0 !important;
+	.map-wrp {
+		position: relative;
+		min-height: 35rem;
+		aspect-ratio: 9 / 3;
+		margin-left: calc($g-padding-left * -1) !important;
+		margin-right: calc($g-padding-right * -1) !important;
+		max-width: calc(100% + $g-padding-left + $g-padding-right) !important;
+		iframe {
+			position: absolute;
+			width: 100% !important;
+			height: 100% !important;
+			left: 0;
+			top: 0;
+		}
+	}
+}
+
+.wpcf7 {
+	.wpcf7-not-valid-tip {
+		position: absolute;
+		font-size: .8em;
+	}
+	input, textarea {
+		width: 100%;
+	}
+	input[type="submit"] {
+		width: auto;
+	}
+	.wpcf7-form div.wpcf7-response-output {
+		margin-bottom: 0;
+	}
+	form.sent {
+		div.wpcf7-response-output {
+			border-color: $accent-2-color;
+		}
+	}
+}
+
+.info-wrp {
+	position: relative;
+	margin-bottom: 3rem;
+	padding-left: 6rem;
+	min-height: 4rem;
+	p {
+		margin-bottom: 1.5rem;
+	}
+	h3 {
+		margin-bottom: 1.5rem;
+		font-size: $h6-font-size;
+		color: $contrast-color;
+	}
+	&:before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: -.2rem;
+		width: 3rem;
+		height: 3rem;
+		background-size: contain;
+		background-position: left center;
+		background-repeat: no-repeat;
+	}
+	&.work-info-wrp {
+		&:before {
+			background-image: url('../images/clock.svg');
+		}
+	}
+	&.email-info-wrp {
+		&:before {
+			background-image: url('../images/ico-email.svg');
+		}
+	}
+	&.phone-info-wrp {
+		&:before {
+			background-image: url('../images/ico-phone.svg');
+		}
+	}
+	&.location-info-wrp {
+		&:before {
+			background-image: url('../images/ico-location.svg');
+		}
+	}
+	&.social-info-wrp {
+		svg, path {
+			fill: $accent-2-color;
+		}
+	}
+}

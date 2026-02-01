@@ -1,0 +1,30 @@
+/* Colors */
+/* Font Sizes */
+/* Font Families */
+/* Container Sizes and Padding */
+.ci-grid-block {
+  position: relative;
+}
+.ci-grid-block .columm-wrp.ci-has-background {
+  padding: 3rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  height: 100%;
+}
+@media screen and (max-width: 769px) {
+  .ci-grid-block .columm-wrp.ci-has-background {
+    padding: 2rem;
+  }
+}
+.ci-grid-block table {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+}
+.ci-grid-block table tr:nth-child(odd) {
+  background: #efefef;
+}
+.ci-grid-block table th, .ci-grid-block table td {
+  border: 1px solid #ccc;
+  padding: 1rem;
+}
