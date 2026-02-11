@@ -2,8 +2,8 @@
 Contributors: Backup with UpdraftPlus, DavidAnderson, pmbaldha, DNutbourne, aporter, bcrodua
 Tags: backup, database backup, wordpress backup, cloud backup, migration
 Requires at least: 3.2
-Tested up to: 6.8
-Stable tag: 1.25.8
+Tested up to: 6.9
+Stable tag: 1.26.1
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -178,6 +178,31 @@ This problem is probably caused by your account being starved of resources by yo
 The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the best place to learn in more detail about any important changes.
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
+
+= 1.26.1 - 19/Jan/2026 =
+
+* FIX: Google Drive chunked uploads didn't resume from where it left off but started from the beginning resulting in file duplicates
+* TWEAK: Add a WP-CLI command to register a product key (premium)
+* TWEAK: Add product registration link on the premium version
+* TWEAK: Fix JS error on UpdraftCentral Cloud connect modal.
+* TWEAK: Fix grammatical error in the low disk space admin notice.
+* TWEAK: Update links for better user experience
+* TWEAK: Update the premium links on the settings page
+* TWEAK: Update all links in the includes/notices/central folders to use teamupdraft.com instead of updraftplus.com.
+* TWEAK: Upgrade the common-libs tag version
+
+= 1.25.9 - 12/Nov/2025 =
+
+* FIX: A regression that resulted in the list of tables within the "Database size" tools not being displayed, due to code refactoring implemented in version 1.25.8.
+* TWEAK: Add function for returning Advanced Tools menu data in a structured format.
+* TWEAK: Resolve regression in 1.25.2 which caused the admin notice "Not yet connected to licence" was linking to teamupdraft.com instead of the UpdraftPlus Premium/Extensions tab.
+* TWEAK: Refactoring connection keys data function to deduplicate and read from a single source
+* TWEAK: Restored the missing backup confirmation pop-up icon for older WordPress versions.
+* TWEAK: Stripped unwanted HTML from the plain-text notice and added new lines after each sentences in the sale offer message.
+* TWEAK: Update Black Friday seasonal sale URL/link 
+* TWEAK: Updated "Check our premium" and "Back up non-WP tables and external databases" URL links to avoid HTTP 404 (not found) errors.
+* TWEAK: Update database charset detection to support both CHARSET= and CHARACTER SET syntax in SQL dumps
+* TWEAK: Replaced deprecated (boolean) casting
 
 = 1.25.8 - 07/Oct/2025 =
 
@@ -2096,4 +2121,4 @@ Non-English translators are provided by volunteers, and wordpress.org does not g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.25.8: Support for new Amazon AWS S3 regions (New Zealand, Taipei and Mexico), better statuses in the backup email report, search and replace improvement for the __PHP_Incomplete_Class. Various fixes and small tweaks - see the changelog for details. A recommended update for all.
+* 1.26.1: Google Drive chunk uploads resumption improvement, various fixes and small tweaks - see the changelog for details. A recommended update for all.

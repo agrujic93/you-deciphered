@@ -583,7 +583,7 @@ class wfWAFWordPress extends wfWAF {
 		parent::uninstall();
 		@unlink(rtrim(WFWAF_LOG_PATH, '/') . '/.htaccess');
 		@unlink(rtrim(WFWAF_LOG_PATH, '/') . '/template.php');
-		@unlink(rtrim(WFWAF_LOG_PATH, '/') . '/dbip-country-lite.mmdb');
+		@unlink(rtrim(WFWAF_LOG_PATH, '/') . '/geoip.mmdb');
 		
 		self::_recursivelyRemoveWflogs(''); //Removes any remaining files and the directory itself
 	}
@@ -652,7 +652,7 @@ class wfWAFWordPress extends wfWAF {
 		$fileList = parent::fileList();
 		$fileList[] = rtrim(WFWAF_LOG_PATH, '/') . '/.htaccess';
 		$fileList[] = rtrim(WFWAF_LOG_PATH, '/') . '/template.php';
-		$fileList[] = rtrim(WFWAF_LOG_PATH, '/') . '/dbip-country-lite.mmdb';
+		$fileList[] = rtrim(WFWAF_LOG_PATH, '/') . '/geoip.mmdb';
 		return $fileList;
 	}
 

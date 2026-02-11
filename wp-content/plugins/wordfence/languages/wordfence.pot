@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Wordfence Security 8.1.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordfence-zip-RDORf4bCI\n"
+"Project-Id-Version: Wordfence Security 8.1.4\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordfence-zip-ZSJgBchaN\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-05T16:13:21+00:00\n"
+"POT-Creation-Date: 2025-12-20T20:40:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: wordfence\n"
@@ -1890,8 +1890,8 @@ msgstr ""
 #: lib/menu_scanner.php:389
 #: lib/menu_tools_auditlog.php:245
 #: lib/menu_tools_auditlog.php:276
-#: lib/menu_tools_livetraffic.php:580
-#: lib/menu_tools_livetraffic.php:611
+#: lib/menu_tools_livetraffic.php:577
+#: lib/menu_tools_livetraffic.php:608
 msgid "Got it"
 msgstr ""
 
@@ -3441,8 +3441,8 @@ msgstr ""
 #: lib/menu_tools.php:21
 #: lib/menu_tools_livetraffic.php:8
 #: lib/menu_tools_livetraffic.php:41
-#: lib/menu_tools_livetraffic.php:574
-#: lib/menu_tools_livetraffic.php:605
+#: lib/menu_tools_livetraffic.php:571
+#: lib/menu_tools_livetraffic.php:602
 #: lib/wordfenceClass.php:6898
 #: models/page/wfPage.php:119
 msgid "Live Traffic"
@@ -4532,11 +4532,11 @@ msgstr ""
 msgid "No requests to report yet."
 msgstr ""
 
-#: lib/menu_tools_livetraffic.php:575
+#: lib/menu_tools_livetraffic.php:572
 msgid "Live traffic defaults to a summary view of all security-related traffic. Details are viewable by clicking anywhere within the summary record. To switch to the expanded view, click the <strong>Expand All Records</strong> switch."
 msgstr ""
 
-#: lib/menu_tools_livetraffic.php:606
+#: lib/menu_tools_livetraffic.php:603
 msgid "Live traffic now defaults to a summary view. Details are viewable by clicking anywhere within the summary record. To switch to the expanded view, click the <strong>Expand All Records</strong> switch. New installations will only log security-related traffic by default, though your previous setting has been preserved."
 msgstr ""
 
@@ -8642,13 +8642,13 @@ msgstr[1] ""
 msgid "less than 1 second"
 msgstr ""
 
-#: lib/wfUtils.php:1740
-#: lib/wfUtils.php:1749
+#: lib/wfUtils.php:1751
+#: lib/wfUtils.php:1760
 msgid "Wordfence error: No encryption key found!"
 msgstr ""
 
 #. translators: Error message.
-#: lib/wfUtils.php:2062
+#: lib/wfUtils.php:2073
 msgid "Call to Wordfence API to resolve IPs failed: %s"
 msgstr ""
 

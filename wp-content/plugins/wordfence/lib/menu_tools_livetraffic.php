@@ -516,9 +516,6 @@ if (!wfConfig::liveTrafficEnabled($overridden)):
 		</div>
 	</div>
 </div>
-<div class="wf-row">
-	<div class="wf-col-xs-12"><a href='https://db-ip.com' target="_blank" rel="nofollow noopener noreferrer">IP Geolocation by DB-IP</a></div>
-</div>
 
 <script type="application/javascript">
 	(function($) {
