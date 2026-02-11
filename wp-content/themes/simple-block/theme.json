@@ -1,4 +1,6 @@
 {
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
 	"customTemplates": [
 		{
 			"name": "page-no-title",
@@ -103,17 +105,17 @@
 			],
 			"palette": [
 				{
-					"color": "#f1f1f1",
+					"color": "#ffffff",
 					"name": "Base",
 					"slug": "base"
 				},
 				{
-					"color": "#ffffff",
+					"color": "#f1f1f1",
 					"name": "Base / Two",
 					"slug": "base-2"
 				},
 				{
-					"color": "#333333",
+					"color": "#00022e",
 					"name": "Contrast",
 					"slug": "contrast"
 				},
@@ -128,17 +130,17 @@
 					"slug": "contrast-3"
 				},
 				{
-					"color": "#000000",
+					"color": "#1cc8ff",
 					"name": "Accent",
 					"slug": "accent"
 				},
 				{
-					"color": "#bfbfbf",
+					"color": "#4a84ff",
 					"name": "Accent / Two",
 					"slug": "accent-2"
 				},
 				{
-					"color": "#d8d8d8",
+					"color": "#f8f279",
 					"name": "Accent / Three",
 					"slug": "accent-3"
 				},
@@ -971,7 +973,5 @@
 			"name": "post-meta",
 			"title": "Post Meta"
 		}
-	],
-	"version": 3,
-	"$schema": "https://schemas.wp.org/wp/6.7/theme.json"
+	]
 }
