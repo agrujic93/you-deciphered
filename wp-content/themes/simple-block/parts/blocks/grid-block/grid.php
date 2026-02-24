@@ -59,7 +59,7 @@ else : /* Rendering in editor body. */
 			if ( ! function_exists('ci_build_column_styles') ) {
 				function ci_build_column_styles( $col_key ) {
 					$inline_styles = [];
-					$classes       = [];
+					$classes       = ['rm-last-child-margin column-wrp'];
 
 					if ( get_sub_field( "{$col_key}_text_color" ) && get_sub_field( $col_key ) ) {
 						$inline_styles[] = 'color: ' . esc_attr( get_sub_field( "{$col_key}_text_color" ) );

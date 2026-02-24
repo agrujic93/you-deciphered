@@ -1,0 +1,30 @@
+{
+    "name": "acf/slider-images-block",
+    "title": "Slider Images",
+    "description": "A custom Slider Images Block.",
+    "editorStyle": "file:./template-parts/blocks/editor-style.css",
+    "style": ["file:./slider-images-block.css" ],
+    "category": "custom-blocks",
+    "icon": "<svg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'width='32px' height='32px' viewBox='0 0 32 32' style='enable-background:new 0 0 32 32;' xml:space='preserve'> <g> <path class='st0' style='fill:#785BC0;' d='M32,0v32H0V6.6C0,2.9,2.9,0,6.6,0H32L32,0'/> <path class='st1' style='fill:#FFFFFF;' d='M20,7.8h-8.6c-1.9,0-3.5,1.6-3.5,3.5v12.8h16.3v-2.6c0-1-0.6-1.6-1.6-1.6H12v-8l0,0h8v2.4c0,1,0.6,1.6,1.6,1.6 h2.6v-4V7.8L20,7.8L20,7.8z'/> </g> </svg>",
+    "keywords": ["slider", "images"],
+    "supports" : {
+        "align": ["full","wide"],
+        "spacing": {
+          "margin": true,
+          "padding": true
+        },
+        "anchor": true
+    },
+    "example": {
+        "attributes": {
+            "data": {
+                "preview_image_help": "/parts/blocks/slider-images-block/preview.png"
+            }
+        }
+    },
+    "acf": {
+        "mode": "auto",
+        "renderTemplate": "slider-images-block.php"
+    },
+    "align": "full"
+}

@@ -1,0 +1,49 @@
+@use '../../../assets/css/sass/custom/theme-variables' as *;
+
+.ci-staff-block {
+	.staff-group-name-wrp {
+		margin-bottom: 3.5rem;
+		border: 1px solid #b2d34a;
+		border-radius: 2rem;
+		padding: 2rem;
+		background: #f2f2f2;
+	}
+	.person-wrp {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+		@media screen and (max-width: 480px) {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 1.5rem;
+			margin-bottom: 1rem;
+		}
+		.person-img {
+			display: block;
+			width: 15rem;
+			min-width: 15rem;
+			aspect-ratio: 1;
+			object-fit: cover;
+			border-radius: 50%;
+			@media screen and (max-width: 1024px) {
+				width: 13rem;
+				min-width: 13rem;
+			}
+		}
+		.person-detail {
+			flex: 1;
+		}
+		h3 {
+			margin-bottom: .3rem;
+		}
+		p {
+			margin-bottom: 0;
+		}
+		* + .btn {
+			margin-top: 2rem;
+		}
+		* {
+			word-break: break-word;
+		}
+	}
+}

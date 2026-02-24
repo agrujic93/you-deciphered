@@ -116,6 +116,50 @@ endif;
 
 add_action( 'init', 'simple_block_pattern_categories' );
 
+// Adds theme support for post formats.
+if ( ! function_exists( 'simple_block_post_format_setup' ) ) :
+	/**
+	 * Adds theme support for post formats.
+	 */
+	function simple_block_post_format_setup() {
+		add_theme_support( 'post-formats', array( 'aside', 'audio', 'chat', 'gallery', 'image', 'link', 'quote', 'status', 'video' ) );
+	}
+endif;
+add_action( 'after_setup_theme', 'simple_block_post_format_setup' );
+
+// Registers block binding sources.
+if ( ! function_exists( 'simple_block_register_block_bindings' ) ) :
+	/**
+	 * Registers the post format block binding source.
+	 */
+	function simple_block_register_block_bindings() {
+		register_block_bindings_source(
+			'simple-block/format',
+			array(
+				'label'              => _x( 'Post format name', 'Label for the block binding placeholder in the editor', 'simple-block' ),
+				'get_value_callback' => 'simple_block_format_binding',
+			)
+		);
+	}
+endif;
+add_action( 'init', 'simple_block_register_block_bindings' );
+
+// Registers block binding callback function for the post format name.
+if ( ! function_exists( 'simple_block_format_binding' ) ) :
+	/**
+	 * Callback function for the post format name block binding source.
+	 *
+	 * @return string|void Post format name, or nothing if the format is 'standard'.
+	 */
+	function simple_block_format_binding() {
+		$post_format_slug = get_post_format();
+
+		if ( $post_format_slug && 'standard' !== $post_format_slug ) {
+			return get_post_format_string( $post_format_slug );
+		}
+	}
+endif;
+
 // Custom Body Class
 function custom_body_class( $classes ) {
 
@@ -143,7 +187,8 @@ function ag_uikit_scripts() {
 		'uikit-icons-js',
 		get_stylesheet_directory_uri() . '/assets/js/uikit-icons.min.js',
 		array(),
-		file_exists( $uikit_icons_js_path ) ? filemtime( $uikit_icons_js_path ) : '3.21.11'
+		file_exists( $uikit_icons_js_path ) ? filemtime( $uikit_icons_js_path ) : '3.21.11',
+		array( 'strategy' => 'defer' )
 	);
 
 	$main_js_path = get_stylesheet_directory() . '/assets/js/main.js';
@@ -152,7 +197,8 @@ function ag_uikit_scripts() {
 		'main-js',
 		get_stylesheet_directory_uri() . '/assets/js/main.js',
 		array( 'jquery' ),
-		file_exists( $main_js_path ) ? filemtime( $main_js_path ) : '1.0.0'
+		file_exists( $main_js_path ) ? filemtime( $main_js_path ) : '1.0.0',
+		array( 'strategy' => 'defer' )
 	);
 }
 add_action( 'enqueue_block_assets', 'ag_uikit_scripts' );

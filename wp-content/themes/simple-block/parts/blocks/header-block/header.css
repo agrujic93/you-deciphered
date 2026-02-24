@@ -8,7 +8,6 @@
   z-index: 15;
   width: 100%;
   background: #fff;
-  /*.wp-block-navigation__container*/
 }
 .site-header .address, .site-header .phone, .site-header .email {
   color: #fff;
@@ -361,8 +360,9 @@
     padding: 0;
   }
 }
-
-/*.site-header-block*/
+.site-header {
+  /*.wp-block-navigation__container*/
+} /*.site-header-block*/
 /*trigger menu*/
 .open-menu {
   display: none;
