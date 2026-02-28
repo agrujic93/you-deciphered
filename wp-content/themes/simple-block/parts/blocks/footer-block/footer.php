@@ -14,30 +14,30 @@ if ( isset( $block['data']['preview_image_help'] ) ) :    /* rendering in insert
 
 else : /* Rendering in editor body. */
 	?>
-
+	<?php $lang = pll_current_language('slug'); ?>
 	<div class="container">
 
 		<div class="footer-top uk-grid uk-grid-large uk-flex-between">
-			<?php if (get_field('footer_logo', 'option') ): ?>
+			<?php if (get_field('footer_logo_'.$lang, 'option') ): ?>
 				<div class="uk-width-auto@l uk-width-1-2@m uk-margin-medium-bottom">
 					<a class="footer-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-						<img alt="<?php echo get_field('footer_logo', 'option')['alt']; ?>" src="<?php echo get_field('footer_logo', 'option')['sizes']['medium'] ?>">
+						<img alt="<?php echo get_field('footer_logo_'.$lang, 'option')['alt']; ?>" src="<?php echo get_field('footer_logo_'.$lang, 'option')['sizes']['medium'] ?>">
 					</a>
 				</div>
 			<?php endif; ?>
 
-			<?php if(get_field('headline_location', 'option') || get_field('address_location', 'option') || get_field('address_link', 'option')): ?>
+			<?php if(get_field('headline_location_'.$lang, 'option') || get_field('address_location_'.$lang, 'option') || get_field('address_link_'.$lang, 'option')): ?>
 
 				<div class="uk-width-expand@l uk-width-1-2@m uk-margin-medium-bottom">
-					<?php if( get_field('headline_location', 'option') ): ?>
-						<h3><?php the_field('headline_location', 'option'); ?></h3>
+					<?php if( get_field('headline_location_'.$lang, 'option') ): ?>
+						<h3><?php the_field('headline_location_'.$lang, 'option'); ?></h3>
 					<?php endif; ?>
-					<?php if( get_field('address_location', 'option') ): ?>
-						<p class="address"><?php the_field('address_location', 'option'); ?></p>
+					<?php if( get_field('address_location_'.$lang, 'option') ): ?>
+						<p class="address"><?php the_field('address_location_'.$lang, 'option'); ?></p>
 					<?php endif; ?>
 					<?php
-					if( get_field('address_link', 'option') ):
-						$link = get_field('address_link', 'option');
+					if( get_field('address_link_'.$lang, 'option') ):
+						$link = get_field('address_link_'.$lang, 'option');
 						$link_url = $link['url'];
 						$link_title = $link['title'];
 						$link_target = $link['target'] ? $link['target'] : '_self';
@@ -49,30 +49,30 @@ else : /* Rendering in editor body. */
 			<?php endif; ?> <!-- address-informations -->
 
 
-			<?php if(get_field('headline_contact', 'option') || get_field('phone_numbers', 'option') || get_field('email', 'option') || get_field('social_networks', 'option')): ?>
+			<?php if(get_field('headline_contact_'.$lang, 'option') || get_field('phone_numbers_'.$lang, 'option') || get_field('email_'.$lang, 'option') || get_field('social_networks_'.$lang, 'option')): ?>
 
 				<div class="uk-width-expand@l uk-width-1-2@m uk-margin-medium-bottom">
-					<?php if( get_field('headline_contact', 'option') ): ?>
-						<h3><?php the_field('headline_contact', 'option'); ?></h3>
+					<?php if( get_field('headline_contact_'.$lang, 'option') ): ?>
+						<h3><?php the_field('headline_contact_'.$lang, 'option'); ?></h3>
 					<?php endif; ?>
 
 					<?php
-					if( have_rows('phone_numbers', 'option') ):
-						while ( have_rows('phone_numbers', 'option') ) : the_row(); ?>
-							<a class="phone" href="tel:<?php the_sub_field('phone', 'option'); ?>"><?php the_sub_field('phone', 'option'); ?></a>
+					if( have_rows('phone_numbers_'.$lang, 'option') ):
+						while ( have_rows('phone_numbers_'.$lang, 'option') ) : the_row(); ?>
+							<a class="phone" href="tel:<?php the_sub_field('phone_'.$lang, 'option'); ?>"><?php the_sub_field('phone_'.$lang, 'option'); ?></a>
 						<?php endwhile;
 					endif;
 					?>
 
-					<?php if( get_field('email', 'option') ): ?>
-						<a class="email" href="mailto:<?php the_field('email', 'option'); ?>"><?php the_field('email', 'option'); ?></a>
+					<?php if( get_field('email_'.$lang, 'option') ): ?>
+						<a class="email" href="mailto:<?php the_field('email_'.$lang, 'option'); ?>"><?php the_field('email_'.$lang, 'option'); ?></a>
 					<?php endif; ?>
 
-					<?php if( have_rows('social_networks', 'option') ): ?>
+					<?php if( have_rows('social_networks_'.$lang, 'option') ): ?>
 						<div class="social-icons">
-							<?php while( have_rows('social_networks', 'option') ): the_row(); ?>
-								<a target="_blank" rel="noopener" href="<?php echo get_sub_field('url', 'option'); ?>">
-									<img alt="<?php echo get_sub_field('footer_icon', 'option')['alt']; ?>" src="<?php echo get_sub_field('footer_icon', 'option')['url']; ?>">
+							<?php while( have_rows('social_networks_'.$lang, 'option') ): the_row(); ?>
+								<a target="_blank" rel="noopener" href="<?php echo get_sub_field('url_'.$lang, 'option'); ?>">
+									<img alt="<?php echo get_sub_field('footer_icon_'.$lang, 'option')['alt']; ?>" src="<?php echo get_sub_field('footer_icon_'.$lang, 'option')['url']; ?>">
 								</a>
 							<?php endwhile; ?>
 						</div>
@@ -82,9 +82,9 @@ else : /* Rendering in editor body. */
 
 			<?php endif; ?> <!-- contact-informations -->
 
-			<?php if( get_field('working_hours', 'option') ): ?>
+			<?php if( get_field('working_hours_'.$lang, 'option') ): ?>
 				<div class="uk-width-expand@l uk-width-1-2@m uk-margin-medium-bottom">
-					<?php the_field('working_hours', 'option'); ?>
+					<?php the_field('working_hours_'.$lang, 'option'); ?>
 				</div>
 			<?php endif; ?>
 

@@ -15,48 +15,49 @@ if ( isset( $block['data']['preview_image_help'] ) ) :    /* rendering in insert
 else : /* Rendering in editor body. */
 	?>
 
-
+	<?php $lang = pll_current_language('slug'); ?>
 	<div class="top-menu">
 		<div class="container">
 			<div class="top-menu-wrp">
 				<div class="contact-informations">
 					<?php
 
-					if( have_rows('phone_numbers', 'option') ):
+					if( have_rows('phone_numbers_'.$lang, 'option') ):
 
-						while ( have_rows('phone_numbers', 'option') ) : the_row(); ?>
+						while ( have_rows('phone_numbers_'.$lang, 'option') ) : the_row(); ?>
 
-							<a class="phone" href="tel:<?php the_sub_field('phone', 'option'); ?>"><?php the_sub_field('phone', 'option'); ?></a>
+							<a class="phone" href="tel:<?php the_sub_field('phone_'.$lang, 'option'); ?>"><?php the_sub_field('phone_'.$lang, 'option'); ?></a>
 
 						<?php endwhile;
 
 					endif;
 
 					?>
-					<?php if( get_field('email', 'option') ): ?>
-						<a class="email" href="mailto:<?php the_field('email', 'option'); ?>"><?php the_field('email', 'option'); ?></a>
+					<?php if( get_field('email_'.$lang, 'option') ): ?>
+						<a class="email" href="mailto:<?php the_field('email_'.$lang, 'option'); ?>"><?php the_field('email_'.$lang, 'option'); ?></a>
 					<?php endif; ?>
 				</div>
 
-				<?php if( have_rows('social_networks', 'option') ): ?>
+				<?php if( have_rows('social_networks_'.$lang, 'option') ): ?>
 					<div class="social-icons">
-						<?php while( have_rows('social_networks', 'option') ): the_row(); ?>
-							<a target="_blank" aria-label="Link do društvene mreže <?php echo get_sub_field('header_icon', 'option')['alt']; ?>" rel="noopener" href="<?php echo get_sub_field('url', 'option'); ?>">
-								<img alt="<?php echo get_sub_field('header_icon', 'option')['alt']; ?>" src="<?php echo get_sub_field('header_icon', 'option')['url']; ?>">
+						<?php while( have_rows('social_networks_'.$lang, 'option') ): the_row(); ?>
+							<a target="_blank" aria-label="Link do društvene mreže <?php echo get_sub_field('header_icon_'.$lang, 'option')['alt']; ?>" rel="noopener" href="<?php echo get_sub_field('url_'.$lang, 'option'); ?>">
+								<img alt="<?php echo get_sub_field('header_icon_'.$lang, 'option')['alt']; ?>" src="<?php echo get_sub_field('header_icon_'.$lang, 'option')['url']; ?>">
 							</a>
 						<?php endwhile; ?>
 					</div>
 				<?php endif; ?>
+				<?php pll_the_languages(array('dropdown'=>1, 'display_names_as'=>'slug', 'hide_if_no_translation'=>1));  ?>
 			</div>
 		</div>
 	</div>
 	<div class="bottom-menu" data-uk-sticky="show-on-up: true; animation: uk-animation-slide-top; cls-active: uk-navbar-sticky;">
 		<div class="container">
 			<div class="bottom-menu-wrp">
-				<?php if( get_field('header_logo', 'option') ): ?>
+				<?php if( get_field('header_logo_'.$lang, 'option') ): ?>
 					<div class="site-branding">
 						<a aria-label="Link do početne stranice" class="header-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-							<img alt="<?php echo get_field('header_logo', 'option')['alt']; ?>" src="<?php echo get_field('header_logo', 'option')['sizes']['medium'] ?>">
+							<img alt="<?php echo get_field('header_logo_'.$lang, 'option')['alt']; ?>" src="<?php echo get_field('header_logo_'.$lang, 'option')['sizes']['medium'] ?>">
 						</a>
 					</div><!-- .site-branding -->
 				<?php endif; ?>
