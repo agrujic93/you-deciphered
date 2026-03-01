@@ -326,6 +326,19 @@ function cwp_register_block_script() {
 		file_exists( $partners_slider_path ) ? filemtime( $partners_slider_path ) : '1.0.0' // Version based on file modification time
 	);
 
+	// Absolute path to the header file for filemtime
+	$header_js_path = get_template_directory() . '/parts/blocks/header-block/header.js';
+
+	// URL to the header file
+	$header_js_url = get_template_directory_uri() . '/parts/blocks/header-block/header.js';
+
+	wp_register_script(
+		'header-js',
+		$header_js_url, // URL to the file
+		array('jquery'), // Dependencies, if any
+		file_exists( $header_js_path ) ? filemtime( $header_js_path ) : '1.0.0' // Version based on file modification time
+	);
+
 }
 add_action( 'init', 'cwp_register_block_script' );
 

@@ -16,53 +16,21 @@ else : /* Rendering in editor body. */
 	?>
 
 	<?php $lang = pll_current_language('slug'); ?>
-	<div class="top-menu">
+	<header class="main-header">
 		<div class="container">
-			<div class="top-menu-wrp">
-				<div class="contact-informations">
-					<?php
+			<div class="header-wrp">
 
-					if( have_rows('phone_numbers_'.$lang, 'option') ):
-
-						while ( have_rows('phone_numbers_'.$lang, 'option') ) : the_row(); ?>
-
-							<a class="phone" href="tel:<?php the_sub_field('phone_'.$lang, 'option'); ?>"><?php the_sub_field('phone_'.$lang, 'option'); ?></a>
-
-						<?php endwhile;
-
-					endif;
-
-					?>
-					<?php if( get_field('email_'.$lang, 'option') ): ?>
-						<a class="email" href="mailto:<?php the_field('email_'.$lang, 'option'); ?>"><?php the_field('email_'.$lang, 'option'); ?></a>
-					<?php endif; ?>
+				<!-- Branding Section -->
+				<div class="site-branding">
+					<a aria-label="<?php if ($lang == 'en') echo 'Link to home page'; else echo 'Link do početne stranice'; ?>" class="header-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+						<?php if( get_field('header_logo_'.$lang, 'option') ): ?>
+							<img class="main-logo" alt="<?php echo get_field('header_logo_'.$lang, 'option')['alt']; ?>" src="<?php echo get_field('header_logo_'.$lang, 'option')['url'] ?>">
+						<?php endif; ?>
+					</a>
 				</div>
-
-				<?php if( have_rows('social_networks_'.$lang, 'option') ): ?>
-					<div class="social-icons">
-						<?php while( have_rows('social_networks_'.$lang, 'option') ): the_row(); ?>
-							<a target="_blank" aria-label="Link do društvene mreže <?php echo get_sub_field('header_icon_'.$lang, 'option')['alt']; ?>" rel="noopener" href="<?php echo get_sub_field('url_'.$lang, 'option'); ?>">
-								<img alt="<?php echo get_sub_field('header_icon_'.$lang, 'option')['alt']; ?>" src="<?php echo get_sub_field('header_icon_'.$lang, 'option')['url']; ?>">
-							</a>
-						<?php endwhile; ?>
-					</div>
-				<?php endif; ?>
-				<?php pll_the_languages(array('dropdown'=>1, 'display_names_as'=>'slug', 'hide_if_no_translation'=>1));  ?>
-			</div>
-		</div>
-	</div>
-	<div class="bottom-menu" data-uk-sticky="cls-active: uk-navbar-sticky;">
-		<div class="container">
-			<div class="bottom-menu-wrp">
-				<?php if( get_field('header_logo_'.$lang, 'option') ): ?>
-					<div class="site-branding">
-						<a aria-label="<?php if ($lang == 'en') echo 'Link to home page'; else echo 'Link do početne stranice'; ?>" class="header-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-							<img alt="<?php echo get_field('header_logo_'.$lang, 'option')['alt']; ?>" src="<?php echo get_field('header_logo_'.$lang, 'option')['sizes']['medium'] ?>">
-						</a>
-					</div><!-- .site-branding -->
-				<?php endif; ?>
-
-				<div class="navigation-wrp">
+				<!-- Navigation Section (Pill) -->
+				<nav class="central-nav-pill">
+					<img class="small-logo" alt="Small logo" src="<?php echo get_template_directory_uri(); ?>/assets/images/yd-small-logo-cropped.svg">
 					<?php
 					$menu_title = ( $lang === 'en' ) ? 'Main Menu EN' : 'Main Menu SR';
 					$nav_posts  = get_posts( array(
@@ -79,27 +47,46 @@ else : /* Rendering in editor body. */
 						echo do_blocks( '<!-- wp:navigation {"ref":4,"showSubmenuIcon":false,"overlayMenu":"never"} /-->' );
 					}
 					?>
-					<div class="search-wrp">
-						<a class="uk-navbar-toggle" data-uk-search-icon href="#"></a>
-						<div class="uk-drop" uk-drop="mode: click; pos: left-center; offset: 0">
-							<form class="uk-search uk-search-navbar uk-width-1-1" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
-								<label for="search"></label>
-								<input class="uk-search-input" type="text" name="s" id="search" value="<?php the_search_query(); ?>" autofocus />
-								<input class="search-btn" type="submit" alt="Search"/>
-							</form>
+				</nav>
+
+				<!-- Actions Section (Pill) -->
+				<div class="actions-pill">
+					<div class="lang-switcher">
+						<?php
+						// Using dropdown for Polylang
+						pll_the_languages(array('dropdown'=>1, 'display_names_as'=>'slug', 'hide_if_no_translation'=>1));
+						?>
+					</div>
+
+					<div class="search-trigger">
+						<a class="uk-navbar-toggle" href="#" uk-search-icon></a>
+						<div class="uk-drop" uk-drop="mode: click; pos: bottom-right; offset: 20">
+							<div class="uk-card uk-card-default uk-card-body uk-card-small uk-border-rounded">
+								<button class="uk-drop-close" type="button" uk-close></button>
+								<form class="uk-search uk-search-navbar uk-width-1-1" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
+									<input class="uk-search-input" type="text" name="s" placeholder="<?php echo ($lang == 'en') ? 'Search...' : 'Pretraži...'; ?>" autofocus />
+								</form>
+							</div>
 						</div>
 					</div>
 
+					<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+						<div class="cart-trigger">
+							<a href="<?php echo wc_get_cart_url(); ?>" uk-icon="icon: cart">
+								<span class="cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+							</a>
+						</div>
+					<?php endif; ?>
 				</div>
 
-				<div class="open-menu">
+				<!-- Mobile Trigger -->
+				<div class="open-menu uk-hidden@m">
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
-				</div><!-- mobile-menu-trigger -->
+				</div>
 			</div>
 		</div>
-
-	</div>
+	</header>
 
 <?php endif; ?>
