@@ -110,7 +110,7 @@
 					"slug": "base"
 				},
 				{
-					"color": "#f1f1f1",
+					"color": "#f9f9f9",
 					"name": "Base / Two",
 					"slug": "base-2"
 				},
@@ -145,7 +145,7 @@
 					"slug": "accent-3"
 				},
 				{
-					"color": "#f3f3f3",
+					"color": "#f1f1f1",
 					"name": "Accent / Four",
 					"slug": "accent-4"
 				},

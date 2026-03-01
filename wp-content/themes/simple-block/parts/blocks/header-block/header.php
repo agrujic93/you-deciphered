@@ -56,7 +56,7 @@ else : /* Rendering in editor body. */
 			<div class="bottom-menu-wrp">
 				<?php if( get_field('header_logo_'.$lang, 'option') ): ?>
 					<div class="site-branding">
-						<a aria-label="Link do početne stranice" class="header-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+						<a aria-label="<?php if ($lang == 'en') echo 'Link to home page'; else echo 'Link do početne stranice'; ?>" class="header-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
 							<img alt="<?php echo get_field('header_logo_'.$lang, 'option')['alt']; ?>" src="<?php echo get_field('header_logo_'.$lang, 'option')['sizes']['medium'] ?>">
 						</a>
 					</div><!-- .site-branding -->

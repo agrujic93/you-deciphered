@@ -91,7 +91,11 @@ else : /* Rendering in editor body. */
 		</div><!-- footer-top -->
 
 		<div class="site-info">
-			<p style="margin-bottom: 1rem;">Website &copy;<?php echo date('Y'); ?>. All right reserved.</p>
+			<?php if ( $lang == 'en' ) : ?>
+				<p style="margin-bottom: 1rem;">Website &copy;<?php echo date('Y'); ?>. All right reserved.</p>
+			<?php else : ?>
+				<p style="margin-bottom: 1rem;">Sajt &copy;<?php echo date('Y'); ?>. Sva prava zadržana.</p>
+			<?php endif; ?>
 		</div>
 
 	</div><!-- container -->
