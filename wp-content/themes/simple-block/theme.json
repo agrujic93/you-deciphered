@@ -204,6 +204,7 @@
 			]
 		},
 		"typography": {
+			"defaultFontFamilies": false,
 			"defaultFontSizes": false,
 			"fluid": {
 				"maxViewportWidth": "130rem",

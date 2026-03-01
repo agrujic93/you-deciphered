@@ -51,7 +51,7 @@ else : /* Rendering in editor body. */
 			</div>
 		</div>
 	</div>
-	<div class="bottom-menu" data-uk-sticky="show-on-up: true; animation: uk-animation-slide-top; cls-active: uk-navbar-sticky;">
+	<div class="bottom-menu" data-uk-sticky="cls-active: uk-navbar-sticky;">
 		<div class="container">
 			<div class="bottom-menu-wrp">
 				<?php if( get_field('header_logo_'.$lang, 'option') ): ?>
@@ -63,7 +63,22 @@ else : /* Rendering in editor body. */
 				<?php endif; ?>
 
 				<div class="navigation-wrp">
-					<?php echo do_blocks( '<!-- wp:navigation {"ref":4,"showSubmenuIcon":false,"overlayMenu":"never"} /-->' ); ?>
+					<?php
+					$menu_title = ( $lang === 'en' ) ? 'Main Menu EN' : 'Main Menu SR';
+					$nav_posts  = get_posts( array(
+						'post_type'   => 'wp_navigation',
+						'title'       => $menu_title,
+						'post_status' => 'publish',
+						'numberposts' => 1,
+					) );
+
+					if ( ! empty( $nav_posts ) ) {
+						echo do_blocks( '<!-- wp:navigation {"ref":' . $nav_posts[0]->ID . ',"showSubmenuIcon":false,"overlayMenu":"never"} /-->' );
+					} else {
+						// Fallback if the menu by title is not found
+						echo do_blocks( '<!-- wp:navigation {"ref":4,"showSubmenuIcon":false,"overlayMenu":"never"} /-->' );
+					}
+					?>
 					<div class="search-wrp">
 						<a class="uk-navbar-toggle" data-uk-search-icon href="#"></a>
 						<div class="uk-drop" uk-drop="mode: click; pos: left-center; offset: 0">
