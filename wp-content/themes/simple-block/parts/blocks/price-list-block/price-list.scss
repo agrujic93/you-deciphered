@@ -1,6 +1,6 @@
 @use '../../../assets/css/sass/custom/theme-variables' as *;
 
-.price-list-block {
+.price-list-block.ci-block {
 	th {
 		color: $accent-color;
 		font-weight: 600;

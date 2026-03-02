@@ -2,39 +2,39 @@
 /* Font Sizes */
 /* Font Families */
 /* Container Sizes and Padding */
-.price-list-block th {
+.price-list-block.ci-block th {
   color: var(--wp--preset--color--accent);
   font-weight: 600;
   font-size: inherit;
 }
-.price-list-block .price-group-title td {
+.price-list-block.ci-block .price-group-title td {
   color: var(--wp--preset--color--accent);
   font-weight: 600;
   border-bottom: 3px solid var(--wp--preset--color--accent);
 }
-.price-list-block td {
+.price-list-block.ci-block td {
   color: var(--wp--preset--color--contrast);
 }
-.price-list-block .uk-table-striped > tr:nth-of-type(odd),
-.price-list-block .uk-table-striped tbody tr:nth-of-type(odd) {
+.price-list-block.ci-block .uk-table-striped > tr:nth-of-type(odd),
+.price-list-block.ci-block .uk-table-striped tbody tr:nth-of-type(odd) {
   background-color: var(--wp--preset--color--base);
 }
 @media screen and (max-width: 769px) {
-  .price-list-block table .price-group-title {
+  .price-list-block.ci-block table .price-group-title {
     border-bottom: none;
   }
-  .price-list-block table .price-group-title td {
+  .price-list-block.ci-block table .price-group-title td {
     display: none;
   }
-  .price-list-block table .price-group-title td:first-child {
+  .price-list-block.ci-block table .price-group-title td:first-child {
     display: block;
     text-align: left;
     font-size: 1em;
   }
-  .price-list-block table .price-group-title td:first-child:before {
+  .price-list-block.ci-block table .price-group-title td:first-child:before {
     display: none;
   }
-  .price-list-block table thead {
+  .price-list-block.ci-block table thead {
     border: none;
     clip: rect(0 0 0 0);
     height: 1px;
@@ -44,13 +44,13 @@
     position: absolute;
     width: 1px;
   }
-  .price-list-block table tr {
+  .price-list-block.ci-block table tr {
     display: block;
     border-radius: 1rem;
     background-color: var(--wp--preset--color--base);
     margin-bottom: 1.5rem;
   }
-  .price-list-block table td {
+  .price-list-block.ci-block table td {
     border-bottom: 1px solid rgba(43, 56, 143, 0.12);
     display: flex;
     gap: 2rem;
@@ -58,13 +58,13 @@
     font-size: 0.9em;
     text-align: right;
   }
-  .price-list-block table td:before {
+  .price-list-block.ci-block table td:before {
     content: attr(data-label);
     font-weight: bold;
     text-transform: uppercase;
     text-align: left;
   }
-  .price-list-block table td:last-child {
+  .price-list-block.ci-block table td:last-child {
     border-bottom: 0;
   }
 }

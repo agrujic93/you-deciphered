@@ -36,7 +36,9 @@ html {
 	> main {
 		flex: 1 0 auto;
 		&.site-main {
-			margin-top: 0;
+			&:has(.ci-hero-block) {
+				margin-top: 0;
+			}
 		}
 	}
 	.loaded & {
@@ -44,22 +46,33 @@ html {
 			transition: all .3s ease;
 		}
 	}
-	h1, .h1 {
+	h1:not(.is-layout-constrained > h1),
+	.h1:not(.is-layout-constrained > *) {
 		margin: 0 0 3rem;
 	}
-	h2, .h2 {
+
+	h2:not(.is-layout-constrained > h2),
+	.h2:not(.is-layout-constrained > *) {
 		margin: 0 0 3rem;
 	}
-	h3, .h3 {
+
+	h3:not(.is-layout-constrained > h3),
+	.h3:not(.is-layout-constrained > *) {
 		margin: 0 0 3rem;
 	}
-	h4, .h4 {
+
+	h4:not(.is-layout-constrained > h4),
+	.h4:not(.is-layout-constrained > *) {
 		margin: 0 0 3rem;
 	}
-	h5, .h5 {
+
+	h5:not(.is-layout-constrained > h5),
+	.h5:not(.is-layout-constrained > *) {
 		margin: 0 0 3rem;
 	}
-	h6, .h6 {
+
+	h6:not(.is-layout-constrained > h6),
+	.h6:not(.is-layout-constrained > *) {
 		margin: 0 0 3rem;
 	}
 	.h1, .h2, .h3, .h4, .h5, .h6 {
@@ -86,7 +99,14 @@ html {
 	.h6 {
 		font-size: $h6-font-size;
 	}
-	p, ul, ol, dl, table, hr, pre, blockquote {
+	p:not(.is-layout-constrained > p),
+	ul:not(.is-layout-constrained > ul),
+	ol:not(.is-layout-constrained > ol),
+	dl:not(.is-layout-constrained > dl),
+	table:not(.is-layout-constrained > table),
+	hr:not(.is-layout-constrained > hr),
+	pre:not(.is-layout-constrained > pre),
+	blockquote:not(.is-layout-constrained > blockquote) {
 		margin: 0 0 3rem;
 	}
 	p, h1, h2, h3, h4, h5, h6, li {

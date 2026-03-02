@@ -48,32 +48,44 @@ html {
 .wp-site-blocks > main, .editor-styles-wrapper > main {
   flex: 1 0 auto;
 }
-.wp-site-blocks > main.site-main, .editor-styles-wrapper > main.site-main {
+.wp-site-blocks > main.site-main:has(.ci-hero-block), .editor-styles-wrapper > main.site-main:has(.ci-hero-block) {
   margin-top: 0;
 }
 .loaded .wp-site-blocks a, .loaded .editor-styles-wrapper a {
   transition: all 0.3s ease;
 }
-.wp-site-blocks h1, .wp-site-blocks .h1, .editor-styles-wrapper h1, .editor-styles-wrapper .h1 {
+.wp-site-blocks h1:not(.is-layout-constrained > h1),
+.wp-site-blocks .h1:not(.is-layout-constrained > *), .editor-styles-wrapper h1:not(.is-layout-constrained > h1),
+.editor-styles-wrapper .h1:not(.is-layout-constrained > *) {
   margin: 0 0 3rem;
 }
-.wp-site-blocks h2, .wp-site-blocks .h2, .editor-styles-wrapper h2, .editor-styles-wrapper .h2 {
+.wp-site-blocks h2:not(.is-layout-constrained > h2),
+.wp-site-blocks .h2:not(.is-layout-constrained > *), .editor-styles-wrapper h2:not(.is-layout-constrained > h2),
+.editor-styles-wrapper .h2:not(.is-layout-constrained > *) {
   margin: 0 0 3rem;
 }
-.wp-site-blocks h3, .wp-site-blocks .h3, .editor-styles-wrapper h3, .editor-styles-wrapper .h3 {
+.wp-site-blocks h3:not(.is-layout-constrained > h3),
+.wp-site-blocks .h3:not(.is-layout-constrained > *), .editor-styles-wrapper h3:not(.is-layout-constrained > h3),
+.editor-styles-wrapper .h3:not(.is-layout-constrained > *) {
   margin: 0 0 3rem;
 }
-.wp-site-blocks h4, .wp-site-blocks .h4, .editor-styles-wrapper h4, .editor-styles-wrapper .h4 {
+.wp-site-blocks h4:not(.is-layout-constrained > h4),
+.wp-site-blocks .h4:not(.is-layout-constrained > *), .editor-styles-wrapper h4:not(.is-layout-constrained > h4),
+.editor-styles-wrapper .h4:not(.is-layout-constrained > *) {
   margin: 0 0 3rem;
 }
-.wp-site-blocks h5, .wp-site-blocks .h5, .editor-styles-wrapper h5, .editor-styles-wrapper .h5 {
+.wp-site-blocks h5:not(.is-layout-constrained > h5),
+.wp-site-blocks .h5:not(.is-layout-constrained > *), .editor-styles-wrapper h5:not(.is-layout-constrained > h5),
+.editor-styles-wrapper .h5:not(.is-layout-constrained > *) {
   margin: 0 0 3rem;
 }
-.wp-site-blocks h6, .wp-site-blocks .h6, .editor-styles-wrapper h6, .editor-styles-wrapper .h6 {
+.wp-site-blocks h6:not(.is-layout-constrained > h6),
+.wp-site-blocks .h6:not(.is-layout-constrained > *), .editor-styles-wrapper h6:not(.is-layout-constrained > h6),
+.editor-styles-wrapper .h6:not(.is-layout-constrained > *) {
   margin: 0 0 3rem;
 }
 .wp-site-blocks .h1, .wp-site-blocks .h2, .wp-site-blocks .h3, .wp-site-blocks .h4, .wp-site-blocks .h5, .wp-site-blocks .h6, .editor-styles-wrapper .h1, .editor-styles-wrapper .h2, .editor-styles-wrapper .h3, .editor-styles-wrapper .h4, .editor-styles-wrapper .h5, .editor-styles-wrapper .h6 {
-  font-family: var(--wp--preset--font-family--rubik);
+  font-family: var(--wp--preset--font-family--cal-sans);
   font-weight: 500;
   line-height: 1.4;
   color: var(--wp--preset--color--accent);
@@ -96,7 +108,21 @@ html {
 .wp-site-blocks .h6, .editor-styles-wrapper .h6 {
   font-size: var(--wp--preset--font-size--heading-6);
 }
-.wp-site-blocks p, .wp-site-blocks ul, .wp-site-blocks ol, .wp-site-blocks dl, .wp-site-blocks table, .wp-site-blocks hr, .wp-site-blocks pre, .wp-site-blocks blockquote, .editor-styles-wrapper p, .editor-styles-wrapper ul, .editor-styles-wrapper ol, .editor-styles-wrapper dl, .editor-styles-wrapper table, .editor-styles-wrapper hr, .editor-styles-wrapper pre, .editor-styles-wrapper blockquote {
+.wp-site-blocks p:not(.is-layout-constrained > p),
+.wp-site-blocks ul:not(.is-layout-constrained > ul),
+.wp-site-blocks ol:not(.is-layout-constrained > ol),
+.wp-site-blocks dl:not(.is-layout-constrained > dl),
+.wp-site-blocks table:not(.is-layout-constrained > table),
+.wp-site-blocks hr:not(.is-layout-constrained > hr),
+.wp-site-blocks pre:not(.is-layout-constrained > pre),
+.wp-site-blocks blockquote:not(.is-layout-constrained > blockquote), .editor-styles-wrapper p:not(.is-layout-constrained > p),
+.editor-styles-wrapper ul:not(.is-layout-constrained > ul),
+.editor-styles-wrapper ol:not(.is-layout-constrained > ol),
+.editor-styles-wrapper dl:not(.is-layout-constrained > dl),
+.editor-styles-wrapper table:not(.is-layout-constrained > table),
+.editor-styles-wrapper hr:not(.is-layout-constrained > hr),
+.editor-styles-wrapper pre:not(.is-layout-constrained > pre),
+.editor-styles-wrapper blockquote:not(.is-layout-constrained > blockquote) {
   margin: 0 0 3rem;
 }
 .wp-site-blocks p a, .wp-site-blocks h1 a, .wp-site-blocks h2 a, .wp-site-blocks h3 a, .wp-site-blocks h4 a, .wp-site-blocks h5 a, .wp-site-blocks h6 a, .wp-site-blocks li a, .editor-styles-wrapper p a, .editor-styles-wrapper h1 a, .editor-styles-wrapper h2 a, .editor-styles-wrapper h3 a, .editor-styles-wrapper h4 a, .editor-styles-wrapper h5 a, .editor-styles-wrapper h6 a, .editor-styles-wrapper li a {
@@ -649,7 +675,7 @@ html {
   line-height: 1.4;
   font-size: 1.4rem;
   color: var(--wp--preset--color--contrast);
-  font-family: var(--wp--preset--font-family--rubik);
+  font-family: var(--wp--preset--font-family--cal-sans);
 }
 .wp-site-blocks *.ci-label.ci-label-box > span, .editor-styles-wrapper *.ci-label.ci-label-box > span {
   display: inline-block;

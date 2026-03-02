@@ -1,5 +1,9 @@
 # Simple Block Theme — Developer Standards & Rules
 
+> [!IMPORTANT]
+> **This is a WordPress Block Theme.**
+> It is a copy of the official **Twenty Twenty-Four** theme. All development must follow **WordPress Block Theme standards**.
+>
 > **For AI assistants**: Read this file before making any changes to this theme. All code suggestions must comply with every rule defined here.
 
 ---
@@ -258,6 +262,7 @@ margin-bottom: 0 !important;
   - Asset/UIkit helpers: `ci_`
   - Block/CI helpers: `ci_`
   - Script registration helpers: `cwp_`
+- **Navigation Menus:** Since this is a Block Theme, **do not register menu locations in `functions.php`**. Standard `register_nav_menus()` will not work as expected in a block theme environment. Menus are managed via the Site Editor (Navigation block).
 - Always wrap functions in `if ( ! function_exists( '...' ) )` guards where applicable.
 - Use `add_action` / `add_filter` outside of function declarations, at the bottom of each block.
 - Follow the pattern: define function → hook it. Keep hooks close to their functions.

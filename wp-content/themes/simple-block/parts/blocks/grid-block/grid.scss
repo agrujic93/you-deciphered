@@ -1,6 +1,6 @@
 @use '../../../assets/css/sass/custom/theme-variables' as *;
 
-.ci-grid-block {
+.ci-grid-block.ci-block {
 	position: relative;
 	.column-wrp {
 		&.ci-has-background {

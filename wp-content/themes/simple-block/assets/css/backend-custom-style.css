@@ -29,6 +29,10 @@ svg {
   color: var(--wp--preset--color--base-2);
 }
 
+.editor-styles-wrapper .is-root-container {
+  width: 100%;
+}
+
 .editor-styles-wrapper .wp-block-acf-grid-block .acf-field-662bca6f1b587 input {
   max-width: 110px;
 }

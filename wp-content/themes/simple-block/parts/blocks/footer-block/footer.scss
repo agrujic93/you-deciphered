@@ -1,62 +1,385 @@
 @use '../../../assets/css/sass/custom/theme-variables' as *;
 
+// ─────────────────────────────────────────────
+// Footer Block
+// ─────────────────────────────────────────────
+
 .site-footer {
+	// Required: WP block editor adds inline margin-top that cannot be targeted otherwise
 	margin-top: 0 !important;
 	padding-left: $g-padding-left;
 	padding-right: $g-padding-right;
 	position: relative;
 	z-index: 4;
-	background-color: $accent-color;
-	a {
-		text-decoration: none;
-		&:hover:not(.footer-logo) {
-			text-decoration: underline;
-			color: #fff;
-		}
-	}
+	background-color: $contrast-color;
+
 	* {
 		color: #fff;
+		box-sizing: border-box;
 	}
-	h3 {
-		font-size: 2rem;
+
+	a {
+		text-decoration: none;
+		transition: opacity 0.2s ease, color 0.2s ease;
+
+		&:hover {
+			opacity: 0.75;
+		}
+	}
+}
+
+// ─── Inner wrapper ───────────────────────────
+
+.footer-inner {
+	max-width: $content-size;
+	margin: 0 auto;
+	padding-top: 6rem;
+	padding-bottom: 0;
+}
+
+// ─── Row 1: Logo ─────────────────────────────
+
+.footer-logo-row {
+	margin-bottom: 5rem;
+}
+
+.footer-logo {
+	display: inline-block;
+
+	img {
+		display: block;
+		max-width: 18rem;
+		width: auto;
+		height: auto;
+	}
+
+	&:hover {
+		opacity: 0.8;
+	}
+}
+
+// ─── Row 2: 4 Columns ────────────────────────
+
+.footer-columns {
+	margin-bottom: 5rem;
+
+	// UIkit grid gap override
+	&.uk-grid-large {
+		--uk-grid-column-gap: 4rem;
+		--uk-grid-row-gap: 4rem;
+	}
+
+	// Stack to 2 cols on tablet, 1 col on mobile
+	@media (max-width: 767px) {
+		flex-direction: column;
+	}
+}
+
+.footer-col-inner {
+	padding: 0;
+}
+
+// ─── Col 1: Newsletter (CF7) ─────────────────
+
+.footer-newsletter {
+
+	// CF7 form wrapper
+	.wpcf7 {
+		margin: 0;
+	}
+
+	.wpcf7-form {
+		display: flex;
+		flex-direction: column;
+		gap: 1.6rem;
+	}
+
+	// Label / intro text above the form
+	p {
+		font-size: 1.5rem;
+		line-height: 1.6;
+		color: #fff;
+		margin-bottom: 0;
+		opacity: 0.7;
+	}
+
+	// Email input row: input + button inline
+	.wpcf7-form {
+		display: flex;
+		gap: 0;
+	}
+
+	// Text / email inputs
+	.wpcf7-form-control.wpcf7-text,
+	.wpcf7-form-control.wpcf7-email {
+		width: 100%;
+		background: transparent;
+		border: 0.1rem solid rgba(255, 255, 255, 0.35);
+		border-right: none;
+		color: #fff;
+		font-family: $main-font;
+		font-size: 1.5rem;
+		padding: 1.2rem 1.6rem;
+		outline: none;
+		transition: border-color 0.2s ease;
+
+		&::placeholder {
+			color: rgba(255, 255, 255, 0.45);
+		}
+
+		&:focus {
+			border-color: rgba(255, 255, 255, 0.8);
+		}
+	}
+
+	// Submit button
+	.wpcf7-form-control.wpcf7-submit {
+		background: #fff;
+		color: $contrast-color;
+		border: 0.1rem solid #fff;
+		font-family: $main-font;
+		font-size: 1.4rem;
+		font-weight: 700;
 		text-transform: uppercase;
-	}
-	.footer-logo {
-		img {
-			max-width: 20rem;
+		letter-spacing: 0.1rem;
+		padding: 1.4rem 2.4rem;
+		cursor: pointer;
+		white-space: nowrap;
+		transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+		&:hover {
+			background: transparent;
+			color: #fff;
+			transform: translateY(-0.1rem);
+		}
+
+		&:active {
+			transform: translateY(0);
 		}
 	}
-	.address, .phone, .email {
-		margin-bottom: 1.5rem;
+
+	// Disclaimer / small print text / help text
+	.footer-form-disclaimer,
+	.wpcf7-response-output,
+	p.disclaimer {
+		font-size: 1.2rem;
+		opacity: 0.5;
+		line-height: 1.6;
+		color: #fff;
+		margin-top: 1.2rem;
 	}
-	.address {
-		&:before {
-			background-image: url('../../../assets/images/ico-location-white.svg');
+
+	// CF7 validation messages
+	.wpcf7-not-valid-tip,
+	.wpcf7-validation-errors {
+		font-size: 1.2rem;
+		color: #ff6b6b;
+		margin-top: 0.4rem;
+	}
+
+	.wpcf7-mail-sent-ok {
+		font-size: 1.4rem;
+		color: #a8f0b0;
+		border-color: #a8f0b0;
+	}
+}
+
+// ─── Col 2: Events Calendar ───────────────────
+
+.footer-calendar {
+
+	// Tribe Events list — compact dark overrides
+	.tribe-events-calendar,
+	.tribe-events,
+	.tribe-events-loop {
+		color: #fff;
+	}
+
+	.tribe-event-url,
+	.tribe-events-list-event-title a,
+	.tribe-events-calendar td a {
+		color: #fff;
+		text-decoration: none;
+
+		&:hover {
+			opacity: 0.75;
 		}
 	}
-	.phone {
-		&:before {
-			background-image: url('../../../assets/images/ico-phone-white.svg');
+
+	.tribe-events-list .tribe-events-loop .tribe-events-event-meta {
+		color: rgba(255, 255, 255, 0.6);
+		font-size: 1.3rem;
+	}
+
+	.tribe-events-nav-pagination,
+	.tribe-events-sub-nav {
+		display: none;
+	}
+
+	// Generic fallback for any plugin output
+	article,
+	.type-tribe_events {
+		border-bottom: 0.1rem solid rgba(255, 255, 255, 0.1);
+		padding-bottom: 1.2rem;
+		margin-bottom: 1.2rem;
+	}
+
+	h2, h3 {
+		font-size: 1.5rem;
+		margin-bottom: 0.4rem;
+	}
+
+	.tribe-event-schedule-details,
+	.tribe-events-schedule {
+		font-size: 1.2rem;
+		opacity: 0.6;
+	}
+}
+
+// ─── Col 3: Footer Menu ───────────────────────
+
+.footer-nav {
+
+	.footer-menu-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1.2rem;
+
+		li {
+			padding: 0;
+			margin: 0;
+		}
+
+		a {
+			font-size: 1.6rem;
+			font-family: $main-font;
+			color: #fff;
+			text-decoration: none;
+			position: relative;
+			display: inline-block;
+
+			// Animated underline on hover
+			&::after {
+				content: '';
+				position: absolute;
+				bottom: -0.2rem;
+				left: 0;
+				width: 0;
+				height: 0.1rem;
+				background: #fff;
+				transition: width 0.25s ease;
+			}
+
+			&:hover {
+				opacity: 1;
+
+				&::after {
+					width: 100%;
+				}
+			}
 		}
 	}
-	.email {
-		&:before {
-			background-image: url('../../../assets/images/ico-email-white.svg');
+}
+
+// ─── Col 4: Contact (social + phone + email) ──
+
+.footer-contact {
+	display: flex;
+	flex-direction: column;
+	gap: 1.6rem;
+}
+
+// Social icons row
+.footer-social-icons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.2rem;
+	align-items: center;
+	margin-bottom: 0.8rem;
+}
+
+.footer-social-link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 3.6rem;
+	height: 3.6rem;
+	border: 0.1rem solid rgba(255, 255, 255, 0.25);
+	border-radius: 50%;
+	transition: border-color 0.2s ease, opacity 0.2s ease;
+
+	&:hover {
+		border-color: #fff;
+		opacity: 1;
+	}
+
+	img {
+		display: block;
+		width: 1.8rem;
+		height: 1.8rem;
+		object-fit: contain;
+		filter: brightness(0) invert(1);
+	}
+}
+
+// Phone links block
+.footer-phones {
+	display: flex;
+	flex-direction: column;
+	gap: 0.8rem;
+}
+
+.footer-phone,
+.footer-email {
+	display: block;
+	font-size: 1.5rem;
+	color: #fff;
+	text-decoration: none;
+	transition: opacity 0.2s ease;
+
+	&:hover {
+		opacity: 0.7;
+	}
+}
+
+// ─── Row 3: Bottom bar ───────────────────────
+
+.footer-bottom {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-top: 0.1rem solid rgba(255, 255, 255, 0.15);
+	padding: 2.4rem 0;
+	gap: 2rem;
+	flex-wrap: wrap;
+
+	.footer-copyright {
+		margin: 0;
+		font-size: 1.3rem;
+		opacity: 0.5;
+		color: #fff;
+	}
+
+	.footer-back-to-top {
+		font-size: 1.3rem;
+		font-family: $heading-font;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: #fff;
+		text-decoration: none;
+		transition: opacity 0.2s ease;
+
+		&:hover {
+			opacity: 0.65;
 		}
 	}
-	.footer-top {
-		position: relative;
-		padding-top: 7rem;
-		p {
-			margin-bottom: 1.5rem;
-		}
-	}
-	.site-info {
-		border-top: 1px solid #fff;
-		padding: 2.5rem 0;
-		text-align: center;
-		p {
-			margin-bottom: 0;
-		}
+
+	@media (max-width: 599px) {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1.2rem;
 	}
 }

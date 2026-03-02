@@ -1,6 +1,6 @@
 @use '../../../assets/css/sass/custom/theme-variables' as *;
 
-.ci-testimonials-block {
+.ci-testimonials-block.ci-block {
 	position: relative;
 	overflow: hidden;
 	background-color: $base-color;

@@ -1,102 +1,146 @@
 <?php
 /**
- * Block Name: Header Block
+ * Block Name: Footer Block
  *
- * This is the template that displays the Grid block.
+ * This is the template that displays the Footer block.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package ci-uikit
+ * @package simple-block
  **/
 
 if ( isset( $block['data']['preview_image_help'] ) ) :    /* rendering in inserter preview  */
 	echo '<img src="' . esc_url( get_template_directory_uri() ) . esc_attr( $block['data']['preview_image_help'] ) . '" style="width:100%; height:auto;">';
 
 else : /* Rendering in editor body. */
+	$lang = pll_current_language( 'slug' );
 	?>
-	<?php $lang = pll_current_language('slug'); ?>
-	<div class="container">
 
-		<div class="footer-top uk-grid uk-grid-large uk-flex-between">
-			<?php if (get_field('footer_logo_'.$lang, 'option') ): ?>
-				<div class="uk-width-auto@l uk-width-1-2@m uk-margin-medium-bottom">
-					<a class="footer-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-						<img alt="<?php echo get_field('footer_logo_'.$lang, 'option')['alt']; ?>" src="<?php echo get_field('footer_logo_'.$lang, 'option')['sizes']['medium'] ?>">
-					</a>
-				</div>
-			<?php endif; ?>
+	<div class="footer-inner">
 
-			<?php if(get_field('headline_location_'.$lang, 'option') || get_field('address_location_'.$lang, 'option') || get_field('address_link_'.$lang, 'option')): ?>
+		<?php /* ── Row 1: Logo ── */ ?>
+		<?php if ( get_field( 'footer_logo_' . $lang, 'option' ) ) : ?>
+			<div class="footer-logo-row">
+				<a class="footer-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" aria-label="<?php bloginfo( 'name' ); ?>">
+					<img
+						src="<?php echo esc_url( get_field( 'footer_logo_' . $lang, 'option' )['sizes']['medium'] ); ?>"
+						alt="<?php echo esc_attr( get_field( 'footer_logo_' . $lang, 'option' )['alt'] ); ?>"
+					>
+				</a>
+			</div>
+		<?php endif; ?>
 
-				<div class="uk-width-expand@l uk-width-1-2@m uk-margin-medium-bottom">
-					<?php if( get_field('headline_location_'.$lang, 'option') ): ?>
-						<h3><?php the_field('headline_location_'.$lang, 'option'); ?></h3>
-					<?php endif; ?>
-					<?php if( get_field('address_location_'.$lang, 'option') ): ?>
-						<p class="address"><?php the_field('address_location_'.$lang, 'option'); ?></p>
-					<?php endif; ?>
-					<?php
-					if( get_field('address_link_'.$lang, 'option') ):
-						$link = get_field('address_link_'.$lang, 'option');
-						$link_url = $link['url'];
-						$link_title = $link['title'];
-						$link_target = $link['target'] ? $link['target'] : '_self';
-						?>
-						<a rel="noopener" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+		<?php /* ── Row 2: 4 columns ── */ ?>
+		<div class="footer-columns uk-grid uk-grid-large" uk-grid>
+
+			<?php /* Col 1: Newsletter subscribe form */ ?>
+			<div class="footer-col footer-newsletter uk-width-1-2@m uk-width-1-4@l">
+				<div class="footer-col-inner">
+					<?php if ( $lang === 'en' ) : ?>
+						<?php echo do_shortcode( '[contact-form-7 id="f49eeaa" title="Newsletter En"]' ); ?>
+					<?php else : ?>
+						<?php echo do_shortcode( '[contact-form-7 id="0827c8f" title="Newsletter Sr"]' ); ?>
 					<?php endif; ?>
 				</div>
+			</div>
 
-			<?php endif; ?> <!-- address-informations -->
+			<?php /* Col 2: Events Calendar */ ?>
+			<div class="footer-col footer-calendar uk-width-1-2@m uk-width-1-4@l">
+				<div class="footer-col-inner">
+					<?php echo do_shortcode( '[tribe_events_list]' ); ?>
+				</div>
+			</div>
 
-
-			<?php if(get_field('headline_contact_'.$lang, 'option') || get_field('phone_numbers_'.$lang, 'option') || get_field('email_'.$lang, 'option') || get_field('social_networks_'.$lang, 'option')): ?>
-
-				<div class="uk-width-expand@l uk-width-1-2@m uk-margin-medium-bottom">
-					<?php if( get_field('headline_contact_'.$lang, 'option') ): ?>
-						<h3><?php the_field('headline_contact_'.$lang, 'option'); ?></h3>
-					<?php endif; ?>
-
+			<?php /* Col 3: Footer Menu */ ?>
+			<div class="footer-col footer-nav uk-width-1-2@m uk-width-1-4@l">
+				<div class="footer-col-inner">
 					<?php
-					if( have_rows('phone_numbers_'.$lang, 'option') ):
-						while ( have_rows('phone_numbers_'.$lang, 'option') ) : the_row(); ?>
-							<a class="phone" href="tel:<?php the_sub_field('phone_'.$lang, 'option'); ?>"><?php the_sub_field('phone_'.$lang, 'option'); ?></a>
-						<?php endwhile;
-					endif;
+					$footer_menu_title = ( $lang === 'en' ) ? 'Footer Menu EN' : 'Footer Menu SR';
+					$footer_nav_posts  = get_posts( array(
+						'post_type'   => 'wp_navigation',
+						'title'       => $footer_menu_title,
+						'post_status' => 'publish',
+						'numberposts' => 1,
+					) );
+
+					if ( ! empty( $footer_nav_posts ) ) {
+						echo do_blocks( '<!-- wp:navigation {"ref":' . $footer_nav_posts[0]->ID . ',"showSubmenuIcon":false,"overlayMenu":"never"} /-->' );
+					}
 					?>
+				</div>
+			</div>
 
-					<?php if( get_field('email_'.$lang, 'option') ): ?>
-						<a class="email" href="mailto:<?php the_field('email_'.$lang, 'option'); ?>"><?php the_field('email_'.$lang, 'option'); ?></a>
-					<?php endif; ?>
+			<?php /* Col 4: Social networks + phone + email */ ?>
+			<div class="footer-col footer-contact uk-width-1-2@m uk-width-1-4@l">
+				<div class="footer-col-inner">
 
-					<?php if( have_rows('social_networks_'.$lang, 'option') ): ?>
-						<div class="social-icons">
-							<?php while( have_rows('social_networks_'.$lang, 'option') ): the_row(); ?>
-								<a target="_blank" rel="noopener" href="<?php echo get_sub_field('url_'.$lang, 'option'); ?>">
-									<img alt="<?php echo get_sub_field('footer_icon_'.$lang, 'option')['alt']; ?>" src="<?php echo get_sub_field('footer_icon_'.$lang, 'option')['url']; ?>">
-								</a>
+					<?php /* Social icons */ ?>
+					<?php if ( have_rows( 'social_networks_' . $lang, 'option' ) ) : ?>
+						<div class="footer-social-icons">
+							<?php while ( have_rows( 'social_networks_' . $lang, 'option' ) ) : the_row(); ?>
+								<?php
+								$icon = get_sub_field( 'footer_icon_' . $lang, 'option' );
+								$url  = get_sub_field( 'url_' . $lang, 'option' );
+								?>
+								<?php if ( $url && $icon ) : ?>
+									<a
+										href="<?php echo esc_url( $url ); ?>"
+										target="_blank"
+										rel="noopener noreferrer"
+										class="footer-social-link"
+										aria-label="<?php echo esc_attr( $icon['alt'] ); ?>"
+									>
+										<img src="<?php echo esc_url( $icon['url'] ); ?>" alt="<?php echo esc_attr( $icon['alt'] ); ?>">
+									</a>
+								<?php endif; ?>
 							<?php endwhile; ?>
 						</div>
 					<?php endif; ?>
 
+					<?php /* Phone numbers */ ?>
+					<?php if ( have_rows( 'phone_numbers_' . $lang, 'option' ) ) : ?>
+						<div class="footer-phones">
+							<?php while ( have_rows( 'phone_numbers_' . $lang, 'option' ) ) : the_row(); ?>
+								<?php $phone = get_sub_field( 'phone_' . $lang, 'option' ); ?>
+								<?php if ( $phone ) : ?>
+									<a class="footer-phone" href="tel:<?php echo esc_attr( $phone ); ?>">
+										<?php echo esc_html( $phone ); ?>
+									</a>
+								<?php endif; ?>
+							<?php endwhile; ?>
+						</div>
+					<?php endif; ?>
+
+					<?php /* Email */ ?>
+					<?php if ( get_field( 'email_' . $lang, 'option' ) ) : ?>
+						<a class="footer-email" href="mailto:<?php echo esc_attr( get_field( 'email_' . $lang, 'option' ) ); ?>">
+							<?php echo esc_html( get_field( 'email_' . $lang, 'option' ) ); ?>
+						</a>
+					<?php endif; ?>
+
 				</div>
+			</div>
 
-			<?php endif; ?> <!-- contact-informations -->
+		</div><!-- .footer-columns -->
 
-			<?php if( get_field('working_hours_'.$lang, 'option') ): ?>
-				<div class="uk-width-expand@l uk-width-1-2@m uk-margin-medium-bottom">
-					<?php the_field('working_hours_'.$lang, 'option'); ?>
-				</div>
-			<?php endif; ?>
+		<?php /* ── Row 3: Bottom bar ── */ ?>
+		<div class="footer-bottom">
+			<p class="footer-copyright">
+				<?php if ( $lang === 'en' ) : ?>
+					&copy;<?php echo esc_html( date( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>. All rights reserved.
+				<?php else : ?>
+					&copy;<?php echo esc_html( date( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>. Sva prava zadržana.
+				<?php endif; ?>
+			</p>
+			<a class="footer-back-to-top" href="#top" uk-scroll aria-label="Back to top">
+				<?php if ( $lang === 'en' ) : ?>
+					Back to top ↑
+				<?php else : ?>
+					Na vrh ↑
+				<?php endif; ?>
+			</a>
+		</div><!-- .footer-bottom -->
 
-		</div><!-- footer-top -->
+	</div><!-- .footer-inner -->
 
-		<div class="site-info">
-			<?php if ( $lang == 'en' ) : ?>
-				<p style="margin-bottom: 1rem;">Website &copy;<?php echo date('Y'); ?>. All right reserved.</p>
-			<?php else : ?>
-				<p style="margin-bottom: 1rem;">Sajt &copy;<?php echo date('Y'); ?>. Sva prava zadržana.</p>
-			<?php endif; ?>
-		</div>
-
-	</div><!-- container -->
 <?php endif; ?>

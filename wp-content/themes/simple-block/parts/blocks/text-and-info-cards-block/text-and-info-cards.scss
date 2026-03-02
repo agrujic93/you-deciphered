@@ -1,6 +1,6 @@
 @use '../../../assets/css/sass/custom/theme-variables' as *;
 
-.ci-text-and-info-cards-block {
+.ci-text-and-info-cards-block.ci-block {
 	position: relative;
 	.cards-col {
 		display: flex;

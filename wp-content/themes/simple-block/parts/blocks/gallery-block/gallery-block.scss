@@ -1,6 +1,6 @@
 @use '../../../assets/css/sass/custom/theme-variables' as *;
 
-.ci-gallery-block {
+.ci-gallery-block.ci-block {
 	.gallery-column-2 {
 		flex-direction: column;
 		gap: 1.5rem;

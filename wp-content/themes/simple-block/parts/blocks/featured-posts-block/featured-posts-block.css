@@ -2,7 +2,7 @@
 /* Font Sizes */
 /* Font Families */
 /* Container Sizes and Padding */
-.ci-featured-posts-block .card-wrp {
+.ci-featured-posts-block.ci-block .card-wrp {
   position: relative;
   display: flex;
   align-items: flex-end;
@@ -11,7 +11,7 @@
   padding: 35% 20px 20px;
   width: 100%;
 }
-.ci-featured-posts-block .card-wrp:after {
+.ci-featured-posts-block.ci-block .card-wrp:after {
   content: "";
   position: absolute;
   left: 0;
@@ -22,10 +22,10 @@
   z-index: 3;
   border-radius: 2rem;
 }
-.ci-featured-posts-block .card-wrp:hover img {
+.ci-featured-posts-block.ci-block .card-wrp:hover img {
   transform: scale(1.08);
 }
-.ci-featured-posts-block .card-link {
+.ci-featured-posts-block.ci-block .card-link {
   position: absolute;
   left: 0;
   top: 0;
@@ -34,7 +34,7 @@
   z-index: 10;
   text-decoration: none;
 }
-.ci-featured-posts-block .img-wrp {
+.ci-featured-posts-block.ci-block .img-wrp {
   position: absolute;
   left: 0;
   top: 0;
@@ -44,7 +44,7 @@
   overflow: hidden;
   border-radius: 2rem;
 }
-.ci-featured-posts-block .img-wrp img {
+.ci-featured-posts-block.ci-block .img-wrp img {
   position: absolute;
   left: 0;
   top: 0;
@@ -55,22 +55,22 @@
   object-fit: cover;
   transition: all 1.4s ease;
 }
-.ci-featured-posts-block .card-content {
+.ci-featured-posts-block.ci-block .card-content {
   position: relative;
   z-index: 5;
 }
-.ci-featured-posts-block .card-content h3 {
+.ci-featured-posts-block.ci-block .card-content h3 {
   font-size: 2.1rem;
   color: #fff;
   font-weight: 500;
 }
-.ci-featured-posts-block .ci-post-categories {
+.ci-featured-posts-block.ci-block .ci-post-categories {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 2rem;
   gap: 1.5rem;
 }
-.ci-featured-posts-block .category-name {
+.ci-featured-posts-block.ci-block .category-name {
   font-size: 1.3rem;
   border-radius: 0.2rem;
   background-color: #fff;

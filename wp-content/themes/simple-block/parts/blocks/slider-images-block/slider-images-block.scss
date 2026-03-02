@@ -1,6 +1,6 @@
 @use '../../../assets/css/sass/custom/theme-variables' as *;
 
-.ci-slider-images-block  {
+.ci-slider-images-block.ci-block  {
 	margin: 0;
 	.gallery-inner {
 		&:after {

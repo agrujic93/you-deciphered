@@ -1,6 +1,6 @@
 @use '../../../assets/css/sass/custom/theme-variables' as *;
 
-.ci-hero-block {
+.ci-hero-block.ci-block {
 	background: $contrast-2-color !important;
 	position: relative;
 	&.ci-hero-text {
