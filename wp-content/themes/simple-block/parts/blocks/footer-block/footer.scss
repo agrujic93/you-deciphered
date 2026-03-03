@@ -186,9 +186,53 @@
 
 // ─── Col 2: Events Calendar ───────────────────
 
+
 .footer-calendar {
 
-	// Tribe Events list — compact dark overrides
+	.footer-events-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1.6rem;
+	}
+
+	.footer-event-item {
+		border-bottom: 0.1rem solid rgba(255, 255, 255, 0.1);
+		padding-bottom: 1.2rem;
+
+		&:last-child {
+			border-bottom: none;
+			padding-bottom: 0;
+		}
+	}
+
+	.footer-event-link {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		text-decoration: none;
+
+		&:hover {
+			opacity: 0.75;
+		}
+	}
+
+	.footer-event-date {
+		font-size: 1.2rem;
+		opacity: 0.6;
+		color: #fff;
+	}
+
+	.footer-event-title {
+		font-size: 1.5rem;
+		font-weight: 500;
+		color: #fff;
+		line-height: 1.4;
+	}
+
+	// Tribe Events list — compact dark overrides (fallback if plugin output is used elsewhere)
 	.tribe-events-calendar,
 	.tribe-events,
 	.tribe-events-loop {

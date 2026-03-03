@@ -34,7 +34,7 @@ else : /* Rendering in editor body. */
 		<div class="footer-columns uk-grid uk-grid-large" uk-grid>
 
 			<?php /* Col 1: Newsletter subscribe form */ ?>
-			<div class="footer-col footer-newsletter uk-width-1-2@m uk-width-1-4@l">
+			<div class="footer-col footer-newsletter uk-width-1-2@m uk-width-expand@l">
 				<div class="footer-col-inner">
 					<?php if ( $lang === 'en' ) : ?>
 						<?php echo do_shortcode( '[contact-form-7 id="f49eeaa" title="Newsletter En"]' ); ?>
@@ -45,11 +45,32 @@ else : /* Rendering in editor body. */
 			</div>
 
 			<?php /* Col 2: Events Calendar */ ?>
-			<div class="footer-col footer-calendar uk-width-1-2@m uk-width-1-4@l">
-				<div class="footer-col-inner">
-					<?php echo do_shortcode( '[tribe_events_list]' ); ?>
+			<?php
+			$events = tribe_get_events( [
+				'posts_per_page' => 3,
+				'start_date'     => 'now',
+				] );
+
+			if ( ! empty( $events ) ) : ?>
+				<div class="footer-col footer-calendar uk-width-1-2@m uk-width-1-4@l">
+					<div class="footer-col-inner">
+						<ul class="footer-events-list">
+							<?php foreach ( $events as $event ) : ?>
+								<li class="footer-event-item">
+									<a href="<?php echo esc_url( tribe_get_event_link( $event ) ); ?>" class="footer-event-link">
+										<?php if ( $lang === 'en' ) : ?>
+											<span class="footer-event-date"><?php echo tribe_get_start_date( $event, true, 'F j, Y' ); ?></span>
+										<?php else : ?>
+											<span class="footer-event-date"><?php echo tribe_get_start_date( $event, true, 'd.m.Y' ); ?></span>
+										<?php endif; ?>
+										<span class="footer-event-title"><?php echo esc_html( $event->post_title ); ?></span>
+									</a>
+								</li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
 				</div>
-			</div>
+			<?php endif; ?>
 
 			<?php /* Col 3: Footer Menu */ ?>
 			<div class="footer-col footer-nav uk-width-1-2@m uk-width-1-4@l">
