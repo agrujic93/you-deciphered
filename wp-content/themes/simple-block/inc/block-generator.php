@@ -159,11 +159,11 @@ function sbg_create_block( $title ) {
 		'align'       => 'full',
 	);
 
-	$php_content = "<?php\n/**\n * {$title} Block Template.\n *\n * @param array \$block The block settings and attributes.\n */\n\n\$id = '{$slug}-' . \$block['id'];\nif ( ! empty( \$block['anchor'] ) ) {\n\t\$id = \$block['anchor'];\n}\n\n\$classes = '{$slug}-block';\nif ( ! empty( \$block['className'] ) ) {\n\t\$classes .= ' ' . \$block['className'];\n}\nif ( ! empty( \$block['align'] ) ) {\n\t\$classes .= ' align' . \$block['align'];\n}\n?>\n\n<div id=\"<?php echo esc_attr( \$id ); ?>\" class=\"<?php echo esc_attr( \$classes ); ?>\">\n\t<div class=\"container\">\n\t\t<h2><?php echo esc_html( get_field( 'title' ) ?: '{$title}' ); ?></h2>\n\t</div>\n</div>\n";
+	$php_content = "<?php\n/**\n * {$title} Block Template.\n *\n * @param array \$block The block settings and attributes.\n */\n\n\$id = '{$slug}-' . \$block['id'];\nif ( ! empty( \$block['anchor'] ) ) {\n\t\$id = \$block['anchor'];\n}\n\n\$classes = '{$slug}-block ci-block';\nif ( ! empty( \$block['className'] ) ) {\n\t\$classes .= ' ' . \$block['className'];\n}\nif ( ! empty( \$block['align'] ) ) {\n\t\$classes .= ' align' . \$block['align'];\n}\n\n\$container_class = 'section-full-width';\nif ( 'wide' == \$block['align'] ) {\n\t\$container_class = 'section-container-wide';\n} elseif ( '' == \$block['align'] || 'center' == \$block['align'] ) {\n\t\$container_class = 'section-container';\n} elseif ( 'left' == \$block['align'] ) {\n\t\$container_class = 'container-left';\n} elseif ( 'right' == \$block['align'] ) {\n\t\$container_class = 'container-right';\n}\n?>\n\n<section id=\"<?php echo esc_attr( \$id ); ?>\" class=\"<?php echo esc_attr( \$classes ); ?>\">\n\t<div class=\"<?php echo esc_attr( \$container_class ); ?>\">\n\t\t<h2><?php echo esc_html( get_field( 'title' ) ?: '{$title}' ); ?></h2>\n\t</div>\n</section>\n";
 
-	$scss_content = "@use '../../assets/css/sass/custom/theme-variables' as *;\n\n.{$slug}-block {\n\tpadding: 4rem 0;\n}\n";
+	$scss_content = "@use '../../assets/css/sass/custom/theme-variables' as *;\n\n.{$slug}-block {\n}\n";
 
-	$css_content = "/* {$title} Block Styles */\n.{$slug}-block {\n\tpadding: 4rem 0;\n}\n";
+	$css_content = "/* {$title} Block Styles */\n.{$slug}-block {\n}\n";
 
 	$js_content = "/**\n * {$title} Script.\n */\njQuery(document).ready(function($) {\n\t// Your logic here\n\tconsole.log('{$title} block loaded');\n});\n";
 

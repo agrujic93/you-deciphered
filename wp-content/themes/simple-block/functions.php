@@ -346,6 +346,7 @@ function cwp_register_block_script() {
 		file_exists( $header_js_path ) ? filemtime( $header_js_path ) : '1.0.0' // Version based on file modification time
 	);
 
+
 }
 add_action( 'init', 'cwp_register_block_script' );
 

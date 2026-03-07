@@ -8,8 +8,10 @@ Hello Steve! This guide is designed for developers like you who are taking over 
 We've added a **Block Generator** to the WordPress dashboard to save you time.
 
 1. Go to **Appearance > Block Generator**.
-2. **Generate**: Enter a title and click "Generate" to create all files and register scripts.
-3. **Delete**: Select an existing block from the dropdown and click "Delete". This safely removes the folder, the ACF JSON, and the script registration from `functions.php`.
+2. **Generate**: Enter a title and click "Generate". This creates your files and registers scripts.
+3. **Sync Fields**: After generating, go to **ACF > Field Groups**. You will see a "Sync available" notice. Click **Sync** to register the new field group in the database.
+4. **Edit Fields**: Now you can edit the group and add any fields you need.
+5. **Delete**: Select an existing block from the dropdown and click "Delete" to safely remove the folder, the ACF JSON, and the script registration.
 
 ---
 
