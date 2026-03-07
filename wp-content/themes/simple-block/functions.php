@@ -9,6 +9,13 @@
  */
 
 /**
+ * Include Block Generator
+ */
+add_action( 'after_setup_theme', function() {
+	require get_template_directory() . '/inc/block-generator.php';
+} );
+
+/**
  * Register block styles.
  */
 

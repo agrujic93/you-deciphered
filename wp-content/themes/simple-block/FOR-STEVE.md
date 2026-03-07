@@ -4,7 +4,16 @@ Hello Steve! This guide is designed for developers like you who are taking over 
 
 ---
 
-## 1. How to Add Google Analytics
+## 1. Block Generator (New!)
+We've added a **Block Generator** to the WordPress dashboard to save you time.
+
+1. Go to **Appearance > Block Generator**.
+2. **Generate**: Enter a title and click "Generate" to create all files and register scripts.
+3. **Delete**: Select an existing block from the dropdown and click "Delete". This safely removes the folder, the ACF JSON, and the script registration from `functions.php`.
+
+---
+
+## 2. How to Add Google Analytics
 To update or add Google Analytics (GA4), you don't need a plugin. The code is handled directly in `functions.php`.
 
 1. Open `functions.php` in the theme root.
@@ -15,7 +24,7 @@ To update or add Google Analytics (GA4), you don't need a plugin. The code is ha
 
 ---
 
-## 2. Main HTML Templates & Blocks
+## 3. Main HTML Templates & Blocks
 As a Block Theme, the main page structures are **HTML files** rather than PHP. You can find them in two locations:
 
 *   **`templates/` folder**: Contains high-level structures like `page.html`, `single.html`, `archive-product.html` (equivalent to `archive.php`), and `index.html`.
@@ -27,7 +36,7 @@ As a Block Theme, the main page structures are **HTML files** rather than PHP. Y
 
 ---
 
-## 3. Theme Structure & Custom PHP Templates
+## 4. Theme Structure & Custom PHP Templates
 This theme uses a hybrid approach.
 
 ### Root Folder & Custom PHP Templates
@@ -56,7 +65,7 @@ Every custom block has its own isolated folder. For example, `parts/blocks/hero-
 
 ---
 
-## 3. How to Add CSS
+## 5. How to Add CSS
 There are two ways to add styles:
 
 1.  **Dashboard (Quickest)**: Go to **Appearance > Editor > Styles > Additional CSS**. This is the best place for small tweaks or overrides that don't require access to the codebase.
@@ -64,7 +73,7 @@ There are two ways to add styles:
 
 ---
 
-## 4. How to Duplicate an ACF Block
+## 6. How to Duplicate/Generate an ACF Block
 If you need a new block that is similar to an existing one:
 
 1.  **Copy Folder**: Copy an existing block folder in `parts/blocks/` and rename it.
@@ -81,7 +90,7 @@ If you need a new block that is similar to an existing one:
 
 ---
 
-## 5. How to Change JavaScript & Sliders
+## 7. How to Change JavaScript & Sliders
 Block-specific JS is stored inside the block's folder (e.g., `header.js`).
 
 1.  **Modify**: Edit the `.js` file directly.
@@ -90,7 +99,7 @@ Block-specific JS is stored inside the block's folder (e.g., `header.js`).
 
 ---
 
-## 6. How to Inject Code into <head> or Footer
+## 8. How to Inject Code into <head> or Footer
 If you need to add custom scripts, tracking pixels, or meta tags to the whole site, the best way is using hooks in `functions.php`.
 
 ### Example: Adding to <head>
@@ -116,7 +125,7 @@ add_action('wp_footer', function() {
 
 ---
 
-## 7. Important Tech Standards
+## 9. Important Tech Standards
 *   **Units**: Always use `rem` instead of `px`. (1rem = 10px).
 *   **UIkit**: This theme uses **UIkit**. Use UIkit’s data attributes (like `uk-modal` or `uk-grid`) for most layouts and interactions instead of writing custom JS/CSS.
 *   **Variables**: Global colors/fonts are in `assets/css/sass/custom/_theme-variables.scss`. Always use these variables.
