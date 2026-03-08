@@ -1,5 +1,27 @@
 # Simple Block Theme — Developer Standards & Rules
 
+## AI Integration & Rule Minification Guide
+
+To ensure AI assistants (Cursor, Windsurf, Copilot, etc.) follow these standards, you should provide them with a "minified" version of this file as a project rule.
+
+### How to Enable Rules in Your Editor:
+
+| Editor / Tool | Method | File Path |
+|---|---|---|
+| **Cursor** | `.cursorrules` | Root directory: `.cursorrules` |
+| **Windsurf** | `.windsurfrules` | Root directory: `.windsurfrules` |
+| **GitHub Copilot** | Custom Instructions | `.github/copilot-instructions.md` |
+| **Cline / Roo Code** | `.clinerules` | Root directory: `.clinerules` |
+| **Generic Agent** | Rules folder | `.agents/rules/simple-block-{frontend|backend}-rules.md` |
+
+### Practical Advice for AI Rules:
+- **Keep it Simple**: AI performs better with concise, constraint-based rules rather than long explanations.
+- **Use YAML Frontmatter**: Tools like Windsurf and specialized agents use frontmatter (trigger, glob, description) to know when to apply rules.
+- **Focus on "Always/Never"**: Explicit constraints (e.g., "ALWAYS use rem") are more effective than suggestions.
+- **Minify Regularly**: As standards evolve, update your minified rules file to keep it under the AI's context limit.
+
+---
+
 > [!IMPORTANT]
 > **This is a WordPress Block Theme.**
 > It is a copy of the official **Twenty Twenty-Four** theme. All development must follow **WordPress Block Theme standards**.
@@ -374,6 +396,95 @@ All custom blocks are registered under the `simple-block/` namespace. Example: `
 
 ---
 
-## 17. Adding New Rules
+## 17. Section 508 & Accessibility
+
+All themes must be accessible and follow Section 508 standards.
+
+### HTML Requirements:
+- **`<img>` Tag**: Always include an `alt` attribute. If empty in ACF, fallback to the title:
+  ```php
+  $image = get_field('image');
+  $image_alt = $image['alt'] ? $image['alt'] : $image['title'];
+  ```
+- **`<a>` Tag**: Always add an `aria-label` describing the link's destination or action. The `aria-label` must contain the visible label text:
+  ```html
+  <a href="..." aria-label="Kupite naše organske jabuke">Jabuke</a>
+  ```
+- **UIkit Attributes**: Always use the `data-uk-` prefix for UIkit attributes (e.g., `data-uk-switcher`).
+- **Heading Nesting**: Maintain strict hierarchy: `h1 > h2 > h3 > h4...`
+
+### CSS Requirements:
+- Use `rem` for `font-size`.
+- Media queries should follow this format:
+  ```css
+  @media screen and (max-width: 1024px) { ... }
+  ```
+
+---
+
+## 18. WordPress Development Standards
+
+### Admin & Security:
+- Create the developer user as **`codeadmin`** (instead of `canicadmin`) with the standard company password.
+
+### Image Optimization (ACF & Queries):
+- Use **`INCLUDES`** for theme logic organization.
+- Always limit image sizes from ACF. Recommended Return Format: **Image Array**.
+  ```php
+  <img src="<?php echo get_field('image')['sizes']['large']; ?>" alt="<?php echo get_field('image')['alt']; ?>">
+  ```
+- **Featured Image** (within a query):
+  ```php
+  <?php echo get_the_post_thumbnail_url(get_the_ID(), 'medium_large' ); ?>
+  ```
+- **Image via ID** (Return Format: ID):
+  ```php
+  <?php if (get_field('hero_image')):
+      $image_alt = get_post_meta(get_field('hero_image'), '_wp_attachment_image_alt', TRUE);
+      echo wp_get_attachment_image(get_field('hero_image'), 'full-hero-size', false, array("class" => "hero-img", 'alt' => $image_alt));
+  endif; ?>
+  ```
+
+### ACF Field Handling:
+- **Check Content Existence**: Always check if a field exists before defining variables or outputting HTML.
+  ```php
+  <?php if( get_field('link') ):
+      $link = get_field('link');
+      $link_url = $link['url'];
+      $link_title = $link['title'];
+      $link_target = $link['target'] ? $link['target'] : '_self';
+  ?>
+      <a class="button" href="<?php echo esc_url($link_url); ?>" target="<?php echo esc_attr($link_target); ?>"><?php echo esc_html($link_title); ?></a>
+  <?php endif; ?>
+  ```
+- **Repeater Labels**: Always check and update labels (e.g., change "Add Row" to something descriptive).
+
+---
+
+## 19. Website Speed & Performance
+
+### Image Strategy:
+- Convert images to **.webp** format where possible.
+- Use optimized sizes (as described in Section 18).
+
+### User Experience (LCP/FCP):
+- **Hero Section**: The first visible viewport (especially on the Homepage) must **not** be animated and must **not** have a delay. Disable fade-in animations for "Above the Fold" content to ensure immediate loading.
+
+### Code Optimization:
+- Remove all commented-out and redundant code.
+- Fix all console errors.
+- Minify CSS/JS for production (Gulp handles this, but code must be clean).
+
+### LiteSpeed Cache & DB:
+- Install and configure **LiteSpeed Cache**:
+  - Image Optimization (Lossless/Lossy).
+  - Minify & Combine CSS/JS/HTML.
+  - Browser Cache & Crawler (Cache Warming).
+  - Enable WebP replacement for cached images.
+- **Database Optimization**: Use the [Index WP MySQL For Speed](https://wordpress.org/plugins/index-wp-mysql-for-speed/) plugin to add necessary indexes for performance. Perform manual fine-tuning for custom queries if needed.
+
+---
+
+## 20. Adding New Rules
 
 When new standards are agreed upon, add them here as new numbered sections. This file is the single source of truth for development conventions on this theme.
