@@ -79,6 +79,11 @@
                 "param": "block",
                 "operator": "!=",
                 "value": "acf\/header-block"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "acf\/grid-block"
             }
         ]
     ],
@@ -91,5 +96,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1757022361
+    "display_title": "",
+    "modified": 1773087420
 }

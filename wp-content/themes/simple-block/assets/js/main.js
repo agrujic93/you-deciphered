@@ -4,69 +4,79 @@
  * @package ci-uikit
  */
 
-jQuery( document ).ready(
-	function ($) {
-
-		$('body').addClass('loaded');
-
-		//hamburger-menu
-		$('.open-menu').click(function(e){
-			e.preventDefault();
-			if($(this).hasClass('open')) {
-				$(this).removeClass('open');
-				$('.navigation-wrp').removeClass('open');
-				$('body').removeClass('uk-overflow-hidden');
-			} else {
-				$(this).addClass('open');
-				$('.navigation-wrp').addClass('open');
-				$('body').addClass('uk-overflow-hidden');
-			}
-		});
-
-		// Stop many submits.
-		$( '.wpcf7-submit' ).on(
-			'click',
-			function () {
-				$( this ).css( 'pointer-events','none' );
-			}
-		);
-		document.addEventListener(
-			'wpcf7submit',
-			function ( event ) {
-				$( '.wpcf7-submit' ).css( 'pointer-events','' );
-			},
-			false
-		);
-
-	}
-);
-
 document.addEventListener('DOMContentLoaded', function() {
+	// Add loaded class to body
+	document.body.classList.add('loaded');
+
+	// Stop multiple submits (Contact Form 7)
+	const cf7Submits = document.querySelectorAll('.wpcf7-submit');
+	cf7Submits.forEach(submit => {
+		submit.addEventListener('click', function() {
+			this.style.pointerEvents = 'none';
+		});
+	});
+
+	// Reset submit button state on CF7 submit event
+	document.addEventListener('wpcf7submit', function() {
+		const cf7SubmitsToReset = document.querySelectorAll('.wpcf7-submit');
+		cf7SubmitsToReset.forEach(submit => {
+			submit.style.pointerEvents = '';
+		});
+	}, false);
+
 	// Global scroll-triggered background color theme
 	const blocksWithTheme = document.querySelectorAll('[data-theme]');
 	if (!blocksWithTheme.length) return;
 
-	const observerOptions = {
-		root: null,
-		rootMargin: '-50% 0px -50% 0px', // Triggers when the block crosses the middle of the viewport
-		threshold: 0
+	// Check if GSAP is available
+	if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+		console.warn('GSAP or ScrollTrigger not loaded for global theme swapper.');
+		return;
+	}
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	const themeConfigs = {
+		'dark': {
+			'--current-theme-bg': '#1a1a1a',
+			'--current-theme-text': '#ffffff',
+			'--current-theme-accent': '#1cc8ff'
+		},
+		'light': {
+			'--current-theme-bg': '#ffffff',
+			'--current-theme-text': '#00022e',
+			'--current-theme-accent': '#4a84ff'
+		},
+		'accent': {
+			'--current-theme-bg': '#024b6c',
+			'--current-theme-text': '#ffffff',
+			'--current-theme-accent': '#f8f279'
+		}
 	};
 
-	const themeObserver = new IntersectionObserver((entries) => {
-		entries.forEach(entry => {
-			if (entry.isIntersecting) {
-				const theme = entry.target.getAttribute('data-theme');
+	blocksWithTheme.forEach((block) => {
+		const theme = block.getAttribute('data-theme');
+		const config = themeConfigs[theme];
+		if (!config) return;
 
-				// Optional: Strip any existing theme classes start with 'theme-' from body
-				document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
-
-				// Add new theme class
-				if (theme) {
+		// GSAP Scrubbing transition - Interpolates according to scroll speed
+		gsap.to(document.documentElement, {
+			...config,
+			scrollTrigger: {
+				trigger: block,
+				start: 'top 80%', // Start transition as the block enters the lower part of viewport
+				end: 'top 20%',   // Finalize as it reaches the upper part
+				scrub: 1,         // Follows scroll speed with subtle lag for smooth feel
+				overwrite: 'auto',
+				onEnter: () => {
+					document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
+					document.body.classList.add(`theme-${theme}`);
+				},
+				onEnterBack: () => {
+					document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
 					document.body.classList.add(`theme-${theme}`);
 				}
 			}
 		});
-	}, observerOptions);
-
-	blocksWithTheme.forEach(block => themeObserver.observe(block));
+	});
 });

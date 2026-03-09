@@ -27,13 +27,15 @@ if ( 'wide' == $block['align'] ) {
 	$container_class = 'container-right';
 }
 
+$color_variant = ! empty( get_field( 'color_variant' ) ) ? 'dark' : 'light';
+
 if ( isset( $block['data']['preview_image_help'] ) ) :    /* rendering in inserter preview  */
 	echo '<img src="' . esc_url( get_template_directory_uri() ) . esc_attr( $block['data']['preview_image_help'] ) . '" style="width:100%; height:auto;">';
 else : /* Rendering in editor body. */
 
 	include __DIR__ . '/../block-parts/background-and-text-color-block.php'; ?>
 
-	<section id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
+	<section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
 		<?php if ( $bg_image_id ) : ?>
 			<?php
 			echo wp_get_attachment_image(

@@ -14,18 +14,26 @@ html {
 	}
 }
 
-body {
-	transition: background-color 0.8s ease;
-	&.theme-dark {
-		background-color: var(--wp--preset--color--base-2, #1a1a1a) !important;
-	}
-	&.theme-light {
-		background-color: var(--wp--preset--color--base, #ffffff) !important;
-	}
-	&.theme-accent {
-		background-color: var(--wp--preset--color--accent, #024b6c) !important;
-	}
+:root {
+	--current-theme-bg: var(--wp--preset--color--base, #ffffff);
+	--current-theme-text: var(--wp--preset--color--contrast, #00022e);
+	--current-theme-accent: var(--wp--preset--color--accent, #1cc8ff);
 }
+
+body, .wp-site-blocks, .site-main {
+	transition: background-color 0.4s ease-out, color 0.4s ease-out; // Short transition for small jumps
+	background-color: var(--current-theme-bg) !important;
+	color: var(--current-theme-text) !important;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p, li, span {
+	color: var(--current-theme-text) !important;
+}
+
+a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
+	color: var(--current-theme-accent);
+}
+
 
 :root :where(.is-layout-constrained) > .ci-block:first-child:not(.ci-has-background, .ci-hero-block) {
 	margin-block-start: 10rem;

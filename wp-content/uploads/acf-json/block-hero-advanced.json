@@ -3,6 +3,28 @@
     "title": "Block: Hero Advanced",
     "fields": [
         {
+            "key": "field_69aefdb77fc51",
+            "label": "Block Color Variant",
+            "name": "block_color_variant",
+            "aria-label": "",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "field_69aef8c41da3d"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
+        },
+        {
             "key": "field_hero_adv_headline",
             "label": "Headline",
             "name": "headline",
@@ -140,5 +162,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1772978636
+    "modified": 1773075998
 }

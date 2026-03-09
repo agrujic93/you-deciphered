@@ -19,7 +19,10 @@
             "default_value": "",
             "enable_opacity": 1,
             "return_format": "string",
-            "allow_in_bindings": 0
+            "allow_in_bindings": 0,
+            "custom_palette_source": "",
+            "palette_colors": "",
+            "show_color_wheel": true
         },
         {
             "key": "field_66f080f5199bb",
@@ -38,7 +41,10 @@
             "default_value": "",
             "enable_opacity": 0,
             "return_format": "string",
-            "allow_in_bindings": 0
+            "allow_in_bindings": 0,
+            "custom_palette_source": "",
+            "palette_colors": "",
+            "show_color_wheel": true
         },
         {
             "key": "field_66f0811c199bc",
@@ -88,6 +94,11 @@
                 "param": "block",
                 "operator": "!=",
                 "value": "acf\/hero-block"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "acf\/grid-block"
             }
         ]
     ],
@@ -100,5 +111,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1757022384
+    "display_title": "",
+    "modified": 1773087500
 }

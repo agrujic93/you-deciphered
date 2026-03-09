@@ -35,10 +35,12 @@ $mp4_video = get_field( 'mp4_video' );
 $image_1   = get_field( 'image_1' );
 $image_2   = get_field( 'image_2' );
 
+$color_variant = ! empty( get_field( 'color_variant' ) ) ? 'dark' : 'light';
+
 $wrapper_classes = $class_name . ( $has_video && $mp4_video ? ' has-video' : ' no-video' );
 
 ?>
-<div <?php echo $anchor; ?>class="<?php echo esc_attr( $wrapper_classes ); ?>">
+<div <?php echo $anchor; ?> data-theme="<?php echo esc_attr( $color_variant ); ?>" class="<?php echo esc_attr( $wrapper_classes ); ?>">
 
 	<?php if ( $has_video && $mp4_video ) : ?>
 		<div class="video-background-container uk-position-cover">
