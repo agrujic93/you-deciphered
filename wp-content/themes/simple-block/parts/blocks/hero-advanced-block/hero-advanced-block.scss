@@ -1,0 +1,105 @@
+@use '../../../assets/css/sass/custom/theme-variables' as *;
+
+.hero-advanced-block {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	color: var(--wp--preset--color--contrast);
+
+	&.has-video {
+		min-height: 100vh;
+		.hero-advanced-headline {
+			color: #ffffff;
+			position: relative;
+			z-index: 10;
+		}
+	}
+
+	.video-background-container {
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	.video-overlay {
+		z-index: 2;
+		background: rgba(0, 0, 0, 0.3);
+		pointer-events: none;
+	}
+
+	.hero-advanced-content-wrapper {
+		z-index: 5;
+		padding-bottom: 5rem;
+		padding-top: 15rem;
+	}
+
+	.hero-text-container {
+		text-align: center;
+		padding-bottom: 2rem;
+
+		.hero-advanced-headline {
+			font-family: $heading-font;
+			font-size: clamp(4rem, 10vw, 15rem);
+			font-weight: 700;
+			line-height: 0.9;
+			text-transform: uppercase;
+			margin: 0;
+			letter-spacing: -0.02em;
+
+			.char {
+				display: inline-block;
+				opacity: 0;
+				transform: translateY(100px);
+			}
+		}
+	}
+
+	.floating-image {
+		border-radius: var(--wp--preset--spacing--20);
+		z-index: 4;
+		object-fit: cover;
+		box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+		&.image-1 {
+			width: 20rem;
+			height: 25rem;
+			top: 25%;
+			left: 10%;
+			@media screen and (max-width: 959px) {
+				width: 15rem;
+				height: 20rem;
+				top: 15%;
+				left: 5%;
+			}
+		}
+
+		&.image-2 {
+			width: 25rem;
+			height: 30rem;
+			top: 50%;
+			right: 5%;
+			@media screen and (max-width: 959px) {
+				width: 15rem;
+				height: 20rem;
+				top: 40%;
+				right: -5%;
+			}
+		}
+	}
+
+	&.is-admin {
+		min-height: 50vh;
+		.hero-advanced-content-wrapper {
+			min-height: 50vh;
+			height: auto;
+		}
+		.hero-advanced-headline {
+			.char {
+				opacity: 1 !important;
+				transform: none !important;
+			}
+		}
+		.video-background-container {
+			display: none; // Avoid autoplaying background video in editor
+		}
+	}
+}

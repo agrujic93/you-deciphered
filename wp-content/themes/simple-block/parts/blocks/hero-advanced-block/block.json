@@ -1,0 +1,18 @@
+{
+	"name": "simple-block/hero-advanced",
+	"title": "Hero Advanced",
+	"description": "An advanced hero block with GSAP text animations and MP4 video support.",
+	"category": "custom-blocks",
+	"icon": "welcome-view-site",
+	"keywords": [ "hero", "advanced", "video", "gsap" ],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "hero-advanced-block.php"
+	},
+	"align": "full",
+	"viewScript": [
+		"file:./hero-advanced-block.js",
+		"hero-advanced-js"
+	],
+	"viewStyle": "file:./hero-advanced-block.css"
+}

@@ -40,3 +40,33 @@ jQuery( document ).ready(
 
 	}
 );
+
+document.addEventListener('DOMContentLoaded', function() {
+	// Global scroll-triggered background color theme
+	const blocksWithTheme = document.querySelectorAll('[data-theme]');
+	if (!blocksWithTheme.length) return;
+
+	const observerOptions = {
+		root: null,
+		rootMargin: '-50% 0px -50% 0px', // Triggers when the block crosses the middle of the viewport
+		threshold: 0
+	};
+
+	const themeObserver = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				const theme = entry.target.getAttribute('data-theme');
+
+				// Optional: Strip any existing theme classes start with 'theme-' from body
+				document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
+
+				// Add new theme class
+				if (theme) {
+					document.body.classList.add(`theme-${theme}`);
+				}
+			}
+		});
+	}, observerOptions);
+
+	blocksWithTheme.forEach(block => themeObserver.observe(block));
+});

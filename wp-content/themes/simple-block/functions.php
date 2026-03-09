@@ -346,6 +346,21 @@ function cwp_register_block_script() {
 		file_exists( $header_js_path ) ? filemtime( $header_js_path ) : '1.0.0' // Version based on file modification time
 	);
 
+	// Absolute path to gsap for filemtime
+	$gsap_path = get_template_directory() . '/assets/js/gsap.min.js';
+	$gsap_url = get_template_directory_uri() . '/assets/js/gsap.min.js';
+	wp_register_script( 'gsap', $gsap_url, array(), file_exists( $gsap_path ) ? filemtime( $gsap_path ) : '3.14.2' );
+
+	// Absolute path to ScrollTrigger for filemtime
+	$scrolltrigger_path = get_template_directory() . '/assets/js/ScrollTrigger.min.js';
+	$scrolltrigger_url = get_template_directory_uri() . '/assets/js/ScrollTrigger.min.js';
+	wp_register_script( 'gsap-scrolltrigger', $scrolltrigger_url, array('gsap'), file_exists( $scrolltrigger_path ) ? filemtime( $scrolltrigger_path ) : '3.14.2' );
+
+
+	// Absolute path to the hero advanced file for filemtime
+	$hero_advanced_js_path = get_template_directory() . '/parts/blocks/hero-advanced-block/hero-advanced-block.js';
+	$hero_advanced_js_url = get_template_directory_uri() . '/parts/blocks/hero-advanced-block/hero-advanced-block.js';
+	wp_register_script( 'hero-advanced-js', $hero_advanced_js_url, array('gsap', 'gsap-scrolltrigger', 'jquery', 'acf'), file_exists( $hero_advanced_js_path ) ? filemtime( $hero_advanced_js_path ) : '1.0.0' );
 
 }
 add_action( 'init', 'cwp_register_block_script' );

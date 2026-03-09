@@ -14,6 +14,19 @@ html {
 	}
 }
 
+body {
+	transition: background-color 0.8s ease;
+	&.theme-dark {
+		background-color: var(--wp--preset--color--base-2, #1a1a1a) !important;
+	}
+	&.theme-light {
+		background-color: var(--wp--preset--color--base, #ffffff) !important;
+	}
+	&.theme-accent {
+		background-color: var(--wp--preset--color--accent, #024b6c) !important;
+	}
+}
+
 :root :where(.is-layout-constrained) > .ci-block:first-child:not(.ci-has-background, .ci-hero-block) {
 	margin-block-start: 10rem;
 	@media screen and (max-width: 769px) {
