@@ -1,41 +1,35 @@
 const { src, dest, watch } = require("gulp");
 const path = require("path");
 const sass = require('gulp-sass')(require('sass'));
-const sourcemaps = require('gulp-sourcemaps'); // Add sourcemaps import
 
-function globalFrontCSS(cb) {
-	src('./assets/css/sass/custom/frontend-custom-style.scss')
-		.pipe(sass({style: 'compressed', loadPaths: [path.resolve(__dirname)]}).on('error', sass.logError))
-		.pipe(dest('./assets/css'));
-	cb();
+function globalFrontCSS() {
+	return src('./assets/css/sass/custom/frontend-custom-style.scss', { sourcemaps: true })
+		.pipe(sass({ style: 'compressed', loadPaths: [path.resolve(__dirname)] }).on('error', sass.logError))
+		.pipe(dest('./assets/css', { sourcemaps: './maps' }));
 }
 
-function globalBackCSS(cb) {
-	src('./assets/css/sass/custom/backend-custom-style.scss')
-		.pipe(sass({style: 'compressed', loadPaths: [path.resolve(__dirname)]}).on('error', sass.logError))
-		.pipe(dest('./assets/css'));
-	cb();
+function globalBackCSS() {
+	return src('./assets/css/sass/custom/backend-custom-style.scss', { sourcemaps: true })
+		.pipe(sass({ style: 'compressed', loadPaths: [path.resolve(__dirname)] }).on('error', sass.logError))
+		.pipe(dest('./assets/css', { sourcemaps: './maps' }));
 }
 
-function uikitCSS(cb) {
-	src('./assets/css/sass/uikit-style.scss')
-		.pipe(sourcemaps.init()) // Initialize sourcemaps before Sass compilation
-		.pipe(sass({style: 'compressed', loadPaths: [path.resolve(__dirname)]}).on('error', sass.logError))
-		.pipe(sourcemaps.write('./maps')) // Write sourcemaps in a 'maps' directory next to CSS
-		.pipe(dest('./assets/css'));
-	cb();
+function uikitCSS() {
+	return src('./assets/css/sass/uikit-style.scss', { sourcemaps: true })
+		.pipe(sass({ style: 'compressed', loadPaths: [path.resolve(__dirname), path.resolve(__dirname, 'assets/css/sass')] }).on('error', sass.logError))
+		.pipe(dest('./assets/css', { sourcemaps: './maps' }));
 }
 
-function blocksCSS(cb) {
-	src('./parts/blocks/**/*.scss')
-		.pipe(sass({style: 'compressed', loadPaths: [path.resolve(__dirname)]}).on('error', sass.logError))
+function blocksCSS() {
+	return src('./parts/blocks/**/*.scss')
+		.pipe(sass({ style: 'compressed', loadPaths: [path.resolve(__dirname)] }).on('error', sass.logError))
 		.pipe(dest('./parts/blocks'));
-	cb();
 }
 
-function watchFiles(cb) {
+function watchFiles() {
 	watch('assets/css/sass/custom/frontend-custom-style.scss', globalFrontCSS);
 	watch('assets/css/sass/custom/backend-custom-style.scss', globalBackCSS);
+	watch('assets/css/sass/uikit-style.scss', uikitCSS);
 	watch('assets/css/sass/uikit/**/*.scss', uikitCSS);
 	watch('assets/css/sass/custom/_custom-variables.scss', uikitCSS);
 	watch('parts/blocks/**/**.scss', blocksCSS);
