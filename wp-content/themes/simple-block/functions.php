@@ -362,6 +362,11 @@ function cwp_register_block_script() {
 	$hero_advanced_js_url = get_template_directory_uri() . '/parts/blocks/hero-advanced-block/hero-advanced-block.js';
 	wp_register_script( 'hero-advanced-js', $hero_advanced_js_url, array('gsap', 'gsap-scrolltrigger', 'jquery', 'acf'), file_exists( $hero_advanced_js_path ) ? filemtime( $hero_advanced_js_path ) : '1.0.0' );
 
+	// Absolute path to the highlighted text file for filemtime
+	$highlighted_text_js_path = get_template_directory() . '/parts/blocks/highlighted-text-block/highlighted-text-block.js';
+	$highlighted_text_js_url = get_template_directory_uri() . '/parts/blocks/highlighted-text-block/highlighted-text-block.js';
+	wp_register_script( 'highlighted-text-js', $highlighted_text_js_url, array('gsap', 'gsap-scrolltrigger', 'acf'), file_exists( $highlighted_text_js_path ) ? filemtime( $highlighted_text_js_path ) : '1.0.0' );
+
 }
 add_action( 'init', 'cwp_register_block_script' );
 

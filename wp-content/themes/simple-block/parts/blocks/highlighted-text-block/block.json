@@ -1,0 +1,30 @@
+{
+	"name": "simple-block/highlighted-text-block",
+	"title": "Highlighted Text",
+	"description": "A text block that progressively highlights words on scroll using GSAP.",
+	"category": "custom-blocks",
+	"icon": "editor-textcolor",
+	"keywords": [ "highlight", "text", "scroll", "gsap" ],
+	"supports": {
+		"align": [ "full", "wide" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"anchor": true
+	},
+	"example": {
+		"attributes": {
+			"data": {
+				"preview_image_help": "/parts/blocks/highlighted-text-block/images/preview.png"
+			}
+		}
+	},
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "highlighted-text-block.php"
+	},
+	"align": "full",
+	"viewScript": "highlighted-text-js",
+	"viewStyle": "file:./highlighted-text-block.css"
+}

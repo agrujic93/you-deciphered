@@ -1,0 +1,37 @@
+@use 'assets/css/sass/custom/theme-variables' as *;
+
+.ci-highlighted-text-block {
+	padding: var(--wp--preset--spacing--50) $g-padding-right var(--wp--preset--spacing--50) $g-padding-left;
+
+	.highlighted-text-container {
+		max-width: $content-size;
+		margin: 0 auto;
+	}
+
+	.highlighted-text-content {
+		font-family: $heading-font;
+		font-size: $h2-font-size;
+		font-weight: 500;
+		line-height: 1.4;
+		margin: 0;
+	}
+
+	.ht-word {
+		display: inline-block;
+		color: $contrast-color;
+		opacity: 0.2;
+		margin-right: 0.3em;
+
+		&.is-highlighted {
+			opacity: 1;
+		}
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.ci-highlighted-text-block {
+		.highlighted-text-content {
+			font-size: $h3-font-size;
+		}
+	}
+}
