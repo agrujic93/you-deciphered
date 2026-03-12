@@ -1,0 +1,29 @@
+{
+    "name": "acf/sticky-columns",
+    "title": "Sticky Columns",
+    "description": "A custom Sticky Columns block.",
+    "style": [
+        "file:./sticky-columns.css"
+    ],
+    "category": "custom-blocks",
+    "icon": "layout",
+    "keywords": [
+        "sticky-columns"
+    ],
+    "supports": {
+        "align": [
+            "full",
+            "wide"
+        ],
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "anchor": true
+    },
+    "acf": {
+        "mode": "auto",
+        "renderTemplate": "sticky-columns.php"
+    },
+    "align": "full"
+}

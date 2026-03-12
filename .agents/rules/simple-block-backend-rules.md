@@ -1,6 +1,5 @@
 ---
 trigger: always_on
-glob: "**/*.{php,json}"
 description: Backend & Core Standards for Simple Block Theme.
 ---
 

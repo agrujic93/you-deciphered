@@ -1,0 +1,14 @@
+@use 'assets/css/sass/custom/theme-variables' as *;
+
+.sticky-columns-block {
+    .sticky-columns-grid {
+        align-items: stretch;
+    }
+    .is-sticky {
+        @media screen and (min-width: 960px) {
+            position: sticky;
+            top: 10rem;
+            will-change: transform;
+        }
+    }
+}
