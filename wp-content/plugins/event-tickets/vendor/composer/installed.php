@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'the-events-calendar/event-tickets',
-        'pretty_version' => 'dev-release/T26.aqua',
-        'version' => 'dev-release/T26.aqua',
-        'reference' => '9c223ff79d0a2ee2da7b01a87d3a55d5382acb6d',
+        'pretty_version' => 'dev-release/M26.chikorita',
+        'version' => 'dev-release/M26.chikorita',
+        'reference' => 'f6981c7b1fdfbd0cbaece2acc4b01ce575cfe14a',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'the-events-calendar/event-tickets' => array(
-            'pretty_version' => 'dev-release/T26.aqua',
-            'version' => 'dev-release/T26.aqua',
-            'reference' => '9c223ff79d0a2ee2da7b01a87d3a55d5382acb6d',
+            'pretty_version' => 'dev-release/M26.chikorita',
+            'version' => 'dev-release/M26.chikorita',
+            'reference' => 'f6981c7b1fdfbd0cbaece2acc4b01ce575cfe14a',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
