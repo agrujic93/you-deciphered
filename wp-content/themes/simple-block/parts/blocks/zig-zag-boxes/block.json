@@ -1,0 +1,32 @@
+{
+    "name": "acf/zig-zag-boxes",
+    "title": "Zig Zag Boxes",
+    "description": "A custom Zig Zag Boxes block.",
+    "style": [
+        "file:./zig-zag-boxes.css"
+    ],
+    "viewScript": [
+        "zig-zag-boxes-js"
+    ],
+    "category": "custom-blocks",
+    "icon": "layout",
+    "keywords": [
+        "zig-zag-boxes"
+    ],
+    "supports": {
+        "align": [
+            "full",
+            "wide"
+        ],
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "anchor": true
+    },
+    "acf": {
+        "mode": "auto",
+        "renderTemplate": "zig-zag-boxes.php"
+    },
+    "align": "full"
+}

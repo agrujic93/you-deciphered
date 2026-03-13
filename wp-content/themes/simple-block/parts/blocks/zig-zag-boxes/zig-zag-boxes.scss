@@ -1,0 +1,171 @@
+@use 'assets/css/sass/custom/theme-variables' as *;
+
+.zig-zag-boxes-block {
+	padding-top: var(--wp--preset--spacing--80, 8rem);
+	padding-bottom: var(--wp--preset--spacing--80, 8rem);
+
+	.zig-zag-container {
+		display: flex;
+		flex-direction: column;
+		gap: var(--wp--preset--spacing--60, 6rem);
+	}
+
+	.zig-zag-box-wrapper {
+		position: relative;
+		border-radius: 3rem;
+		transition: background-color 0.4s ease-in-out, transform 0.4s ease-in-out;
+		background-color: transparent;
+		padding: 2rem;
+
+		&:hover {
+			background-color: var(--box-hover-color, #333);
+
+			.zig-zag-img {
+				transform: scale(1.03); // Zoom image slightly on hover
+			}
+
+			.zig-zag-content-inner {
+				background-color: transparent;
+				border-color: transparent;
+			}
+
+			.zig-zag-labels ul,
+			.zig-zag-icon svg,
+			.zig-zag-text {
+				color: #fff;
+				transition: color 0.4s ease;
+			}
+		}
+
+		@media (max-width: 959px) {
+			padding: 0;
+			border-radius: 0;
+
+			&:hover {
+				background-color: transparent;
+
+				.zig-zag-content-inner {
+					background-color: var(--box-hover-color, #333);
+				}
+			}
+		}
+	}
+
+	.zig-zag-link-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 10;
+		border-radius: inherit;
+	}
+
+	.zig-zag-image-container {
+		position: relative;
+		border-radius: 3rem;
+		aspect-ratio: 4 / 5; // To match the design phone screenshot aspect ratio
+		overflow: hidden;
+
+		img.zig-zag-img {
+			width: 100%;
+			height: calc(100% + 100px);
+			object-fit: cover;
+			transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+		}
+
+		// Dark overlay for text
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 40%;
+			background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
+			pointer-events: none;
+			z-index: 1;
+		}
+	}
+
+	.zig-zag-image-titles {
+		position: absolute;
+		bottom: 3rem;
+		left: 3rem;
+		z-index: 2;
+		color: #fff;
+		pointer-events: none;
+
+		.zig-zag-image-title {
+			color: #fff;
+			font-size: clamp(2.4rem, 4vw, 3.6rem);
+			font-weight: 500;
+			margin-bottom: 0.5rem;
+		}
+
+		.zig-zag-image-subtitle {
+			font-size: 1.6rem;
+			opacity: 0.8;
+		}
+	}
+
+	.zig-zag-content-inner {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 100%;
+		padding: 4rem;
+		background-color: #fcfcfc;
+		border: 1px solid rgba(0,0,0,0.05);
+		border-radius: 3rem;
+		transition: all 0.4s ease-in-out;
+
+		.zig-zag-labels {
+			ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				color: #888;
+				font-size: 1.2rem;
+				letter-spacing: 0.1em;
+				text-align: right;
+				transition: color 0.4s ease;
+
+				li {
+					margin-bottom: 0.5rem;
+				}
+			}
+
+			@media (max-width: 959px) {
+				ul {
+					text-align: left;
+				}
+			}
+		}
+
+		.zig-zag-content-body {
+			flex-grow: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+		}
+
+		.zig-zag-icon {
+			color: #000;
+			transition: color 0.4s ease;
+		}
+
+		.zig-zag-text {
+			font-size: var(--wp--preset--font-size--medium, 2.4rem);
+			line-height: 1.4;
+			color: #0d0d0d;
+			margin-top: 2rem;
+			transition: color 0.4s ease;
+
+			p {
+				margin-bottom: 0;
+				font-size: inherit;
+			}
+		}
+	}
+}
