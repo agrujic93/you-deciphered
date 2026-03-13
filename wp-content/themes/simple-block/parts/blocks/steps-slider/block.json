@@ -1,0 +1,32 @@
+{
+    "name": "acf/steps-slider",
+    "title": "Steps Slider",
+    "description": "A custom Steps Slider block.",
+    "style": [
+        "file:./steps-slider.css"
+    ],
+    "viewScript": [
+        "steps-slider-js"
+    ],
+    "category": "custom-blocks",
+    "icon": "layout",
+    "keywords": [
+        "steps-slider"
+    ],
+    "supports": {
+        "align": [
+            "full",
+            "wide"
+        ],
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "anchor": true
+    },
+    "acf": {
+        "mode": "auto",
+        "renderTemplate": "steps-slider.php"
+    },
+    "align": "full"
+}

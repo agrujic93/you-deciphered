@@ -367,6 +367,11 @@ function cwp_register_block_script() {
 	$highlighted_text_js_url = get_template_directory_uri() . '/parts/blocks/highlighted-text-block/highlighted-text-block.js';
 	wp_register_script( 'highlighted-text-js', $highlighted_text_js_url, array('gsap', 'gsap-scrolltrigger', 'acf'), file_exists( $highlighted_text_js_path ) ? filemtime( $highlighted_text_js_path ) : '1.0.0' );
 
+
+	// Registered for block: steps-slider
+	$js_path_steps_slider = get_template_directory() . '/parts/blocks/steps-slider/steps-slider.js';
+	$js_url_steps_slider  = get_template_directory_uri() . '/parts/blocks/steps-slider/steps-slider.js';
+	wp_register_script( 'steps-slider-js', $js_url_steps_slider, array('jquery', 'gsap', 'gsap-scrolltrigger', 'swiper'), file_exists( $js_path_steps_slider ) ? filemtime( $js_path_steps_slider ) : '1.0.0' );
 }
 add_action( 'init', 'cwp_register_block_script' );
 

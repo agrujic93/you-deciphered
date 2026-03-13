@@ -1,1 +1,1 @@
-.sticky-columns-block .sticky-columns-grid{align-items:stretch}.sticky-columns-block .is-sticky{position:sticky;top:10rem;will-change:transform}
+.sticky-columns-block .sticky-columns-grid{align-items:stretch}@media screen and (min-width: 960px){.sticky-columns-block .is-sticky{position:sticky;top:10rem;will-change:transform}}
