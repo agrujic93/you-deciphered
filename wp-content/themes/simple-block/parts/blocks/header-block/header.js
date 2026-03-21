@@ -16,9 +16,10 @@
         const $header = $('.main-header');
 
         $(window).on('scroll', function() {
-            if ($(window).scrollTop() > 50) {
+            var scrollPos = $(window).scrollTop();
+            if (scrollPos > 100) {
                 $header.addClass('is-sticky-manual');
-            } else {
+            } else if (scrollPos <= 20) {
                 $header.removeClass('is-sticky-manual');
             }
         });
