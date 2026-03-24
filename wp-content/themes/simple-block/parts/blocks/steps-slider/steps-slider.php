@@ -10,12 +10,12 @@ if ( ! empty( $block['anchor'] ) ) {
 	$id = $block['anchor'];
 }
 
-$classes = 'steps-slider-block ci-block';
+$main_block_class = 'steps-slider-block ci-block';
 if ( ! empty( $block['className'] ) ) {
-	$classes .= ' ' . $block['className'];
+	$main_block_class .= ' ' . $block['className'];
 }
 if ( ! empty( $block['align'] ) ) {
-	$classes .= ' align' . $block['align'];
+	$main_block_class .= ' align' . $block['align'];
 }
 
 $container_class = 'section-full-width';
@@ -28,10 +28,13 @@ if ( 'wide' == $block['align'] ) {
 } elseif ( 'right' == $block['align'] ) {
 	$container_class = 'container-right';
 }
+
+include __DIR__ . '/../block-parts/block-general-logic.php';
 ?>
 
-<section id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
-	<div class="<?php echo esc_attr( $container_class ); ?>">
+<section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $id ); ?>" <?php echo $wrapper_attributes; ?>>
+	<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
+	<div class="<?php echo esc_attr( $container_class ); ?>" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
 		
 		<?php if ( get_field( 'steps_slider_intro' ) ) : ?>
 			<div class="steps-slider-intro uk-margin-large-bottom">

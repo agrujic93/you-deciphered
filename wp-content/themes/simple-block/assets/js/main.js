@@ -48,42 +48,69 @@ document.addEventListener('DOMContentLoaded', function() {
 			'--current-theme-accent': '#1cc8ff'
 		},
 		'accent': {
-			'--current-theme-bg': '#024b6c',
-			'--current-theme-text': '#ffffff',
+			'--current-theme-bg': '#f9f9f9',
+			'--current-theme-text': '#00022e',
 			'--current-theme-accent': '#1cc8ff'
 		}
 	};
 
-	blocksWithTheme.forEach((block, index) => {
-		const theme = block.getAttribute('data-theme');
+	let lastAppliedTheme = null;
+
+	function applyTheme(theme, direction) {
+		if (theme === lastAppliedTheme) return;
+		
 		const config = themeConfigs[theme];
 		if (!config) return;
 
-		// GSAP Scrubbing transition - Interpolates according to scroll speed
+		lastAppliedTheme = theme;
+
+		// Update Body Class
+		document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
+		document.body.classList.add(`theme-${theme}`);
+
+		// Smoothly transition CSS variables
+		// We use a duration instead of scrub to avoid "flashes" caused by overlapping triggers
+		// that seek from different initial states.
 		gsap.to(document.documentElement, {
 			...config,
-			scrollTrigger: {
-				trigger: block,
-				start: 'top 80%', // Start transition as the block enters the lower part of viewport
-				end: 'top 20%',   // Finalize as it reaches the upper part
-				scrub: .5,         // Follows scroll speed with subtle lag for smooth feel
-				overwrite: 'auto',
-				onEnter: () => {
+			duration: 0.6,
+			ease: 'power2.out',
+			overwrite: true
+		});
+	}
+
+	blocksWithTheme.forEach((block, index) => {
+		const theme = block.getAttribute('data-theme');
+		
+		ScrollTrigger.create({
+			trigger: block,
+			start: 'top 60%', // Trigger slightly earlier for better feeling
+			end: 'bottom 40%',
+			onEnter: () => applyTheme(theme, 1),
+			onEnterBack: () => applyTheme(theme, -1),
+			onLeave: () => {
+				// Detect if we are moving to next block
+				if (index < blocksWithTheme.length - 1) {
+					// We don't do anything here, let the next block's onEnter handle it
+				}
+			},
+			onLeaveBack: () => {
+				if (index > 0) {
+					const prevTheme = blocksWithTheme[index - 1].getAttribute('data-theme');
+					applyTheme(prevTheme, -1);
+				} else {
+					// Past the first block going up - revert to original state if needed
+					// For now, keep the first theme's variables but maybe remove class
 					document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
-					document.body.classList.add(`theme-${theme}`);
-				},
-				onEnterBack: () => {
-					document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
-					document.body.classList.add(`theme-${theme}`);
-				},
-				onLeaveBack: () => {
-					document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
-					if (index > 0) {
-						const prevTheme = blocksWithTheme[index - 1].getAttribute('data-theme');
-						document.body.classList.add(`theme-${prevTheme}`);
-					}
 				}
 			}
 		});
 	});
+
+	// Initial check on load
+	const firstBlock = blocksWithTheme[0];
+	if (firstBlock) {
+		const theme = firstBlock.getAttribute('data-theme');
+		applyTheme(theme, 1);
+	}
 });

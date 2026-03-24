@@ -68,20 +68,18 @@ else : /* rendering in editor body */
 			$classes[] = 'has-text-color';
 		}
 
-		if (count($inline_styles) > 0) {
-			$wrapper_attributes = get_block_wrapper_attributes([
-				'class' => implode(' ', array_map('trim', $classes)),
-				'style' => implode('; ', $inline_styles) . ';',
-			]);
-		} else {
-			$wrapper_attributes = get_block_wrapper_attributes([
-				'class' => implode(' ', array_map('trim', $classes)),
-			]);
-		}
+		// Include universal logic (this will handle block_background_color, block_text_color, block_background_image, and color_variant)
+		// It will also build its own $wrapper_attributes, so we need to be careful.
+		// We'll rename our local $wrapper_attributes to $hero_wrapper_attributes if needed, 
+		// but block-general-logic.php uses $main_block_class and $container_class to build its version.
+		include __DIR__ . '/../block-parts/block-general-logic.php';
 	?>
 
-	<section id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
-		<div class="hero-content-wrp" <?php include(__DIR__ . '/../block-parts/animation-block.php'); ?>>
+	<section data-theme="<?php echo esc_attr($color_variant); ?>" id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
+		
+		<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
+
+		<div class="hero-content-wrp" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
 			<?php if (get_field('choose_hero_layout') == "hero_text_layout"): ?>
 				<div class="container">
 					<?php if(get_field('hero_text')): ?>

@@ -3,6 +3,28 @@
     "title": "Block: Gallery",
     "fields": [
         {
+            "key": "field_69af2a0e08195",
+            "label": "Block General Option",
+            "name": "block_general_option",
+            "aria-label": "",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "group_69aef8c3d5d44"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
+        },
+        {
             "key": "field_670c50f0f15da",
             "label": "Intro",
             "name": "gallery_intro",
@@ -80,7 +102,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/gallery-block"
+                "value": "acf/gallery-block"
             }
         ]
     ],
@@ -93,5 +115,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1757022395
+    "modified": 1774354101
 }

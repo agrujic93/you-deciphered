@@ -26,14 +26,14 @@ if ( 'wide' == $block['align'] ) {
 if ( isset( $block['data']['preview_image_help'] ) ) :
 	echo '<img src="' . esc_url( get_template_directory_uri() ) . esc_attr( $block['data']['preview_image_help'] ) . '" style="width:100%; height:auto;">';
 else :
-
-	$wrapper_attributes = get_block_wrapper_attributes([
-		'class' => implode( ' ', [ $main_block_class, $container_class ] ),
-	]);
+	include __DIR__ . '/../block-parts/block-general-logic.php';
 	?>
 
-	<section id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
-		<div class="highlighted-text-container">
+	<section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
+
+		<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
+
+		<div class="highlighted-text-container" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
 			<?php if ( get_field( 'highlighted_text' ) ) :
 				$text = get_field( 'highlighted_text' );
 				// Split text into words and wrap each in a span.

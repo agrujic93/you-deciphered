@@ -10,12 +10,12 @@ if ( ! empty( $block['anchor'] ) ) {
 	$id = $block['anchor'];
 }
 
-$classes = 'zig-zag-boxes-block ci-block';
+$main_block_class = 'zig-zag-boxes-block ci-block';
 if ( ! empty( $block['className'] ) ) {
-	$classes .= ' ' . $block['className'];
+	$main_block_class .= ' ' . $block['className'];
 }
 if ( ! empty( $block['align'] ) ) {
-	$classes .= ' align' . $block['align'];
+	$main_block_class .= ' align' . $block['align'];
 }
 
 $container_class = 'section-full-width';
@@ -28,10 +28,13 @@ if ( 'wide' == $block['align'] ) {
 } elseif ( 'right' == $block['align'] ) {
 	$container_class = 'container-right';
 }
+
+include __DIR__ . '/../block-parts/block-general-logic.php';
 ?>
 
-<section id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
-	<div class="<?php echo esc_attr( $container_class ); ?> has-global-padding">
+<section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $id ); ?>" <?php echo $wrapper_attributes; ?>>
+	<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
+	<div class="<?php echo esc_attr( $container_class ); ?> has-global-padding" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
 		<?php if ( have_rows( 'zig_zag_boxes' ) ) : ?>
 			<div class="zig-zag-container">
 				<?php

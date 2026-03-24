@@ -3,6 +3,28 @@
     "title": "Block: Steps Slider",
     "fields": [
         {
+            "key": "field_69af2a0e08195",
+            "label": "Block General Option",
+            "name": "block_general_option",
+            "aria-label": "",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "group_69aef8c3d5d44"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
+        },
+        {
             "key": "field_69b3141c27df9",
             "label": "Intro",
             "name": "steps_slider_intro",
@@ -145,7 +167,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/steps-slider"
+                "value": "acf/steps-slider"
             }
         ]
     ],
@@ -159,5 +181,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1773344153
+    "modified": 1774354101
 }

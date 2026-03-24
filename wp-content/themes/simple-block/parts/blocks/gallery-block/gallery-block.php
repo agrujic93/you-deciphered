@@ -34,26 +34,13 @@ if ( isset( $block['data']['preview_image_help'] ) ) :    /* rendering in insert
 else : /* rendering in editor body */
 	?>
 
-	<?php include __DIR__ . '/../block-parts/background-and-text-color-block.php'; ?>
+	<?php include __DIR__ . '/../block-parts/block-general-logic.php'; ?>
 
-	<section id="<?php echo esc_attr($block_id); ?>" <?php echo $wrapper_attributes; ?>>
-		<?php if ( $bg_image_id ) : ?>
-			<?php
-			echo wp_get_attachment_image(
-				$bg_image_id,
-				'full-hero-size',
-				false,
-				array(
-					'class' => 'section-background-image',
-					'alt'   => $bg_image_alt,
-				)
-			);
-			?>
-		<?php endif; ?>
+	<section data-theme="<?php echo esc_attr($color_variant); ?>" id="<?php echo esc_attr($block_id); ?>" <?php echo $wrapper_attributes; ?>>
 
-		<div class="section-img-overlay" style="background-color: <?php echo get_field('block_background_color'); ?>"></div>
+		<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
 
-		<div class="container" <?php include __DIR__ . '/../block-parts/animation-block.php'; ?>>
+		<div class="container" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
 			<?php if (get_field('gallery_intro')): ?>
 				<div class="uk-margin-medium-bottom rm-last-child-margin">
 					<?php echo get_field('gallery_intro'); ?>

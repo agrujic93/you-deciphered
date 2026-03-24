@@ -33,18 +33,22 @@ if ( isset( $block['data']['preview_image_help'] ) ) : /* rendering in inserter 
 else : /* rendering in editor body */
 	?>
 
-	<?php include __DIR__ . '/../block-parts/background-and-text-color-block.php'; ?>
+	<?php include __DIR__ . '/../block-parts/block-general-logic.php'; ?>
 
-	<section id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
+	<section data-theme="<?php echo esc_attr($color_variant); ?>" id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
+
+		<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
+
 		<?php
-			if ( is_admin() && ! is_singular() ) {
-				echo '<div style="padding: 20px; border: 1px dashed #ccc; text-align: center;">';
-				echo '<h3>Click to edit Blog block</h3>';
-				echo '</div>';
-				return;
-			}
-			?>
-		<div class="container" <?php include __DIR__ . '/../block-parts/animation-block.php'; ?>>
+		if ( is_admin() && ! is_singular() ) {
+			echo '<div style="padding: 20px; border: 1px dashed #ccc; text-align: center;">';
+			echo '<h3>Click to edit Blog block</h3>';
+			echo '</div>';
+			return;
+		}
+		?>
+
+		<div class="container" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
 			<?php if ( get_field( 'intro' ) ) : ?>
 				<div class="animation-fade-item uk-margin-medium-bottom rm-last-child-margin" <?php echo $duration; ?>>
 					<?php echo get_field( 'intro' ); ?>

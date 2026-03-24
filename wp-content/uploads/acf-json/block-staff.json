@@ -3,6 +3,28 @@
     "title": "Block: Staff",
     "fields": [
         {
+            "key": "field_69af2a0e08195",
+            "label": "Block General Option",
+            "name": "block_general_option",
+            "aria-label": "",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "group_69aef8c3d5d44"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
+        },
+        {
             "key": "field_68f7836aa6546",
             "label": "Staff Group Name",
             "name": "staff_group_name",
@@ -142,7 +164,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/staff-block"
+                "value": "acf/staff-block"
             }
         ]
     ],
@@ -155,5 +177,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1761052134
+    "modified": 1774354101
 }

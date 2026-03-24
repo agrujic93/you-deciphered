@@ -34,12 +34,13 @@ if ( isset( $block['data']['preview_image_help'] ) ) :    /* rendering in insert
 else : /* Rendering in editor body. */
 	?>
 
-	<?php include __DIR__ . '/../block-parts/background-and-text-color-block.php'; ?>
+	<?php include __DIR__ . '/../block-parts/block-general-logic.php'; ?>
 
-	<section id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
+	<section data-theme="<?php echo esc_attr($color_variant); ?>" id="<?php echo esc_attr($block_id); ?>" <?php echo $wrapper_attributes; ?>>
 
+		<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
 
-		<div class="container" <?php include __DIR__ . '/../block-parts/animation-block.php'; ?>>
+		<div class="container" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
 			<?php if (get_field( 'staff_group_name' )): ?>
 				<div class="rm-last-child-margin animation-fade-item staff-group-name-wrp" <?php echo $duration; ?>>
 					<h2><?php echo get_field('staff_group_name'); ?></h2>

@@ -18,16 +18,18 @@ if ( ! empty( $block['anchor'] ) ) {
 }
 
 // Create class attribute allowing for custom "className" and "align" values.
-$class_name = 'hero-advanced-block';
+$main_block_class = 'hero-advanced-block';
 if ( ! empty( $block['className'] ) ) {
-	$class_name .= ' ' . $block['className'];
+	$main_block_class .= ' ' . $block['className'];
 }
 if ( ! empty( $block['align'] ) ) {
-	$class_name .= ' align' . $block['align'];
+	$main_block_class .= ' align' . $block['align'];
 }
 if ( $is_preview ) {
-	$class_name .= ' is-admin';
+	$main_block_class .= ' is-admin';
 }
+
+include __DIR__ . '/../block-parts/block-general-logic.php';
 
 $headline  = get_field( 'headline' ) ?: 'ADVANCED HERO BLOCK.';
 $has_video = get_field( 'has_video' );
@@ -35,12 +37,11 @@ $mp4_video = get_field( 'mp4_video' );
 $image_1   = get_field( 'image_1' );
 $image_2   = get_field( 'image_2' );
 
-$color_variant = ! empty( get_field( 'color_variant' ) ) ? 'dark' : 'light';
-
-$wrapper_classes = $class_name . ( $has_video && $mp4_video ? ' has-video' : ' no-video' );
+$wrapper_classes = $main_block_class . ( $has_video && $mp4_video ? ' has-video' : ' no-video' );
 
 ?>
-<div <?php echo $anchor; ?> data-theme="<?php echo esc_attr( $color_variant ); ?>" class="<?php echo esc_attr( $wrapper_classes ); ?>">
+<div <?php echo $anchor; ?> data-theme="<?php echo esc_attr( $color_variant ); ?>" class="<?php echo esc_attr( $wrapper_classes ); ?>" <?php echo $wrapper_attributes; ?>>
+	<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
 
 	<?php if ( $has_video && $mp4_video ) : ?>
 		<div class="video-background-container uk-position-cover">

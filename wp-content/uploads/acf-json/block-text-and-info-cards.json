@@ -3,6 +3,28 @@
     "title": "Block: Text and Info Cards",
     "fields": [
         {
+            "key": "field_69af2a0e08195",
+            "label": "Block General Option",
+            "name": "block_general_option",
+            "aria-label": "",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "group_69aef8c3d5d44"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
+        },
+        {
             "key": "field_68a89fdf33167",
             "label": "Text",
             "name": "text",
@@ -162,7 +184,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/text-and-info-cards-block"
+                "value": "acf/text-and-info-cards-block"
             }
         ]
     ],
@@ -175,5 +197,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1757021934
+    "modified": 1774354101
 }

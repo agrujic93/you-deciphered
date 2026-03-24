@@ -10,12 +10,12 @@ if ( ! empty( $block['anchor'] ) ) {
 	$id = $block['anchor'];
 }
 
-$classes = 'sticky-columns-block ci-block';
+$main_block_class = 'sticky-columns-block ci-block';
 if ( ! empty( $block['className'] ) ) {
-	$classes .= ' ' . $block['className'];
+	$main_block_class .= ' ' . $block['className'];
 }
 if ( ! empty( $block['align'] ) ) {
-	$classes .= ' align' . $block['align'];
+	$main_block_class .= ' align' . $block['align'];
 }
 
 $container_class = 'section-full-width';
@@ -29,13 +29,16 @@ if ( 'wide' == $block['align'] ) {
 	$container_class = 'container-right';
 }
 
+include __DIR__ . '/../block-parts/block-general-logic.php';
+
 $left_column = get_field('left_column');
 $right_column = get_field('right_column');
 $sticky_column = get_field('sticky_column');
 ?>
 
-<section id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
-	<div class="<?php echo esc_attr( $container_class ); ?>">
+<section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $id ); ?>" <?php echo $wrapper_attributes; ?>>
+	<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
+	<div class="<?php echo esc_attr( $container_class ); ?>" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
 		<?php if ( $left_column || $right_column ) : ?>
 			<div class="uk-grid uk-grid-large sticky-columns-grid" data-uk-grid>
 				<div class="uk-width-1-2@m left-column">

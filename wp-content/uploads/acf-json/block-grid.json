@@ -61,13 +61,13 @@
                         "id": ""
                     },
                     "choices": {
-                        "one-column": "One Column (1\/1)",
-                        "two-columns-1-2-1-2": "Two Columns (1\/2 + 1\/2)",
-                        "two-columns-1-3-2-3": "Two Columns (1\/3 + 2\/3)",
-                        "two-columns-2-3-1-3": "Two Columns (2\/3 + 1\/3)",
-                        "two-columns-2-5-3-5": "Two Columns (2\/5 + 3\/5)",
-                        "two-columns-3-5-2-5": "Two Columns (3\/5 + 2\/5)",
-                        "three-columns-1-3-1-3-1-3": "Three Columns (1\/3 + 1\/3 + 1\/3)"
+                        "one-column": "One Column (1/1)",
+                        "two-columns-1-2-1-2": "Two Columns (1/2 + 1/2)",
+                        "two-columns-1-3-2-3": "Two Columns (1/3 + 2/3)",
+                        "two-columns-2-3-1-3": "Two Columns (2/3 + 1/3)",
+                        "two-columns-2-5-3-5": "Two Columns (2/5 + 3/5)",
+                        "two-columns-3-5-2-5": "Two Columns (3/5 + 2/5)",
+                        "three-columns-1-3-1-3-1-3": "Three Columns (1/3 + 1/3 + 1/3)"
                     },
                     "default_value": "",
                     "return_format": "value",
@@ -158,7 +158,7 @@
                 },
                 {
                     "key": "field_6710e27028bc5",
-                    "label": "Column 1\/1 - Background Color",
+                    "label": "Column 1/1 - Background Color",
                     "name": "column_11_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -190,7 +190,7 @@
                 },
                 {
                     "key": "field_6710e2b328bc6",
-                    "label": "Column 1\/1 - Text Color",
+                    "label": "Column 1/1 - Text Color",
                     "name": "column_11_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -222,7 +222,7 @@
                 },
                 {
                     "key": "field_661e85799ac7b",
-                    "label": "Column 1\/1",
+                    "label": "Column 1/1",
                     "name": "column_11",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -251,7 +251,7 @@
                 },
                 {
                     "key": "field_6710e4f4edf35",
-                    "label": "Column 1\/2 - Background Color",
+                    "label": "Column 1/2 - Background Color",
                     "name": "column_12_1_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -283,7 +283,7 @@
                 },
                 {
                     "key": "field_6710e538edf36",
-                    "label": "Column 1\/2 - Text Color",
+                    "label": "Column 1/2 - Text Color",
                     "name": "column_12_1_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -315,7 +315,7 @@
                 },
                 {
                     "key": "field_661e85bf9ac7c",
-                    "label": "Column 1\/2",
+                    "label": "Column 1/2",
                     "name": "column_12_1",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -344,7 +344,7 @@
                 },
                 {
                     "key": "field_6710e566edf37",
-                    "label": "Column 1\/2 - Background Color",
+                    "label": "Column 1/2 - Background Color",
                     "name": "column_12_2_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -376,7 +376,7 @@
                 },
                 {
                     "key": "field_6710e583edf38",
-                    "label": "Column 1\/2 - Text Color",
+                    "label": "Column 1/2 - Text Color",
                     "name": "column_12_2_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -408,7 +408,7 @@
                 },
                 {
                     "key": "field_661e86169ac7d",
-                    "label": "Column 1\/2",
+                    "label": "Column 1/2",
                     "name": "column_12_2",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -437,7 +437,7 @@
                 },
                 {
                     "key": "field_6710feb5bacd4",
-                    "label": "Column 1\/3 - Background Color",
+                    "label": "Column 1/3 - Background Color",
                     "name": "column_13_1_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -469,7 +469,7 @@
                 },
                 {
                     "key": "field_6710ff23bacd5",
-                    "label": "Column 1\/3 - Text Color",
+                    "label": "Column 1/3 - Text Color",
                     "name": "column_13_1_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -501,7 +501,7 @@
                 },
                 {
                     "key": "field_661e86439ac7e",
-                    "label": "Column 1\/3",
+                    "label": "Column 1/3",
                     "name": "column_13_1",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -530,7 +530,7 @@
                 },
                 {
                     "key": "field_6710ff50bacd6",
-                    "label": "Column 2\/3 - Background Color",
+                    "label": "Column 2/3 - Background Color",
                     "name": "column_23_2_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -562,7 +562,7 @@
                 },
                 {
                     "key": "field_6710ff85bacd7",
-                    "label": "Column 2\/3 - Text Color",
+                    "label": "Column 2/3 - Text Color",
                     "name": "column_23_2_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -594,7 +594,7 @@
                 },
                 {
                     "key": "field_661e87aab36f6",
-                    "label": "Column 2\/3",
+                    "label": "Column 2/3",
                     "name": "column_23_2",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -623,7 +623,7 @@
                 },
                 {
                     "key": "field_6711026988d6e",
-                    "label": "Column 2\/3 - Background Color",
+                    "label": "Column 2/3 - Background Color",
                     "name": "column_23_1_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -655,7 +655,7 @@
                 },
                 {
                     "key": "field_6711029788d6f",
-                    "label": "Column 2\/3 - Text Color",
+                    "label": "Column 2/3 - Text Color",
                     "name": "column_23_1_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -687,7 +687,7 @@
                 },
                 {
                     "key": "field_661e87bfb36f7",
-                    "label": "Column 2\/3",
+                    "label": "Column 2/3",
                     "name": "column_23_1",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -716,7 +716,7 @@
                 },
                 {
                     "key": "field_671102b588d70",
-                    "label": "Column 1\/3 - Background Color",
+                    "label": "Column 1/3 - Background Color",
                     "name": "column_13_2_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -748,7 +748,7 @@
                 },
                 {
                     "key": "field_671102d788d71",
-                    "label": "Column 1\/3 - Text Color",
+                    "label": "Column 1/3 - Text Color",
                     "name": "column_13_2_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -780,7 +780,7 @@
                 },
                 {
                     "key": "field_661e87dcb36f8",
-                    "label": "Column 1\/3",
+                    "label": "Column 1/3",
                     "name": "column_13_2",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -809,7 +809,7 @@
                 },
                 {
                     "key": "field_671104b04132b",
-                    "label": "Column 2\/5 - Background Color",
+                    "label": "Column 2/5 - Background Color",
                     "name": "column_25_1_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -841,7 +841,7 @@
                 },
                 {
                     "key": "field_671104d94132c",
-                    "label": "Column 2\/5 - Text Color",
+                    "label": "Column 2/5 - Text Color",
                     "name": "column_25_1_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -873,7 +873,7 @@
                 },
                 {
                     "key": "field_661e87f5b36f9",
-                    "label": "Column 2\/5",
+                    "label": "Column 2/5",
                     "name": "column_25_1",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -902,7 +902,7 @@
                 },
                 {
                     "key": "field_671104fa4132d",
-                    "label": "Column 3\/5 - Background Color",
+                    "label": "Column 3/5 - Background Color",
                     "name": "column_35_2_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -934,7 +934,7 @@
                 },
                 {
                     "key": "field_671105174132e",
-                    "label": "Column 3\/5 - Text Color",
+                    "label": "Column 3/5 - Text Color",
                     "name": "column_35_2_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -966,7 +966,7 @@
                 },
                 {
                     "key": "field_661e8818b36fa",
-                    "label": "Column 3\/5",
+                    "label": "Column 3/5",
                     "name": "column_35_2",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -995,7 +995,7 @@
                 },
                 {
                     "key": "field_671106f5c38cc",
-                    "label": "Column 3\/5 - Background Color",
+                    "label": "Column 3/5 - Background Color",
                     "name": "column_35_1_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -1027,7 +1027,7 @@
                 },
                 {
                     "key": "field_6711071cc38cd",
-                    "label": "Column 3\/5 - Text Color",
+                    "label": "Column 3/5 - Text Color",
                     "name": "column_35_1_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -1059,7 +1059,7 @@
                 },
                 {
                     "key": "field_661e882db36fb",
-                    "label": "Column 3\/5",
+                    "label": "Column 3/5",
                     "name": "column_35_1",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -1088,7 +1088,7 @@
                 },
                 {
                     "key": "field_67110735c38ce",
-                    "label": "Column 2\/5 - Background Color",
+                    "label": "Column 2/5 - Background Color",
                     "name": "column_25_2_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -1120,7 +1120,7 @@
                 },
                 {
                     "key": "field_67110751c38cf",
-                    "label": "Column 2\/5 - Text Color",
+                    "label": "Column 2/5 - Text Color",
                     "name": "column_25_2_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -1152,7 +1152,7 @@
                 },
                 {
                     "key": "field_661e884cb36fc",
-                    "label": "Column 2\/5",
+                    "label": "Column 2/5",
                     "name": "column_25_2",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -1181,7 +1181,7 @@
                 },
                 {
                     "key": "field_671109fd54023",
-                    "label": "Column 1\/3 - Background Color",
+                    "label": "Column 1/3 - Background Color",
                     "name": "column_13_1_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -1213,7 +1213,7 @@
                 },
                 {
                     "key": "field_67110a2754024",
-                    "label": "Column 1\/3 - Text Color",
+                    "label": "Column 1/3 - Text Color",
                     "name": "column_13_1_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -1245,7 +1245,7 @@
                 },
                 {
                     "key": "field_661e885cb36fd",
-                    "label": "Column 1\/3",
+                    "label": "Column 1/3",
                     "name": "column_13_1",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -1274,7 +1274,7 @@
                 },
                 {
                     "key": "field_67110abceac22",
-                    "label": "Column 1\/3 - Background Color",
+                    "label": "Column 1/3 - Background Color",
                     "name": "column_13_2_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -1306,7 +1306,7 @@
                 },
                 {
                     "key": "field_67110ad2eac23",
-                    "label": "Column 1\/3 - Text Color",
+                    "label": "Column 1/3 - Text Color",
                     "name": "column_13_2_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -1338,7 +1338,7 @@
                 },
                 {
                     "key": "field_661e8877b36fe",
-                    "label": "Column 1\/3",
+                    "label": "Column 1/3",
                     "name": "column_13_2",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -1367,7 +1367,7 @@
                 },
                 {
                     "key": "field_67110ae0eac24",
-                    "label": "Column 1\/3 - Background Color",
+                    "label": "Column 1/3 - Background Color",
                     "name": "column_13_3_background_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -1399,7 +1399,7 @@
                 },
                 {
                     "key": "field_67110af2eac25",
-                    "label": "Column 1\/3 - Text Color",
+                    "label": "Column 1/3 - Text Color",
                     "name": "column_13_3_text_color",
                     "aria-label": "",
                     "type": "color_picker",
@@ -1431,7 +1431,7 @@
                 },
                 {
                     "key": "field_661e8883b36ff",
-                    "label": "Column 1\/3",
+                    "label": "Column 1/3",
                     "name": "column_13_3",
                     "aria-label": "",
                     "type": "wysiwyg",
@@ -1466,7 +1466,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/grid-block"
+                "value": "acf/grid-block"
             }
         ]
     ],
@@ -1480,5 +1480,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1773087352
+    "modified": 1774354101
 }
