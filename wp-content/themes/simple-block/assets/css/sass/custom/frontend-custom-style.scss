@@ -15,20 +15,40 @@ html {
 }
 
 :root {
-	--current-theme-bg: var(--wp--preset--color--base, #ffffff);
+	--current-theme-bg: var(--wp--preset--color--base-2, #f9f9f9);
 	--current-theme-text: var(--wp--preset--color--contrast, #00022e);
 	--current-theme-accent: var(--wp--preset--color--accent, #1cc8ff);
 }
 
 body, .wp-site-blocks, .site-main {
-	transition: background-color 0.4s ease-out, color 0.4s ease-out; // Short transition for small jumps
+	transition: background-color 0.3s ease-out, color 0.3s ease-out; // Short transition for small jumps
 	background-color: var(--current-theme-bg) !important;
-	color: var(--current-theme-text) !important;
+	color: var(--current-theme-text);
 }
 
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, p, li, span {
-	color: var(--current-theme-text) !important;
+.wp-site-blocks {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	.h1,
+	.h2,
+	.h3,
+	.h4,
+	.h5,
+	.h6,
+	p,
+	li,
+	span:not(.wp-block-navigation-item__label) {
+		&:not(.has-text-color) {
+			color: var(--current-theme-text);
+		}
+	}
 }
+
+
 
 a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	color: var(--current-theme-accent);
@@ -100,7 +120,6 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		font-family: $heading-font;
 		font-weight: 500;
 		line-height: 1.4;
-		color: $accent-color;
 	}
 	.h1 {
 		font-size: $h1-font-size;
@@ -621,10 +640,6 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 			margin-bottom: 0 !important;
 		}
 	}
-	.main-gradient {
-		background: $accent-2-color;
-		background: linear-gradient(45deg, $accent-2-color 0%, $accent-color 100%);
-	}
 	.social-icons {
 		display: flex;
 		align-items: center;
@@ -773,13 +788,13 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		gap: .6rem;
 	}
 	.current {
-		color: $accent-color;
+		color: var(--current-theme-accent);
 	}
 	a {
 		text-decoration: none;
-		color: $accent-2-color;
+		color: var(--current-theme-accent);
 		&:hover {
-			color: $accent-color;
+			color: var(--current-theme-accent);
 		}
 	}
 }
@@ -835,7 +850,7 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	h3 {
 		margin-bottom: 1.5rem;
 		font-size: $h6-font-size;
-		color: $contrast-color;
+		color: var(--current-theme-text);
 	}
 	&:before {
 		content: '';
@@ -870,7 +885,7 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	}
 	&.social-info-wrp {
 		svg, path {
-			fill: $accent-2-color;
+			fill: var(--current-theme-accent);
 		}
 	}
 }
@@ -1092,7 +1107,9 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 			background-image: -webkit-linear-gradient(top, rgba(232, 203, 144, 0.8) 0%, rgba(214, 173, 90, 0.8) 100%);
 			transition: all 0.3s ease-in-out;
 			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
 			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
 
 			* {
 				color: #333333;

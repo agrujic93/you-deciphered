@@ -38,23 +38,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	const themeConfigs = {
 		'dark': {
-			'--current-theme-bg': '#1a1a1a',
+			'--current-theme-bg': '#00022e',
 			'--current-theme-text': '#ffffff',
 			'--current-theme-accent': '#1cc8ff'
 		},
 		'light': {
-			'--current-theme-bg': '#ffffff',
+			'--current-theme-bg': '#f9f9f9',
 			'--current-theme-text': '#00022e',
-			'--current-theme-accent': '#4a84ff'
+			'--current-theme-accent': '#1cc8ff'
 		},
 		'accent': {
 			'--current-theme-bg': '#024b6c',
 			'--current-theme-text': '#ffffff',
-			'--current-theme-accent': '#f8f279'
+			'--current-theme-accent': '#1cc8ff'
 		}
 	};
 
-	blocksWithTheme.forEach((block) => {
+	blocksWithTheme.forEach((block, index) => {
 		const theme = block.getAttribute('data-theme');
 		const config = themeConfigs[theme];
 		if (!config) return;
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				trigger: block,
 				start: 'top 80%', // Start transition as the block enters the lower part of viewport
 				end: 'top 20%',   // Finalize as it reaches the upper part
-				scrub: 1,         // Follows scroll speed with subtle lag for smooth feel
+				scrub: .5,         // Follows scroll speed with subtle lag for smooth feel
 				overwrite: 'auto',
 				onEnter: () => {
 					document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
@@ -75,6 +75,13 @@ document.addEventListener('DOMContentLoaded', function() {
 				onEnterBack: () => {
 					document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
 					document.body.classList.add(`theme-${theme}`);
+				},
+				onLeaveBack: () => {
+					document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
+					if (index > 0) {
+						const prevTheme = blocksWithTheme[index - 1].getAttribute('data-theme');
+						document.body.classList.add(`theme-${prevTheme}`);
+					}
 				}
 			}
 		});
