@@ -342,7 +342,7 @@ function cwp_register_block_script() {
 	wp_register_script(
 		'header-js',
 		$header_js_url, // URL to the file
-		array('jquery'), // Dependencies, if any
+		array('jquery', 'gsap'), // Dependencies, if any
 		file_exists( $header_js_path ) ? filemtime( $header_js_path ) : '1.0.0' // Version based on file modification time
 	);
 

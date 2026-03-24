@@ -66,12 +66,38 @@
 				list-style: none;
 				margin: 0;
 				padding: 0;
+				position: relative;
+
+				.nav-blob {
+					position: absolute;
+					background: $contrast-color;
+					border-radius: 10rem;
+					z-index: 0;
+					pointer-events: none;
+					opacity: 0;
+					visibility: hidden;
+
+					@media (max-width: 1024px) {
+						display: none !important;
+					}
+				}
+
+				@media (min-width: 1025px) {
+					.wp-block-navigation-item > a {
+						color: #111;
+						transition: color 0.3s ease;
+
+						&.nav-link-active {
+							color: #fff !important;
+						}
+					}
+				}
 			}
 
 			.wp-block-navigation-item {
 				position: relative;
 
-				a {
+				> a {
 					font-size: 1.4rem;
 					font-weight: 600;
 					text-transform: uppercase;
@@ -85,9 +111,11 @@
 					display: flex;
 					align-items: center;
 					gap: 0.5rem;
+					position: relative;
+					z-index: 1;
 
 					&:hover {
-						background: rgba(0, 0, 0, 0.05);
+						background: transparent !important;
 					}
 				}
 
@@ -104,7 +132,7 @@
 				}
 
 				&.current-menu-item > a {
-					background: #000;
+					background: transparent !important;
 					color: #fff;
 				}
 
@@ -378,6 +406,10 @@
 					flex-direction: column;
 					align-items: flex-start;
 					gap: 1rem;
+
+					.nav-blob {
+						border-radius: 0;
+					}
 
 					.wp-block-navigation-item {
 						width: 100%;
