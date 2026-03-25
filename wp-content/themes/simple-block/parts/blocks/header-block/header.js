@@ -28,7 +28,7 @@
         const $navContainer = $('.central-nav-pill .wp-block-navigation__container, .central-nav-pill .wp-block-navigation-container');
         const isDesktop = () => window.innerWidth > 1024;
 
-        if ($navContainer.length && isDesktop()) {
+        if ($navContainer.length) {
             if (!window.gsap) {
                 console.warn('GSAP is required for header blob navigation.');
                 return;
@@ -39,62 +39,116 @@
 
             const $blob = $('<div class="nav-blob"></div>').appendTo($navContainer);
             const $links = $navContainer.children('.wp-block-navigation-item').children('a');
-            
-            const moveBlob = (element, fast = false) => {
-                const $target = $(element);
-                
-                // Remove active class from all links
-                $links.removeClass('nav-link-active');
+            const navLinkEls = $links.toArray(); // raw DOM elements for fast comparison
+            const navContainerEl = $navContainer[0];
 
-                if (!$target.length) {
-                    gsap.to($blob, { autoAlpha: 0, duration: 0.3 });
-                    return;
-                }
+            // Start fully hidden
+            gsap.set($blob, { autoAlpha: 0 });
 
-                // Add active class to the targeted link
-                $target.addClass('nav-link-active');
+            // --- Rock-solid GSAP Implementation ---
+            // 1. Pointer Events: immune to typical mouse event dropping on modern browsers.
+            // 2. document.pointerleave: catches when the cursor leaves the browser entirely.
+            // 3. killTweensOf: strictly controls GSAP overlap without relying on 'overwrite: "all"'.
 
-                const targetOffset = $target.offset();
-                const containerOffset = $navContainer.offset();
+            gsap.set($blob, { autoAlpha: 0 });
 
-                gsap.to($blob, {
-                    left: targetOffset.left - containerOffset.left,
-                    top: targetOffset.top - containerOffset.top,
-                    width: $target.outerWidth(),
-                    height: $target.outerHeight(),
-                    autoAlpha: 1,
-                    duration: fast ? 0 : 0.45,
-                    ease: "power3.out",
-                    overwrite: "all"
-                });
-            };
+            let navTimeout = null;
+            let isInsideNav = false;
 
             const getActiveLink = () => {
                 return $navContainer.children('.current-menu-item, .current-menu-ancestor, .current_page_item, .current_page_ancestor').children('a').first();
             };
 
-            // Initial Position
+            const positionBlob = ($target, fast = false) => {
+                gsap.killTweensOf($blob[0]);
+
+                const targetOffset = $target.offset();
+                const containerOffset = $navContainer.offset();
+
+                gsap.to($blob[0], {
+                    left: targetOffset.left - containerOffset.left,
+                    top: targetOffset.top - containerOffset.top,
+                    width: $target.outerWidth(),
+                    height: $target.outerHeight(),
+                    autoAlpha: 1,
+                    duration: fast ? 0 : 0.35,
+                    ease: "power3.out"
+                });
+            };
+
+            const returnToActive = () => {
+                $links.removeClass('nav-link-active');
+                const $active = getActiveLink();
+
+                if ($active.length) {
+                    $active.addClass('nav-link-active');
+                    positionBlob($active);
+                } else {
+                    gsap.killTweensOf($blob[0]);
+                    gsap.to($blob[0], { autoAlpha: 0, duration: 0.2 });
+                }
+            };
+
+            // Start condition
             const $activeLink = getActiveLink();
             if ($activeLink.length) {
-                moveBlob($activeLink, true);
+                $activeLink.addClass('nav-link-active');
+                positionBlob($activeLink, true);
             }
 
-            $links.on('mouseenter', function() {
-                moveBlob($(this));
+            // Hover over a specific link
+            $links.on('pointerenter', function() {
+                clearTimeout(navTimeout);
+                isInsideNav = true;
+
+                $links.removeClass('nav-link-active');
+                $(this).addClass('nav-link-active');
+                positionBlob($(this));
             });
 
-            $navContainer.on('mouseleave', function() {
-                moveBlob(getActiveLink());
+            // Leave the entire container
+            $navContainer.on('pointerleave', function(e) {
+                isInsideNav = false;
+                clearTimeout(navTimeout);
+                
+                // Short buffer lets the pointer enter a submenu or correct itself without hiding
+                navTimeout = setTimeout(() => {
+                    if (!isInsideNav) {
+                        returnToActive();
+                    }
+                }, 50);
             });
-            
+
+            // Re-enter the container padding (if they are in gap)
+            $navContainer.on('pointerenter', function() {
+                clearTimeout(navTimeout);
+                isInsideNav = true;
+            });
+
+            // If the pointer leaves the whole webpage (browser window / toolbar)
+            $(document).on('pointerleave', function(e) {
+                if (!e.relatedTarget || e.relatedTarget.nodeName === "HTML") {
+                    isInsideNav = false;
+                    clearTimeout(navTimeout);
+                    returnToActive();
+                }
+            });
+
             // Recalculate on window resize
             $(window).on('resize', function() {
                 if (!isDesktop()) {
-                    gsap.to($blob, { autoAlpha: 0, scale: 0, duration: 0 });
+                    gsap.killTweensOf($blob[0]);
+                    gsap.set($blob[0], { autoAlpha: 0 });
                     $links.removeClass('nav-link-active');
                 } else {
                     const $currentActive = getActiveLink();
-                    if ($currentActive.length) moveBlob($currentActive, true);
+                    if ($currentActive.length) {
+                        $currentActive.addClass('nav-link-active');
+                        positionBlob($currentActive, true);
+                    } else {
+                        gsap.killTweensOf($blob[0]);
+                        gsap.set($blob[0], { autoAlpha: 0 });
+                    }
                 }
             });
         }

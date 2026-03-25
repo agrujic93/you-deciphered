@@ -84,7 +84,7 @@
 
 				@media (min-width: 1025px) {
 					.wp-block-navigation-item > a {
-						color: #111;
+						color: $contrast-color;
 						transition: color 0.3s ease;
 
 						&.nav-link-active {
@@ -103,7 +103,7 @@
 					text-transform: uppercase;
 					letter-spacing: 0.05em;
 					padding: 0.8rem 1.6rem;
-					color: #111;
+					color: $contrast-color;
 					border-radius: 10rem;
 					transition: all 0.3s ease;
 					text-decoration: none;
@@ -133,7 +133,7 @@
 
 				&.current-menu-item > a {
 					background: transparent !important;
-					color: #fff;
+					// Text color is managed by JS via .nav-link-active — do not set color here
 				}
 
 				&:hover > a::after {
@@ -177,7 +177,7 @@
 						border-radius: 0;
 						display: block;
 						font-size: 1.4rem;
-						color: #111;
+						color: $contrast-color;
 						background: transparent !important;
 
 						&:hover {
@@ -212,13 +212,13 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			height: 4.8rem; // Match nav item height logic
+			height: 3.6rem; // Match nav item height logic
 			min-width: 4.8rem;
 			border-radius: 10rem;
 			transition: all 0.3s ease;
 
 			a {
-				color: #111;
+				color: $contrast-color;
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -250,7 +250,7 @@
 				cursor: pointer;
 				outline: none;
 				padding: 0 0.5rem;
-				color: #111;
+				color: $contrast-color;
 			}
 
 			ul {
@@ -273,7 +273,7 @@
 				position: absolute;
 				top: 0.5rem;
 				right: 0.5rem;
-				background: #000;
+				background: $contrast-color;
 				color: #fff;
 				font-size: 1rem;
 				width: 1.6rem;
@@ -341,7 +341,7 @@
 			transition: border-color 0.3s ease;
 
 			&:focus {
-				border-color: #000;
+				border-color: $contrast-color;
 			}
 		}
 	}
@@ -417,7 +417,7 @@
 							font-size: 2.2rem;
 							padding: 1.5rem 0;
 							border-radius: 0;
-							color: #000;
+							color: $contrast-color;
 							width: 100%;
 							justify-content: space-between;
 						}
@@ -479,7 +479,7 @@
 			.icon-bar {
 				width: 2.6rem;
 				height: 2px;
-				background: #000;
+				background: $contrast-color;
 				transition: all 0.3s ease;
 			}
 
