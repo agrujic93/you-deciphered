@@ -54,6 +54,11 @@ else : /* Rendering in editor body. */
 			if ( ! empty( $events ) ) : ?>
 				<div class="footer-col footer-calendar uk-width-1-2@m uk-width-1-4@l">
 					<div class="footer-col-inner">
+					<?php if ( $lang === 'en' ) : ?>
+						<h2 class="footer-calendar-title">Calendar</h3>
+					<?php else : ?>
+						<h2 class="footer-calendar-title">Kalendar</h3>
+					<?php endif; ?>
 						<ul class="footer-events-list">
 							<?php foreach ( $events as $event ) : ?>
 								<li class="footer-event-item">
@@ -75,6 +80,11 @@ else : /* Rendering in editor body. */
 			<?php /* Col 3: Footer Menu */ ?>
 			<div class="footer-col footer-nav uk-width-1-2@m uk-width-1-4@l">
 				<div class="footer-col-inner">
+					<?php if ( $lang === 'en' ) : ?>
+						<h2 class="footer-nav-title">Useful Links</h2>
+					<?php else : ?>
+						<h2 class="footer-nav-title">Korisni Linkovi</h2>
+					<?php endif; ?>
 					<?php
 					$footer_menu_title = ( $lang === 'en' ) ? 'Footer Menu EN' : 'Footer Menu SR';
 					$footer_nav_posts  = get_posts( array(
@@ -94,13 +104,18 @@ else : /* Rendering in editor body. */
 			<?php /* Col 4: Social networks + phone + email */ ?>
 			<div class="footer-col footer-contact uk-width-1-2@m uk-width-1-4@l">
 				<div class="footer-col-inner">
-
+					<?php if ( $lang === 'en' ) : ?>
+						<h2 class="footer-contact-title">Contact</h2>
+					<?php else : ?>
+						<h2 class="footer-contact-title">Kontakt</h2>
+					<?php endif; ?>
 					<?php /* Social icons */ ?>
 					<?php if ( have_rows( 'social_networks_' . $lang, 'option' ) ) : ?>
 						<div class="footer-social-icons">
 							<?php while ( have_rows( 'social_networks_' . $lang, 'option' ) ) : the_row(); ?>
 								<?php
 								$icon = get_sub_field( 'footer_icon_' . $lang, 'option' );
+								$social_title = get_sub_field( 'social_network_title_' . $lang, 'option' );
 								$url  = get_sub_field( 'url_' . $lang, 'option' );
 								?>
 								<?php if ( $url && $icon ) : ?>
@@ -109,9 +124,14 @@ else : /* Rendering in editor body. */
 										target="_blank"
 										rel="noopener noreferrer"
 										class="footer-social-link"
-										aria-label="<?php echo esc_attr( $icon['alt'] ); ?>"
+										aria-label="<?php echo esc_attr( $social_title ); ?>"
 									>
-										<img src="<?php echo esc_url( $icon['url'] ); ?>" alt="<?php echo esc_attr( $icon['alt'] ); ?>">
+										<?php if ( $social_title ) : ?>
+											<span class="footer-social-title"><?php echo esc_html( $social_title ); ?></span>
+										<?php endif; ?>
+										<?php if ( $icon ) : ?>
+											<img src="<?php echo esc_url( $icon['url'] ); ?>" alt="<?php echo esc_attr( $icon['alt'] ); ?>">
+										<?php endif; ?>
 									</a>
 								<?php endif; ?>
 							<?php endwhile; ?>

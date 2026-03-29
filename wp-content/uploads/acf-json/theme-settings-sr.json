@@ -290,7 +290,7 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "table",
+            "layout": "block",
             "pagination": 0,
             "min": 0,
             "max": 0,
@@ -299,13 +299,54 @@
             "rows_per_page": 20,
             "sub_fields": [
                 {
+                    "key": "field_69c901c94b1df",
+                    "label": "Social Network Title",
+                    "name": "social_network_title_sr",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_69a30cd881470"
+                },
+                {
+                    "key": "field_69a30cd88556b",
+                    "label": "URL",
+                    "name": "url_sr",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "parent_repeater": "field_69a30cd881470"
+                },
+                {
                     "key": "field_69a30cd884cd9",
                     "label": "Header Icon",
                     "name": "header_icon_sr",
                     "aria-label": "",
                     "type": "image",
                     "instructions": "",
-                    "required": 1,
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -332,7 +373,7 @@
                     "aria-label": "",
                     "type": "image",
                     "instructions": "",
-                    "required": 1,
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "",
@@ -350,25 +391,6 @@
                     "mime_types": "",
                     "allow_in_bindings": 0,
                     "preview_size": "thumbnail",
-                    "parent_repeater": "field_69a30cd881470"
-                },
-                {
-                    "key": "field_69a30cd88556b",
-                    "label": "URL",
-                    "name": "url_sr",
-                    "aria-label": "",
-                    "type": "url",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
                     "parent_repeater": "field_69a30cd881470"
                 }
             ]
@@ -453,5 +475,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1774354101
+    "modified": 1774781280
 }
