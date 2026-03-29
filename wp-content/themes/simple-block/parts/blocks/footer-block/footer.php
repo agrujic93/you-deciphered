@@ -13,18 +13,28 @@ if ( isset( $block['data']['preview_image_help'] ) ) :    /* rendering in insert
 	echo '<img src="' . esc_url( get_template_directory_uri() ) . esc_attr( $block['data']['preview_image_help'] ) . '" style="width:100%; height:auto;">';
 
 else : /* Rendering in editor body. */
-	$lang = pll_current_language( 'slug' );
+	$lang = function_exists( 'pll_current_language' ) ? pll_current_language( 'slug' ) : 'en';
+	$lang = in_array( $lang, array( 'en', 'sr' ), true ) ? $lang : 'en';
+
+	$footer_logo      = get_field( 'footer_logo_' . $lang, 'option' );
+	$footer_logo_alt  = '';
+	$newsletter_form  = get_field( 'main_contact_form_shortcode_' . $lang, 'option' );
+	$email            = get_field( 'email_' . $lang, 'option' );
+
+	if ( is_array( $footer_logo ) ) {
+		$footer_logo_alt = ! empty( $footer_logo['alt'] ) ? $footer_logo['alt'] : ( $footer_logo['title'] ?? '' );
+	}
 	?>
 
 	<div class="footer-inner">
 
 		<?php /* ── Row 1: Logo ── */ ?>
-		<?php if ( get_field( 'footer_logo_' . $lang, 'option' ) ) : ?>
+		<?php if ( $footer_logo ) : ?>
 			<div class="footer-logo-row">
 				<a class="footer-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" aria-label="<?php bloginfo( 'name' ); ?>">
 					<img
-						src="<?php echo esc_url( get_field( 'footer_logo_' . $lang, 'option' )['sizes']['medium'] ); ?>"
-						alt="<?php echo esc_attr( get_field( 'footer_logo_' . $lang, 'option' )['alt'] ); ?>"
+						src="<?php echo esc_url( $footer_logo['sizes']['medium'] ); ?>"
+						alt="<?php echo esc_attr( $footer_logo_alt ); ?>"
 					>
 				</a>
 			</div>
@@ -36,28 +46,32 @@ else : /* Rendering in editor body. */
 			<?php /* Col 1: Newsletter subscribe form */ ?>
 			<div class="footer-col footer-newsletter uk-width-1-2@m uk-width-expand@l">
 				<div class="footer-col-inner">
-					<?php if ( $lang === 'en' ) : ?>
-						<?php echo do_shortcode( '[contact-form-7 id="f49eeaa" title="Newsletter En"]' ); ?>
-					<?php else : ?>
-						<?php echo do_shortcode( '[contact-form-7 id="0827c8f" title="Newsletter Sr"]' ); ?>
-					<?php endif; ?>
+					<?php
+					if ( $newsletter_form ) {
+						echo do_shortcode( $newsletter_form );
+					} elseif ( $lang === 'en' ) {
+						echo do_shortcode( '[contact-form-7 id="f49eeaa" title="Newsletter En"]' );
+					} else {
+						echo do_shortcode( '[contact-form-7 id="0827c8f" title="Newsletter Sr"]' );
+					}
+					?>
 				</div>
 			</div>
 
 			<?php /* Col 2: Events Calendar */ ?>
 			<?php
-			$events = tribe_get_events( [
+			$events = function_exists( 'tribe_get_events' ) ? tribe_get_events( [
 				'posts_per_page' => 3,
 				'start_date'     => 'now',
-				] );
+				] ) : array();
 
 			if ( ! empty( $events ) ) : ?>
 				<div class="footer-col footer-calendar uk-width-1-2@m uk-width-1-4@l">
 					<div class="footer-col-inner">
 					<?php if ( $lang === 'en' ) : ?>
-						<h2 class="footer-calendar-title">Calendar</h3>
+						<h2 class="footer-calendar-title">Calendar</h2>
 					<?php else : ?>
-						<h2 class="footer-calendar-title">Kalendar</h3>
+						<h2 class="footer-calendar-title">Kalendar</h2>
 					<?php endif; ?>
 						<ul class="footer-events-list">
 							<?php foreach ( $events as $event ) : ?>
@@ -114,23 +128,31 @@ else : /* Rendering in editor body. */
 						<div class="footer-social-icons">
 							<?php while ( have_rows( 'social_networks_' . $lang, 'option' ) ) : the_row(); ?>
 								<?php
-								$icon = get_sub_field( 'footer_icon_' . $lang, 'option' );
-								$social_title = get_sub_field( 'social_network_title_' . $lang, 'option' );
-								$url  = get_sub_field( 'url_' . $lang, 'option' );
+								$icon         = get_sub_field( 'footer_icon_' . $lang );
+								$icon         = $icon ?: get_sub_field( 'header_icon_' . $lang );
+								$social_title = get_sub_field( 'social_network_title_' . $lang );
+								$url          = get_sub_field( 'url_' . $lang );
+								$link_label   = $social_title;
+
+								if ( ! $link_label && $url ) {
+									$parsed_url = wp_parse_url( $url, PHP_URL_HOST );
+									$link_label = $parsed_url ? preg_replace( '/^www\./', '', $parsed_url ) : '';
+								}
 								?>
-								<?php if ( $url && $icon ) : ?>
+								<?php if ( $url ) : ?>
 									<a
 										href="<?php echo esc_url( $url ); ?>"
 										target="_blank"
 										rel="noopener noreferrer"
 										class="footer-social-link"
-										aria-label="<?php echo esc_attr( $social_title ); ?>"
+										aria-label="<?php echo esc_attr( $link_label ); ?>"
 									>
-										<?php if ( $social_title ) : ?>
-											<span class="footer-social-title"><?php echo esc_html( $social_title ); ?></span>
+										<?php if ( $link_label ) : ?>
+											<span class="footer-social-title"><?php echo esc_html( $link_label ); ?></span>
 										<?php endif; ?>
-										<?php if ( $icon ) : ?>
-											<img src="<?php echo esc_url( $icon['url'] ); ?>" alt="<?php echo esc_attr( $icon['alt'] ); ?>">
+										<?php if ( is_array( $icon ) && ! empty( $icon['url'] ) ) : ?>
+											<?php $icon_alt = ! empty( $icon['alt'] ) ? $icon['alt'] : ( $icon['title'] ?? $link_label ); ?>
+											<img src="<?php echo esc_url( $icon['url'] ); ?>" alt="<?php echo esc_attr( $icon_alt ); ?>">
 										<?php endif; ?>
 									</a>
 								<?php endif; ?>
@@ -142,9 +164,9 @@ else : /* Rendering in editor body. */
 					<?php if ( have_rows( 'phone_numbers_' . $lang, 'option' ) ) : ?>
 						<div class="footer-phones">
 							<?php while ( have_rows( 'phone_numbers_' . $lang, 'option' ) ) : the_row(); ?>
-								<?php $phone = get_sub_field( 'phone_' . $lang, 'option' ); ?>
+								<?php $phone = get_sub_field( 'phone_' . $lang ); ?>
 								<?php if ( $phone ) : ?>
-									<a class="footer-phone" href="tel:<?php echo esc_attr( $phone ); ?>">
+									<a class="footer-phone" href="tel:<?php echo esc_attr( preg_replace( '/\s+/', '', $phone ) ); ?>">
 										<?php echo esc_html( $phone ); ?>
 									</a>
 								<?php endif; ?>
@@ -153,9 +175,9 @@ else : /* Rendering in editor body. */
 					<?php endif; ?>
 
 					<?php /* Email */ ?>
-					<?php if ( get_field( 'email_' . $lang, 'option' ) ) : ?>
-						<a class="footer-email" href="mailto:<?php echo esc_attr( get_field( 'email_' . $lang, 'option' ) ); ?>">
-							<?php echo esc_html( get_field( 'email_' . $lang, 'option' ) ); ?>
+					<?php if ( $email ) : ?>
+						<a class="footer-email" href="mailto:<?php echo esc_attr( sanitize_email( $email ) ); ?>">
+							<?php echo esc_html( $email ); ?>
 						</a>
 					<?php endif; ?>
 
