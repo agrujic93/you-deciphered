@@ -40,7 +40,7 @@ $image_2   = get_field( 'image_2' );
 $wrapper_classes = $main_block_class . ( $has_video && $mp4_video ? ' has-video' : ' no-video' );
 
 ?>
-<div <?php echo $anchor; ?> data-theme="<?php echo esc_attr( $color_variant ); ?>" class="<?php echo esc_attr( $wrapper_classes ); ?>" <?php echo $wrapper_attributes; ?>>
+<section <?php echo $anchor; ?> data-theme="<?php echo esc_attr( $color_variant ); ?>" class="<?php echo esc_attr( $wrapper_classes ); ?>" <?php echo $wrapper_attributes; ?>>
 	<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
 
 	<?php if ( $has_video && $mp4_video ) : ?>
@@ -55,7 +55,7 @@ $wrapper_classes = $main_block_class . ( $has_video && $mp4_video ? ' has-video'
 	<?php
 	$height_class = ( $has_video && $mp4_video ) ? ' uk-height-100vh' : '';
 	?>
-	<div class="hero-advanced-content-wrapper uk-container uk-container-expand uk-position-relative uk-flex uk-flex-bottom<?php echo $height_class; ?>">
+	<div class="hero-advanced-content-wrapper uk-position-relative uk-flex uk-flex-bottom<?php echo $height_class; ?>">
 
 		<?php if ( $image_1 ) : ?>
 			<img src="<?php echo esc_url( $image_1['sizes']['large'] ); ?>" alt="<?php echo esc_attr( $image_1['alt'] ?: $image_1['title'] ); ?>" class="floating-image image-1 uk-position-absolute">
@@ -72,4 +72,4 @@ $wrapper_classes = $main_block_class . ( $has_video && $mp4_video ? ' has-video'
 		</div>
 	</div>
 
-</div>
+</section>

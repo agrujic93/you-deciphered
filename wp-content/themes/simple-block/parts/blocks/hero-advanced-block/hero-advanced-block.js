@@ -57,7 +57,8 @@
 							trigger: $hero[0],
 							start: 'top top',
 							end: 'bottom top',
-							scrub: 1
+							// Lower scrub so the word movement reacts sooner as scrolling begins.
+							scrub: 0.4
 						}
 					});
 				}

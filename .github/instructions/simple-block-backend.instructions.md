@@ -19,10 +19,9 @@ This is a WordPress block theme. Use block-theme/Site Editor patterns.
 - IF image field returns ID, fetch alt from `_wp_attachment_image_alt`.
 
 ## PHP and Assets
-- ALWAYS prefix functions/helpers: `simple_block_`, `ci_`, `cwp_`.
+- ALWAYS prefix functions/helpers: `ci_`, `simple_block_`.
 - ALWAYS keep hooks near declarations and use guards `if ( ! function_exists( '...' ) )`.
 - NEVER use `register_nav_menus()` in this block theme.
-- ALWAYS register block scripts/styles in `init` via `cwp_register_block_script()`.
 - ALWAYS load block assets through `block.json` (`viewScript`/`viewStyle`) so they load only when block is present.
 - ALWAYS enqueue global assets via `enqueue_block_assets`.
 - ALWAYS enqueue editor-only assets via `enqueue_block_editor_assets`.

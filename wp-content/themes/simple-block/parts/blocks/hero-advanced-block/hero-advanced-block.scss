@@ -1,17 +1,44 @@
 @use 'assets/css/sass/custom/theme-variables' as *;
 
+body:has(.hero-advanced-block.has-video) {
+	.site-main {
+		@media screen and (min-width: 1025px) {
+			margin-top: 0;
+		}
+	}
+	.site-header {
+		@media screen and (min-width: 1025px) {
+			position: fixed;
+			width: 100%;
+		}
+	}
+}
+
 .hero-advanced-block {
 	position: relative;
 	width: 100%;
-	overflow: hidden;
-	color: var(--wp--preset--color--contrast);
 
 	&.has-video {
+		display: flex;
+		align-items: flex-end;
+		margin-left: 	calc($g-padding-left * -1) !important;
 		min-height: 100vh;
+		max-width: calc(100% + $g-padding-left + $g-padding-right);
+		width: 100vw;
 		.hero-advanced-headline {
-			color: #ffffff;
+			color: #ffffff !important;
 			position: relative;
 			z-index: 10;
+			span {
+				color: #ffffff !important;
+			}
+		}
+		.hero-advanced-content-wrapper {
+			margin: 0 auto;
+			padding-left: $g-padding-left;
+			padding-right: $g-padding-right;
+			max-width: calc($content-size + $g-padding-left + $g-padding-right);
+			mix-blend-mode: difference;
 		}
 	}
 
@@ -24,23 +51,27 @@
 		z-index: 2;
 		background: rgba(0, 0, 0, 0.3);
 		pointer-events: none;
+		display: none;
 	}
 
 	.hero-advanced-content-wrapper {
 		z-index: 5;
-		padding-bottom: 5rem;
-		padding-top: 15rem;
+		padding-bottom: 7rem;
+		padding-top: 7rem;
 	}
 
 	.hero-text-container {
-		text-align: center;
+		.has-video & {
+			mix-blend-mode: hard-light;
+		}
+		text-align: left;
 		padding-bottom: 2rem;
-
+		mix-blend-mode: hard-light;
 		.hero-advanced-headline {
 			font-family: $heading-font;
 			font-size: clamp(4rem, 10vw, 15rem);
 			font-weight: 700;
-			line-height: 0.9;
+			line-height: 1;
 			text-transform: uppercase;
 			margin: 0;
 			letter-spacing: -0.02em;
@@ -48,38 +79,38 @@
 			.char {
 				display: inline-block;
 				opacity: 0;
-				transform: translateY(100px);
+				transform: translateY(10rem);
 			}
 		}
 	}
 
 	.floating-image {
 		border-radius: var(--wp--preset--spacing--20);
-		z-index: 4;
+		z-index: -1;
 		object-fit: cover;
-		box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+		box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 
 		&.image-1 {
-			width: 20rem;
-			height: 25rem;
+			width: 15rem;
+			height: auto;
 			top: 25%;
 			left: 10%;
-			@media screen and (max-width: 959px) {
-				width: 15rem;
-				height: 20rem;
+			@media screen and (max-width: 1024px) {
+				width: 7rem;
+				height: auto;
 				top: 15%;
 				left: 5%;
 			}
 		}
 
 		&.image-2 {
-			width: 25rem;
-			height: 30rem;
+			width: 20rem;
+			height: auto;
 			top: 50%;
 			right: 5%;
-			@media screen and (max-width: 959px) {
-				width: 15rem;
-				height: 20rem;
+			@media screen and (max-width: 1024px) {
+				width: 7rem;
+				height: auto;
 				top: 40%;
 				right: -5%;
 			}
