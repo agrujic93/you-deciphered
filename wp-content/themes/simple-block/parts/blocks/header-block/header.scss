@@ -1,6 +1,6 @@
 @use 'assets/css/sass/custom/theme-variables' as *;
 
-.site-header {
+.site-header, header.wp-block-template-part {
 	position: sticky;
 	top: 0;
 	z-index: 1000;

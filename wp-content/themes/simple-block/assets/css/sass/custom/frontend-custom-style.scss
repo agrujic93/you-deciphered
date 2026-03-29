@@ -171,19 +171,18 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		text-decoration: none;
 	}
 	input, textarea, select {
-		padding: 1.5rem;
-		background-color: $base-color;
+		padding: 1.2rem;
+		background-color: transparent;
 		font-size: $p-font-size;
 		font-family: $main-font;
-		border: .1rem solid $base-color;
-		border-radius: 1rem;
+		border: .1rem solid $contrast-color;
+		border-radius: 1.2rem;
 	}
 	input[type="submit"] {
 		cursor: pointer;
 	}
 	input::-webkit-input-placeholder {
 		font-family: $main-font;
-		margin-top: 5px;
 		font-size: 1.5rem;
 		color: rgba(2,75,108,.4);
 		letter-spacing: 1px;
@@ -192,7 +191,6 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 
 	input:-moz-placeholder {
 		font-family: $main-font;
-		margin-top: 5px;
 		font-size: 1.5rem;
 		color: rgba(2,75,108,.4);
 		letter-spacing: 1px;
@@ -201,7 +199,6 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 
 	input::-moz-placeholder {
 		font-family: $main-font;
-		margin-top: 5px;
 		font-size: 1.5rem;
 		color: rgba(2,75,108,.4);
 		letter-spacing: 1px;
@@ -210,7 +207,6 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 
 	input:-ms-input-placeholder {
 		font-family: $main-font;
-		margin-top: 5px;
 		font-size: 1.5rem;
 		color: rgba(2,75,108,.4);
 		letter-spacing: 1px;
@@ -280,6 +276,7 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	textarea:focus:-ms-input-placeholder {
 		color: transparent;
 	} /* IE 10+ */
+
 	blockquote {
 		font-size: 1.8rem;
 		cite {
@@ -682,10 +679,10 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		margin-bottom: 1.2rem;
 	}
 	*.ci-label-text {
-		text-transform: uppercase;
-		font-size: 1.4rem;
-		letter-spacing: 1.5px;
-		line-height: 1.3;
+		font-size: 1.3rem;
+		letter-spacing: .12em;
+		line-height: 1.2;
+		font-family: $heading-font;
 	}
 	.sr-only {
 		border: 0 !important;
@@ -827,7 +824,10 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		width: 100%;
 	}
 	input[type="submit"] {
+		padding: 1.2rem 3rem;
 		width: auto;
+		background-color: $accent-color;
+		border-color: $accent-color;
 	}
 	.wpcf7-form div.wpcf7-response-output {
 		margin-bottom: 0;
@@ -835,6 +835,27 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	form.sent {
 		div.wpcf7-response-output {
 			border-color: $accent-2-color;
+		}
+	}
+	.wpcf7-form-control-wrap:has(> .wpcf7-radio, > .wpcf7-checkbox) {
+		display: block;
+		margin-top: 1.5rem;
+		.wpcf7-radio {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1rem 3rem;
+		}
+		.wpcf7-list-item {
+			margin-left: 0;
+			> label {
+				display: flex;
+				align-items: center;
+				gap: .5rem;
+				input {
+					margin: 0;
+					width: auto;
+				}
+			}
 		}
 	}
 }

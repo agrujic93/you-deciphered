@@ -26,7 +26,7 @@ else : /* Rendering in editor body. */
 	}
 	?>
 
-	<div class="footer-inner">
+	<div class="container">
 
 		<?php /* ── Row 1: Logo ── */ ?>
 		<?php if ( $footer_logo ) : ?>
@@ -41,7 +41,7 @@ else : /* Rendering in editor body. */
 		<?php endif; ?>
 
 		<?php /* ── Row 2: 4 columns ── */ ?>
-		<div class="footer-columns uk-grid uk-grid-large" uk-grid>
+		<div class="footer-columns uk-grid" data-uk-grid>
 
 			<?php /* Col 1: Newsletter subscribe form */ ?>
 			<div class="footer-col footer-newsletter uk-width-1-2@m uk-width-expand@l">
@@ -66,12 +66,12 @@ else : /* Rendering in editor body. */
 				] ) : array();
 
 			if ( ! empty( $events ) ) : ?>
-				<div class="footer-col footer-calendar uk-width-1-2@m uk-width-1-4@l">
+				<div class="footer-col footer-calendar uk-width-1-2@m uk-width-1-5@l">
 					<div class="footer-col-inner">
 					<?php if ( $lang === 'en' ) : ?>
-						<h2 class="footer-calendar-title">Calendar</h2>
+						<h2 class="ci-label-text">Calendar</h2>
 					<?php else : ?>
-						<h2 class="footer-calendar-title">Kalendar</h2>
+						<h2 class="ci-label-text">Kalendar</h2>
 					<?php endif; ?>
 						<ul class="footer-events-list">
 							<?php foreach ( $events as $event ) : ?>
@@ -92,12 +92,12 @@ else : /* Rendering in editor body. */
 			<?php endif; ?>
 
 			<?php /* Col 3: Footer Menu */ ?>
-			<div class="footer-col footer-nav uk-width-1-2@m uk-width-1-4@l">
+			<div class="footer-col footer-nav uk-width-1-2@m uk-width-1-5@l">
 				<div class="footer-col-inner">
 					<?php if ( $lang === 'en' ) : ?>
-						<h2 class="footer-nav-title">Useful Links</h2>
+						<h2 class="ci-label-text">Useful Links</h2>
 					<?php else : ?>
-						<h2 class="footer-nav-title">Korisni Linkovi</h2>
+						<h2 class="ci-label-text">Korisni Linkovi</h2>
 					<?php endif; ?>
 					<?php
 					$footer_menu_title = ( $lang === 'en' ) ? 'Footer Menu EN' : 'Footer Menu SR';
@@ -116,12 +116,12 @@ else : /* Rendering in editor body. */
 			</div>
 
 			<?php /* Col 4: Social networks + phone + email */ ?>
-			<div class="footer-col footer-contact uk-width-1-2@m uk-width-1-4@l">
+			<div class="footer-col footer-contact uk-width-1-2@m uk-width-1-5@l">
 				<div class="footer-col-inner">
 					<?php if ( $lang === 'en' ) : ?>
-						<h2 class="footer-contact-title">Contact</h2>
+						<h2 class="ci-label-text">Contact</h2>
 					<?php else : ?>
-						<h2 class="footer-contact-title">Kontakt</h2>
+						<h2 class="ci-label-text">Kontakt</h2>
 					<?php endif; ?>
 					<?php /* Social icons */ ?>
 					<?php if ( have_rows( 'social_networks_' . $lang, 'option' ) ) : ?>
@@ -204,6 +204,6 @@ else : /* Rendering in editor body. */
 			</a>
 		</div><!-- .footer-bottom -->
 
-	</div><!-- .footer-inner -->
+	</div><!-- .container -->
 
 <?php endif; ?>
