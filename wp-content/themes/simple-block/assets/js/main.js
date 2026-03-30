@@ -56,9 +56,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	let lastAppliedTheme = null;
 
-	function applyTheme(theme, direction) {
+	function applyTheme(theme) {
 		if (theme === lastAppliedTheme) return;
-		
+
 		const config = themeConfigs[theme];
 		if (!config) return;
 
@@ -79,38 +79,53 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 
-	blocksWithTheme.forEach((block, index) => {
-		const theme = block.getAttribute('data-theme');
-		
-		ScrollTrigger.create({
-			trigger: block,
-			start: 'top 60%', // Trigger slightly earlier for better feeling
-			end: 'bottom 40%',
-			onEnter: () => applyTheme(theme, 1),
-			onEnterBack: () => applyTheme(theme, -1),
-			onLeave: () => {
-				// Detect if we are moving to next block
-				if (index < blocksWithTheme.length - 1) {
-					// We don't do anything here, let the next block's onEnter handle it
-				}
-			},
-			onLeaveBack: () => {
-				if (index > 0) {
-					const prevTheme = blocksWithTheme[index - 1].getAttribute('data-theme');
-					applyTheme(prevTheme, -1);
-				} else {
-					// Past the first block going up - revert to original state if needed
-					// For now, keep the first theme's variables but maybe remove class
-					document.body.className = document.body.className.replace(/\btheme-\S+/g, '').trim();
-				}
+	function getThemeFromViewportPivot() {
+		const viewportHeight = window.innerHeight;
+		const pivotY = viewportHeight * 0.5;
+		let nearestBlockTheme = null;
+		let nearestDistance = Infinity;
+
+		for (const block of blocksWithTheme) {
+			const theme = block.getAttribute('data-theme');
+			if (!theme || !themeConfigs[theme]) continue;
+
+			const rect = block.getBoundingClientRect();
+
+			// Preferred match: block that intersects viewport center.
+			if (rect.top <= pivotY && rect.bottom >= pivotY) {
+				return theme;
 			}
-		});
+
+			// Fallback: nearest block edge to center.
+			const distanceToPivot = Math.min(
+				Math.abs(rect.top - pivotY),
+				Math.abs(rect.bottom - pivotY)
+			);
+
+			if (distanceToPivot < nearestDistance) {
+				nearestDistance = distanceToPivot;
+				nearestBlockTheme = theme;
+			}
+		}
+
+		return nearestBlockTheme;
+	}
+
+	function syncThemeToViewport() {
+		const activeTheme = getThemeFromViewportPivot();
+		if (activeTheme) {
+			applyTheme(activeTheme);
+		}
+	}
+
+	ScrollTrigger.create({
+		trigger: document.body,
+		start: 'top top',
+		end: 'bottom bottom',
+		onUpdate: syncThemeToViewport,
+		onRefresh: syncThemeToViewport
 	});
 
 	// Initial check on load
-	const firstBlock = blocksWithTheme[0];
-	if (firstBlock) {
-		const theme = firstBlock.getAttribute('data-theme');
-		applyTheme(theme, 1);
-	}
+	syncThemeToViewport();
 });
