@@ -66,7 +66,7 @@ else : /* Rendering in editor body. */
 				] ) : array();
 
 			if ( ! empty( $events ) ) : ?>
-				<div class="footer-col footer-calendar uk-width-1-2@m uk-width-1-5@l">
+				<div class="footer-col footer-calendar uk-width-1-2@m uk-width-1-4@l">
 					<div class="footer-col-inner">
 					<?php if ( $lang === 'en' ) : ?>
 						<h2 class="ci-label-text">Calendar</h2>
@@ -92,7 +92,7 @@ else : /* Rendering in editor body. */
 			<?php endif; ?>
 
 			<?php /* Col 3: Footer Menu */ ?>
-			<div class="footer-col footer-nav uk-width-1-2@m uk-width-1-5@l">
+			<div class="footer-col footer-nav uk-width-1-2@m uk-width-1-6@l">
 				<div class="footer-col-inner">
 					<?php if ( $lang === 'en' ) : ?>
 						<h2 class="ci-label-text">Useful Links</h2>
@@ -116,7 +116,7 @@ else : /* Rendering in editor body. */
 			</div>
 
 			<?php /* Col 4: Social networks + phone + email */ ?>
-			<div class="footer-col footer-contact uk-width-1-2@m uk-width-1-5@l">
+			<div class="footer-col footer-contact uk-width-1-2@m uk-width-1-4@l">
 				<div class="footer-col-inner">
 					<?php if ( $lang === 'en' ) : ?>
 						<h2 class="ci-label-text">Contact</h2>

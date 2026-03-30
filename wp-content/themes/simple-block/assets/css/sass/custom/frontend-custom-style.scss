@@ -171,15 +171,30 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		text-decoration: none;
 	}
 	input, textarea, select {
-		padding: 1.2rem;
+		padding: 1.2rem 2rem;
 		background-color: transparent;
 		font-size: $p-font-size;
 		font-family: $main-font;
 		border: .1rem solid $contrast-color;
-		border-radius: 1.2rem;
+		border-radius: 3rem;
 	}
 	input[type="submit"] {
 		cursor: pointer;
+	}
+	input[type="radio"] {
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 150%;
+		padding: .8rem;
+		border-color: transparent;
+		transition: all .3s ease;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		&:checked {
+			background-color: $accent-color;
+			background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22%23fff%22%20cx%3D%228%22%20cy%3D%228%22%20r%3D%222%22%20%2F%3E%0A%3C%2Fsvg%3E");
+		}
 	}
 	input::-webkit-input-placeholder {
 		font-family: $main-font;
@@ -818,6 +833,8 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 .wpcf7 {
 	.wpcf7-not-valid-tip {
 		position: absolute;
+		top: calc(100% - 1.5rem);
+		left: 0;
 		font-size: .8em;
 	}
 	input, textarea {
@@ -828,6 +845,21 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		width: auto;
 		background-color: $accent-color;
 		border-color: $accent-color;
+		font-weight: 500;
+		font-family: $heading-font;
+		letter-spacing: .08em;
+		transition: all .3s ease;
+		&:hover {
+			background-color: $accent-2-color;
+			border-color: $accent-2-color;
+		}
+	}
+	.wpcf7-form-control-wrap {
+		display: block;
+		transition: all .3s ease;
+		&:has(.wpcf7-not-valid-tip) {
+			padding-bottom: 2rem;
+		}
 	}
 	.wpcf7-form div.wpcf7-response-output {
 		margin-bottom: 0;
@@ -850,10 +882,12 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 			> label {
 				display: flex;
 				align-items: center;
-				gap: .5rem;
+				gap: .6rem;
+				cursor: pointer;
 				input {
 					margin: 0;
 					width: auto;
+					cursor: pointer;
 				}
 			}
 		}

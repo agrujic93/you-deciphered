@@ -22,7 +22,7 @@ footer.wp-block-template-part {
 
 	.ci-label-text {
 		margin-bottom: 2rem !important;
-		opacity: 0.5;
+		color: $accent-color !important;
 	}
 
 	// ─── Inner container ───────────────────────────
@@ -48,7 +48,7 @@ footer.wp-block-template-part {
 
 	// ─── Row 2: 4 Columns ────────────────────────
 	.footer-columns {
-		margin-bottom: 3rem;
+		margin-bottom: 2rem;
 	}
 
 	// ─── Col 1: Newsletter (CF7) ─────────────────
@@ -75,9 +75,20 @@ footer.wp-block-template-part {
 			margin-bottom: 0;
 		}
 		input[type="submit"] {
-			margin-top: 2rem;
+			margin-top: 1rem;
 			width: 100%;
 			border-color: $accent-color;
+			font-size: 2rem;
+			transition: all .3s ease;
+			&:hover {
+				background-color: $accent-2-color;
+				border-color: $accent-2-color;
+			}
+		}
+		input[type="radio"] {
+			&:checked {
+				border-color: $accent-color;
+			}
 		}
 	}
 
@@ -123,10 +134,8 @@ footer.wp-block-template-part {
 		}
 
 		.footer-event-title {
-			font-size: 1.5rem;
+			font-size: 2rem;
 			font-weight: 500;
-			color: #fff;
-			line-height: 1.4;
 		}
 
 		// Tribe Events list — compact dark overrides (fallback if plugin output is used elsewhere)
@@ -180,8 +189,12 @@ footer.wp-block-template-part {
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 1rem;
+			margin-bottom: 0;
 			a {
 				font-size: 2rem;
+				@media screen and (max-width: 769px) {
+					font-size: 1.8rem;
+				}
 			}
 			.wp-block-navigation-submenu {
 				display: none;
@@ -214,7 +227,11 @@ footer.wp-block-template-part {
 		min-height: 2.4rem;
 		border: none;
 		font-size: 2rem;
+		font-weight: 500;
 		transition: color 0.2s ease, opacity 0.2s ease;
+		@media screen and (max-width: 769px) {
+			font-size: 1.8rem;
+		}
 
 		img {
 			display: block;
@@ -222,12 +239,6 @@ footer.wp-block-template-part {
 			height: 1.6rem;
 			object-fit: contain;
 			filter: brightness(0) invert(1);
-		}
-	}
-
-	@media screen and (max-width: 959px) {
-		.footer-social-link span {
-			font-size: 2.6rem;
 		}
 	}
 
@@ -245,7 +256,9 @@ footer.wp-block-template-part {
 		color: #fff;
 		text-decoration: none;
 		transition: opacity 0.2s ease;
-
+		@media screen and (max-width: 769px) {
+			font-size: 1.8rem;
+		}
 		&:hover {
 			opacity: 0.7;
 		}
