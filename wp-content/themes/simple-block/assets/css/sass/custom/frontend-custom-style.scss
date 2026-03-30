@@ -675,25 +675,15 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		}
 	}
 	*.ci-label {
-		display: inline-block;
+		display: block;
 		width: 100%;
-		margin-bottom: 1rem;
-		line-height: 1.4;
-		font-size: 1.4rem;
-		color: $contrast-color;
+		margin-bottom: 1.5rem;
+		font-size: 1.3rem;
+		color: $accent-color !important;
 		font-family: $heading-font;
-		&.ci-label-box {
-			> span {
-				display: inline-block;
-				border-radius: 0.5rem;
-				font-size: 1.2rem;
-				background-color: $accent-2-color;
-				color: #fff;
-				padding: 0.5rem 1rem;
-				text-transform: uppercase;
-				letter-spacing: .1rem;
-			}
-		}
+		letter-spacing: .12em;
+		padding-top: 1rem;
+		border-top: 1px solid $accent-color;
 	}
 	p:has(> .ci-label-text) {
 		margin-bottom: 1.2rem;

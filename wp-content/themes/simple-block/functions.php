@@ -626,7 +626,12 @@ if ( ! function_exists( 'wysiwyg_style_formats' ) ) {
 						'title'		=> __( 'Button', 'text_domain' ),
 						'selector'	=> 'a',
 						'classes'	=> 'btn'
-					]
+					],
+					[
+						'title'		=> __( 'Label', 'text_domain' ),
+						'selector'	=> 'p,a,h1,h2,h3,h4,h5,h6',
+						'classes'	=> 'ci-label'
+					],
 				],
 			),
 			array(
