@@ -5,9 +5,10 @@
  * @param array $block The block settings and attributes.
  */
 
-$id = 'steps-slider-' . $block['id'];
 if ( ! empty( $block['anchor'] ) ) {
-	$id = $block['anchor'];
+	$block_id = esc_attr( $block['anchor'] );
+} else {
+	$block_id = 'steps-slider-' . $block['id'];
 }
 
 $main_block_class = 'steps-slider-block ci-block';
@@ -32,12 +33,12 @@ if ( 'wide' == $block['align'] ) {
 include __DIR__ . '/../block-parts/block-general-logic.php';
 ?>
 
-<section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $id ); ?>" <?php echo $wrapper_attributes; ?>>
+<section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
 	<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
-	<div class="<?php echo esc_attr( $container_class ); ?>" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
-		
+	<div class="container" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
+
 		<?php if ( get_field( 'steps_slider_intro' ) ) : ?>
-			<div class="steps-slider-intro uk-margin-large-bottom">
+			<div class="steps-slider-intro uk-margin-large-bottom animation-fade-item">
 				<?php echo wp_kses_post( get_field( 'steps_slider_intro' ) ); ?>
 			</div>
 		<?php endif; ?>
@@ -50,16 +51,16 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 		?>
 
 		<?php if ( have_rows( 'slides' ) ) : ?>
-			
+
 			<!-- Desktop View -->
-			<div class="steps-slider-desktop uk-visible@m">
+			<div class="steps-slider-desktop uk-visible@m animation-fade-item">
 				<div class="steps-slider-pinned-area">
 					<div class="steps-slider-grid uk-grid uk-grid-large uk-child-width-1-2@m" data-uk-grid>
-						
+
 						<div class="steps-slider-content-col">
-							<?php 
+							<?php
 							$i = 1;
-							while ( have_rows( 'slides' ) ) : the_row(); 
+							while ( have_rows( 'slides' ) ) : the_row();
 								$title = get_sub_field( 'slide_title' );
 								$content = get_sub_field( 'slide_content' );
 								?>
@@ -78,28 +79,28 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 										<?php endif; ?>
 									</div>
 								</div>
-							<?php 
+							<?php
 							$i++;
-							endwhile; 
+							endwhile;
 							?>
 						</div>
 
 						<div class="steps-slider-image-col">
-							<?php 
+							<?php
 							$i = 1;
-							while ( have_rows( 'slides' ) ) : the_row(); 
+							while ( have_rows( 'slides' ) ) : the_row();
 								$image_id = get_sub_field( 'slide_image' );
 								?>
 								<div class="step-image-item step-item-<?php echo esc_attr( $i ); ?> <?php echo $i === 1 ? 'is-active' : ''; ?>">
-									<?php 
+									<?php
 									if ( $image_id ) {
 										echo wp_get_attachment_image( $image_id, 'large' );
 									}
 									?>
 								</div>
-							<?php 
+							<?php
 							$i++;
-							endwhile; 
+							endwhile;
 							?>
 						</div>
 
@@ -108,19 +109,19 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 			</div>
 
 			<!-- Mobile View -->
-			<div class="steps-slider-mobile uk-hidden@m">
+			<div class="steps-slider-mobile uk-hidden@m animation-fade-item">
 				<div class="swiper steps-swiper">
 					<div class="swiper-wrapper">
-						<?php 
+						<?php
 						$i = 1;
-						while ( have_rows( 'slides' ) ) : the_row(); 
+						while ( have_rows( 'slides' ) ) : the_row();
 							$image_id = get_sub_field( 'slide_image' );
 							$title = get_sub_field( 'slide_title' );
 							$content = get_sub_field( 'slide_content' );
 							?>
 							<div class="swiper-slide step-mobile-slide">
 								<div class="step-image-item uk-margin-bottom">
-									<?php 
+									<?php
 									if ( $image_id ) {
 										echo wp_get_attachment_image( $image_id, 'large' );
 									}
@@ -142,12 +143,12 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 									</div>
 								</div>
 							</div>
-						<?php 
+						<?php
 						$i++;
-						endwhile; 
+						endwhile;
 						?>
 					</div>
-					
+
 					<div class="steps-slider-nav uk-flex uk-flex-middle uk-flex-between uk-margin-top">
 						<div class="swiper-pagination"></div>
 						<div class="swiper-nav-buttons uk-flex uk-flex-middle">
@@ -162,7 +163,7 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 
 				</div>
 			</div>
-			
+
 		<?php endif; ?>
 
 	</div>

@@ -16,8 +16,7 @@ body:has(.hero-advanced-block.has-video) {
 
 .hero-advanced-block {
 	position: relative;
-	width: 100%;
-
+	overflow: hidden;
 	&.has-video {
 		display: flex;
 		align-items: flex-end;
@@ -34,10 +33,6 @@ body:has(.hero-advanced-block.has-video) {
 			}
 		}
 		.hero-advanced-content-wrapper {
-			margin: 0 auto;
-			padding-left: $g-padding-left;
-			padding-right: $g-padding-right;
-			max-width: calc($content-size + $g-padding-left + $g-padding-right);
 			mix-blend-mode: difference;
 		}
 	}
@@ -55,6 +50,10 @@ body:has(.hero-advanced-block.has-video) {
 	}
 
 	.hero-advanced-content-wrapper {
+		margin: 0 auto;
+		padding-left: $g-padding-left;
+		padding-right: $g-padding-right;
+		max-width: calc($content-size + $g-padding-left + $g-padding-right);
 		z-index: 5;
 		padding-bottom: 7rem;
 		padding-top: 7rem;

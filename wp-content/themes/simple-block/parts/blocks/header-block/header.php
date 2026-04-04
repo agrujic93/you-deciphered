@@ -30,7 +30,9 @@ else : /* Rendering in editor body. */
 				</div>
 				<!-- Navigation Section (Pill) -->
 				<nav class="central-nav-pill">
-					<img class="small-logo" alt="Small logo" src="<?php echo get_template_directory_uri(); ?>/assets/images/yd-small-logo-cropped.svg">
+					<a aria-label="<?php if ($lang == 'en') echo 'Link to home page'; else echo 'Link do početne stranice'; ?>" class="uk-inline-block" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+						<img class="small-logo" alt="Small logo" src="<?php echo get_template_directory_uri(); ?>/assets/images/yd-small-logo-cropped.svg">
+					</a>
 					<?php
 					$menu_title = ( $lang === 'en' ) ? 'Main Menu EN' : 'Main Menu SR';
 					$nav_posts  = get_posts( array(

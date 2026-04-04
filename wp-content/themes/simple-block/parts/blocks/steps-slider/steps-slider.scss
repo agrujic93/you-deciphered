@@ -1,183 +1,178 @@
 @use 'assets/css/sass/custom/theme-variables' as *;
 
 .steps-slider-block {
-    overflow: hidden;
+	overflow: hidden;
 
-    .steps-slider-intro {
-        max-width: 80rem;
-    }
+	.steps-slider-intro {
+		max-width: 80rem;
+	}
 
-    // --- Desktop Layout ---
-    .steps-slider-desktop {
-        padding: 5rem 0;
+	// --- Desktop Layout ---
+	.steps-slider-desktop {
+		padding: 5rem 0;
 
-        .steps-slider-pinned-area {
-            position: relative;
-        }
+		.steps-slider-pinned-area {
+			position: relative;
+		}
 
-        .steps-slider-grid {
-            align-items: center;
-        }
+		.steps-slider-grid {
+			align-items: center;
+		}
 
-        .steps-slider-content-col, .steps-slider-image-col {
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: 1fr;
-            align-items: center;
+		.steps-slider-content-col, .steps-slider-image-col {
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr;
+			align-items: center;
 
-            .step-content-item, .step-image-item {
-                grid-column: 1 / -1;
-                grid-row: 1 / -1;
-                opacity: 0;
-                visibility: hidden;
+			.step-content-item, .step-image-item {
+				grid-column: 1 / -1;
+				grid-row: 1 / -1;
+				opacity: 0;
+				visibility: hidden;
 
-                &.is-active {
-                    opacity: 1;
-                    visibility: visible;
-                }
-            }
-        }
+				&.is-active {
+					opacity: 1;
+					visibility: visible;
+				}
+			}
+		}
 
-        .steps-slider-content-col {
-            padding-right: 4rem;
+		.steps-slider-content-col {
+			padding-right: 4rem;
 
-            .step-content-item {
-                display: flex;
-                gap: 2rem;
+			.step-content-item {
+				display: flex;
+				gap: 2rem;
 
-                .step-number {
-                    color: var(--wp--preset--color--primary);
-                    font-weight: 600;
-                    margin: 0;
-                    padding-top: 0.5rem;
-                }
+				.step-number {
+					color: var(--wp--preset--color--primary);
+					font-weight: 600;
+					margin: 0;
+					padding-top: 0.5rem;
+				}
 
-                .step-title {
-                    margin: 0 0 1rem 0;
-                    font-weight: 500;
-                }
+				.step-title {
+					margin: 0 0 1rem 0;
+					font-weight: 500;
+				}
 
-                .step-desc {
-                    p {
-                        margin: 0;
-                        color: var(--wp--preset--color--foreground-light);
-                        font-size: 1.8rem;
-                    }
-                }
-            }
-        }
+				.step-desc {
+					p {
+						margin: 0;
+						color: var(--wp--preset--color--foreground-light);
+						font-size: 1.8rem;
+					}
+				}
+			}
+		}
 
-        .steps-slider-image-col {
-            .step-image-item {
-                img {
-                    width: 100%;
-                    height: auto;
-                    aspect-ratio: 4 / 3;
-                    max-height: 80vh;
-                    object-fit: cover;
-                    border-radius: 2rem;
-                }
-            }
-        }
-    }
+		.steps-slider-image-col {
+			.step-image-item {
+				img {
+					width: 100%;
+					height: auto;
+					max-height: 50vh;
+					object-fit: contain;
+				}
+			}
+		}
+	}
 
-    // --- Mobile Layout ---
-    .steps-slider-mobile {
-        padding: 4rem 0;
+	// --- Mobile Layout ---
+	.steps-slider-mobile {
+		padding: 4rem 0;
 
-        .step-mobile-slide {
-            height: auto;
+		.step-mobile-slide {
+			height: auto;
 
-            .step-image-item {
-                img {
-                    width: 100%;
-                    border-radius: 1.6rem;
-                    aspect-ratio: 4 / 3;
-                    object-fit: cover;
-                }
-            }
+			.step-image-item {
+				img {
+					width: 100%;
+				}
+			}
 
-            .step-content-item {
-                display: flex;
-                gap: 1.5rem;
+			.step-content-item {
+				display: flex;
+				gap: 1.5rem;
 
-                .step-number {
-                    color: var(--wp--preset--color--primary);
-                    font-weight: 600;
-                    margin: 0;
-                    padding-top: 0.2rem;
-                }
+				.step-number {
+					color: var(--wp--preset--color--primary);
+					font-weight: 600;
+					margin: 0;
+					padding-top: 0.2rem;
+				}
 
-                .step-title {
-                    margin: 0 0 1rem 0;
-                    font-weight: 500;
-                }
+				.step-title {
+					margin: 0 0 1rem 0;
+					font-weight: 500;
+				}
 
-                .step-desc {
-                    p {
-                        margin: 0;
-                        color: var(--wp--preset--color--foreground-light);
-                    }
-                }
-            }
-        }
+				.step-desc {
+					p {
+						margin: 0;
+						color: var(--wp--preset--color--foreground-light);
+					}
+				}
+			}
+		}
 
-        // Navigation and Pagination
-        .steps-slider-nav {
-            position: relative;
-            z-index: 10;
-            
-            .swiper-pagination {
-                position: relative;
-                bottom: auto;
-                text-align: left;
-                width: auto;
-                margin: 0;
+		// Navigation and Pagination
+		.steps-slider-nav {
+			position: relative;
+			z-index: 10;
 
-                .swiper-pagination-bullet {
-                    width: 1rem;
-                    height: 1rem;
-                    background: var(--wp--preset--color--foreground-light);
-                    opacity: 0.5;
-                    transition: all 0.3s ease;
+			.swiper-pagination {
+				position: relative;
+				bottom: auto;
+				text-align: left;
+				width: auto;
+				margin: 0;
 
-                    &-active {
-                        opacity: 1;
-                        background: var(--wp--preset--color--primary);
-                    }
-                }
-            }
+				.swiper-pagination-bullet {
+					width: 1rem;
+					height: 1rem;
+					background: var(--wp--preset--color--foreground-light);
+					opacity: 0.5;
+					transition: all 0.3s ease;
 
-            .swiper-nav-buttons {
-                .ci-slider-button {
-                    position: relative;
-                    top: auto;
-                    left: auto;
-                    right: auto;
-                    bottom: auto;
-                    margin: 0;
-                    width: 4rem;
-                    height: 4rem;
-                    border-radius: 50%;
-                    background-color: var(--wp--preset--color--base-2);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: var(--wp--preset--color--foreground);
-                    cursor: pointer;
-                    transition: all 0.3s ease;
+					&-active {
+						opacity: 1;
+						background: var(--wp--preset--color--primary);
+					}
+				}
+			}
 
-                    &:hover {
-                        background-color: var(--wp--preset--color--primary);
-                        color: var(--wp--preset--color--base);
-                    }
+			.swiper-nav-buttons {
+				.ci-slider-button {
+					position: relative;
+					top: auto;
+					left: auto;
+					right: auto;
+					bottom: auto;
+					margin: 0;
+					width: 4rem;
+					height: 4rem;
+					border-radius: 50%;
+					background-color: var(--wp--preset--color--base-2);
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					color: var(--wp--preset--color--foreground);
+					cursor: pointer;
+					transition: all 0.3s ease;
 
-                    // Reset default swiper styles
-                    &::after {
-                        display: none;
-                    }
-                }
-            }
-        }
-    }
+					&:hover {
+						background-color: var(--wp--preset--color--primary);
+						color: var(--wp--preset--color--base);
+					}
+
+					// Reset default swiper styles
+					&::after {
+						display: none;
+					}
+				}
+			}
+		}
+	}
 }

@@ -9,7 +9,7 @@
  * @package ci-uikit
  **/
 
-if ( isset( $block['anchor'] ) ) {
+if ( ! empty( $block['anchor'] ) ) {
 	$block_id = esc_attr( $block['anchor'] );
 } else {
 	$block_id = 'ci-grid-block-' . $block['id'];

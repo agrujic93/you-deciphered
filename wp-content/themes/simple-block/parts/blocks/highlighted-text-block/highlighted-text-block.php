@@ -8,7 +8,8 @@
  */
 
 // Create id attribute for specific styling and anchor tag.
-if ( isset( $block['anchor'] ) ) {
+
+if ( ! empty( $block['anchor'] ) ) {
 	$block_id = esc_attr( $block['anchor'] );
 } else {
 	$block_id = 'ci-highlighted-text-' . $block['id'];
@@ -33,13 +34,13 @@ else :
 
 		<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
 
-		<div class="highlighted-text-container" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
+		<div class="container" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
 			<?php if ( get_field( 'highlighted_text' ) ) :
 				$text = get_field( 'highlighted_text' );
 				// Split text into words and wrap each in a span.
 				$words = preg_split( '/\s+/', trim( $text ) );
 				?>
-				<p class="highlighted-text-content">
+				<p class="highlighted-text-content animation-fade-item h2">
 					<?php foreach ( $words as $word ) : ?>
 						<span class="ht-word"><?php echo esc_html( $word ); ?></span>
 					<?php endforeach; ?>

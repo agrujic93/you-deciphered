@@ -4,6 +4,11 @@
 	position: sticky;
 	top: 0;
 	z-index: 1000;
+	@media screen and (max-width: 1024px) {
+		position: fixed;
+		width: 100%;
+		background-color: #fff;
+	}
 }
 
 .main-header {
@@ -361,7 +366,7 @@
 
 		.site-branding {
 			.header-logo img.main-logo {
-				height: 4rem !important;
+				height: 5rem !important;
 				opacity: 1 !important;
 				visibility: visible !important;
 			}
