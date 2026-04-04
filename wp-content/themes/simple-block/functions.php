@@ -377,6 +377,12 @@ function cwp_register_block_script() {
 	$js_path_zig_zag_boxes = get_template_directory() . '/parts/blocks/zig-zag-boxes/zig-zag-boxes.js';
 	$js_url_zig_zag_boxes  = get_template_directory_uri() . '/parts/blocks/zig-zag-boxes/zig-zag-boxes.js';
 	wp_register_script( 'zig-zag-boxes-js', $js_url_zig_zag_boxes, array('jquery'), file_exists( $js_path_zig_zag_boxes ) ? filemtime( $js_path_zig_zag_boxes ) : '1.0.0' );
+
+	// Registered for block: services-slider
+	$js_path_services_slider = get_template_directory() . '/parts/blocks/services-slider/services-slider.js';
+	$js_url_services_slider  = get_template_directory_uri() . '/parts/blocks/services-slider/services-slider.js';
+	wp_register_script( 'services-slider-js', $js_url_services_slider, array('jquery', 'swiper'), file_exists( $js_path_services_slider ) ? filemtime( $js_path_services_slider ) : '1.0.0' );
+
 }
 add_action( 'init', 'cwp_register_block_script' );
 

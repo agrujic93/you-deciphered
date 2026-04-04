@@ -1,0 +1,240 @@
+@use 'assets/css/sass/custom/theme-variables' as *;
+
+.services-slider-block {
+	position: relative;
+
+	.services-slider-intro {
+		max-width: 78rem;
+		margin: 0 0 4rem;
+	}
+
+	.services-slider-sticky-region {
+		position: relative;
+		min-height: var(--services-slider-region-height, 100vh);
+	}
+
+	.services-slider-sticky-inner {
+		width: 100%;
+		position: sticky;
+		top: var(--services-slider-sticky-top, 8rem);
+	}
+
+	.services-slider-swiper {
+		overflow: visible;
+
+		.swiper-wrapper {
+			align-items: stretch;
+		}
+
+		.swiper-slide {
+			height: auto;
+		}
+	}
+
+	.services-slider-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 2rem;
+	}
+
+	.service-card {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		min-height: 44rem;
+		padding: 3rem;
+		border-radius: 2rem;
+		overflow: hidden;
+		background: $contrast-2-color;
+		color: $base-color;
+
+		&:hover {
+			.service-card__cta {
+				padding-right: 1.8rem;
+				background-color: $base-color;
+				color: $contrast-color;
+			}
+
+			.service-card__cta-icon {
+				background: $accent-color;
+				color: $contrast-color;
+			}
+
+			.service-card__cta-text {
+				opacity: 1;
+				max-width: 24rem;
+				margin-left: 1.2rem;
+			}
+		}
+	}
+
+	.service-card__bg,
+	.service-card__overlay,
+	.service-card__content,
+	.service-card__cta {
+		position: relative;
+		z-index: 2;
+	}
+
+	.service-card__bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
+
+	.service-card__overlay {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		background: linear-gradient(180deg, rgba(16, 16, 16, 0.25) 0%, rgba(16, 16, 16, 0.88) 100%);
+	}
+
+	.service-card__content {
+		margin-bottom: 2rem;
+	}
+
+	.service-card__label {
+		margin: 0 0 1.2rem;
+		font-size: 1.4rem;
+		line-height: 1.4;
+		letter-spacing: 0.1rem;
+		text-transform: uppercase;
+		opacity: 0.92;
+	}
+
+	.service-card__title {
+		margin: 0 0 1.2rem;
+	}
+
+	.service-card__description {
+		p {
+			margin: 0;
+			font-size: $p-font-size;
+			line-height: 1.5;
+		}
+	}
+
+	.service-card__cta {
+		display: inline-flex;
+		align-items: center;
+		align-self: flex-start;
+		border-radius: 999rem;
+		background-color: rgba(255, 255, 255, 0.18);
+		color: $base-color;
+		text-decoration: none;
+		padding: 0.6rem;
+		transition: all 0.35s ease;
+		backdrop-filter: blur(0.2rem);
+	}
+
+	.service-card__cta-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 4.2rem;
+		height: 4.2rem;
+		border-radius: 50%;
+		background: $base-color;
+		color: $contrast-color;
+		transition: all 0.35s ease;
+	}
+
+	.service-card__cta-text {
+		max-width: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		opacity: 0;
+		margin-left: 0;
+		font-size: 1.5rem;
+		font-weight: 500;
+		transition: all 0.35s ease;
+	}
+
+	.services-slider-nav {
+		display: flex;
+		justify-content: flex-end;
+		gap: 1rem;
+		margin-top: 2.4rem;
+
+		.ci-slider-button {
+			position: relative;
+			top: auto;
+			left: auto;
+			right: auto;
+			bottom: auto;
+			margin: 0;
+			width: 4.4rem;
+			height: 4.4rem;
+			border-radius: 50%;
+			background-color: $base-2-color;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: $contrast-color;
+			cursor: pointer;
+			transition: all 0.3s ease;
+
+			&:hover {
+				background-color: $accent-color;
+				color: $contrast-color;
+			}
+
+			&::after {
+				display: none;
+			}
+		}
+	}
+
+	@media screen and (max-width: 1279px) {
+		.services-slider-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.service-card {
+			min-height: 40rem;
+		}
+	}
+
+	@media screen and (max-width: 1023px) {
+		.services-slider-sticky-region {
+			min-height: unset;
+		}
+
+		.services-slider-sticky-inner {
+			position: static;
+			top: auto;
+		}
+	}
+
+	@media screen and (max-width: 959px) {
+		.services-slider-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.service-card {
+			min-height: 36rem;
+			padding: 2.4rem;
+		}
+
+		.service-card__cta {
+			padding-right: 1.8rem;
+			background-color: $base-color;
+			color: $contrast-color;
+		}
+
+		.service-card__cta-icon {
+			background: $accent-color;
+			color: $contrast-color;
+		}
+
+		.service-card__cta-text {
+			opacity: 1;
+			max-width: 24rem;
+			margin-left: 1.2rem;
+		}
+	}
+}
