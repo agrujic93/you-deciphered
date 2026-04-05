@@ -32,9 +32,16 @@
 	}
 
 	.services-slider-sticky-inner {
-		width: 100%;
+		width: 100vw;
+		margin-left: -2rem;
 		position: sticky;
 		top: var(--services-slider-sticky-top, 8rem);
+		overflow: hidden;
+		padding-left: calc((100vw - $content-size) / 2);
+		padding-right: 2rem;
+		@media screen and (max-width: 1340px) {
+			padding-left: 2rem;
+		}
 	}
 
 	.services-slider-swiper {
@@ -98,7 +105,7 @@
 				transform: scale(1.04);
 			}
 			.service-card__overlay {
-				opacity: .45;
+				opacity: .34;
 			}
 			.service-card__description {
 				* {
@@ -200,6 +207,12 @@
 		background: $accent-color;
 		color: $contrast-color;
 		transition: all 0.4s ease;
+		* {
+			stroke: #fff;
+		}
+		svg {
+			width: 70%;
+		}
 	}
 
 	.service-card__cta-text {
@@ -219,7 +232,7 @@
 	.services-slider-nav {
 		display: flex;
 		justify-content: flex-end;
-		gap: 1rem;
+		gap: 1.5rem;
 		margin-top: 2.4rem;
 
 		.ci-slider-button {
@@ -232,16 +245,17 @@
 			width: 4.4rem;
 			height: 4.4rem;
 			border-radius: 50%;
-			background-color: $base-2-color;
+			background-color: $accent-color;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			color: $contrast-color;
 			cursor: pointer;
 			transition: all 0.3s ease;
-
+			&.swiper-button-prev {
+				transform: rotate(180deg);
+			}
 			&:hover {
-				background-color: $accent-color;
 				color: $contrast-color;
 			}
 
@@ -297,6 +311,7 @@
 			opacity: 1;
 			max-width: 24rem;
 			margin-left: 1.2rem;
+			white-space: normal;
 		}
 	}
 }
