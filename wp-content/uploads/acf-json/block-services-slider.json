@@ -3,6 +3,30 @@
     "title": "Block: Services Slider",
     "fields": [
         {
+            "key": "field_69d11f97103ef",
+            "label": "Block General Option",
+            "name": "block_general_option",
+            "aria-label": "",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "field_69aef8c41da3d",
+                "field_69aefad8ed45e",
+                "field_69aefb21ed45f"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
+        },
+        {
             "key": "field_69d0f813822a2",
             "label": "Intro",
             "name": "services_slider_intro",
@@ -171,7 +195,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/services-slider-2"
+                "value": "all"
             }
         ]
     ],
@@ -185,5 +209,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1775303173
+    "modified": 1775312887
 }

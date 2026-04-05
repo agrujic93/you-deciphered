@@ -41,7 +41,7 @@ body, .wp-site-blocks, .site-main {
 	.h6,
 	p,
 	li,
-	span:not(.wp-block-navigation-item__label) {
+	span:not(.wp-block-navigation-item__label, .service-card__cta-text) {
 		&:not(.has-text-color) {
 			color: var(--current-theme-text);
 		}
@@ -52,6 +52,9 @@ body, .wp-site-blocks, .site-main {
 
 a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	color: var(--current-theme-accent);
+	&:hover {
+		color: $accent-2-color;
+	}
 }
 
 
@@ -704,7 +707,7 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		font-size: 1.3rem;
 		color: $accent-color !important;
 		font-family: $heading-font;
-		letter-spacing: .12em;
+		letter-spacing: .1em;
 		padding-top: .6rem;
 		border-top: 1px solid $accent-color;
 	}
@@ -713,9 +716,21 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	}
 	*.ci-label-text {
 		font-size: 1.3rem;
-		letter-spacing: .12em;
+		letter-spacing: .1em;
 		line-height: 1.2;
 		font-family: $heading-font;
+	}
+	*.ci-label-pill {
+		display: inline-block;
+		padding: .4rem 1rem;
+		border-radius: 999rem;
+		background-color: transparent;
+		border: 1px solid $accent-color;
+		color: $accent-color !important;
+		font-size: 1.3rem;
+		font-weight: 500;
+		line-height: 1.2;
+		letter-spacing: .1em;
 	}
 	.sr-only {
 		border: 0 !important;

@@ -1,11 +1,29 @@
 @use 'assets/css/sass/custom/theme-variables' as *;
 
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(28, 200, 255, 0.17);
+	}
+
+	60% {
+		transform: scale(1);
+		box-shadow: 0 0 0 .8rem rgba(28, 200, 255, 0);
+	}
+
+	100% {
+		transform: scale(0.95);
+		box-shadow: 0 0 0 0 rgba(28, 200, 255, 0);
+	}
+}
+
 .services-slider-block {
 	position: relative;
-
+	@media screen and (max-width: 1023px) {
+		overflow: hidden;
+	}
 	.services-slider-intro {
-		max-width: 78rem;
-		margin: 0 0 4rem;
+		max-width: 80rem;
 	}
 
 	.services-slider-sticky-region {
@@ -44,16 +62,26 @@
 		justify-content: space-between;
 		min-height: 44rem;
 		padding: 3rem;
-		border-radius: 2rem;
+		border: 2px solid $accent-color;
+		border-radius: 3rem;
 		overflow: hidden;
-		background: $contrast-2-color;
+		background: transparent;
 		color: $base-color;
-
+		height: 100%;
+		&:has(.service-card__bg) {
+			border-color: transparent;
+			.service-card__description {
+				* {
+					color: $base-color;
+				}
+			}
+		}
 		&:hover {
 			.service-card__cta {
 				padding-right: 1.8rem;
 				background-color: $base-color;
 				color: $contrast-color;
+				animation-play-state: paused;
 			}
 
 			.service-card__cta-icon {
@@ -65,6 +93,18 @@
 				opacity: 1;
 				max-width: 24rem;
 				margin-left: 1.2rem;
+			}
+			.service-card__bg {
+				transform: scale(1.04);
+			}
+			.service-card__overlay {
+				opacity: .45;
+			}
+			.service-card__description {
+				* {
+					transform: none;
+					opacity: 1;
+				}
 			}
 		}
 	}
@@ -84,37 +124,31 @@
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: center;
+		transition: transform 1.4s ease;
 	}
 
 	.service-card__overlay {
 		position: absolute;
 		inset: 0;
 		z-index: 1;
-		background: linear-gradient(180deg, rgba(16, 16, 16, 0.25) 0%, rgba(16, 16, 16, 0.88) 100%);
+		background: $contrast-color;
+		mix-blend-mode: multiply;
+		opacity: .5;
+		transition: opacity 1.4s ease;
 	}
 
 	.service-card__content {
 		margin-bottom: 2rem;
 	}
 
-	.service-card__label {
-		margin: 0 0 1.2rem;
-		font-size: 1.4rem;
-		line-height: 1.4;
-		letter-spacing: 0.1rem;
-		text-transform: uppercase;
-		opacity: 0.92;
-	}
-
-	.service-card__title {
-		margin: 0 0 1.2rem;
-	}
-
 	.service-card__description {
-		p {
-			margin: 0;
-			font-size: $p-font-size;
-			line-height: 1.5;
+		overflow: hidden;
+		@media screen and (min-width: 1025px) {
+			* {
+				transition: all .4s ease-in-out;
+				transform: translateX(-10%);
+				opacity: 0;
+			}
 		}
 	}
 
@@ -123,12 +157,37 @@
 		align-items: center;
 		align-self: flex-start;
 		border-radius: 999rem;
-		background-color: rgba(255, 255, 255, 0.18);
+		background-color: rgba(28, 200, 255, 0.18);
 		color: $base-color;
 		text-decoration: none;
 		padding: 0.6rem;
-		transition: all 0.35s ease;
+		transition: all 0.4s ease !important;
 		backdrop-filter: blur(0.2rem);
+		@media screen and (min-width: 1025px) {
+			animation: pulse 3s ease infinite;
+		}
+		&:hover {
+			.service-card__cta-icon {
+				background: $accent-2-color;
+			}
+		}
+	}
+
+	.swiper-slide:nth-child(2n) .service-card__cta,
+	.service-card:nth-child(2n) .service-card__cta {
+		animation-delay: 0.6s;
+	}
+	.swiper-slide:nth-child(3n) .service-card__cta,
+	.service-card:nth-child(3n) .service-card__cta {
+		animation-delay: 1.2s;
+	}
+	.swiper-slide:nth-child(4n) .service-card__cta,
+	.service-card:nth-child(4n) .service-card__cta {
+		animation-delay: 1.8s;
+	}
+	.swiper-slide:nth-child(5n) .service-card__cta,
+	.service-card:nth-child(5n) .service-card__cta {
+		animation-delay: 2.4s;
 	}
 
 	.service-card__cta-icon {
@@ -138,9 +197,9 @@
 		width: 4.2rem;
 		height: 4.2rem;
 		border-radius: 50%;
-		background: $base-color;
+		background: $accent-color;
 		color: $contrast-color;
-		transition: all 0.35s ease;
+		transition: all 0.4s ease;
 	}
 
 	.service-card__cta-text {
@@ -149,9 +208,12 @@
 		white-space: nowrap;
 		opacity: 0;
 		margin-left: 0;
-		font-size: 1.5rem;
+		transition: all 0.5s ease;
+		font-size: $p-font-size;
 		font-weight: 500;
-		transition: all 0.35s ease;
+		font-family: $heading-font;
+		line-height: 1.3;
+		letter-spacing: .08em;
 	}
 
 	.services-slider-nav {
@@ -210,7 +272,7 @@
 		}
 	}
 
-	@media screen and (max-width: 959px) {
+	@media screen and (max-width: 1024px) {
 		.services-slider-grid {
 			grid-template-columns: 1fr;
 		}

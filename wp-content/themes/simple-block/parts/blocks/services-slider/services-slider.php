@@ -60,7 +60,7 @@ if ( $has_slider && function_exists( 'wp_enqueue_style' ) ) {
 	<div class="container" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
 
 		<?php if ( $services_slider_intro ) : ?>
-			<div class="services-slider-intro animation-fade-item">
+			<div class="services-slider-intro animation-fade-item uk-margin-medium-bottom rm-last-child-margin">
 				<?php echo wp_kses_post( $services_slider_intro ); ?>
 			</div>
 		<?php endif; ?>
@@ -101,21 +101,24 @@ if ( $has_slider && function_exists( 'wp_enqueue_style' ) ) {
 										<article class="service-card">
 											<?php if ( $service_image_url ) : ?>
 												<div class="service-card__bg" style="background-image: url('<?php echo esc_url( $service_image_url ); ?>');" role="img" aria-label="<?php echo esc_attr( $service_image_alt ); ?>"></div>
+												<div class="service-card__overlay"></div>
 											<?php endif; ?>
 
-											<div class="service-card__overlay"></div>
-
 											<div class="service-card__content">
-												<?php if ( $service_label ) : ?>
-													<p class="service-card__label"><?php echo esc_html( $service_label ); ?></p>
+												<?php if ( $service_name ) : ?>
+													<h3 class="service-card__title uk-margin-small-bottom"><?php if ( $service_link_url ) : ?>
+														<a href="<?php echo esc_url( $service_link_url ); ?>" target="<?php echo esc_attr( $service_link_target ); ?>" <?php echo '_blank' === $service_link_target ? 'rel="noopener noreferrer"' : ''; ?> aria-label="<?php echo esc_attr( $service_link_label ); ?>"><?php echo esc_html( $service_name ); ?></a>
+													<?php else : ?>
+														<?php echo esc_html( $service_name ); ?>
+													<?php endif; ?></h3>
 												<?php endif; ?>
 
-												<?php if ( $service_name ) : ?>
-													<h3 class="service-card__title h4"><?php echo esc_html( $service_name ); ?></h3>
+												<?php if ( $service_label ) : ?>
+													<p class="ci-label-pill uk-margin-remove-bottom"><?php echo esc_html( $service_label ); ?></p>
 												<?php endif; ?>
 
 												<?php if ( $service_description ) : ?>
-													<div class="service-card__description">
+													<div class="service-card__description uk-margin-top">
 														<?php echo wp_kses_post( wpautop( $service_description ) ); ?>
 													</div>
 												<?php endif; ?>
@@ -176,21 +179,26 @@ if ( $has_slider && function_exists( 'wp_enqueue_style' ) ) {
 						<article class="service-card">
 							<?php if ( $service_image_url ) : ?>
 								<div class="service-card__bg" style="background-image: url('<?php echo esc_url( $service_image_url ); ?>');" role="img" aria-label="<?php echo esc_attr( $service_image_alt ); ?>"></div>
+								<div class="service-card__overlay"></div>
 							<?php endif; ?>
 
-							<div class="service-card__overlay"></div>
-
 							<div class="service-card__content">
-								<?php if ( $service_label ) : ?>
-									<p class="service-card__label"><?php echo esc_html( $service_label ); ?></p>
+								<?php if ( $service_name ) : ?>
+									<h3 class="service-card__title uk-margin-small-bottom">
+										<?php if ( $service_link_url ) : ?>
+											<a href="<?php echo esc_url( $service_link_url ); ?>" target="<?php echo esc_attr( $service_link_target ); ?>" <?php echo '_blank' === $service_link_target ? 'rel="noopener noreferrer"' : ''; ?> aria-label="<?php echo esc_attr( $service_link_label ); ?>"><?php echo esc_html( $service_name ); ?></a>
+										<?php else : ?>
+											<?php echo esc_html( $service_name ); ?>
+										<?php endif; ?>
+									</h3>
 								<?php endif; ?>
 
-								<?php if ( $service_name ) : ?>
-									<h3 class="service-card__title h4"><?php echo esc_html( $service_name ); ?></h3>
+								<?php if ( $service_label ) : ?>
+									<p class="ci-label-pill uk-margin-remove-bottom"><?php echo esc_html( $service_label ); ?></p>
 								<?php endif; ?>
 
 								<?php if ( $service_description ) : ?>
-									<div class="service-card__description">
+									<div class="service-card__description uk-margin-top">
 										<?php echo wp_kses_post( wpautop( $service_description ) ); ?>
 									</div>
 								<?php endif; ?>
