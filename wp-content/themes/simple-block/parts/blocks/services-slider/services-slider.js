@@ -93,6 +93,10 @@ jQuery( document ).ready(
 							thresholdDelta: 4,
 						},
 					},
+					2500: {
+						slidesPerView: 3.4,
+						spaceBetween: 40,
+					},
 				},
 			});
 
