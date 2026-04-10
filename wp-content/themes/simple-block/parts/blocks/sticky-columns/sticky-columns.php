@@ -33,15 +33,15 @@ $sticky_column = get_field('sticky_column');
 
 <section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
 	<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
-	<div class="container" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
+	<div class="container" <?php echo $animation_data_attr; ?>>
 		<?php if ( $left_column || $right_column ) : ?>
 			<div class="uk-grid uk-grid-large sticky-columns-grid" data-uk-grid>
-				<div class="uk-width-1-2@m left-column animation-fade-item">
+				<div class="uk-width-1-2@m left-column animation-fade-item" <?php echo $animation_duration_style; ?>>
 					<div class="sticky-column-content <?php echo ! $sticky_column ? 'is-sticky' : ''; ?>">
 						<?php echo $left_column; ?>
 					</div>
 				</div>
-				<div class="uk-width-1-2@m right-column animation-fade-item">
+				<div class="uk-width-1-2@m right-column animation-fade-item" <?php echo $animation_duration_style; ?>>
 					<div class="sticky-column-content <?php echo $sticky_column ? 'is-sticky' : ''; ?>">
 						<?php echo $right_column; ?>
 					</div>

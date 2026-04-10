@@ -9,10 +9,10 @@
  * @package ci-uikit
  **/
 
-if ( isset( $block['anchor'] ) ) {
+if ( ! empty( $block['anchor'] ) ) {
 	$block_id = esc_attr( $block['anchor'] );
 } else {
-	$block_id = 'ci-blog-' . $block['id'];
+	$block_id = 'sticky-columns-' . $block['id'];
 }
 
 $main_block_class = 'ci-blog-block ci-block';
@@ -48,9 +48,9 @@ else : /* rendering in editor body */
 		}
 		?>
 
-		<div class="container" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
+		<div class="container" <?php echo $animation_data_attr; ?>>
 			<?php if ( get_field( 'intro' ) ) : ?>
-				<div class="animation-fade-item uk-margin-medium-bottom rm-last-child-margin" <?php echo $duration; ?>>
+				<div class="animation-fade-item uk-margin-medium-bottom rm-last-child-margin" <?php echo $animation_duration_style; ?>>
 					<?php echo get_field( 'intro' ); ?>
 				</div>
 			<?php endif; ?>
@@ -114,7 +114,7 @@ else : /* rendering in editor body */
 						$featured_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
 						$featured_video = get_field('featured_video', get_the_ID());
 						?>
-						<div class="single-blog-wrp animation-fade-item <?php echo ($view_type === 'grid_view') ? 'uk-width-1-3@m' : ''; ?>" <?php echo $duration; ?>>
+						<div class="single-blog-wrp animation-fade-item <?php echo ($view_type === 'grid_view') ? 'uk-width-1-3@m' : ''; ?>" <?php echo $animation_duration_style; ?>>
 							<?php if ($view_type === 'list_view'): ?>
 								<div class="uk-grid uk-grid-small" data-uk-grid>
 									<?php if ($featured_video): ?>

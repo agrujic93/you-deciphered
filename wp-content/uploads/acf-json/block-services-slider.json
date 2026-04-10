@@ -190,13 +190,6 @@
                 "operator": "==",
                 "value": "acf\/services-slider"
             }
-        ],
-        [
-            {
-                "param": "block",
-                "operator": "==",
-                "value": "all"
-            }
         ]
     ],
     "menu_order": 0,
@@ -209,5 +202,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1775312887
+    "modified": 1775855794
 }
