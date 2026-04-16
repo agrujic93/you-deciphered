@@ -72,6 +72,35 @@
     }
   }
 
+  function getVisitorLocalDateYmd() {
+    var now = new Date();
+
+    if (Number.isNaN(now.getTime())) {
+      return '';
+    }
+
+    var year = String(now.getFullYear());
+    var month = String(now.getMonth() + 1).padStart(2, '0');
+    var day = String(now.getDate()).padStart(2, '0');
+
+    return year + '-' + month + '-' + day;
+  }
+
+  function getPreferredDefaultDate(dateInput) {
+    var businessDate = (dateInput && dateInput.value) ? String(dateInput.value) : '';
+    var visitorDate = getVisitorLocalDateYmd();
+
+    if (!visitorDate) {
+      return businessDate;
+    }
+
+    if (!businessDate) {
+      return visitorDate;
+    }
+
+    return visitorDate > businessDate ? visitorDate : businessDate;
+  }
+
   function formatSlotDisplay(slot, config) {
     var fallback = String(slot.start || '') + ' - ' + String(slot.end || '');
     var startDate = parseUtcDateTime(slot.utc_start);
@@ -488,10 +517,16 @@
       return;
     }
 
+    var preferredDefaultDate = getPreferredDefaultDate(dateInput);
+
+    if (preferredDefaultDate) {
+      dateInput.value = preferredDefaultDate;
+    }
+
     if (typeof flatpickr === 'function') {
       flatpickr(dateInput, {
         dateFormat: 'Y-m-d',
-        defaultDate: dateInput.value || null,
+        defaultDate: preferredDefaultDate || null,
         minDate: dateInput.getAttribute('data-min-date') || 'today',
         disableMobile: true,
         onChange: function () {

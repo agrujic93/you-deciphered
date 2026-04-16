@@ -64,11 +64,11 @@ class ZAB_Frontend {
 				</p>
 			<?php endif; ?>
 
-			<?php if ( ! empty( $single_service_text ) ) : ?>
+			<?php /* if ( ! empty( $single_service_text ) ) : ?>
 				<p class="zab-booking-service-summary">
 					<?php echo esc_html( $single_service_text ); ?>
 				</p>
-			<?php endif; ?>
+			<?php endif; */ ?>
 
 			<?php if ( ! empty( $settings['enable_multiple_appointments'] ) ) : ?>
 				<label class="zab-booking-multi-toggle">
