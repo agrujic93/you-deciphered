@@ -240,8 +240,8 @@ class ZAB_Availability {
 				continue;
 			}
 
-			$start = DateTimeImmutable::createFromFormat( 'Y-m-d H:i:s', $date . ' ' . $exception['start_time'], $timezone );
-			$end   = DateTimeImmutable::createFromFormat( 'Y-m-d H:i:s', $date . ' ' . $exception['end_time'], $timezone );
+			$start = self::parse_local_datetime_for_date( $date, $exception['start_time'], $timezone );
+			$end   = self::parse_local_datetime_for_date( $date, $exception['end_time'], $timezone );
 
 			if ( false === $start || false === $end || $end <= $start ) {
 				continue;
@@ -254,6 +254,32 @@ class ZAB_Availability {
 		}
 
 		return $ranges;
+	}
+
+	/**
+	 * Parse local datetime from exception date and time value.
+	 *
+	 * Accepts both HH:MM and HH:MM:SS for backward compatibility.
+	 *
+	 * @param string       $date Date in Y-m-d.
+	 * @param string       $time Time value.
+	 * @param DateTimeZone $timezone Business timezone.
+	 * @return DateTimeImmutable|false
+	 */
+	private static function parse_local_datetime_for_date( $date, $time, DateTimeZone $timezone ) {
+		$time = is_string( $time ) ? trim( $time ) : '';
+
+		if ( '' === $time ) {
+			return false;
+		}
+
+		$datetime = DateTimeImmutable::createFromFormat( 'Y-m-d H:i:s', $date . ' ' . $time, $timezone );
+
+		if ( false !== $datetime ) {
+			return $datetime;
+		}
+
+		return DateTimeImmutable::createFromFormat( 'Y-m-d H:i', $date . ' ' . $time, $timezone );
 	}
 
 	/**

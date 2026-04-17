@@ -39,58 +39,17 @@ class ZAB_WooCommerce {
 		add_action( 'woocommerce_order_status_completed', array( __CLASS__, 'mark_order_appointments_confirmed' ) );
 		add_action( 'woocommerce_order_status_cancelled', array( __CLASS__, 'mark_order_appointments_cancelled' ) );
 		add_action( 'woocommerce_order_status_failed', array( __CLASS__, 'mark_order_appointments_cancelled' ) );
+		add_action( 'woocommerce_before_cart_emptied', array( __CLASS__, 'handle_booking_cart_emptied' ), 10, 1 );
+		add_action( 'woocommerce_remove_cart_item', array( __CLASS__, 'handle_booking_cart_item_removed' ), 10, 2 );
+		add_action( 'woocommerce_restore_cart_item', array( __CLASS__, 'handle_booking_cart_item_restored' ), 10, 2 );
 
 		add_filter( 'woocommerce_add_to_cart_validation', array( __CLASS__, 'prevent_product_booking_mix' ), 10, 5 );
+		add_filter( 'woocommerce_cart_item_quantity', array( __CLASS__, 'render_booking_cart_item_quantity' ), 10, 3 );
+		add_filter( 'woocommerce_update_cart_validation', array( __CLASS__, 'prevent_booking_cart_quantity_update' ), 10, 4 );
+		add_action( 'woocommerce_after_cart_item_quantity_update', array( __CLASS__, 'normalize_booking_cart_item_quantity' ), 10, 4 );
 		add_filter( 'gettext', array( __CLASS__, 'hide_billing_details_heading_for_booking_checkout' ), 20, 3 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_checkout_styles' ) );
-		add_action( 'woocommerce_store_api_checkout_update_order_from_request', array( __CLASS__, 'sync_block_contact_fields_to_order' ), 20, 2 );
 		add_filter( 'body_class', array( __CLASS__, 'add_checkout_body_class' ) );
-
-		add_action( 'init', array( __CLASS__, 'register_checkout_contact_fields' ), 10 );
-	}
-
-	/**
-	 * Register additional fields for the WooCommerce block checkout contact section.
-	 *
-	 * Uses the woocommerce_register_additional_checkout_field API (WC 8.6+).
-	 * Add or remove fields here to control what appears in the contact block.
-	 *
-	 * @return void
-	 */
-	public static function register_checkout_contact_fields() {
-		if ( ! function_exists( 'woocommerce_register_additional_checkout_field' ) ) {
-			return;
-		}
-
-		woocommerce_register_additional_checkout_field(
-			array(
-				'id'       => 'zab-booking/first-name',
-				'label'    => __( 'First name', 'zeka-appointment-booking' ),
-				'location' => 'contact',
-				'type'     => 'text',
-				'required' => true,
-			)
-		);
-
-		woocommerce_register_additional_checkout_field(
-			array(
-				'id'       => 'zab-booking/last-name',
-				'label'    => __( 'Last name', 'zeka-appointment-booking' ),
-				'location' => 'contact',
-				'type'     => 'text',
-				'required' => true,
-			)
-		);
-
-		woocommerce_register_additional_checkout_field(
-			array(
-				'id'       => 'zab-booking/phone',
-				'label'    => __( 'Phone', 'zeka-appointment-booking' ),
-				'location' => 'contact',
-				'type'     => 'text',
-				'required' => false,
-			)
-		);
 	}
 
 	/**
@@ -113,86 +72,6 @@ class ZAB_WooCommerce {
 			array(),
 			$style_version
 		);
-
-		// Hide duplicate billing first/last fields when custom contact fields are used.
-		wp_add_inline_style(
-			'zab-checkout-style',
-			'.zab-booking-active .wc-block-components-address-form__first_name,\n'
-			. '.zab-booking-active .wc-block-components-address-form__last_name,\n'
-			. '.zab-booking-active .wc-block-components-address-form [name="billing_first_name"],\n'
-			. '.zab-booking-active .wc-block-components-address-form [name="billing_last_name"] {\n'
-			. '\tdisplay: none !important;\n'
-			. '}'
-		);
-	}
-
-	/**
-	 * Sync custom contact fields to order billing fields for block checkout.
-	 *
-	 * @param WC_Order        $order Order object.
-	 * @param WP_REST_Request $request Store API checkout request.
-	 * @return void
-	 */
-	public static function sync_block_contact_fields_to_order( $order, $request ) {
-		if ( ! $order instanceof WC_Order || ! self::cart_has_booking_item() ) {
-			return;
-		}
-
-		if ( ! $request instanceof WP_REST_Request ) {
-			return;
-		}
-
-		$additional_fields = $request->get_param( 'additional_fields' );
-		if ( ! is_array( $additional_fields ) ) {
-			$additional_fields = array();
-		}
-
-		$first_name = self::get_additional_request_field_value( $additional_fields, 'zab-booking/first-name' );
-		$last_name  = self::get_additional_request_field_value( $additional_fields, 'zab-booking/last-name' );
-		$phone      = self::get_additional_request_field_value( $additional_fields, 'zab-booking/phone' );
-
-		if ( '' !== $first_name ) {
-			$order->set_billing_first_name( $first_name );
-		}
-
-		if ( '' !== $last_name ) {
-			$order->set_billing_last_name( $last_name );
-		}
-
-		if ( '' !== $phone ) {
-			$order->set_billing_phone( $phone );
-		}
-	}
-
-	/**
-	 * Read additional Store API checkout field from request payload.
-	 *
-	 * @param array  $additional_fields Additional fields payload.
-	 * @param string $field_id Field id.
-	 * @return string
-	 */
-	private static function get_additional_request_field_value( $additional_fields, $field_id ) {
-		if ( ! is_array( $additional_fields ) || empty( $field_id ) ) {
-			return '';
-		}
-
-		$key_variants = array(
-			$field_id,
-			str_replace( '/', '_', $field_id ),
-			'_' . str_replace( '/', '_', $field_id ),
-			'_wc_other/' . $field_id,
-		);
-
-		foreach ( $key_variants as $key ) {
-			if ( isset( $additional_fields[ $key ] ) && is_string( $additional_fields[ $key ] ) ) {
-				$value = trim( $additional_fields[ $key ] );
-				if ( '' !== $value ) {
-					return sanitize_text_field( $value );
-				}
-			}
-		}
-
-		return '';
 	}
 
 	/**
@@ -931,15 +810,10 @@ class ZAB_WooCommerce {
 
 		global $wpdb;
 
-		$block_first_name = self::get_order_additional_contact_field_value( $order, 'zab-booking/first-name' );
-		$block_last_name  = self::get_order_additional_contact_field_value( $order, 'zab-booking/last-name' );
-		$block_phone      = self::get_order_additional_contact_field_value( $order, 'zab-booking/phone' );
-
-		// Prefer additional block checkout fields, fallback to billing values.
-		$first_name = ! empty( $block_first_name ) ? $block_first_name : sanitize_text_field( $order->get_billing_first_name() );
-		$last_name  = ! empty( $block_last_name ) ? $block_last_name : sanitize_text_field( $order->get_billing_last_name() );
+		$first_name = sanitize_text_field( $order->get_billing_first_name() );
+		$last_name  = sanitize_text_field( $order->get_billing_last_name() );
 		$email      = sanitize_email( $order->get_billing_email() );
-		$phone      = ! empty( $block_phone ) ? $block_phone : sanitize_text_field( $order->get_billing_phone() );
+		$phone      = sanitize_text_field( $order->get_billing_phone() );
 
 		if ( empty( $first_name ) || empty( $email ) ) {
 			return;
@@ -1002,46 +876,6 @@ class ZAB_WooCommerce {
 				array( '%d' )
 			);
 		}
-	}
-
-	/**
-	 * Resolve additional checkout contact field value from order.
-	 *
-	 * @param WC_Order $order Order object.
-	 * @param string   $field_id Registered additional field id.
-	 * @return string
-	 */
-	private static function get_order_additional_contact_field_value( $order, $field_id ) {
-		if ( ! $order instanceof WC_Order || empty( $field_id ) ) {
-			return '';
-		}
-
-		// Preferred API for additional checkout fields.
-		if ( function_exists( 'woocommerce_get_order_additional_field_value' ) ) {
-			$value = woocommerce_get_order_additional_field_value( $order, $field_id );
-			if ( is_string( $value ) && '' !== trim( $value ) ) {
-				return sanitize_text_field( $value );
-			}
-		}
-
-		// Fallbacks for installations storing values under different meta-key formats.
-		$key_variants = array(
-			$field_id,
-			'_' . $field_id,
-			str_replace( '/', '_', $field_id ),
-			'_' . str_replace( '/', '_', $field_id ),
-			str_replace( array( '/', '-' ), '_', $field_id ),
-			'_' . str_replace( array( '/', '-' ), '_', $field_id ),
-		);
-
-		foreach ( $key_variants as $meta_key ) {
-			$value = $order->get_meta( $meta_key, true );
-			if ( is_string( $value ) && '' !== trim( $value ) ) {
-				return sanitize_text_field( $value );
-			}
-		}
-
-		return '';
 	}
 
 	/**
@@ -1730,6 +1564,206 @@ class ZAB_WooCommerce {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Check whether a cart line item is a booking appointment item.
+	 *
+	 * @param array $cart_item Cart item data.
+	 * @return bool
+	 */
+	private static function is_booking_cart_item( $cart_item ) {
+		return is_array( $cart_item ) && ! empty( $cart_item['zab_appointment_id'] );
+	}
+
+	/**
+	 * Cancel pending appointment when its cart item is removed.
+	 *
+	 * @param string  $cart_item_key Cart item key.
+	 * @param WC_Cart $cart Cart object.
+	 * @return void
+	 */
+	public static function handle_booking_cart_item_removed( $cart_item_key, $cart ) {
+		if ( ! $cart instanceof WC_Cart ) {
+			return;
+		}
+
+		$cart_item = $cart->get_cart_item( $cart_item_key );
+		if ( ! self::is_booking_cart_item( $cart_item ) ) {
+			return;
+		}
+
+		$appointment_id = absint( $cart_item['zab_appointment_id'] );
+		if ( $appointment_id < 1 ) {
+			return;
+		}
+
+		self::cancel_pending_appointment_from_cart( $appointment_id );
+	}
+
+	/**
+	 * Cancel pending booking appointments when the whole cart is emptied.
+	 *
+	 * @param bool $clear_persistent_cart Whether persistent cart will be cleared.
+	 * @return void
+	 */
+	public static function handle_booking_cart_emptied( $clear_persistent_cart ) {
+		unset( $clear_persistent_cart );
+
+		if ( ! function_exists( 'WC' ) || null === WC()->cart ) {
+			return;
+		}
+
+		foreach ( WC()->cart->get_cart() as $cart_item ) {
+			if ( ! self::is_booking_cart_item( $cart_item ) ) {
+				continue;
+			}
+
+			$appointment_id = absint( $cart_item['zab_appointment_id'] );
+			if ( $appointment_id < 1 ) {
+				continue;
+			}
+
+			self::cancel_pending_appointment_from_cart( $appointment_id );
+		}
+	}
+
+	/**
+	 * Restore pending appointment when a removed cart item is restored.
+	 *
+	 * @param string  $cart_item_key Cart item key.
+	 * @param WC_Cart $cart Cart object.
+	 * @return void
+	 */
+	public static function handle_booking_cart_item_restored( $cart_item_key, $cart ) {
+		if ( ! $cart instanceof WC_Cart ) {
+			return;
+		}
+
+		$cart_item = $cart->get_cart_item( $cart_item_key );
+		if ( ! self::is_booking_cart_item( $cart_item ) ) {
+			return;
+		}
+
+		$appointment_id = absint( $cart_item['zab_appointment_id'] );
+		if ( $appointment_id < 1 ) {
+			return;
+		}
+
+		self::restore_pending_appointment_to_cart( $appointment_id );
+	}
+
+	/**
+	 * Cancel a cart-held pending appointment row.
+	 *
+	 * @param int $appointment_id Appointment id.
+	 * @return void
+	 */
+	private static function cancel_pending_appointment_from_cart( $appointment_id ) {
+		$appointment_id = absint( $appointment_id );
+
+		if ( $appointment_id < 1 ) {
+			return;
+		}
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'booking_appointments';
+		$wpdb->query(
+			$wpdb->prepare(
+				"UPDATE {$table_name} SET status = 'cancelled', lock_expires_at = NULL WHERE id = %d AND status = 'pending' AND ( order_id IS NULL OR order_id = 0 )",
+				$appointment_id
+			)
+		);
+	}
+
+	/**
+	 * Restore a cart-held pending appointment row after undo.
+	 *
+	 * @param int $appointment_id Appointment id.
+	 * @return void
+	 */
+	private static function restore_pending_appointment_to_cart( $appointment_id ) {
+		$appointment_id = absint( $appointment_id );
+
+		if ( $appointment_id < 1 ) {
+			return;
+		}
+
+		global $wpdb;
+
+		$table_name      = $wpdb->prefix . 'booking_appointments';
+		$lock_expires_at = self::get_lock_expiry_utc();
+
+		$wpdb->query(
+			$wpdb->prepare(
+				"UPDATE {$table_name} SET status = 'pending', lock_expires_at = %s WHERE id = %d AND status = 'cancelled' AND ( order_id IS NULL OR order_id = 0 )",
+				$lock_expires_at,
+				$appointment_id
+			)
+		);
+	}
+
+	/**
+	 * Render fixed quantity for booking cart items.
+	 *
+	 * @param string $product_quantity Existing quantity HTML.
+	 * @param string $cart_item_key Cart item key.
+	 * @param array  $cart_item Cart item data.
+	 * @return string
+	 */
+	public static function render_booking_cart_item_quantity( $product_quantity, $cart_item_key, $cart_item ) {
+		if ( ! self::is_booking_cart_item( $cart_item ) ) {
+			return $product_quantity;
+		}
+
+		return '1<input type="hidden" name="cart[' . esc_attr( $cart_item_key ) . '][qty]" value="1" />';
+	}
+
+	/**
+	 * Block manual quantity updates for booking cart items.
+	 *
+	 * @param bool   $passed Validation state.
+	 * @param string $cart_item_key Cart item key.
+	 * @param array  $cart_item Cart item data.
+	 * @param int    $quantity Requested quantity.
+	 * @return bool
+	 */
+	public static function prevent_booking_cart_quantity_update( $passed, $cart_item_key, $cart_item, $quantity ) {
+		if ( ! self::is_booking_cart_item( $cart_item ) ) {
+			return $passed;
+		}
+
+		if ( 1 !== (int) $quantity ) {
+			wc_add_notice( __( 'Appointment services stay at quantity 1. Add more appointments as separate selections.', 'zeka-appointment-booking' ), 'notice' );
+			return false;
+		}
+
+		return $passed;
+	}
+
+	/**
+	 * Normalize booking cart items to quantity 1 after cart updates.
+	 *
+	 * @param string  $cart_item_key Cart item key.
+	 * @param int     $quantity New quantity.
+	 * @param int     $old_quantity Old quantity.
+	 * @param WC_Cart $cart Cart object.
+	 * @return void
+	 */
+	public static function normalize_booking_cart_item_quantity( $cart_item_key, $quantity, $old_quantity, $cart ) {
+		if ( ! $cart instanceof WC_Cart ) {
+			return;
+		}
+
+		$cart_item = $cart->get_cart_item( $cart_item_key );
+		if ( ! self::is_booking_cart_item( $cart_item ) ) {
+			return;
+		}
+
+		if ( 1 !== (int) $quantity ) {
+			$cart->set_quantity( $cart_item_key, 1, false );
+		}
 	}
 
 	/**
