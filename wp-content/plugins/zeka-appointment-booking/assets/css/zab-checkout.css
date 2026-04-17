@@ -208,11 +208,12 @@ body.woocommerce-checkout #payment .payment_box {
 	font-size: 14px;
 	line-height: 1.5;
 	margin-top: 12px;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
 body.woocommerce-checkout #payment .payment_box::before {
-	display: none; /* Hide default WC arrow */
+	display: none;
+	/* Hide default WC arrow */
 }
 
 /* Place Order / Cart Buttons */
@@ -225,7 +226,7 @@ body.woocommerce-cart .actions {
 
 body.woocommerce-checkout #payment .place-order .button,
 body.woocommerce-cart .wc-proceed-to-checkout .button.checkout-button,
-body.woocommerce-cart .actions > button.button {
+body.woocommerce-cart .actions>button.button {
 	background: var(--current-theme-accent, #1cc8ff);
 	color: #ffffff;
 	border: none;
@@ -239,14 +240,14 @@ body.woocommerce-cart .actions > button.button {
 	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-body.woocommerce-cart .actions > button.button {
+body.woocommerce-cart .actions>button.button {
 	width: auto;
 	padding: 12px 24px;
 }
 
 body.woocommerce-checkout #payment .place-order .button:hover,
 body.woocommerce-cart .wc-proceed-to-checkout .button.checkout-button:hover,
-body.woocommerce-cart .actions > button.button:hover {
+body.woocommerce-cart .actions>button.button:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.2);
 	opacity: 0.9;
