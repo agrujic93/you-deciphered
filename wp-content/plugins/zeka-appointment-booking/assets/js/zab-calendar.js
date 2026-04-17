@@ -31,6 +31,8 @@
 			this.$appointmentTimeInput = document.getElementById( 'zab-appointment-time' );
 			this.$serviceSelect = document.getElementById( 'zab-service-select' );
 			this.$statusSelect = document.getElementById( 'zab-appointment-status' );
+			this.$customerNameInput = document.getElementById( 'zab-customer-name' );
+			this.$customerEmailInput = document.getElementById( 'zab-customer-email' );
 			this.$modalTitle = document.getElementById( 'zab-modal-title' );
 		},
 
@@ -128,6 +130,12 @@
 				tag.className = `zab-appointment-tag ${ appt.status }`;
 				tag.textContent = `${ appt.time } - ${ appt.service_name }`;
 				tag.dataset.appointmentId = appt.id;
+				tag.dataset.date = appt.date || date;
+				tag.dataset.time = appt.time_24 || '';
+				tag.dataset.serviceId = appt.service_id || '';
+				tag.dataset.status = appt.status || 'confirmed';
+				tag.dataset.customerName = appt.customer_name || '';
+				tag.dataset.customerEmail = appt.customer_email || '';
 				tag.addEventListener( 'click', () => this.editAppointmentId( appt.id, date ) );
 				container.appendChild( tag );
 			} );
@@ -148,6 +156,8 @@
 			this.$appointmentTimeInput.value = '09:00';
 			this.$serviceSelect.value = '';
 			this.$statusSelect.value = 'confirmed';
+			this.$customerNameInput.value = '';
+			this.$customerEmailInput.value = '';
 			this.$deleteBtn.style.display = 'none';
 
 			this.$modal.classList.add( 'active' );
@@ -174,11 +184,16 @@
 		editAppointment( tagElement ) {
 			const appointmentId = tagElement.dataset.appointmentId;
 			this.currentAppointmentId = appointmentId;
+			this.currentDate = tagElement.dataset.date || this.currentDate || zabCalendarData.currentDate;
 
-			// For now, just show basic edit modal with reload capability.
-			// In production, would fetch full appointment details via AJAX.
 			this.$modalTitle.textContent = 'Edit Appointment';
 			this.$appointmentIdInput.value = appointmentId;
+			this.$appointmentDateInput.value = this.currentDate;
+			this.$appointmentTimeInput.value = tagElement.dataset.time || '09:00';
+			this.$serviceSelect.value = tagElement.dataset.serviceId || '';
+			this.$statusSelect.value = tagElement.dataset.status || 'confirmed';
+			this.$customerNameInput.value = tagElement.dataset.customerName || '';
+			this.$customerEmailInput.value = tagElement.dataset.customerEmail || '';
 			this.$deleteBtn.style.display = 'inline-block';
 
 			this.$modal.classList.add( 'active' );
@@ -193,8 +208,8 @@
 			const time = this.$appointmentTimeInput.value;
 			const serviceId = this.$serviceSelect.value;
 			const status = this.$statusSelect.value;
-			const customerName = document.getElementById( 'zab-customer-name' ).value;
-			const customerEmail = document.getElementById( 'zab-customer-email' ).value;
+			const customerName = this.$customerNameInput.value;
+			const customerEmail = this.$customerEmailInput.value;
 
 			if ( ! date || ! time || ! serviceId ) {
 				this.showAlert( 'Please fill in all required fields.', 'error' );

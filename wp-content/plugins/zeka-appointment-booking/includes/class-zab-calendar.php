@@ -234,7 +234,10 @@ class ZAB_Calendar {
 						<select id="zab-appointment-status" name="status">
 							<option value="confirmed"><?php esc_html_e( 'Confirmed', 'zeka-appointment-booking' ); ?></option>
 							<option value="pending"><?php esc_html_e( 'Pending', 'zeka-appointment-booking' ); ?></option>
+							<option value="awaiting_verification"><?php esc_html_e( 'Awaiting Verification', 'zeka-appointment-booking' ); ?></option>
+							<option value="cancelled"><?php esc_html_e( 'Cancelled', 'zeka-appointment-booking' ); ?></option>
 						</select>
+						<p class="description"><?php esc_html_e( 'Manual status changes only update the appointment. Confirming here detaches it from pending WooCommerce cleanup and does not change the Woo order status.', 'zeka-appointment-booking' ); ?></p>
 					</div>
 
 					<div class="form-actions">
@@ -301,9 +304,13 @@ class ZAB_Calendar {
 
 			$formatted[] = array(
 				'id'            => intval( $appt->id ),
+				'date'          => $date,
+				'service_id'    => intval( $appt->service_id ),
 				'service_name'  => $appt->service_name,
 				'customer_name' => $customer_name,
+				'customer_email'=> ! empty( $appt->email ) ? sanitize_email( $appt->email ) : '',
 				'time'          => $start_local->format( 'g:i A' ),
+				'time_24'       => $start_local->format( 'H:i' ),
 				'status'        => $appt->status,
 			);
 		}
@@ -428,6 +435,8 @@ class ZAB_Calendar {
 		$time = isset( $_POST['appointment_time'] ) ? sanitize_text_field( wp_unslash( $_POST['appointment_time'] ) ) : '';
 		$service_id = isset( $_POST['service_id'] ) ? absint( wp_unslash( $_POST['service_id'] ) ) : 0;
 		$status = isset( $_POST['status'] ) ? sanitize_key( wp_unslash( $_POST['status'] ) ) : 'confirmed';
+		$customer_name = isset( $_POST['customer_name'] ) ? sanitize_text_field( wp_unslash( $_POST['customer_name'] ) ) : '';
+		$customer_email = isset( $_POST['customer_email'] ) ? sanitize_email( wp_unslash( $_POST['customer_email'] ) ) : '';
 
 		if ( ! $appointment_id || ! $date || ! $time || ! $service_id ) {
 			wp_send_json_error( array( 'message' => __( 'Missing required fields', 'zeka-appointment-booking' ) ), 400 );
@@ -438,7 +447,7 @@ class ZAB_Calendar {
 		// Verify appointment exists.
 		$appt = $wpdb->get_row(
 			$wpdb->prepare(
-				"SELECT id, service_id FROM {$wpdb->prefix}booking_appointments WHERE id = %d",
+				"SELECT id, service_id, order_id FROM {$wpdb->prefix}booking_appointments WHERE id = %d",
 				$appointment_id
 			)
 		);
@@ -470,18 +479,74 @@ class ZAB_Calendar {
 		$start_utc = $start_local->setTimezone( new DateTimeZone( 'UTC' ) );
 		$end_utc = $start_utc->modify( '+' . $service->duration_minutes . ' minutes' );
 
+		// Resolve customer relation for edited appointment.
+		$customer_id = 0;
+		if ( ! empty( $customer_email ) ) {
+			$existing_customer = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT id FROM {$wpdb->prefix}booking_customers WHERE email = %s",
+					$customer_email
+				)
+			);
+
+			if ( $existing_customer ) {
+				$customer_id = absint( $existing_customer );
+
+				$name_parts = explode( ' ', $customer_name, 2 );
+				$wpdb->update(
+					$wpdb->prefix . 'booking_customers',
+					array(
+						'first_name' => ! empty( $name_parts[0] ) ? $name_parts[0] : '',
+						'last_name'  => ! empty( $name_parts[1] ) ? $name_parts[1] : '',
+					),
+					array( 'id' => $customer_id ),
+					array( '%s', '%s' ),
+					array( '%d' )
+				);
+			} else {
+				$name_parts = explode( ' ', $customer_name, 2 );
+				$first_name = ! empty( $name_parts[0] ) ? $name_parts[0] : '';
+				$last_name = ! empty( $name_parts[1] ) ? $name_parts[1] : '';
+
+				$wpdb->insert(
+					$wpdb->prefix . 'booking_customers',
+					array(
+						'first_name' => $first_name,
+						'last_name'  => $last_name,
+						'email'      => $customer_email,
+					),
+					array( '%s', '%s', '%s' )
+				);
+
+				$customer_id = (int) $wpdb->insert_id;
+			}
+		}
+
 		// Update appointment.
+		$update_data = array(
+			'service_id'   => $service_id,
+			'customer_id'  => $customer_id,
+			'booking_date' => $date,
+			'start_time'   => $start_utc->format( 'Y-m-d H:i:s' ),
+			'end_time'     => $end_utc->format( 'Y-m-d H:i:s' ),
+			'status'       => $status,
+		);
+
+		$update_formats = array( '%d', '%d', '%s', '%s', '%s', '%s' );
+
+		// Manual admin confirmation detaches appointment from pending Woo order flow.
+		if ( 'confirmed' === $status && ! empty( $appt->order_id ) ) {
+			$update_data['order_id'] = 0;
+			$update_data['lock_expires_at'] = null;
+			$update_formats[] = '%d';
+			$update_formats[] = '%s';
+		}
+
 		$wpdb->update(
 			$wpdb->prefix . 'booking_appointments',
-			array(
-				'service_id'   => $service_id,
-				'booking_date' => $date,
-				'start_time'   => $start_utc->format( 'Y-m-d H:i:s' ),
-				'end_time'     => $end_utc->format( 'Y-m-d H:i:s' ),
-				'status'       => $status,
-			),
+			$update_data,
 			array( 'id' => $appointment_id ),
-			array( '%d', '%s', '%s', '%s', '%s' ),
+			$update_formats,
 			array( '%d' )
 		);
 
