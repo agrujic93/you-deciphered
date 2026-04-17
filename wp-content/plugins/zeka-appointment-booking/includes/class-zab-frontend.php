@@ -21,6 +21,10 @@ class ZAB_Frontend {
 	 * @return string
 	 */
 	public static function render_booking_shortcode() {
+		if ( ! class_exists( 'WooCommerce' ) || ! function_exists( 'WC' ) ) {
+			return '<div class="zab-booking-widget"><p class="zab-booking-notice zab-booking-notice--error">' . esc_html__( 'Booking form requires WooCommerce. Please install and activate WooCommerce first.', 'zeka-appointment-booking' ) . '</p></div>';
+		}
+
 		self::enqueue_assets();
 
 		$today               = ZAB_Time::current_local_date();

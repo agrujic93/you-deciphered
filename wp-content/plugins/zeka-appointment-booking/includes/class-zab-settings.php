@@ -478,9 +478,28 @@ class ZAB_Settings {
 
 		$exceptions = self::get_exceptions();
 		$services   = self::get_services();
+		$has_woo    = class_exists( 'WooCommerce' ) && function_exists( 'WC' );
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Appointment Booking Settings', 'zeka-appointment-booking' ); ?></h1>
+
+			<?php if ( ! $has_woo ) : ?>
+				<div class="notice notice-warning" style="margin: 16px 0;">
+					<p>
+						<strong><?php esc_html_e( 'WooCommerce is required.', 'zeka-appointment-booking' ); ?></strong>
+						<?php esc_html_e( 'Install and activate WooCommerce to complete booking checkout and order flow.', 'zeka-appointment-booking' ); ?>
+					</p>
+				</div>
+			<?php endif; ?>
+
+			<div class="notice notice-info" style="margin: 16px 0;">
+				<p><strong><?php esc_html_e( 'How to use the booking form', 'zeka-appointment-booking' ); ?></strong></p>
+				<p>
+					<?php esc_html_e( 'Add this shortcode to any page, post, or block where you want the booking widget to appear:', 'zeka-appointment-booking' ); ?>
+					<code>[zab_booking]</code>
+				</p>
+			</div>
+
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'zab_settings_group' );
