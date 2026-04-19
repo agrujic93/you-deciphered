@@ -89,32 +89,6 @@
             "save_options": 0
         },
         {
-            "key": "field_692995bf56d86",
-            "label": "Choose Layout",
-            "name": "choose_layout",
-            "aria-label": "",
-            "type": "radio",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "50",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "grid_view": "Grid View",
-                "list_view": "List View"
-            },
-            "default_value": "grid_view",
-            "return_format": "value",
-            "allow_null": 0,
-            "other_choice": 0,
-            "allow_in_bindings": 0,
-            "layout": "vertical",
-            "save_other_choice": 0
-        },
-        {
             "key": "field_68fa4f0805b00",
             "label": "Categories",
             "name": "categories",
@@ -359,5 +333,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1775857111
+    "modified": 1776354100
 }

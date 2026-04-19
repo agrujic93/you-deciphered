@@ -747,4 +747,10 @@ function simple_block_add_woocommerce_support() {
 	add_theme_support( 'wc-product-gallery-lightbox' );
 	add_theme_support( 'wc-product-gallery-slider' );
 }
+
 add_action( 'after_setup_theme', 'simple_block_add_woocommerce_support' );
+
+/**
+ * Include blog block backend logic from block folder.
+ */
+require_once get_template_directory() . '/parts/blocks/blog-block/blog-block-functions.php';

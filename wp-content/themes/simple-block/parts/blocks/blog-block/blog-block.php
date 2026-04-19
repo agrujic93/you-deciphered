@@ -55,30 +55,76 @@ else : /* rendering in editor body */
 				</div>
 			<?php endif; ?>
 
-			<?php $view_type = get_field('choose_layout'); ?>
+			<?php
+			$selected_categories = get_field( 'categories' );
+			$excluded_categories = get_field( 'exclude_categories' );
+			?>
 
-			<div class="posts-wrp" data-uk-lightbox="nav: thumbnav; animation: scale; toggle: .light">
+			<?php
+			// Display category pills if both selected and excluded categories are empty
+			if ( empty( $selected_categories ) && empty( $excluded_categories ) ) :
+				$categories_with_children = get_categories( array(
+					'hierarchical' => 1,
+					'hide_empty'   => false,
+				) );
 
-				<?php if ($view_type === 'grid_view'): ?>
-					<div class="uk-grid uk-grid-small blog-grid-view" uk-grid>
-				<?php endif; ?>
+				// Filter to get only categories with children
+				$parent_categories = array_filter(
+					$categories_with_children,
+					function( $cat ) {
+						return $cat->category_parent === 0; // Only parent categories
+					}
+				);
+
+				if ( ! empty( $parent_categories ) ) :
+					?>
+					<div class="ci-category-filter-pills uk-margin-medium-bottom">
+						<div class="uk-flex uk-flex-wrap" data-uk-margin>
+							<button class="ci-category-pill is-active" data-category="" data-all-categories="true">
+								All
+							</button>
+							<?php foreach ( $parent_categories as $category ) : ?>
+								<button class="ci-category-pill" data-category="<?php echo esc_attr( $category->term_id ); ?>">
+									<?php echo esc_html( $category->name ); ?>
+								</button>
+							<?php endforeach; ?>
+						</div>
+					</div>
+					<?php
+				endif;
+			endif;
+			?>
+
+			<?php
+			$number_field = get_field( 'posts_per_page' );
+			if ( $number_field === 'all' ) {
+				$number_of_posts = -1;
+			} elseif ( $number_field ) {
+				$number_of_posts = $number_field;
+			} else {
+				$number_of_posts = 10;
+			}
+			?>
+
+			<?php
+			$show_thumbnail_setting      = get_field( 'show_thumbnail' );
+			$show_excerpt_setting        = get_field( 'show_excerpt' );
+			$show_categories_setting     = get_field( 'show_categories' );
+			$show_read_more_link_setting = get_field( 'show_read_more_link' );
+			$show_date_setting           = get_field( 'show_date' );
+			$show_author_name_setting    = get_field( 'show_author_name' );
+
+			if ( '' === $show_thumbnail_setting || null === $show_thumbnail_setting ) {
+				$show_thumbnail_setting = true;
+			}
+			?>
+
+			<div class="posts-wrp" data-page="1" data-category="" data-posts-per-page="<?php echo esc_attr( $number_of_posts ); ?>" data-show-thumbnail="<?php echo esc_attr( $show_thumbnail_setting ? '1' : '0' ); ?>" data-show-excerpt="<?php echo esc_attr( $show_excerpt_setting ? '1' : '0' ); ?>" data-show-categories="<?php echo esc_attr( $show_categories_setting ? '1' : '0' ); ?>" data-show-read-more-link="<?php echo esc_attr( $show_read_more_link_setting ? '1' : '0' ); ?>" data-show-date="<?php echo esc_attr( $show_date_setting ? '1' : '0' ); ?>" data-show-author-name="<?php echo esc_attr( $show_author_name_setting ? '1' : '0' ); ?>">
+				<div class="uk-grid uk-grid-small blog-grid-view" uk-grid>
 
 				<?php
-				$number_field = get_field( 'posts_per_page' );
-				if ( $number_field === 'all' ) {
-					$number_of_posts = -1;
-				} elseif ( $number_field ) {
-					$number_of_posts = $number_field;
-				} else {
-					$number_of_posts = 10;
-				}
-
 				// Pagination setup
 				$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
-
-				$selected_categories = get_field( 'categories' );
-
-				$excluded_categories = get_field( 'exclude_categories' );
 
 				$args = array(
 					'post_type'      => 'post',
@@ -104,152 +150,48 @@ else : /* rendering in editor body */
 
 				$query = new WP_Query( $args );
 
+				ci_blog_set_render_context(
+					array(
+						'show_thumbnail'      => $show_thumbnail_setting,
+						'show_excerpt'        => $show_excerpt_setting,
+						'show_categories'     => $show_categories_setting,
+						'show_read_more_link' => $show_read_more_link_setting,
+						'show_date'           => $show_date_setting,
+						'show_author_name'    => $show_author_name_setting,
+					)
+				);
+
 				if ( $query->have_posts() ) :
 					while ( $query->have_posts() ) :
 						$query->the_post();
-						$permalink = get_permalink();
-						$title     = get_the_title();
-						$date      = get_the_date();
-						$author    = get_the_author();
-						$featured_image = get_the_post_thumbnail_url(get_the_ID(), 'large');
-						$featured_video = get_field('featured_video', get_the_ID());
-						?>
-						<div class="single-blog-wrp animation-fade-item <?php echo ($view_type === 'grid_view') ? 'uk-width-1-3@m' : ''; ?>" <?php echo $animation_duration_style; ?>>
-							<?php if ($view_type === 'list_view'): ?>
-								<div class="uk-grid uk-grid-small" data-uk-grid>
-									<?php if ($featured_video): ?>
-										<div class="uk-width-1-3@s">
-											<div class="uk-position-relative post-thumb uk-overflow-hidden">
-												<div class="single-video-100 blog-block"><?php echo $featured_video; ?></div>
-											</div>
-										</div>
-									<?php elseif ( get_the_post_thumbnail() && get_field('show_thumbnail') ) : ?>
-										<div class="uk-width-1-3@s">
-											<div class="uk-position-relative post-thumb uk-overflow-hidden">
-												<img class="wp-post-image" src="<?php echo esc_url($featured_image); ?>" alt="<?php the_title_attribute(); ?>">
-												<div class="rollover-info">
-													<div>
-														<div class="uk-flex">
-															<a class="links-wrp" aria-label="Link to the blog post" href="<?php echo esc_url( $permalink ); ?>"><div class="link-ico"></div></a>
-															<a class="links-wrp light" data-caption="<?php echo esc_attr($title); ?>" data-type="image" href="<?php echo esc_url( $featured_image ); ?>"><div class="loop-ico"><img class="hidden-img" src="<?php echo esc_url($featured_image); ?>" alt="<?php the_title_attribute(); ?>"></div></a>
-														</div>
-														<h4 class="h6 uk-margin-remove-bottom uk-text-center"><a aria-label="Link to the blog post" href="<?php echo esc_url( $permalink ); ?>"><?php echo $title; ?></a></h4>
-														<?php
-														$categories = get_the_category();
-														if ( ! empty( $categories ) && get_field('show_categories') ) {
-															$first_category = $categories[0];
-															$category_link = get_category_link( $first_category->term_id );
-															echo '<span class="post-category"><a href="' . esc_url( $category_link ) . '">' . esc_html( $first_category->name ) . '</a></span>';
-														}
-														?>
-													</div>
-												</div>
-											</div>
-										</div>
-									<?php endif; ?>
-									<div class="uk-width-expand">
-										<div class="single-info-wrp rm-last-child-margin">
-											<div>
-												<h3 class="post-title uk-display-inline-block h4 uk-margin-remove-bottom">
-													<a aria-label="Link to the <?php echo esc_html( $title ); ?>" href="<?php echo esc_url( $permalink ); ?>"><?php echo esc_html( $title ); ?></a>
-												</h3>
-												<?php if (get_field('show_date') || get_field('show_author_name')): ?>
-													<div class="uk-margin-small-top">
-														<?php if (get_field('show_date')): ?>
-															<p class="uk-text-small uk-margin-remove-bottom"><?php echo esc_html( $date ); ?></p>
-														<?php endif ?>
-														<?php if (get_field('show_author_name')): ?>
-															<p class="post-author uk-text-small uk-margin-remove-bottom">By <?php echo esc_html( $author ); ?></p>
-														<?php endif ?>
-													</div>
-												<?php endif ?>
-											</div>
-											<?php if (get_field('show_excerpt')): ?>
-												<p class="uk-margin-remove-bottom post-excerpt"><?php echo wp_html_excerpt( get_the_excerpt(), 180, '... ' ); ?></p>
-											<?php endif ?>
-											<?php if (get_field('show_read_more_link')): ?>
-												<div class="read-more-link-wrp">
-													<a class="read-more-link uk-text-small" aria-label="Read More about <?php echo esc_html( $title ); ?>" href="<?php echo esc_url( $permalink ); ?>">Read More</a>
-												</div>
-											<?php endif ?>
-										</div>
-									</div>
-								</div>
-							<?php else: ?>
-								<div class="grid-card">
-									<?php if ($featured_video): ?>
-										<div class="uk-position-relative post-thumb uk-overflow-hidden uk-margin-small-bottom">
-											<div class="single-video-100 blog-block"><?php echo $featured_video; ?></div>
-										</div>
-									<?php elseif ($featured_image && get_field('show_thumbnail')): ?>
-										<div class="uk-position-relative post-thumb uk-overflow-hidden uk-margin-small-bottom">
-											<img class="wp-post-image" src="<?php echo esc_url($featured_image); ?>" alt="<?php the_title_attribute(); ?>">
-											<div class="rollover-info">
-												<div>
-													<div class="uk-flex">
-														<a class="links-wrp" aria-label="Link to the blog post" href="<?php echo esc_url( $permalink ); ?>"><div class="link-ico"></div></a>
-														<a class="links-wrp light" data-caption="<?php echo esc_attr($title); ?>" data-type="image" href="<?php echo esc_url( $featured_image ); ?>"><div class="loop-ico"><img class="hidden-img" src="<?php echo esc_url($featured_image); ?>" alt="<?php the_title_attribute(); ?>"></div></a>
-													</div>
-													<h4 class="h6 uk-margin-remove-bottom uk-text-center"><a aria-label="Link to the blog post" href="<?php echo esc_url( $permalink ); ?>"><?php echo $title; ?></a></h4>
-													<?php
-													$categories = get_the_category();
-													if ( ! empty( $categories ) && get_field('show_categories') ) {
-														$first_category = $categories[0];
-														$category_link = get_category_link( $first_category->term_id );
-														echo '<span class="post-category"><a href="' . esc_url( $category_link ) . '">' . esc_html( $first_category->name ) . '</a></span>';
-													}
-													?>
-												</div>
-											</div>
-										</div>
-									<?php endif; ?>
-
-									<h3 class="post-title h4 uk-margin-small-bottom">
-										<a href="<?php echo esc_url($permalink); ?>"><?php echo esc_html($title); ?></a>
-									</h3>
-									<div class="uk-flex uk-flex-between uk-flex-middle">
-									<?php if (get_field('show_date')): ?>
-										<p class="uk-text-small uk-margin-remove-bottom"><?php echo esc_html($date); ?></p>
-									<?php endif; ?>
-									<?php if (get_field('show_read_more_link')): ?>
-										<div class="read-more-link-wrp">
-											<a class="read-more-link uk-text-small" aria-label="Read More about <?php echo esc_html( $title ); ?>" href="<?php echo esc_url( $permalink ); ?>">Read More</a>
-										</div>
-									<?php endif ?>
-									</div>
-
-									<?php if (get_field('show_excerpt')): ?>
-										<p class="uk-margin-small-top"><?php echo wp_html_excerpt(get_the_excerpt(), 150, '...'); ?></p>
-									<?php endif; ?>
-								</div>
-							<?php endif; ?>
-						</div>
-						<?php
+						ci_render_blog_post_item();
 					endwhile;
-					?>
-			</div>
-
-			<!-- Pagination -->
-			<?php if (get_field('show_pagination')): ?>
-				<div class="uk-margin-large-top uk-text-right ci-pagination-wrp">
-					<?php
-					echo paginate_links( array(
-						'total'   => $query->max_num_pages,
-						'current' => max( 1, $paged ),
-						'prev_text' => 'Previous',
-						'next_text' => 'Next',
-					) );
-					?>
-				</div>
-			<?php endif; ?>
-
-			<?php
-				wp_reset_postdata();
 				endif;
-			?>
-			<?php if ($view_type === 'grid_view'): ?>
+
+				wp_reset_postdata();
+				?>
 				</div>
-			<?php endif; ?>
+
+				<!-- Load More Button -->
+				<?php if ( get_field( 'show_pagination' ) && $query->max_num_pages > 1 ) : ?>
+					<div class="uk-margin-large-top uk-text-center ci-load-more-wrp">
+						<button class="ci-load-more-btn uk-button uk-button-default" data-has-more="1">Load More</button>
+					</div>
+				<?php endif; ?>
+
+				<div class="ci-posts-loader" aria-hidden="true">
+					<svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="ci-spinner lds-ripple" style="background: none;">
+						<circle cx="50" cy="50" r="8.28987" fill="none" stroke="#4a84ff" stroke-width="2">
+							<animate attributeName="r" calcMode="spline" values="0;40" keyTimes="0;1" dur="1" keySplines="0 0.2 0.8 1" begin="-0.5s" repeatCount="indefinite"></animate>
+							<animate attributeName="opacity" calcMode="spline" values="1;0" keyTimes="0;1" dur="1" keySplines="0.2 0 0.8 1" begin="-0.5s" repeatCount="indefinite"></animate>
+						</circle>
+						<circle cx="50" cy="50" r="29.5877" fill="none" stroke="#4a84ff" stroke-width="2">
+							<animate attributeName="r" calcMode="spline" values="0;40" keyTimes="0;1" dur="1" keySplines="0 0.2 0.8 1" begin="0s" repeatCount="indefinite"></animate>
+							<animate attributeName="opacity" calcMode="spline" values="1;0" keyTimes="0;1" dur="1" keySplines="0.2 0 0.8 1" begin="0s" repeatCount="indefinite"></animate>
+						</circle>
+					</svg>
+				</div>
+			</div>
 		</div>
 	</section>
 <?php endif; ?>
