@@ -80,11 +80,11 @@ else : /* rendering in editor body */
 					?>
 					<div class="ci-category-filter-pills uk-margin-medium-bottom">
 						<div class="uk-flex uk-flex-wrap" data-uk-margin>
-							<button class="ci-category-pill is-active" data-category="" data-all-categories="true">
+							<button class="ci-category-pill ci-label-pill ci-label-pill-big is-active " data-category="" data-all-categories="true">
 								All
 							</button>
 							<?php foreach ( $parent_categories as $category ) : ?>
-								<button class="ci-category-pill" data-category="<?php echo esc_attr( $category->term_id ); ?>">
+								<button class="ci-category-pill ci-label-pill ci-label-pill-big" data-category="<?php echo esc_attr( $category->term_id ); ?>">
 									<?php echo esc_html( $category->name ); ?>
 								</button>
 							<?php endforeach; ?>
@@ -120,7 +120,7 @@ else : /* rendering in editor body */
 			?>
 
 			<div class="posts-wrp" data-page="1" data-category="" data-posts-per-page="<?php echo esc_attr( $number_of_posts ); ?>" data-show-thumbnail="<?php echo esc_attr( $show_thumbnail_setting ? '1' : '0' ); ?>" data-show-excerpt="<?php echo esc_attr( $show_excerpt_setting ? '1' : '0' ); ?>" data-show-categories="<?php echo esc_attr( $show_categories_setting ? '1' : '0' ); ?>" data-show-read-more-link="<?php echo esc_attr( $show_read_more_link_setting ? '1' : '0' ); ?>" data-show-date="<?php echo esc_attr( $show_date_setting ? '1' : '0' ); ?>" data-show-author-name="<?php echo esc_attr( $show_author_name_setting ? '1' : '0' ); ?>">
-				<div class="uk-grid uk-grid-small blog-grid-view" uk-grid>
+				<div class="uk-grid uk-grid-small blog-grid-view" data-uk-grid>
 
 				<?php
 				// Pagination setup
@@ -175,7 +175,7 @@ else : /* rendering in editor body */
 				<!-- Load More Button -->
 				<?php if ( get_field( 'show_pagination' ) && $query->max_num_pages > 1 ) : ?>
 					<div class="uk-margin-large-top uk-text-center ci-load-more-wrp">
-						<button class="ci-load-more-btn uk-button uk-button-default" data-has-more="1">Load More</button>
+						<button class="ci-load-more-btn btn btn-secondary" data-has-more="1"><?php echo pll_current_language() === 'en' ? 'Load More' : 'Učitaj Više'; ?></button>
 					</div>
 				<?php endif; ?>
 

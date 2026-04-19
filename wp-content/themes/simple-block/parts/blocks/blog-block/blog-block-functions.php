@@ -200,7 +200,7 @@ if ( ! function_exists( 'ci_render_blog_post_item' ) ) {
 		$post_id        = get_the_ID();
 		$permalink      = get_permalink();
 		$title          = get_the_title();
-		$date           = get_the_date();
+		$date           = get_the_date( pll_current_language() === 'en' ? 'M j, Y' : 'j. M Y.' );
 		$author_id      = (int) get_post_field( 'post_author', $post_id );
 		$author         = trim( (string) get_the_author() );
 		if ( '' === $author ) {
@@ -246,21 +246,23 @@ if ( ! function_exists( 'ci_render_blog_post_item' ) ) {
 		<div class="single-blog-wrp animation-fade-item uk-width-1-3@m">
 			<div class="grid-card">
 				<?php if ( $show_thumbnail && $post_thumbnail ) : ?>
-					<div class="uk-position-relative post-thumb uk-overflow-hidden uk-margin-small-bottom">
-						<img class="wp-post-image" src="<?php echo esc_url( $post_thumbnail ); ?>" alt="<?php the_title_attribute(); ?>" loading="lazy">
+					<div class="uk-position-relative post-thumb uk-overflow-hidden">
+						<a href="<?php echo esc_url( $permalink ); ?>">
+							<img class="wp-post-image" src="<?php echo esc_url( $post_thumbnail ); ?>" alt="<?php the_title_attribute(); ?>" loading="lazy">
+						</a>
 						<?php if ( $show_categories && ! empty( $categories ) ) : ?>
-							<p class="uk-text-small uk-margin-remove-bottom post-categories">
+							<p class="uk-text-small uk-margin-remove-bottom post-categories ci-label-pill is-active">
 								<?php echo esc_html( implode( ', ', wp_list_pluck( $categories, 'name' ) ) ); ?>
 							</p>
 						<?php endif; ?>
 					</div>
 				<?php elseif ( $show_categories && ! empty( $categories ) ) : ?>
-					<p class="uk-text-small uk-margin-small-bottom post-categories post-categories--no-thumb">
+					<p class="uk-text-small post-categories post-categories--no-thumb ci-label-pill is-active">
 						<?php echo esc_html( implode( ', ', wp_list_pluck( $categories, 'name' ) ) ); ?>
 					</p>
 				<?php endif; ?>
 
-				<h3 class="post-title h4 uk-margin-small-bottom">
+				<h3 class="post-title uk-margin-remove-bottom">
 					<a href="<?php echo esc_url( $permalink ); ?>"><?php echo esc_html( $title ); ?></a>
 				</h3>
 				<div class="uk-flex uk-flex-between uk-flex-middle">
@@ -270,19 +272,18 @@ if ( ! function_exists( 'ci_render_blog_post_item' ) ) {
 								<p class="uk-text-small uk-margin-remove-bottom"><?php echo esc_html( $date ); ?></p>
 							<?php endif; ?>
 							<?php if ( $show_author_name ) : ?>
-								<p class="post-author uk-text-small uk-margin-remove-bottom">By <?php echo esc_html( $author ); ?></p>
+								<p class="post-author uk-text-small uk-margin-remove-bottom"><?php echo pll_current_language() === 'en' ? 'By ' . esc_html( $author ) : 'Autor: ' . esc_html( $author ); ?></p>
 							<?php endif; ?>
 						</div>
 					<?php endif; ?>
-					<?php if ( $show_read_more_link ) : ?>
-						<div class="read-more-link-wrp">
-							<a class="read-more-link uk-text-small" aria-label="Read More about <?php echo esc_html( $title ); ?>" href="<?php echo esc_url( $permalink ); ?>">Read More</a>
-						</div>
-					<?php endif; ?>
 				</div>
-
 				<?php if ( $show_excerpt ) : ?>
-					<p class="uk-margin-small-top"><?php echo wp_html_excerpt( get_the_excerpt(), 150, '...' ); ?></p>
+					<p class="post-excerpt"><?php echo wp_html_excerpt( get_the_excerpt(), 150, '...' ); ?></p>
+				<?php endif; ?>
+				<?php if ( $show_read_more_link ) : ?>
+					<div class="read-more-link-wrp">
+						<a class="btn" aria-label="Read More about <?php echo esc_html( $title ); ?>" href="<?php echo esc_url( $permalink ); ?>"><?php echo pll_current_language() === 'en' ? 'Read More' : 'Saznaj Više'; ?></a>
+					</div>
 				<?php endif; ?>
 			</div>
 		</div>
