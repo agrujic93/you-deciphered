@@ -2303,7 +2303,11 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 					// We can let the code below re-create it if the server tells us onboarding is still disabled.
 					delete_transient( self::ONBOARDING_DISABLED_TRANSIENT );
 
-					$request  = Get_Account::create();
+					$request      = Get_Account::create();
+					$store_id_key = ( class_exists( '\WC_Install' ) && defined( '\WC_Install::STORE_ID_OPTION' ) )
+						? \WC_Install::STORE_ID_OPTION
+						: 'woocommerce_store_id';
+					$request->set_woocommerce_store_id( get_option( $store_id_key, '' ) );
 					$response = $request->send();
 					$account  = $response->to_array();
 
@@ -2849,6 +2853,9 @@ class WC_Payments_Account implements MultiCurrencyAccountInterface {
 
 		$active_plugin_ids = ( is_object( $wc_plugin_util ) && is_callable( [ $wc_plugin_util, 'get_all_active_valid_plugins' ] ) ) ? $wc_plugin_util->get_all_active_valid_plugins() : wp_get_active_and_valid_plugins();
 		foreach ( $active_plugin_ids as $plugin_file ) {
+			// Normalize to relative path since get_plugins() keys are relative
+			// but wp_get_active_and_valid_plugins() returns absolute paths.
+			$plugin_file = plugin_basename( $plugin_file );
 			if ( isset( $all_plugins[ $plugin_file ] ) ) {
 				$plugin_data                  = $all_plugins[ $plugin_file ];
 				$plugins_list[ $plugin_file ] = [
