@@ -335,3 +335,19 @@ body.woocommerce-checkout .wc-block-components-checkout-step {
 	padding: 24px;
 	margin-bottom: 24px;
 }
+
+/* Booking flow: hide quantity UI on classic and block cart/checkout */
+body.zab-booking-active.woocommerce-cart th.product-quantity,
+body.zab-booking-active.woocommerce-cart td.product-quantity,
+body.zab-booking-active.woocommerce-checkout .woocommerce-checkout-review-order-table .product-quantity,
+body.zab-booking-active.woocommerce-cart .wc-block-components-quantity-selector,
+body.zab-booking-active.woocommerce-checkout .wc-block-components-order-summary-item__quantity,
+body.zab-booking-active.woocommerce-checkout .wc-block-components-quantity-selector {
+	display: none !important;
+}
+
+/* Keep remove action visible in block cart while quantity controls are hidden */
+body.zab-booking-active.woocommerce-cart .wc-block-cart-item__quantity .wc-block-cart-item__remove-link,
+body.zab-booking-active.woocommerce-cart .wc-block-cart-item__quantity .wc-block-components-product-metadata__description {
+	display: inline-flex !important;
+}

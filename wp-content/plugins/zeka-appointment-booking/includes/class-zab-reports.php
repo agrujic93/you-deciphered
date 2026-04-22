@@ -35,7 +35,7 @@ class ZAB_Reports {
 		}
 
 		add_submenu_page(
-			'options-general.php',
+			'zeka-appointment-booking-settings',
 			'Booking Reports',
 			'Booking Reports',
 			'manage_options',
@@ -51,7 +51,9 @@ class ZAB_Reports {
 	 * @return void
 	 */
 	public static function enqueue_styles( $hook_suffix ) {
-		if ( 'settings_page_zab-reports' !== $hook_suffix ) {
+		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+
+		if ( 'zab-reports' !== $page ) {
 			return;
 		}
 

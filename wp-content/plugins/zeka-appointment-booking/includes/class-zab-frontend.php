@@ -13,6 +13,7 @@ class ZAB_Frontend {
 	 */
 	public static function init() {
 		add_shortcode( 'zab_booking', array( __CLASS__, 'render_booking_shortcode' ) );
+		add_shortcode( 'zab_booking_confirmation', array( __CLASS__, 'render_booking_confirmation_shortcode' ) );
 	}
 
 	/**
@@ -196,11 +197,13 @@ class ZAB_Frontend {
 					'selectedSlot'     => __( 'Selected', 'zeka-appointment-booking' ),
 					'selectedFormat'   => __( 'Selected: %1$s at %2$s - %3$s', 'zeka-appointment-booking' ),
 					'selectDateFirst'  => __( 'Please select a date first.', 'zeka-appointment-booking' ),
+					'selectSlotFirst'  => __( 'Please select a slot first.', 'zeka-appointment-booking' ),
 					'continueCheckout' => __( 'Continue to checkout', 'zeka-appointment-booking' ),
 					'processingCheckout' => __( 'Preparing checkout...', 'zeka-appointment-booking' ),
 					'verificationSent' => __( 'We sent a verification link to your email. Please confirm to finalize your free booking.', 'zeka-appointment-booking' ),
 					'multiSelectedFormat' => __( 'Selected %1$d slots on %2$s', 'zeka-appointment-booking' ),
 					'noSlotSelected' => __( 'Please select at least one slot.', 'zeka-appointment-booking' ),
+					'replaceSelectionConfirm' => __( 'You already have a booking selected. Selecting a new time will replace it. Continue?', 'zeka-appointment-booking' ),
 					'localTimezoneFormat' => __( 'Times shown in your timezone: %1$s. Business timezone: %2$s.', 'zeka-appointment-booking' ),
 					'businessTimezoneFormat' => __( 'Business timezone: %1$s.', 'zeka-appointment-booking' ),
 				),
@@ -292,5 +295,57 @@ class ZAB_Frontend {
 		}
 
 		return __( 'Your appointment is confirmed.', 'zeka-appointment-booking' );
+	}
+
+	/**
+	 * Render dedicated booking confirmation page content.
+	 *
+	 * @return string
+	 */
+	public static function render_booking_confirmation_shortcode() {
+		$status            = isset( $_GET['zab_booking'] ) ? sanitize_key( wp_unslash( $_GET['zab_booking'] ) ) : '';
+		$appointment_id    = isset( $_GET['appointment_id'] ) ? absint( wp_unslash( $_GET['appointment_id'] ) ) : 0;
+		$appointment_count = isset( $_GET['appointment_count'] ) ? absint( wp_unslash( $_GET['appointment_count'] ) ) : 0;
+
+		if ( 'verify_failed' === $status ) {
+			$heading = __( 'Verification failed', 'zeka-appointment-booking' );
+			$message = __( 'This verification link is invalid or expired. Please make a new booking to receive a fresh link.', 'zeka-appointment-booking' );
+		} elseif ( 'confirmed' === $status ) {
+			$heading = __( 'Thank you. Your booking is confirmed.', 'zeka-appointment-booking' );
+
+			if ( $appointment_count > 1 ) {
+				$message = sprintf(
+					/* translators: %d: appointment count */
+					__( 'We confirmed %d appointments for you.', 'zeka-appointment-booking' ),
+					$appointment_count
+				);
+			} elseif ( $appointment_id > 0 ) {
+				$message = sprintf(
+					/* translators: %d: appointment id */
+					__( 'Your appointment reference is #%d.', 'zeka-appointment-booking' ),
+					$appointment_id
+				);
+			} else {
+				$message = __( 'Your appointment has been successfully confirmed.', 'zeka-appointment-booking' );
+			}
+		} else {
+			$heading = __( 'Booking confirmation', 'zeka-appointment-booking' );
+			$message = __( 'Your booking request was processed.', 'zeka-appointment-booking' );
+		}
+
+		$home_url = home_url( '/' );
+
+		ob_start();
+		?>
+		<div class="zab-booking-widget zab-booking-confirmation">
+			<h2><?php echo esc_html( $heading ); ?></h2>
+			<p><?php echo esc_html( $message ); ?></p>
+			<p><?php esc_html_e( 'We also sent confirmation details to your email if available. If you do not see it, please check spam/promotions folders.', 'zeka-appointment-booking' ); ?></p>
+			<p><?php esc_html_e( 'Need help? Contact us and include your appointment reference.', 'zeka-appointment-booking' ); ?></p>
+			<p><a class="zab-booking-link" href="<?php echo esc_url( $home_url ); ?>"><?php esc_html_e( 'Back to homepage', 'zeka-appointment-booking' ); ?></a></p>
+		</div>
+		<?php
+
+		return (string) ob_get_clean();
 	}
 }

@@ -35,7 +35,7 @@ class ZAB_Debug {
 		}
 
 		add_submenu_page(
-			'options-general.php',
+			'zeka-appointment-booking-settings',
 			'Booking Debug',
 			'Booking Debug',
 			'manage_options',
@@ -51,7 +51,9 @@ class ZAB_Debug {
 	 * @return void
 	 */
 	public static function enqueue_styles( $hook_suffix ) {
-		if ( 'settings_page_zab-debug' !== $hook_suffix ) {
+		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+
+		if ( 'zab-debug' !== $page ) {
 			return;
 		}
 

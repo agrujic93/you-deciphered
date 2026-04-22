@@ -111,7 +111,7 @@
       return {
         label: fallback,
         summary: fallback,
-        timezoneText: (config.labels.businessTimezoneFormat || 'Business timezone: %1$s.').replace('%1$s', String(config.siteTimezone || 'UTC'))
+        timezoneText: (config.labels.businessTimezoneFormat || '').replace('%1$s', String(config.siteTimezone || 'UTC'))
       };
     }
 
@@ -131,7 +131,7 @@
       var includeDate = localDate && siteDate && localDate !== siteDate;
       var label = includeDate ? dateFormatter.format(startDate) + ' ' + startTime + ' - ' + endTime : startTime + ' - ' + endTime;
       var summary = dateFormatter.format(startDate) + ' ' + startTime + ' - ' + endTime;
-      var timezoneText = (config.labels.localTimezoneFormat || 'Times shown in your timezone: %1$s. Business timezone: %2$s.')
+      var timezoneText = (config.labels.localTimezoneFormat || '')
         .replace('%1$s', browserTimeZone)
         .replace('%2$s', String(config.siteTimezone || 'UTC'));
 
@@ -144,7 +144,7 @@
       return {
         label: fallback,
         summary: fallback,
-        timezoneText: (config.labels.businessTimezoneFormat || 'Business timezone: %1$s.').replace('%1$s', String(config.siteTimezone || 'UTC'))
+        timezoneText: (config.labels.businessTimezoneFormat || '').replace('%1$s', String(config.siteTimezone || 'UTC'))
       };
     }
   }
@@ -179,7 +179,7 @@
     }
 
     if (!Array.isArray(slots) || slots.length === 0) {
-      updateTimezoneNotice(widget, (config.labels.businessTimezoneFormat || 'Business timezone: %1$s.').replace('%1$s', String(config.siteTimezone || 'UTC')));
+      updateTimezoneNotice(widget, (config.labels.businessTimezoneFormat || '').replace('%1$s', String(config.siteTimezone || 'UTC')));
       renderMessage(container, labels.noSlots);
       return;
     }
@@ -373,7 +373,7 @@
     var slots = getSelectedSlots(widget);
 
     if (!dateInput || !dateInput.value || slots.length === 0) {
-      window.alert(config.labels.selectDateFirst || 'Please select a slot first.');
+      window.alert(config.labels.selectSlotFirst || config.labels.selectDateFirst || '');
       return;
     }
 
@@ -385,7 +385,7 @@
     var hasExisting = cartSelection && cartSelection.date && Array.isArray(cartSelection.slots) && cartSelection.slots.length > 0;
     if (hasExisting && !config.allowMultipleAppointments) {
       var isNewSelection = cartSelection.date !== dateInput.value || !isSameSlotsSelected(slots, cartSelection.slots);
-      if (isNewSelection && !window.confirm('You already have a booking selected. Selecting a new time will replace it. Continue?')) {
+      if (isNewSelection && !window.confirm(config.labels.replaceSelectionConfirm || '')) {
         return;
       }
     }
@@ -401,6 +401,7 @@
     formData.append('end_time', slots[0].end);
     formData.append('slots', JSON.stringify(slots));
     formData.append('service_id', String(getServiceId(widget)));
+    formData.append('browser_tz', getBrowserTimeZone());
 
     fetch(config.ajaxUrl, {
       method: 'POST',
@@ -413,14 +414,14 @@
       .then(function (payload) {
         if (!payload || payload.success !== true || !payload.data || !payload.data.checkout_url) {
           var errorMessage = (payload && payload.data && payload.data.message) ? payload.data.message : config.labels.checkoutError;
-          window.alert(errorMessage || 'Could not continue to checkout.');
+          window.alert(errorMessage || '');
           return;
         }
 
         window.location.href = payload.data.checkout_url;
       })
       .catch(function () {
-        window.alert(config.labels.checkoutError || 'Could not continue to checkout.');
+        window.alert(config.labels.checkoutError || '');
       })
       .finally(function () {
         widget.dataset.zabProcessing = '0';
@@ -503,7 +504,7 @@
       }
 
       if (getSelectedSlots(widget).length === 0) {
-        window.alert(config.labels.noSlotSelected || 'Please select at least one slot.');
+        window.alert(config.labels.noSlotSelected || '');
         return;
       }
 
@@ -571,7 +572,7 @@
 
     updateTimezoneNotice(
       widget,
-      (config.labels.businessTimezoneFormat || 'Business timezone: %1$s.').replace('%1$s', String(config.siteTimezone || 'UTC'))
+      (config.labels.businessTimezoneFormat || '').replace('%1$s', String(config.siteTimezone || 'UTC'))
     );
 
     if (serviceSelect) {

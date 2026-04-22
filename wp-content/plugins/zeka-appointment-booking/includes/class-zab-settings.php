@@ -87,12 +87,14 @@ class ZAB_Settings {
 	 * @return void
 	 */
 	public static function register_admin_page() {
-		add_options_page(
-			__( 'Booking Settings', 'zeka-appointment-booking' ),
-			__( 'Booking Settings', 'zeka-appointment-booking' ),
+		add_menu_page(
+			__( 'Zeka Appointment Booking', 'zeka-appointment-booking' ),
+			__( 'Booking', 'zeka-appointment-booking' ),
 			'manage_options',
 			'zeka-appointment-booking-settings',
-			array( __CLASS__, 'render_admin_page' )
+			array( __CLASS__, 'render_admin_page' ),
+			'dashicons-calendar-alt',
+			20
 		);
 	}
 

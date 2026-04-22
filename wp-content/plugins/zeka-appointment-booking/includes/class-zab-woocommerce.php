@@ -10,6 +10,7 @@ class ZAB_WooCommerce {
 	 * Option key for hidden booking product id.
 	 */
 	const PRODUCT_OPTION_KEY = 'zab_wc_product_id';
+	const CONFIRMATION_PAGE_OPTION_KEY = 'zab_confirmation_page_id';
 
 	/**
 	 * Register WooCommerce hooks and AJAX actions.
@@ -21,6 +22,8 @@ class ZAB_WooCommerce {
 		add_action( 'template_redirect', array( __CLASS__, 'handle_free_booking_verification' ) );
 		add_action( 'wp_ajax_zab_start_checkout', array( __CLASS__, 'ajax_start_checkout' ) );
 		add_action( 'wp_ajax_nopriv_zab_start_checkout', array( __CLASS__, 'ajax_start_checkout' ) );
+		add_action( 'wp_ajax_zab_set_cart_timezone', array( __CLASS__, 'ajax_set_cart_timezone' ) );
+		add_action( 'wp_ajax_nopriv_zab_set_cart_timezone', array( __CLASS__, 'ajax_set_cart_timezone' ) );
 
 		if ( ! self::is_woocommerce_active() ) {
 			return;
@@ -44,21 +47,31 @@ class ZAB_WooCommerce {
 		add_action( 'woocommerce_restore_cart_item', array( __CLASS__, 'handle_booking_cart_item_restored' ), 10, 2 );
 
 		add_filter( 'woocommerce_add_to_cart_validation', array( __CLASS__, 'prevent_product_booking_mix' ), 10, 5 );
+		add_filter( 'woocommerce_is_sold_individually', array( __CLASS__, 'force_booking_product_sold_individually' ), 10, 2 );
 		add_filter( 'woocommerce_cart_item_quantity', array( __CLASS__, 'render_booking_cart_item_quantity' ), 10, 3 );
 		add_filter( 'woocommerce_update_cart_validation', array( __CLASS__, 'prevent_booking_cart_quantity_update' ), 10, 4 );
 		add_action( 'woocommerce_after_cart_item_quantity_update', array( __CLASS__, 'normalize_booking_cart_item_quantity' ), 10, 4 );
+		add_filter( 'woocommerce_hidden_order_itemmeta', array( __CLASS__, 'hide_booking_order_item_meta' ) );
 		add_filter( 'gettext', array( __CLASS__, 'hide_billing_details_heading_for_booking_checkout' ), 20, 3 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_checkout_styles' ) );
 		add_filter( 'body_class', array( __CLASS__, 'add_checkout_body_class' ) );
 	}
 
 	/**
-	 * Enqueue custom styles for the booking checkout page.
+	 * Enqueue custom styles for booking cart and checkout pages.
 	 *
 	 * @return void
 	 */
 	public static function enqueue_checkout_styles() {
-		if ( ! function_exists( 'is_checkout' ) || ! is_checkout() || is_wc_endpoint_url( 'order-received' ) || ! self::cart_has_booking_item() ) {
+		if ( ! function_exists( 'is_checkout' ) || ! function_exists( 'is_cart' ) ) {
+			return;
+		}
+
+		if ( ! is_checkout() && ! is_cart() ) {
+			return;
+		}
+
+		if ( is_checkout() && is_wc_endpoint_url( 'order-received' ) ) {
 			return;
 		}
 
@@ -72,16 +85,104 @@ class ZAB_WooCommerce {
 			array(),
 			$style_version
 		);
+
+		$script_rel_path = 'assets/js/zab-cart-timezone.js';
+		$script_abs_path = ZAB_PLUGIN_DIR . $script_rel_path;
+		$script_version  = file_exists( $script_abs_path ) ? (string) filemtime( $script_abs_path ) : ZAB_PLUGIN_VERSION;
+
+		wp_enqueue_script(
+			'zab-cart-timezone',
+			plugins_url( $script_rel_path, ZAB_PLUGIN_FILE ),
+			array(),
+			$script_version,
+			true
+		);
+
+		wp_localize_script(
+			'zab-cart-timezone',
+			'zabCartTimeData',
+			array(
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'zab_cart_timezone_nonce' ),
+			)
+		);
 	}
 
 	/**
-	 * Add body class for custom checkout styling.
+	 * Persist visitor timezone to booking cart items for server-side local-time rendering.
+	 *
+	 * @return void
+	 */
+	public static function ajax_set_cart_timezone() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'zab_cart_timezone_nonce' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Invalid security token.', 'zeka-appointment-booking' ) ), 403 );
+		}
+
+		$browser_tz = isset( $_POST['browser_tz'] ) ? sanitize_text_field( wp_unslash( $_POST['browser_tz'] ) ) : '';
+
+		if ( '' === $browser_tz ) {
+			wp_send_json_error( array( 'message' => __( 'Missing timezone.', 'zeka-appointment-booking' ) ), 400 );
+		}
+
+		try {
+			new DateTimeZone( $browser_tz );
+		} catch ( Exception $exception ) {
+			wp_send_json_error( array( 'message' => __( 'Invalid timezone.', 'zeka-appointment-booking' ) ), 400 );
+		}
+
+		if ( null === WC()->cart ) {
+			wc_load_cart();
+		}
+
+		if ( null === WC()->cart ) {
+			wp_send_json_error( array( 'message' => __( 'Cart is not available right now.', 'zeka-appointment-booking' ) ), 500 );
+		}
+
+		$changed = false;
+
+		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+			if ( empty( $cart_item['zab_appointment_id'] ) ) {
+				continue;
+			}
+
+			$current_tz = isset( $cart_item['zab_visitor_tz'] ) ? (string) $cart_item['zab_visitor_tz'] : '';
+
+			if ( $current_tz === $browser_tz ) {
+				continue;
+			}
+
+			WC()->cart->cart_contents[ $cart_item_key ]['zab_visitor_tz'] = $browser_tz;
+			$changed = true;
+		}
+
+		if ( $changed ) {
+			WC()->cart->set_session();
+		}
+
+		wp_send_json_success(
+			array(
+				'updated' => $changed,
+			)
+		);
+	}
+
+	/**
+	 * Add body class for custom booking cart/checkout styling.
 	 *
 	 * @param array $classes Existing body classes.
 	 * @return array Modified body classes.
 	 */
 	public static function add_checkout_body_class( $classes ) {
-		if ( function_exists( 'is_checkout' ) && is_checkout() && ! is_wc_endpoint_url( 'order-received' ) && self::cart_has_booking_item() ) {
+		if ( ! function_exists( 'is_checkout' ) || ! function_exists( 'is_cart' ) ) {
+			return $classes;
+		}
+
+		$is_booking_checkout = is_checkout() && ! is_wc_endpoint_url( 'order-received' ) && self::cart_has_booking_item();
+		$is_booking_cart     = is_cart() && self::cart_has_booking_item();
+
+		if ( $is_booking_checkout || $is_booking_cart ) {
 			$classes[] = 'zab-booking-active';
 		}
 		return $classes;
@@ -139,10 +240,19 @@ class ZAB_WooCommerce {
 		$first_name  = isset( $_POST['first_name'] ) ? sanitize_text_field( wp_unslash( $_POST['first_name'] ) ) : '';
 		$last_name   = isset( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : '';
 		$email       = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+		$browser_tz  = isset( $_POST['browser_tz'] ) ? sanitize_text_field( wp_unslash( $_POST['browser_tz'] ) ) : '';
 		$identity    = self::resolve_booking_identity( $first_name, $last_name, $email );
 		$first_name  = $identity['first_name'];
 		$last_name   = $identity['last_name'];
 		$email       = $identity['email'];
+
+		if ( '' !== $browser_tz ) {
+			try {
+				new DateTimeZone( $browser_tz );
+			} catch ( Exception $exception ) {
+				$browser_tz = '';
+			}
+		}
 
 		if ( ! self::is_valid_date( $date ) ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid booking data.', 'zeka-appointment-booking' ) ), 400 );
@@ -213,6 +323,8 @@ class ZAB_WooCommerce {
 				'appointment_id' => $appointment_id,
 				'start'          => $slot_start,
 				'end'            => $slot_end,
+				'start_utc'      => $utc_slot['start'],
+				'end_utc'        => $utc_slot['end'],
 			);
 		}
 
@@ -247,6 +359,9 @@ class ZAB_WooCommerce {
 				'zab_date'           => $date,
 				'zab_start'          => $slot_payload['start'],
 				'zab_end'            => $slot_payload['end'],
+				'zab_start_utc'      => $slot_payload['start_utc'],
+				'zab_end_utc'        => $slot_payload['end_utc'],
+				'zab_visitor_tz'     => $browser_tz,
 				'zab_first_name'     => $first_name,
 				'zab_last_name'      => $last_name,
 				'zab_email'          => $email,
@@ -314,9 +429,54 @@ class ZAB_WooCommerce {
 		}
 
 		if ( ! empty( $cart_item['zab_date'] ) && ! empty( $cart_item['zab_start'] ) && ! empty( $cart_item['zab_end'] ) ) {
+			$start_utc = isset( $cart_item['zab_start_utc'] ) ? (string) $cart_item['zab_start_utc'] : '';
+			$end_utc   = isset( $cart_item['zab_end_utc'] ) ? (string) $cart_item['zab_end_utc'] : '';
+			$visitor_tz = isset( $cart_item['zab_visitor_tz'] ) ? (string) $cart_item['zab_visitor_tz'] : '';
+
+			if ( '' === $visitor_tz && isset( $_COOKIE['zab_browser_tz'] ) ) {
+				$visitor_tz = sanitize_text_field( wp_unslash( $_COOKIE['zab_browser_tz'] ) );
+			}
+
+			if ( '' !== $visitor_tz ) {
+				try {
+					new DateTimeZone( $visitor_tz );
+				} catch ( Exception $exception ) {
+					$visitor_tz = '';
+				}
+			}
+
+			if ( '' === $start_utc || '' === $end_utc ) {
+				$utc_slot = self::to_utc_slot_range(
+					(string) $cart_item['zab_date'],
+					(string) $cart_item['zab_start'],
+					(string) $cart_item['zab_end']
+				);
+
+				if ( is_array( $utc_slot ) ) {
+					$start_utc = isset( $utc_slot['start'] ) ? (string) $utc_slot['start'] : '';
+					$end_utc   = isset( $utc_slot['end'] ) ? (string) $utc_slot['end'] : '';
+				}
+			}
+
+			$appointment_value = (string) $cart_item['zab_date'] . ' ' . (string) $cart_item['zab_start'] . ' - ' . (string) $cart_item['zab_end'] . ' (' . ZAB_Time::business_timezone_string() . ')';
+
+			if ( '' !== $start_utc && '' !== $end_utc && '' !== $visitor_tz ) {
+				try {
+					$visitor_timezone = new DateTimeZone( $visitor_tz );
+					$start_local      = new DateTimeImmutable( $start_utc, new DateTimeZone( 'UTC' ) );
+					$end_local        = new DateTimeImmutable( $end_utc, new DateTimeZone( 'UTC' ) );
+					$start_local      = $start_local->setTimezone( $visitor_timezone );
+					$end_local        = $end_local->setTimezone( $visitor_timezone );
+
+					$appointment_value .= ' / ' . $start_local->format( 'Y-m-d H:i' ) . ' - ' . $end_local->format( 'H:i' ) . ' (' . __( 'Your local time', 'zeka-appointment-booking' ) . ')';
+				} catch ( Exception $exception ) {
+					// Keep business timezone value only when visitor timezone is invalid.
+				}
+			}
+
 			$item_data[] = array(
 				'key'   => __( 'Appointment', 'zeka-appointment-booking' ),
-				'value' => wc_clean( $cart_item['zab_date'] . ' ' . $cart_item['zab_start'] . ' - ' . $cart_item['zab_end'] . ' (' . ZAB_Time::business_timezone_string() . ')' ),
+				'value' => wc_clean( $appointment_value ),
 			);
 		}
 
@@ -1513,7 +1673,11 @@ class ZAB_WooCommerce {
 
 		$payload = get_transient( 'zab_free_verify_' . $token );
 		if ( ! is_array( $payload ) || empty( $payload['appointment_ids'] ) || ! is_array( $payload['appointment_ids'] ) ) {
-			$redirect = add_query_arg( 'zab_booking', 'verify_failed', home_url( '/' ) );
+			$redirect = self::get_confirmation_redirect_url(
+				array(
+					'zab_booking' => 'verify_failed',
+				)
+			);
 			wp_safe_redirect( $redirect );
 			exit;
 		}
@@ -1522,7 +1686,11 @@ class ZAB_WooCommerce {
 		delete_transient( 'zab_free_verify_' . $token );
 
 		if ( empty( $appointment_ids ) ) {
-			$redirect = add_query_arg( 'zab_booking', 'verify_failed', home_url( '/' ) );
+			$redirect = self::get_confirmation_redirect_url(
+				array(
+					'zab_booking' => 'verify_failed',
+				)
+			);
 			wp_safe_redirect( $redirect );
 			exit;
 		}
@@ -1534,17 +1702,74 @@ class ZAB_WooCommerce {
 
 		$primary_id = (int) $appointment_ids[0];
 
-		$redirect = add_query_arg(
+		$redirect = self::get_confirmation_redirect_url(
 			array(
 				'zab_booking'    => 'confirmed',
 				'appointment_id' => $primary_id,
 				'appointment_count' => count( $appointment_ids ),
-			),
-			home_url( '/' )
+			)
 		);
 
 		wp_safe_redirect( $redirect );
 		exit;
+	}
+
+	/**
+	 * Build confirmation/thank-you redirect URL.
+	 *
+	 * @param array $query_args Query arguments.
+	 * @return string
+	 */
+	private static function get_confirmation_redirect_url( $query_args ) {
+		$base_url = home_url( '/' );
+		$page_id  = self::get_or_create_confirmation_page_id();
+
+		if ( $page_id > 0 ) {
+			$permalink = get_permalink( $page_id );
+			if ( is_string( $permalink ) && '' !== $permalink ) {
+				$base_url = $permalink;
+			}
+		}
+
+		return add_query_arg( $query_args, $base_url );
+	}
+
+	/**
+	 * Ensure a booking confirmation page exists and return its ID.
+	 *
+	 * @return int
+	 */
+	private static function get_or_create_confirmation_page_id() {
+		$page_id = absint( get_option( self::CONFIRMATION_PAGE_OPTION_KEY, 0 ) );
+
+		if ( $page_id > 0 && 'page' === get_post_type( $page_id ) && 'trash' !== get_post_status( $page_id ) ) {
+			return $page_id;
+		}
+
+		$existing = get_page_by_path( 'booking-confirmation', OBJECT, 'page' );
+		if ( $existing instanceof WP_Post ) {
+			update_option( self::CONFIRMATION_PAGE_OPTION_KEY, (int) $existing->ID );
+			return (int) $existing->ID;
+		}
+
+		$new_page_id = wp_insert_post(
+			array(
+				'post_title'   => __( 'Booking Confirmation', 'zeka-appointment-booking' ),
+				'post_name'    => 'booking-confirmation',
+				'post_content' => '[zab_booking_confirmation]',
+				'post_status'  => 'publish',
+				'post_type'    => 'page',
+			),
+			true
+		);
+
+		if ( is_wp_error( $new_page_id ) || absint( $new_page_id ) < 1 ) {
+			return 0;
+		}
+
+		update_option( self::CONFIRMATION_PAGE_OPTION_KEY, absint( $new_page_id ) );
+
+		return absint( $new_page_id );
 	}
 
 	/**
@@ -1743,6 +1968,27 @@ class ZAB_WooCommerce {
 	}
 
 	/**
+	 * Force booking product to be sold individually.
+	 *
+	 * @param bool       $sold_individually Current sold individually flag.
+	 * @param WC_Product $product Product object.
+	 * @return bool
+	 */
+	public static function force_booking_product_sold_individually( $sold_individually, $product ) {
+		if ( ! $product instanceof WC_Product ) {
+			return $sold_individually;
+		}
+
+		$booking_product_id = (int) get_option( self::PRODUCT_OPTION_KEY, 0 );
+
+		if ( $booking_product_id > 0 && $product->get_id() === $booking_product_id ) {
+			return true;
+		}
+
+		return $sold_individually;
+	}
+
+	/**
 	 * Normalize booking cart items to quantity 1 after cart updates.
 	 *
 	 * @param string  $cart_item_key Cart item key.
@@ -1764,6 +2010,20 @@ class ZAB_WooCommerce {
 		if ( 1 !== (int) $quantity ) {
 			$cart->set_quantity( $cart_item_key, 1, false );
 		}
+	}
+
+	/**
+	 * Hide internal booking IDs from customer-visible order item meta.
+	 *
+	 * @param array $hidden_meta Existing hidden item meta keys.
+	 * @return array
+	 */
+	public static function hide_booking_order_item_meta( $hidden_meta ) {
+		$hidden_meta   = is_array( $hidden_meta ) ? $hidden_meta : array();
+		$hidden_meta[] = 'appointment_id';
+		$hidden_meta[] = 'service_id';
+
+		return array_values( array_unique( $hidden_meta ) );
 	}
 
 	/**

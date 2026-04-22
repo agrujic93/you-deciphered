@@ -5,6 +5,7 @@
  * Version: 0.4.0
  * Author: Zeka
  * Text Domain: zeka-appointment-booking
+ * Domain Path: /languages
  * Requires at least: 6.0
  * Requires PHP: 7.4
  */
@@ -40,6 +41,21 @@ function zab_activate() {
 }
 
 register_activation_hook( ZAB_PLUGIN_FILE, 'zab_activate' );
+
+/**
+ * Load plugin translation files.
+ *
+ * @return void
+ */
+function zab_load_textdomain() {
+	load_plugin_textdomain(
+		'zeka-appointment-booking',
+		false,
+		dirname( plugin_basename( ZAB_PLUGIN_FILE ) ) . '/languages/'
+	);
+}
+
+add_action( 'plugins_loaded', 'zab_load_textdomain' );
 
 ZAB_Installer::maybe_upgrade();
 ZAB_Settings::init();

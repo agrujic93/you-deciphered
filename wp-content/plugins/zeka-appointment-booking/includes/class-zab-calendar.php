@@ -39,7 +39,7 @@ class ZAB_Calendar {
 		}
 
 		add_submenu_page(
-			'options-general.php',
+			'zeka-appointment-booking-settings',
 			'Appointment Calendar',
 			'Calendar',
 			'manage_options',
@@ -55,7 +55,9 @@ class ZAB_Calendar {
 	 * @return void
 	 */
 	public static function enqueue_assets( $hook_suffix ) {
-		if ( 'settings_page_zab-calendar' !== $hook_suffix ) {
+		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+
+		if ( 'zab-calendar' !== $page ) {
 			return;
 		}
 
