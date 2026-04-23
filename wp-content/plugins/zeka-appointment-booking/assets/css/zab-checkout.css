@@ -1,0 +1,353 @@
+/* Zeka Appointment Booking - Checkout & Cart Styles */
+
+/* Main Layout & Typography */
+body.woocommerce-checkout .woocommerce,
+body.woocommerce-cart .woocommerce {
+	max-width: 1000px;
+	margin: 0 auto;
+	font-family: inherit;
+}
+
+body.woocommerce-checkout .woocommerce-NoticeGroup,
+body.woocommerce-cart .woocommerce-NoticeGroup {
+	margin-bottom: 24px;
+}
+
+/* Two Column Layout Enforcement for Modern Look */
+body.woocommerce-checkout form.checkout,
+body.woocommerce-cart .woocommerce-cart-form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 40px;
+}
+
+body.woocommerce-checkout #customer_details,
+body.woocommerce-cart .woocommerce-cart-form {
+	flex: 1;
+	min-width: 320px;
+}
+
+body.woocommerce-checkout #order_review_heading,
+body.woocommerce-checkout #order_review,
+body.woocommerce-cart .cart-collaterals {
+	width: 100%;
+	flex: 1;
+	min-width: 320px;
+}
+
+/* Beautiful Inputs */
+body.woocommerce-checkout .woocommerce-input-wrapper input,
+body.woocommerce-checkout .woocommerce-input-wrapper textarea,
+body.woocommerce-cart input.qty,
+body.woocommerce-cart input#coupon_code {
+	border-radius: 10px;
+	border: 1px solid #cbd5e1;
+	padding: 12px 16px;
+	height: auto;
+	box-shadow: none;
+	width: 100%;
+	transition: all 0.2s ease;
+	background: #f8fafc;
+	font-size: 15px;
+	color: var(--current-theme-text, #0f172a);
+}
+
+body.woocommerce-checkout .woocommerce-input-wrapper input:focus,
+body.woocommerce-checkout .woocommerce-input-wrapper textarea:focus,
+body.woocommerce-cart input.qty:focus,
+body.woocommerce-cart input#coupon_code:focus {
+	border-color: var(--current-theme-accent, #1cc8ff);
+	background: #ffffff;
+	box-shadow: 0 0 0 4px rgba(28, 200, 255, 0.15);
+	outline: none;
+}
+
+/* Form Labels */
+body.woocommerce-checkout .form-row label,
+body.woocommerce-cart .shipping-calculator-form label {
+	font-weight: 500;
+	color: #475569;
+	margin-bottom: 6px;
+	display: block;
+	font-size: 14px;
+}
+
+/* Hide standard styling for booking checkout to match modern flow */
+body.woocommerce-checkout #customer_details h3,
+body.woocommerce-checkout #order_review_heading,
+body.woocommerce-cart .cart_totals h2 {
+	font-size: 22px;
+	font-weight: 600;
+	color: var(--current-theme-text, #0f172a);
+	margin-bottom: 24px;
+	line-height: 1.2;
+}
+
+/* Review Order Box (The Sidebar) */
+body.woocommerce-checkout .woocommerce-checkout-review-order,
+body.woocommerce-cart .cart_totals {
+	background: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: 16px;
+	padding: 32px;
+	box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+}
+
+body.woocommerce-checkout table.shop_table,
+body.woocommerce-cart table.shop_table {
+	border: none;
+	border-collapse: collapse;
+	width: 100%;
+	margin-bottom: 24px;
+}
+
+body.woocommerce-checkout table.shop_table th,
+body.woocommerce-cart table.shop_table th {
+	text-align: left;
+	color: #64748b;
+	font-weight: 500;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	border-bottom: 2px solid #f1f5f9;
+	padding-bottom: 12px;
+}
+
+body.woocommerce-checkout table.shop_table td,
+body.woocommerce-cart table.shop_table td {
+	border-top: none;
+	border-bottom: 1px solid #f1f5f9;
+	padding: 16px 0;
+}
+
+body.woocommerce-checkout table.shop_table tbody td,
+body.woocommerce-cart table.shop_table tbody td {
+	vertical-align: middle;
+}
+
+body.woocommerce-checkout .product-name,
+body.woocommerce-cart .product-name a {
+	font-weight: 600;
+	color: var(--current-theme-text, #0f172a);
+	font-size: 16px;
+	text-decoration: none;
+}
+
+/* Details Box inside Product Name */
+body.woocommerce-checkout dl.variation,
+body.woocommerce-cart dl.variation {
+	margin-top: 12px;
+	font-size: 14px;
+	color: #475569;
+	background: #f8fafc;
+	padding: 16px;
+	border-radius: 8px;
+	border: 1px solid #f1f5f9;
+}
+
+body.woocommerce-checkout dl.variation dt,
+body.woocommerce-cart dl.variation dt {
+	font-weight: 600;
+	color: #334155;
+	float: left;
+	margin-right: 8px;
+	clear: both;
+}
+
+body.woocommerce-checkout dl.variation dd,
+body.woocommerce-cart dl.variation dd {
+	margin: 0 0 6px 0;
+}
+
+body.woocommerce-checkout table.shop_table tfoot th,
+body.woocommerce-checkout table.shop_table tfoot td,
+body.woocommerce-cart .cart_totals table.shop_table tr.cart-subtotal th,
+body.woocommerce-cart .cart_totals table.shop_table tr.cart-subtotal td,
+body.woocommerce-cart .cart_totals table.shop_table tr.order-total th,
+body.woocommerce-cart .cart_totals table.shop_table tr.order-total td {
+	padding: 16px 0;
+	border-bottom: 1px solid #f1f5f9;
+	color: #334155;
+	font-weight: 500;
+}
+
+body.woocommerce-checkout table.shop_table tfoot tr.order-total th,
+body.woocommerce-checkout table.shop_table tfoot tr.order-total td,
+body.woocommerce-cart .cart_totals table.shop_table tr.order-total th,
+body.woocommerce-cart .cart_totals table.shop_table tr.order-total td {
+	border-bottom: none;
+	padding-top: 24px;
+}
+
+body.woocommerce-checkout table.shop_table tfoot tr.order-total td strong,
+body.woocommerce-cart .cart_totals table.shop_table tr.order-total td strong {
+	font-size: 24px;
+	color: var(--current-theme-text, #0f172a);
+}
+
+/* Payment Methods */
+body.woocommerce-checkout #payment {
+	background: #f8fafc;
+	border-radius: 12px;
+	padding: 24px;
+	border: 1px solid #e2e8f0;
+}
+
+body.woocommerce-checkout #payment ul.payment_methods {
+	border-bottom: 1px solid #e2e8f0;
+	padding-bottom: 24px;
+	margin-bottom: 24px;
+}
+
+body.woocommerce-checkout #payment .payment_box {
+	background: #ffffff;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	padding: 16px;
+	color: #475569;
+	font-size: 14px;
+	line-height: 1.5;
+	margin-top: 12px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+body.woocommerce-checkout #payment .payment_box::before {
+	display: none;
+	/* Hide default WC arrow */
+}
+
+/* Place Order / Cart Buttons */
+body.woocommerce-checkout #payment .place-order,
+body.woocommerce-cart .wc-proceed-to-checkout,
+body.woocommerce-cart .actions {
+	padding: 0;
+	margin: 0;
+}
+
+body.woocommerce-checkout #payment .place-order .button,
+body.woocommerce-cart .wc-proceed-to-checkout .button.checkout-button,
+body.woocommerce-cart .actions>button.button {
+	background: var(--current-theme-accent, #1cc8ff);
+	color: #ffffff;
+	border: none;
+	border-radius: 30px;
+	padding: 15px 32px;
+	font-size: 16px;
+	font-weight: 600;
+	width: 100%;
+	text-align: center;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+body.woocommerce-cart .actions>button.button {
+	width: auto;
+	padding: 12px 24px;
+}
+
+body.woocommerce-checkout #payment .place-order .button:hover,
+body.woocommerce-cart .wc-proceed-to-checkout .button.checkout-button:hover,
+body.woocommerce-cart .actions>button.button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.2);
+	opacity: 0.9;
+}
+
+/* Privacy Policy Notice */
+body.woocommerce-checkout .woocommerce-privacy-policy-text {
+	font-size: 13px;
+	color: #64748b;
+	margin-bottom: 20px;
+	line-height: 1.5;
+}
+
+/* ========================================= */
+/* WOOCOMMERCE BLOCKS (Gutenberg) OVERRIDES  */
+/* ========================================= */
+
+/* Block Buttons */
+body.woocommerce-checkout .wc-block-components-button:not(.is-link),
+body.woocommerce-cart .wc-block-components-button:not(.is-link) {
+	background: var(--current-theme-accent, #1cc8ff) !important;
+	color: #ffffff !important;
+	border: none !important;
+	border-radius: 30px !important;
+	font-size: 16px;
+	font-weight: 600;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+body.woocommerce-checkout .wc-block-components-button:not(.is-link):hover,
+body.woocommerce-cart .wc-block-components-button:not(.is-link):hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.2);
+	opacity: 0.9;
+}
+
+/* Block Inputs Wrapper Styling */
+body.woocommerce-checkout .wc-block-components-text-input,
+body.woocommerce-cart .wc-block-components-text-input,
+body.woocommerce-checkout .wc-block-components-textarea {
+	border-radius: 10px !important;
+	border: 1px solid #cbd5e1 !important;
+	box-shadow: none !important;
+	background: #f8fafc !important;
+	transition: all 0.2s ease;
+}
+
+body.woocommerce-checkout .wc-block-components-text-input.is-active,
+body.woocommerce-cart .wc-block-components-text-input.is-active,
+body.woocommerce-checkout .wc-block-components-textarea.is-active {
+	border-color: var(--current-theme-accent, #1cc8ff) !important;
+	background: #ffffff !important;
+	box-shadow: 0 0 0 4px rgba(28, 200, 255, 0.15) !important;
+	outline: none !important;
+}
+
+/* Ensure inner inputs don't override the wrapper */
+body.woocommerce-checkout .wc-block-components-text-input input,
+body.woocommerce-cart .wc-block-components-text-input input,
+body.woocommerce-checkout .wc-block-components-textarea textarea {
+	color: var(--current-theme-text, #0f172a) !important;
+	background: transparent !important;
+	border: none !important;
+	box-shadow: none !important;
+}
+
+body.woocommerce-checkout .wc-block-components-text-input input:focus,
+body.woocommerce-cart .wc-block-components-text-input input:focus,
+body.woocommerce-checkout .wc-block-components-textarea textarea:focus {
+	border: none !important;
+	box-shadow: none !important;
+	background: transparent !important;
+}
+
+/* Overriding messy borders on blocks */
+body.woocommerce-cart .wc-block-cart-items,
+body.woocommerce-cart .wc-block-cart__submit,
+body.woocommerce-checkout .wc-block-components-sidebar,
+body.woocommerce-checkout .wc-block-components-checkout-step {
+	border-radius: 16px !important;
+	border: 1px solid #e2e8f0 !important;
+	box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05) !important;
+	background-color: #ffffff !important;
+	padding: 24px;
+	margin-bottom: 24px;
+}
+
+/* Booking flow: hide quantity UI on classic and block cart/checkout */
+body.zab-booking-active.woocommerce-cart th.product-quantity,
+body.zab-booking-active.woocommerce-cart td.product-quantity,
+body.zab-booking-active.woocommerce-checkout .woocommerce-checkout-review-order-table .product-quantity,
+body.zab-booking-active.woocommerce-cart .wc-block-components-quantity-selector,
+body.zab-booking-active.woocommerce-checkout .wc-block-components-order-summary-item__quantity,
+body.zab-booking-active.woocommerce-checkout .wc-block-components-quantity-selector {
+	display: none !important;
+}
+
+/* Keep remove action visible in block cart while quantity controls are hidden */
+body.zab-booking-active.woocommerce-cart .wc-block-cart-item__quantity .wc-block-cart-item__remove-link,
+body.zab-booking-active.woocommerce-cart .wc-block-cart-item__quantity .wc-block-components-product-metadata__description {
+	display: inline-flex !important;
+}

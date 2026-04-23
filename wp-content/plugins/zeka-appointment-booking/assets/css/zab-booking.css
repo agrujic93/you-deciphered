@@ -1,0 +1,272 @@
+.zab-booking-widget {
+	background: linear-gradient(180deg, var(--wp--preset--color--base) 0%, var(--wp--preset--color--base-2) 100%);
+	border: 1px solid var(--wp--preset--color--contrast-3);
+	border-radius: 1.6rem;
+	box-shadow: 0 1.2rem 3rem rgba(0, 2, 46, 0.05), 0 0.4rem 1rem rgba(0, 2, 46, 0.02);
+	padding: 2.4rem;
+	max-width: 100%;
+	margin: 0 auto;
+}
+
+.zab-booking-notice {
+	margin: 0 0 1.6rem;
+	padding: 1.2rem 1.6rem;
+	border-radius: 1.2rem;
+	font-size: var(--wp--preset--font-size--paragraph);
+	font-weight: 500;
+	border: 1px solid transparent;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.zab-booking-notice--success {
+	background: var(--wp--preset--color--accent-5);
+	border-color: var(--wp--preset--color--accent-4);
+	color: var(--wp--preset--color--contrast);
+}
+
+.zab-booking-notice--info {
+	background: var(--wp--preset--color--accent-4);
+	border-color: var(--wp--preset--color--accent-3);
+	color: var(--wp--preset--color--contrast);
+}
+
+.zab-booking-notice--info a {
+	color: var(--wp--preset--color--accent-2);
+	text-decoration: none;
+	font-weight: 600;
+	transition: color 0.2s ease;
+}
+
+.zab-booking-notice--info a:hover {
+	color: var(--wp--preset--color--accent);
+}
+
+.zab-booking-service-summary {
+	margin: 0 0 1.6rem;
+	padding: 1.2rem 1.6rem;
+	border: 1px solid var(--wp--preset--color--accent-2);
+	border-radius: 1.2rem;
+	background: var(--wp--preset--color--base-2);
+	color: var(--wp--preset--color--contrast);
+	font-size: var(--wp--preset--font-size--paragraph);
+	font-weight: 600;
+	box-shadow: 0 0.4rem 1.2rem rgba(0, 2, 46, 0.03);
+}
+
+.zab-booking-multi-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.8rem;
+	margin: 0 0 1.6rem;
+	padding: 1rem 1.4rem;
+	border: 1px solid var(--wp--preset--color--contrast-3);
+	border-radius: 1.2rem;
+	background: var(--wp--preset--color--base);
+	font-size: var(--wp--preset--font-size--paragraph);
+	color: var(--wp--preset--color--contrast);
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.zab-booking-multi-toggle:hover {
+	background: var(--wp--preset--color--base-2);
+}
+
+.zab-booking-multi-toggle input {
+	margin: 0;
+	cursor: pointer;
+}
+
+.zab-booking-widget__fields {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 2rem;
+	margin-bottom: 2rem;
+}
+
+.zab-booking-widget__field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.8rem;
+}
+
+.zab-booking-widget__field--full {
+	grid-column: 1 / -1;
+}
+
+.zab-booking-widget__field label {
+	font-size: var(--wp--preset--font-size--paragraph);
+	font-weight: 600;
+	color: var(--wp--preset--color--contrast);
+}
+
+.zab-booking-widget__field input,
+.zab-booking-widget__field select {
+	min-height: 5rem;
+	padding: 0 1.6rem;
+	font-size: var(--wp--preset--font-size--paragraph);
+	border: 1px solid var(--wp--preset--color--contrast-3);
+	border-radius: 1rem;
+	background: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.zab-booking-widget__field input:focus,
+.zab-booking-widget__field select:focus {
+	outline: none;
+	border-color: var(--wp--preset--color--accent-2);
+	box-shadow: 0 0 0 0.3rem rgba(74, 132, 255, 0.2);
+}
+
+.zab-slot-results__title {
+	font-size: var(--wp--preset--font-size--heading-5);
+	font-weight: 600;
+	margin: 0 0 1.4rem;
+	color: var(--wp--preset--color--contrast);
+}
+
+.zab-slot-results__grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 1rem;
+}
+
+.zab-slot-button {
+	appearance: none;
+	border: 1px solid var(--wp--preset--color--contrast-3);
+	background: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+	padding: 1.2rem 1rem;
+	border-radius: 1rem;
+	font-size: var(--wp--preset--font-size--paragraph);
+	font-weight: 500;
+	line-height: 1.3;
+	cursor: pointer;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.zab-slot-button:hover {
+	transform: translateY(-0.2rem);
+	box-shadow: 0 0.6rem 1.6rem rgba(0, 2, 46, 0.06);
+	background: var(--wp--preset--color--base-2);
+	border-color: var(--wp--preset--color--contrast-2);
+}
+
+.zab-slot-button.is-active {
+	background: var(--wp--preset--color--accent-2);
+	color: var(--wp--preset--color--base);
+	border-color: var(--wp--preset--color--accent-2);
+	box-shadow: 0 0.8rem 2rem rgba(74, 132, 255, 0.25);
+}
+
+.zab-slot-button:focus {
+	outline: none;
+	box-shadow: 0 0 0 0.3rem rgba(74, 132, 255, 0.3);
+}
+
+.zab-slot-results__message {
+	margin: 0;
+	padding: 1.6rem;
+	border-radius: 1rem;
+	font-size: var(--wp--preset--font-size--paragraph);
+	background: var(--wp--preset--color--base-2);
+	color: var(--wp--preset--color--contrast-2);
+	border: 1px dashed var(--wp--preset--color--contrast-3);
+	text-align: center;
+}
+
+.zab-slot-results__message--error {
+	background: var(--wp--preset--color--accent-3);
+	color: var(--wp--preset--color--contrast);
+	border-color: var(--wp--preset--color--accent-3);
+	border-style: solid;
+}
+
+.zab-booking-timezone {
+	margin: 1.2rem 0 0;
+	font-size: 1.4rem;
+	color: var(--wp--preset--color--contrast-2);
+	text-align: center;
+}
+
+.zab-booking-action {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1.6rem;
+	margin-top: 2.4rem;
+	padding: 1.6rem 2rem;
+	border: 1px solid var(--wp--preset--color--contrast-3);
+	border-radius: 1.2rem;
+	background: var(--wp--preset--color--base);
+	box-shadow: 0 0.8rem 2.4rem rgba(0, 2, 46, 0.04);
+}
+
+.zab-booking-action__selected {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--paragraph);
+	font-weight: 600;
+	color: var(--wp--preset--color--contrast);
+}
+
+.zab-booking-action__button {
+	appearance: none;
+	border: 1px solid var(--wp--preset--color--accent-2);
+	border-radius: 0.8rem;
+	background: var(--wp--preset--color--accent-2);
+	color: var(--wp--preset--color--base);
+	font-size: var(--wp--preset--font-size--paragraph);
+	font-weight: 600;
+	padding: 1.2rem 2.4rem;
+	cursor: pointer;
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: 0 0.4rem 1.2rem rgba(74, 132, 255, 0.2);
+}
+
+.zab-booking-action__button:hover {
+	background: var(--wp--preset--color--accent);
+	border-color: var(--wp--preset--color--accent);
+	transform: translateY(-0.2rem);
+	box-shadow: 0 0.6rem 1.6rem rgba(28, 200, 255, 0.3);
+}
+
+.zab-booking-action__button:disabled,
+.zab-booking-action__button.is-busy {
+	opacity: 0.6;
+	cursor: not-allowed;
+	transform: none;
+	box-shadow: none;
+}
+
+.zab-booking-action__button:focus {
+	outline: none;
+	box-shadow: 0 0 0 0.3rem rgba(28, 200, 255, 0.4);
+}
+
+@media screen and (max-width: 782px) {
+	.zab-booking-widget {
+		padding: 1.6rem;
+	}
+
+	.zab-booking-widget__fields {
+		grid-template-columns: 1fr;
+		gap: 1.6rem;
+	}
+
+	.zab-slot-results__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.zab-booking-action {
+		flex-direction: column;
+		align-items: stretch;
+		text-align: center;
+	}
+
+	.zab-booking-action__button {
+		width: 100%;
+	}
+}
