@@ -40,6 +40,7 @@ class ZAB_WooCommerce {
 
 		add_action( 'woocommerce_order_status_processing', array( __CLASS__, 'mark_order_appointments_confirmed' ) );
 		add_action( 'woocommerce_order_status_completed', array( __CLASS__, 'mark_order_appointments_confirmed' ) );
+		add_action( 'woocommerce_before_thankyou', array( __CLASS__, 'render_free_booking_verification_notice_on_thankyou' ), 20 );
 		add_action( 'woocommerce_order_status_cancelled', array( __CLASS__, 'mark_order_appointments_cancelled' ) );
 		add_action( 'woocommerce_order_status_failed', array( __CLASS__, 'mark_order_appointments_cancelled' ) );
 		add_action( 'woocommerce_before_cart_emptied', array( __CLASS__, 'handle_booking_cart_emptied' ), 10, 1 );
@@ -677,6 +678,17 @@ class ZAB_WooCommerce {
 			do_action( 'zab_appointment_confirmed', $appointment_id );
 		}
 
+		// Mixed order (paid + free): payment confirmation should confirm all items,
+		// so free appointments in this order must skip email verification.
+		if ( ! empty( $paid_appointment_ids ) && ! empty( $free_appointment_ids ) ) {
+			foreach ( $free_appointment_ids as $appointment_id ) {
+				self::set_appointment_status( $appointment_id, 'confirmed', $order_id );
+				do_action( 'zab_appointment_confirmed', $appointment_id );
+			}
+
+			return;
+		}
+
 		if ( empty( $free_appointment_ids ) ) {
 			return;
 		}
@@ -722,6 +734,50 @@ class ZAB_WooCommerce {
 			self::set_appointment_status( $appointment_id, 'cancelled', $order_id );
 			do_action( 'zab_appointment_cancelled', $appointment_id );
 		}
+	}
+
+	/**
+	 * Show notice on order confirmation page for free-only bookings.
+	 *
+	 * @param int $order_id WooCommerce order ID.
+	 * @return void
+	 */
+	public static function render_free_booking_verification_notice_on_thankyou( $order_id ) {
+		$order_id = absint( $order_id );
+
+		if ( $order_id < 1 ) {
+			return;
+		}
+
+		$appointment_ids = self::get_order_appointment_ids( $order_id );
+
+		if ( empty( $appointment_ids ) ) {
+			return;
+		}
+
+		$free_count = 0;
+		$paid_count = 0;
+
+		foreach ( $appointment_ids as $appointment_id ) {
+			if ( self::is_free_appointment( $appointment_id ) ) {
+				$free_count++;
+				continue;
+			}
+
+			$paid_count++;
+		}
+
+		if ( $free_count < 1 || $paid_count > 0 ) {
+			return;
+		}
+
+		if ( ! self::has_sent_free_verification_for_order( $order_id ) ) {
+			return;
+		}
+
+		echo '<div class="woocommerce-info zab-free-verification-notice">';
+		echo esc_html__( 'Your appointment is almost confirmed. We sent a verification email to your inbox. Please click the confirmation link in that email (and check spam/promotions if needed).', 'zeka-appointment-booking' );
+		echo '</div>';
 	}
 
 	/**
