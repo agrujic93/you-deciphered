@@ -68,11 +68,7 @@ else : /* Rendering in editor body. */
 			if ( ! empty( $events ) ) : ?>
 				<div class="footer-col footer-calendar uk-width-1-2@m uk-width-1-4@l">
 					<div class="footer-col-inner">
-					<?php if ( $lang === 'en' ) : ?>
-						<h2 class="ci-label-text">Calendar</h2>
-					<?php else : ?>
-						<h2 class="ci-label-text">Kalendar</h2>
-					<?php endif; ?>
+						<h2 class="ci-label-text"><?php echo esc_html( simple_block_pll__( 'Calendar' ) ); ?></h2>
 						<ul class="footer-events-list">
 							<?php foreach ( $events as $event ) : ?>
 								<li class="footer-event-item">
@@ -94,11 +90,7 @@ else : /* Rendering in editor body. */
 			<?php /* Col 3: Footer Menu */ ?>
 			<div class="footer-col footer-nav uk-width-1-2@m uk-width-1-6@l">
 				<div class="footer-col-inner">
-					<?php if ( $lang === 'en' ) : ?>
-						<h2 class="ci-label-text">Useful Links</h2>
-					<?php else : ?>
-						<h2 class="ci-label-text">Korisni Linkovi</h2>
-					<?php endif; ?>
+					<h2 class="ci-label-text"><?php echo esc_html( simple_block_pll__( 'Useful Links' ) ); ?></h2>
 					<?php
 					$footer_menu_title = ( $lang === 'en' ) ? 'Footer Menu EN' : 'Footer Menu SR';
 					$footer_nav_posts  = get_posts( array(
@@ -118,11 +110,7 @@ else : /* Rendering in editor body. */
 			<?php /* Col 4: Social networks + phone + email */ ?>
 			<div class="footer-col footer-contact uk-width-1-2@m uk-width-1-4@l">
 				<div class="footer-col-inner">
-					<?php if ( $lang === 'en' ) : ?>
-						<h2 class="ci-label-text">Contact</h2>
-					<?php else : ?>
-						<h2 class="ci-label-text">Kontakt</h2>
-					<?php endif; ?>
+					<h2 class="ci-label-text"><?php echo esc_html( simple_block_pll__( 'Contact' ) ); ?></h2>
 					<?php /* Social icons */ ?>
 					<?php if ( have_rows( 'social_networks_' . $lang, 'option' ) ) : ?>
 						<div class="footer-social-icons">
@@ -189,18 +177,10 @@ else : /* Rendering in editor body. */
 		<?php /* ── Row 3: Bottom bar ── */ ?>
 		<div class="footer-bottom">
 			<p class="footer-copyright">
-				<?php if ( $lang === 'en' ) : ?>
-					&copy;<?php echo esc_html( date( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>. All rights reserved.
-				<?php else : ?>
-					&copy;<?php echo esc_html( date( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>. Sva prava zadržana.
-				<?php endif; ?>
+				&copy;<?php echo esc_html( date( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>. <?php echo esc_html( simple_block_pll__( 'All rights reserved.' ) ); ?>
 			</p>
-			<a class="footer-back-to-top" href="#top" uk-scroll aria-label="Back to top">
-				<?php if ( $lang === 'en' ) : ?>
-					Back to top ↑
-				<?php else : ?>
-					Na vrh ↑
-				<?php endif; ?>
+			<a class="footer-back-to-top" href="#top" uk-scroll aria-label="<?php echo esc_attr( simple_block_pll__( 'Back to top' ) ); ?>">
+				<?php echo esc_html( simple_block_pll__( 'Back to top ↑' ) ); ?>
 			</a>
 		</div><!-- .footer-bottom -->
 

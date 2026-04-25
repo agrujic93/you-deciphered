@@ -751,6 +751,66 @@ function simple_block_add_woocommerce_support() {
 add_action( 'after_setup_theme', 'simple_block_add_woocommerce_support' );
 
 /**
+ * Register translatable theme strings for Polylang.
+ *
+ * @return void
+ */
+function simple_block_register_polylang_strings() {
+	if ( ! function_exists( 'pll_register_string' ) ) {
+		return;
+	}
+
+	$strings = array(
+		'All',
+		'Load More',
+		'Read More',
+		'Read More about %s',
+		'By %s',
+		'Invalid block ID.',
+		'Click to edit Blog block',
+		'Link to home page',
+		'Small logo',
+		'Search...',
+		'Calendar',
+		'Useful Links',
+		'Contact',
+		'All rights reserved.',
+		'Back to top',
+		'Back to top ↑',
+		'Link to the post',
+		'Link to the %s',
+		'Learn More',
+		'Learn More about %s',
+		'thumbnail logo',
+		'View All',
+		'No.',
+		'Service Name',
+		'Price',
+		'Box Link',
+		'Zig Zag Image',
+	);
+
+	foreach ( $strings as $string ) {
+		pll_register_string( 'simple-block', $string, 'simple-block' );
+	}
+}
+add_action( 'init', 'simple_block_register_polylang_strings' );
+
+/**
+ * Safe Polylang translator helper with fallback.
+ *
+ * @param string $string String to translate.
+ * @return string
+ */
+function simple_block_pll__( $string ) {
+	if ( function_exists( 'pll__' ) ) {
+		return pll__( $string );
+	}
+
+	return $string;
+}
+
+/**
  * Include blog block backend logic from block folder.
  */
 require_once get_template_directory() . '/parts/blocks/blog-block/blog-block-functions.php';

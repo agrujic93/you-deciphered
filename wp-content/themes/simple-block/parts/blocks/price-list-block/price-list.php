@@ -51,9 +51,9 @@ else : /* Rendering in editor body. */
 					<table class="uk-table uk-table-striped animation-fade-item">
 						<thead>
 							<tr>
-								<th class="table-number-th">No.</th>
-								<th class="uk-table-expand">Service Name</th>
-								<th class="table-price-th">Price</th>
+								<th class="table-number-th"><?php echo esc_html( simple_block_pll__( 'No.' ) ); ?></th>
+								<th class="uk-table-expand"><?php echo esc_html( simple_block_pll__( 'Service Name' ) ); ?></th>
+								<th class="table-price-th"><?php echo esc_html( simple_block_pll__( 'Price' ) ); ?></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -72,9 +72,9 @@ else : /* Rendering in editor body. */
 										$i++;
 									?>
 										<tr>
-											<td data-label="No."><?php echo $i; ?>.</td>
-											<td data-label="Service Name"><?php the_sub_field('service_name'); ?></td>
-											<td data-label="Price"><?php the_sub_field('service_price'); ?></td>
+											<td data-label="<?php echo esc_attr( simple_block_pll__( 'No.' ) ); ?>"><?php echo $i; ?>.</td>
+											<td data-label="<?php echo esc_attr( simple_block_pll__( 'Service Name' ) ); ?>"><?php the_sub_field('service_name'); ?></td>
+											<td data-label="<?php echo esc_attr( simple_block_pll__( 'Price' ) ); ?>"><?php the_sub_field('service_price'); ?></td>
 										</tr>
 									<?php endwhile; ?>
 								<?php endif; ?>

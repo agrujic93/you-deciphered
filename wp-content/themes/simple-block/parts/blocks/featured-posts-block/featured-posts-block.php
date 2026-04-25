@@ -64,7 +64,7 @@ else : /* rendering in editor body */
 								<div class="card-wrp rm-last-child-margin">
 							<?php endif; ?>
 
-								<a aria-label="Link to the post" class="card-link" href="<?php echo esc_url( $permalink ); ?>">
+								<a aria-label="<?php echo esc_attr( simple_block_pll__( 'Link to the post' ) ); ?>" class="card-link" href="<?php echo esc_url( $permalink ); ?>">
 								</a>
 									<?php if (get_the_post_thumbnail($featured_post->ID)): ?>
 										<div class="img-wrp">
@@ -81,7 +81,7 @@ else : /* rendering in editor body */
 											$display_category = '';
 											if ( ! empty( $categories ) ) {
 												foreach ( $categories as $cat ) {
-													if ( 'Uncategorized' !== $cat->name ) {
+													if ( 'uncategorized' !== $cat->slug ) {
 														$display_category = $cat->name;
 														break;
 													}

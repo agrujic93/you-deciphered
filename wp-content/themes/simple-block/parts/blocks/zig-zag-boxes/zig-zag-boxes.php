@@ -60,7 +60,7 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 
 					<div class="zig-zag-box-wrapper" style="--box-hover-color: <?php echo esc_attr( $box_main_color ); ?>;">
 						<?php if ( $has_link ) : ?>
-							<a href="<?php echo esc_url( $box_link ); ?>" class="zig-zag-link-overlay aria-label-link" aria-label="<?php echo esc_attr( $img_title ?: 'Box Link' ); ?>"></a>
+							<a href="<?php echo esc_url( $box_link ); ?>" class="zig-zag-link-overlay aria-label-link" aria-label="<?php echo esc_attr( $img_title ?: simple_block_pll__( 'Box Link' ) ); ?>"></a>
 						<?php endif; ?>
 
 						<div class="<?php echo esc_attr( $row_class ); ?>" data-uk-grid>
@@ -71,7 +71,7 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 									<?php if ( $img_id ) :
 										$img_alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 										if ( ! $img_alt ) {
-											$img_alt = $img_title ?: 'Zig Zag Image';
+											$img_alt = $img_title ?: simple_block_pll__( 'Zig Zag Image' );
 										}
 										echo wp_get_attachment_image( $img_id, 'large', false, array(
 											'class' => 'zig-zag-img',

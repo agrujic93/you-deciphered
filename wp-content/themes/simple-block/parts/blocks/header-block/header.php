@@ -22,7 +22,7 @@ else : /* Rendering in editor body. */
 
 				<!-- Branding Section -->
 				<div class="site-branding">
-					<a aria-label="<?php if ($lang == 'en') echo 'Link to home page'; else echo 'Link do početne stranice'; ?>" class="header-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+					<a aria-label="<?php echo esc_attr( simple_block_pll__( 'Link to home page' ) ); ?>" class="header-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
 						<?php if( get_field('header_logo_'.$lang, 'option') ): ?>
 							<img class="main-logo" alt="<?php echo get_field('header_logo_'.$lang, 'option')['alt']; ?>" src="<?php echo get_field('header_logo_'.$lang, 'option')['url'] ?>">
 						<?php endif; ?>
@@ -30,8 +30,8 @@ else : /* Rendering in editor body. */
 				</div>
 				<!-- Navigation Section (Pill) -->
 				<nav class="central-nav-pill">
-					<a aria-label="<?php if ($lang == 'en') echo 'Link to home page'; else echo 'Link do početne stranice'; ?>" class="uk-inline-block" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-						<img class="small-logo" alt="Small logo" src="<?php echo get_template_directory_uri(); ?>/assets/images/yd-small-logo-cropped.svg">
+					<a aria-label="<?php echo esc_attr( simple_block_pll__( 'Link to home page' ) ); ?>" class="uk-inline-block" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+						<img class="small-logo" alt="<?php echo esc_attr( simple_block_pll__( 'Small logo' ) ); ?>" src="<?php echo get_template_directory_uri(); ?>/assets/images/yd-small-logo-cropped.svg">
 					</a>
 					<?php
 					$menu_title = ( $lang === 'en' ) ? 'Main Menu EN' : 'Main Menu SR';
@@ -66,7 +66,7 @@ else : /* Rendering in editor body. */
 							<div class="uk-card uk-card-default uk-card-body uk-card-small uk-border-rounded">
 								<button class="uk-drop-close" type="button" uk-close></button>
 								<form class="uk-search uk-search-navbar uk-width-1-1" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
-									<input class="uk-search-input" type="text" name="s" placeholder="<?php echo ($lang == 'en') ? 'Search...' : 'Pretraži...'; ?>" autofocus />
+									<input class="uk-search-input" type="text" name="s" placeholder="<?php echo esc_attr( simple_block_pll__( 'Search...' ) ); ?>" autofocus />
 								</form>
 							</div>
 						</div>

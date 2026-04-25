@@ -73,14 +73,14 @@ else : /* rendering in editor body */
 									<div class="query-posts-card rm-last-child-margin">
 								<?php endif; ?>
 
-									<a aria-label="Link to the post" class="image-wrapper uk-margin-bottom" href="<?php echo esc_url( $permalink ); ?>">
+									<a aria-label="<?php echo esc_attr( simple_block_pll__( 'Link to the post' ) ); ?>" class="image-wrapper uk-margin-bottom" href="<?php echo esc_url( $permalink ); ?>">
 										<?php if (get_the_post_thumbnail()): ?>
 											<?php echo get_the_post_thumbnail(get_the_ID(), 'large' ); ?>
 										<?php else: ?>
-											<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/theme-default.jpeg" alt="thumbnail logo">
+											<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/theme-default.jpeg" alt="<?php echo esc_attr( simple_block_pll__( 'thumbnail logo' ) ); ?>">
 										<?php endif ?>
 									</a>
-									<a class="post-title uk-margin-small-bottom" aria-label="Link to the <?php echo esc_html( $title ); ?>" href="<?php echo esc_url( $permalink ); ?>">
+									<a class="post-title uk-margin-small-bottom" aria-label="<?php echo esc_attr( sprintf( simple_block_pll__( 'Link to the %s' ), $title ) ); ?>" href="<?php echo esc_url( $permalink ); ?>">
 										<h3><?php echo esc_html( $title ); ?></h3>
 									</a>
 									<?php if ($post_type == 'post'): ?>
@@ -88,7 +88,7 @@ else : /* rendering in editor body */
 										<p class="uk-margin-bottom"><?php echo wp_html_excerpt( get_the_excerpt(), 180, '... ' ); ?></p>
 									<?php endif ?>
 									<div class="uk-margin-auto-top">
-										<a class="btn" aria-label="Learn More about <?php echo esc_html( $title ); ?>" href="<?php echo esc_url( $permalink ); ?>">Learn More</a>
+										<a class="btn" aria-label="<?php echo esc_attr( sprintf( simple_block_pll__( 'Learn More about %s' ), $title ) ); ?>" href="<?php echo esc_url( $permalink ); ?>"><?php echo esc_html( simple_block_pll__( 'Learn More' ) ); ?></a>
 									</div>
 								</div>
 							</div>
@@ -119,10 +119,10 @@ else : /* rendering in editor body */
 										<?php if (get_the_post_thumbnail($featured_post->ID)): ?>
 											<?php echo get_the_post_thumbnail($featured_post->ID, 'large' ); ?>
 										<?php else: ?>
-											<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/theme-default.jpeg" alt="thumbnail logo">
+											<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/theme-default.jpeg" alt="<?php echo esc_attr( simple_block_pll__( 'thumbnail logo' ) ); ?>">
 										<?php endif ?>
 									</a>
-									<a class="post-title uk-margin-small-bottom" aria-label="Link to the <?php echo esc_html( $title ); ?>" href="<?php echo esc_url( $permalink ); ?>">
+									<a class="post-title uk-margin-small-bottom" aria-label="<?php echo esc_attr( sprintf( simple_block_pll__( 'Link to the %s' ), $title ) ); ?>" href="<?php echo esc_url( $permalink ); ?>">
 										<h3><?php echo esc_html( $title ); ?></h3>
 									</a>
 									<?php if (get_post_type($featured_post->ID) == 'post'): ?>
@@ -130,7 +130,7 @@ else : /* rendering in editor body */
 										<p class="uk-margin-bottom"><?php echo wp_html_excerpt( get_the_excerpt($featured_post->ID), 180, '... ' ); ?></p>
 									<?php endif ?>
 									<div class="uk-margin-auto-top">
-										<a class="btn" aria-label="Link to the <?php echo esc_html( $title ); ?>" href="<?php echo esc_url( $permalink ); ?>">Learn More</a>
+										<a class="btn" aria-label="<?php echo esc_attr( sprintf( simple_block_pll__( 'Link to the %s' ), $title ) ); ?>" href="<?php echo esc_url( $permalink ); ?>"><?php echo esc_html( simple_block_pll__( 'Learn More' ) ); ?></a>
 									</div>
 								</div>
 							</div>

@@ -272,7 +272,7 @@ if ( ! function_exists( 'ci_render_blog_post_item' ) ) {
 								<p class="uk-text-small uk-margin-remove-bottom"><?php echo esc_html( $date ); ?></p>
 							<?php endif; ?>
 							<?php if ( $show_author_name ) : ?>
-								<p class="post-author uk-text-small uk-margin-remove-bottom"><?php echo pll_current_language() === 'en' ? 'By ' . esc_html( $author ) : 'Autor: ' . esc_html( $author ); ?></p>
+								<p class="post-author uk-text-small uk-margin-remove-bottom"><?php echo esc_html( sprintf( simple_block_pll__( 'By %s' ), $author ) ); ?></p>
 							<?php endif; ?>
 						</div>
 					<?php endif; ?>
@@ -282,7 +282,7 @@ if ( ! function_exists( 'ci_render_blog_post_item' ) ) {
 				<?php endif; ?>
 				<?php if ( $show_read_more_link ) : ?>
 					<div class="read-more-link-wrp">
-						<a class="btn" aria-label="Read More about <?php echo esc_html( $title ); ?>" href="<?php echo esc_url( $permalink ); ?>"><?php echo pll_current_language() === 'en' ? 'Read More' : 'Saznaj Više'; ?></a>
+						<a class="btn" aria-label="<?php echo esc_attr( sprintf( simple_block_pll__( 'Read More about %s' ), $title ) ); ?>" href="<?php echo esc_url( $permalink ); ?>"><?php echo esc_html( simple_block_pll__( 'Read More' ) ); ?></a>
 					</div>
 				<?php endif; ?>
 			</div>

@@ -76,7 +76,7 @@ else : /* rendering in editor body */
 									)
 								);
 								?>
-								<span class="btn">View All</span>
+								<span class="btn"><?php echo esc_html( simple_block_pll__( 'View All' ) ); ?></span>
 							</div>
 						</div>
 					</div>
