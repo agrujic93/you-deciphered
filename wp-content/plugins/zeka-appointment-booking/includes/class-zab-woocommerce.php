@@ -40,6 +40,7 @@ class ZAB_WooCommerce {
 
 		add_action( 'woocommerce_order_status_processing', array( __CLASS__, 'mark_order_appointments_confirmed' ) );
 		add_action( 'woocommerce_order_status_completed', array( __CLASS__, 'mark_order_appointments_confirmed' ) );
+		add_action( 'woocommerce_before_thankyou', array( __CLASS__, 'render_free_booking_verification_notice_on_thankyou' ), 20 );
 		add_action( 'woocommerce_order_status_cancelled', array( __CLASS__, 'mark_order_appointments_cancelled' ) );
 		add_action( 'woocommerce_order_status_failed', array( __CLASS__, 'mark_order_appointments_cancelled' ) );
 		add_action( 'woocommerce_before_cart_emptied', array( __CLASS__, 'handle_booking_cart_emptied' ), 10, 1 );
@@ -636,7 +637,70 @@ class ZAB_WooCommerce {
 			$item->add_meta_data( 'booking_end', sanitize_text_field( $values['zab_end'] ), true );
 		}
 
+		if ( ! empty( $values['zab_start_utc'] ) ) {
+			$item->add_meta_data( 'booking_start_utc', sanitize_text_field( $values['zab_start_utc'] ), true );
+		}
+
+		if ( ! empty( $values['zab_end_utc'] ) ) {
+			$item->add_meta_data( 'booking_end_utc', sanitize_text_field( $values['zab_end_utc'] ), true );
+		}
+
+		if ( ! empty( $values['zab_visitor_tz'] ) ) {
+			$item->add_meta_data( 'booking_visitor_tz', sanitize_text_field( $values['zab_visitor_tz'] ), true );
+		}
+
+		$appointment_display = self::build_order_item_appointment_display( $values );
+		if ( '' !== $appointment_display ) {
+			$item->add_meta_data( __( 'Appointment', 'zeka-appointment-booking' ), $appointment_display, true );
+		}
+
 		self::set_appointment_status( $appointment_id, 'pending', $order->get_id() );
+	}
+
+	/**
+	 * Build user-facing appointment line for order item meta.
+	 *
+	 * @param array $values Cart item values.
+	 * @return string
+	 */
+	private static function build_order_item_appointment_display( $values ) {
+		$date      = isset( $values['zab_date'] ) ? sanitize_text_field( (string) $values['zab_date'] ) : '';
+		$start     = isset( $values['zab_start'] ) ? sanitize_text_field( (string) $values['zab_start'] ) : '';
+		$end       = isset( $values['zab_end'] ) ? sanitize_text_field( (string) $values['zab_end'] ) : '';
+		$start_utc = isset( $values['zab_start_utc'] ) ? sanitize_text_field( (string) $values['zab_start_utc'] ) : '';
+		$end_utc   = isset( $values['zab_end_utc'] ) ? sanitize_text_field( (string) $values['zab_end_utc'] ) : '';
+		$visitor_tz = isset( $values['zab_visitor_tz'] ) ? sanitize_text_field( (string) $values['zab_visitor_tz'] ) : '';
+
+		if ( '' === $date || '' === $start || '' === $end ) {
+			return '';
+		}
+
+		$appointment_value = $date . ' ' . $start . ' - ' . $end . ' (' . ZAB_Time::business_timezone_string() . ')';
+
+		if ( '' === $start_utc || '' === $end_utc ) {
+			$utc_slot = self::to_utc_slot_range( $date, $start, $end );
+
+			if ( is_array( $utc_slot ) ) {
+				$start_utc = isset( $utc_slot['start'] ) ? (string) $utc_slot['start'] : '';
+				$end_utc   = isset( $utc_slot['end'] ) ? (string) $utc_slot['end'] : '';
+			}
+		}
+
+		if ( '' !== $visitor_tz && '' !== $start_utc && '' !== $end_utc ) {
+			try {
+				$visitor_timezone = new DateTimeZone( $visitor_tz );
+				$start_local      = new DateTimeImmutable( $start_utc, new DateTimeZone( 'UTC' ) );
+				$end_local        = new DateTimeImmutable( $end_utc, new DateTimeZone( 'UTC' ) );
+				$start_local      = $start_local->setTimezone( $visitor_timezone );
+				$end_local        = $end_local->setTimezone( $visitor_timezone );
+
+				$appointment_value .= ' / ' . $start_local->format( 'Y-m-d H:i' ) . ' - ' . $end_local->format( 'H:i' ) . ' (' . __( 'Your local time', 'zeka-appointment-booking' ) . ')';
+			} catch ( Exception $exception ) {
+				// Keep business timezone segment only if timezone conversion fails.
+			}
+		}
+
+		return $appointment_value;
 	}
 
 	/**
@@ -675,6 +739,17 @@ class ZAB_WooCommerce {
 		foreach ( $paid_appointment_ids as $appointment_id ) {
 			self::set_appointment_status( $appointment_id, 'confirmed', $order_id );
 			do_action( 'zab_appointment_confirmed', $appointment_id );
+		}
+
+		// Mixed order (paid + free): payment confirmation should confirm all items,
+		// so free appointments in this order must skip email verification.
+		if ( ! empty( $paid_appointment_ids ) && ! empty( $free_appointment_ids ) ) {
+			foreach ( $free_appointment_ids as $appointment_id ) {
+				self::set_appointment_status( $appointment_id, 'confirmed', $order_id );
+				do_action( 'zab_appointment_confirmed', $appointment_id );
+			}
+
+			return;
 		}
 
 		if ( empty( $free_appointment_ids ) ) {
@@ -722,6 +797,50 @@ class ZAB_WooCommerce {
 			self::set_appointment_status( $appointment_id, 'cancelled', $order_id );
 			do_action( 'zab_appointment_cancelled', $appointment_id );
 		}
+	}
+
+	/**
+	 * Show notice on order confirmation page for free-only bookings.
+	 *
+	 * @param int $order_id WooCommerce order ID.
+	 * @return void
+	 */
+	public static function render_free_booking_verification_notice_on_thankyou( $order_id ) {
+		$order_id = absint( $order_id );
+
+		if ( $order_id < 1 ) {
+			return;
+		}
+
+		$appointment_ids = self::get_order_appointment_ids( $order_id );
+
+		if ( empty( $appointment_ids ) ) {
+			return;
+		}
+
+		$free_count = 0;
+		$paid_count = 0;
+
+		foreach ( $appointment_ids as $appointment_id ) {
+			if ( self::is_free_appointment( $appointment_id ) ) {
+				$free_count++;
+				continue;
+			}
+
+			$paid_count++;
+		}
+
+		if ( $free_count < 1 || $paid_count > 0 ) {
+			return;
+		}
+
+		if ( ! self::has_sent_free_verification_for_order( $order_id ) ) {
+			return;
+		}
+
+		echo '<div class="woocommerce-info zab-free-verification-notice">';
+		echo esc_html__( 'Your appointment is almost confirmed. We sent a verification email to your inbox. Please click the confirmation link in that email (and check spam/promotions if needed).', 'zeka-appointment-booking' );
+		echo '</div>';
 	}
 
 	/**
@@ -2022,6 +2141,12 @@ class ZAB_WooCommerce {
 		$hidden_meta   = is_array( $hidden_meta ) ? $hidden_meta : array();
 		$hidden_meta[] = 'appointment_id';
 		$hidden_meta[] = 'service_id';
+		$hidden_meta[] = 'booking_date';
+		$hidden_meta[] = 'booking_start';
+		$hidden_meta[] = 'booking_end';
+		$hidden_meta[] = 'booking_start_utc';
+		$hidden_meta[] = 'booking_end_utc';
+		$hidden_meta[] = 'booking_visitor_tz';
 
 		return array_values( array_unique( $hidden_meta ) );
 	}
