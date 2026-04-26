@@ -255,23 +255,15 @@ class ZAB_WooCommerce {
 			}
 		}
 
-		if ( ! self::is_valid_date( $date ) ) {
+		if ( '' !== $date && ! self::is_valid_date( $date ) ) {
 			wp_send_json_error( array( 'message' => __( 'Invalid booking data.', 'zeka-appointment-booking' ) ), 400 );
 		}
 
-		$requested_slots = self::build_requested_slots( $slots_raw, $start_time, $end_time );
+		$requested_slots = self::build_requested_slots( $slots_raw, $date, $start_time, $end_time, $service_id );
 
 		if ( empty( $requested_slots ) ) {
 			wp_send_json_error( array( 'message' => __( 'Please select at least one slot.', 'zeka-appointment-booking' ) ), 400 );
 		}
-
-		$service = self::resolve_booking_service( $service_id );
-
-		if ( empty( $service ) ) {
-			wp_send_json_error( array( 'message' => __( 'No booking services are configured yet. Please add at least one service in admin.', 'zeka-appointment-booking' ) ), 400 );
-		}
-
-		$service_id = (int) $service['id'];
 
 		// Get existing appointments from cart to cancel them (for replacement).
 		$existing_appointment_ids = self::get_cart_appointment_ids();
@@ -280,20 +272,31 @@ class ZAB_WooCommerce {
 		$slot_payloads   = array();
 
 		foreach ( $requested_slots as $slot ) {
-			$slot_start = $slot['start'];
-			$slot_end   = $slot['end'];
+			$slot_date       = isset( $slot['date'] ) ? (string) $slot['date'] : '';
+			$slot_start      = isset( $slot['start'] ) ? (string) $slot['start'] : '';
+			$slot_end        = isset( $slot['end'] ) ? (string) $slot['end'] : '';
+			$slot_service_id = isset( $slot['service_id'] ) ? absint( $slot['service_id'] ) : 0;
 
-			if ( ! self::is_valid_time( $slot_start ) || ! self::is_valid_time( $slot_end ) || ! self::is_valid_time_range( $slot_start, $slot_end ) ) {
+			if ( ! self::is_valid_date( $slot_date ) || ! self::is_valid_time( $slot_start ) || ! self::is_valid_time( $slot_end ) || ! self::is_valid_time_range( $slot_start, $slot_end ) ) {
 				self::cancel_appointments( $appointment_ids );
 				wp_send_json_error( array( 'message' => __( 'Invalid slot time range.', 'zeka-appointment-booking' ) ), 400 );
 			}
 
-			if ( ! self::is_slot_currently_available( $date, $slot_start, $slot_end, $service_id ) ) {
+			$service = self::resolve_booking_service( $slot_service_id );
+
+			if ( empty( $service ) ) {
+				self::cancel_appointments( $appointment_ids );
+				wp_send_json_error( array( 'message' => __( 'No booking services are configured yet. Please add at least one service in admin.', 'zeka-appointment-booking' ) ), 400 );
+			}
+
+			$slot_service_id = (int) $service['id'];
+
+			if ( ! self::is_slot_currently_available( $slot_date, $slot_start, $slot_end, $slot_service_id ) ) {
 				self::cancel_appointments( $appointment_ids );
 				wp_send_json_error( array( 'message' => __( 'One or more selected slots are no longer available. Please refresh and choose again.', 'zeka-appointment-booking' ) ), 409 );
 			}
 
-			$utc_slot = self::to_utc_slot_range( $date, $slot_start, $slot_end );
+			$utc_slot = self::to_utc_slot_range( $slot_date, $slot_start, $slot_end );
 
 			if ( empty( $utc_slot ) ) {
 				self::cancel_appointments( $appointment_ids );
@@ -307,8 +310,8 @@ class ZAB_WooCommerce {
 
 			$appointment_id = self::create_pending_appointment(
 				array(
-					'service_id'   => (int) $service['id'],
-					'booking_date' => $date,
+					'service_id'   => $slot_service_id,
+					'booking_date' => $slot_date,
 					'start_utc'    => $utc_slot['start'],
 					'end_utc'      => $utc_slot['end'],
 				)
@@ -322,6 +325,9 @@ class ZAB_WooCommerce {
 			$appointment_ids[] = $appointment_id;
 			$slot_payloads[]   = array(
 				'appointment_id' => $appointment_id,
+				'service_id'     => $slot_service_id,
+				'service_name'   => (string) $service['name'],
+				'date'           => $slot_date,
 				'start'          => $slot_start,
 				'end'            => $slot_end,
 				'start_utc'      => $utc_slot['start'],
@@ -355,13 +361,13 @@ class ZAB_WooCommerce {
 		foreach ( $slot_payloads as $slot_payload ) {
 			$cart_item_data = array(
 				'zab_appointment_id' => (int) $slot_payload['appointment_id'],
-				'zab_service_id'     => (int) $service['id'],
-				'zab_service_name'   => (string) $service['name'],
-				'zab_date'           => $date,
-				'zab_start'          => $slot_payload['start'],
-				'zab_end'            => $slot_payload['end'],
-				'zab_start_utc'      => $slot_payload['start_utc'],
-				'zab_end_utc'        => $slot_payload['end_utc'],
+				'zab_service_id'     => (int) $slot_payload['service_id'],
+				'zab_service_name'   => (string) $slot_payload['service_name'],
+				'zab_date'           => (string) $slot_payload['date'],
+				'zab_start'          => (string) $slot_payload['start'],
+				'zab_end'            => (string) $slot_payload['end'],
+				'zab_start_utc'      => (string) $slot_payload['start_utc'],
+				'zab_end_utc'        => (string) $slot_payload['end_utc'],
 				'zab_visitor_tz'     => $browser_tz,
 				'zab_first_name'     => $first_name,
 				'zab_last_name'      => $last_name,
@@ -380,9 +386,10 @@ class ZAB_WooCommerce {
 
 		wp_send_json_success(
 			array(
-				'appointment_id' => $primary_appointment_id,
+				'appointment_id'    => $primary_appointment_id,
 				'appointment_count' => count( $appointment_ids ),
-				'checkout_url'   => wc_get_checkout_url(),
+				'checkout_url'      => wc_get_checkout_url(),
+				'cart_url'          => wc_get_cart_url(),
 			)
 		);
 	}
@@ -906,9 +913,9 @@ class ZAB_WooCommerce {
 			return array();
 		}
 
-		$date       = '';
-		$service_id = 0;
-		$slots      = array();
+		$selections = array();
+		$first_date = '';
+		$first_service_id = 0;
 
 		foreach ( WC()->cart->get_cart() as $item ) {
 			if ( empty( $item['zab_appointment_id'] ) || empty( $item['zab_date'] ) || empty( $item['zab_start'] ) || empty( $item['zab_end'] ) ) {
@@ -917,57 +924,75 @@ class ZAB_WooCommerce {
 
 			$item_date       = sanitize_text_field( $item['zab_date'] );
 			$item_service_id = ! empty( $item['zab_service_id'] ) ? absint( $item['zab_service_id'] ) : 0;
+			$item_start      = sanitize_text_field( $item['zab_start'] );
+			$item_end        = sanitize_text_field( $item['zab_end'] );
+			$item_utc_start  = ! empty( $item['zab_start_utc'] ) ? sanitize_text_field( $item['zab_start_utc'] ) : '';
+			$item_utc_end    = ! empty( $item['zab_end_utc'] ) ? sanitize_text_field( $item['zab_end_utc'] ) : '';
 
-			if ( '' === $date ) {
-				$date       = $item_date;
-				$service_id = $item_service_id;
+			if ( '' === $first_date ) {
+				$first_date = $item_date;
+				$first_service_id = $item_service_id;
 			}
 
-			if ( $item_date !== $date || $item_service_id !== $service_id ) {
-				continue;
+			if ( '' === $item_utc_start || '' === $item_utc_end ) {
+				$utc_range = self::to_utc_slot_range( $item_date, $item_start, $item_end );
+				if ( ! empty( $utc_range ) ) {
+					$item_utc_start = $utc_range['start'];
+					$item_utc_end   = $utc_range['end'];
+				}
 			}
 
-			$slots[] = array(
-				'start' => sanitize_text_field( $item['zab_start'] ),
-				'end'   => sanitize_text_field( $item['zab_end'] ),
+			$key = $item_service_id . '|' . $item_date . '|' . $item_start . '|' . $item_end;
+			$selections[ $key ] = array(
+				'service_id'    => $item_service_id,
+				'date'          => $item_date,
+				'start'         => $item_start,
+				'end'           => $item_end,
+				'utc_start'     => $item_utc_start,
+				'utc_end'       => $item_utc_end,
+				'site_date'     => $item_date,
+				'site_timezone' => ZAB_Time::business_timezone_string(),
 			);
-
-			$last_index = count( $slots ) - 1;
-			$utc_range  = self::to_utc_slot_range( $item_date, $slots[ $last_index ]['start'], $slots[ $last_index ]['end'] );
-
-			if ( ! empty( $utc_range ) ) {
-				$slots[ $last_index ]['utc_start'] = $utc_range['start'];
-				$slots[ $last_index ]['utc_end']   = $utc_range['end'];
-			}
-
-			$slots[ $last_index ]['site_date']     = $item_date;
-			$slots[ $last_index ]['site_timezone'] = ZAB_Time::business_timezone_string();
 		}
 
-		if ( '' === $date || empty( $slots ) ) {
+		if ( empty( $selections ) ) {
 			return array();
 		}
 
-		$deduped = array();
-		foreach ( $slots as $slot ) {
-			$key = $slot['start'] . '|' . $slot['end'];
-			$deduped[ $key ] = $slot;
-		}
-
-		$slots = array_values( $deduped );
+		$all_slots = array_values( $selections );
 
 		usort(
-			$slots,
+			$all_slots,
 			static function ( $a, $b ) {
-				return strcmp( $a['start'], $b['start'] );
+				$date_compare = strcmp( (string) $a['date'], (string) $b['date'] );
+				if ( 0 !== $date_compare ) {
+					return $date_compare;
+				}
+
+				$start_compare = strcmp( (string) $a['start'], (string) $b['start'] );
+				if ( 0 !== $start_compare ) {
+					return $start_compare;
+				}
+
+				return strcmp( (string) $a['end'], (string) $b['end'] );
 			}
 		);
 
+		$legacy_slots = array_values(
+			array_filter(
+				$all_slots,
+				static function ( $slot ) use ( $first_date, $first_service_id ) {
+					return (string) $slot['date'] === (string) $first_date && (int) $slot['service_id'] === (int) $first_service_id;
+				}
+			)
+		);
+
 		return array(
-			'date'      => $date,
-			'serviceId' => $service_id,
+			'date'         => $first_date,
+			'serviceId'    => $first_service_id,
 			'siteTimezone' => ZAB_Time::business_timezone_string(),
-			'slots'     => $slots,
+			'slots'        => $legacy_slots,
+			'selections'   => $all_slots,
 		);
 	}
 
@@ -1444,14 +1469,16 @@ class ZAB_WooCommerce {
 	}
 
 	/**
-	 * Build requested slots array from JSON payload with single-slot fallback.
+	 * Build requested slots array from JSON payload with fallback values.
 	 *
 	 * @param mixed  $slots_raw Raw JSON slots payload.
+	 * @param string $fallback_date Fallback booking date.
 	 * @param string $fallback_start Fallback start time.
 	 * @param string $fallback_end Fallback end time.
+	 * @param int    $fallback_service_id Fallback service id.
 	 * @return array
 	 */
-	private static function build_requested_slots( $slots_raw, $fallback_start, $fallback_end ) {
+	private static function build_requested_slots( $slots_raw, $fallback_date, $fallback_start, $fallback_end, $fallback_service_id ) {
 		$slots = array();
 
 		if ( is_string( $slots_raw ) && '' !== $slots_raw ) {
@@ -1464,8 +1491,10 @@ class ZAB_WooCommerce {
 					}
 
 					$slots[] = array(
-						'start' => sanitize_text_field( $slot['start'] ),
-						'end'   => sanitize_text_field( $slot['end'] ),
+						'date'       => isset( $slot['date'] ) ? sanitize_text_field( $slot['date'] ) : sanitize_text_field( $fallback_date ),
+						'service_id' => isset( $slot['service_id'] ) ? absint( $slot['service_id'] ) : absint( $fallback_service_id ),
+						'start'      => sanitize_text_field( $slot['start'] ),
+						'end'        => sanitize_text_field( $slot['end'] ),
 					);
 				}
 			}
@@ -1473,14 +1502,16 @@ class ZAB_WooCommerce {
 
 		if ( empty( $slots ) && ! empty( $fallback_start ) && ! empty( $fallback_end ) ) {
 			$slots[] = array(
-				'start' => $fallback_start,
-				'end'   => $fallback_end,
+				'date'       => sanitize_text_field( $fallback_date ),
+				'service_id' => absint( $fallback_service_id ),
+				'start'      => sanitize_text_field( $fallback_start ),
+				'end'        => sanitize_text_field( $fallback_end ),
 			);
 		}
 
 		$deduped = array();
 		foreach ( $slots as $slot ) {
-			$key = $slot['start'] . '|' . $slot['end'];
+			$key = $slot['service_id'] . '|' . $slot['date'] . '|' . $slot['start'] . '|' . $slot['end'];
 			$deduped[ $key ] = $slot;
 		}
 
