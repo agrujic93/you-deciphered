@@ -51,22 +51,36 @@ class ZAB_Frontend {
 				</p>
 			<?php endif; ?>
 
-			<?php if ( ! empty( $cart_selection ) && ! empty( $cart_selection['date'] ) && ! empty( $cart_selection['slots'] ) ) : ?>
-				<?php $first_slot = reset( $cart_selection['slots'] ); ?>
-				<p class="zab-booking-notice zab-booking-notice--info" role="status">
-					<?php
-					echo wp_kses_post(
-						sprintf(
-							__( 'You already have a booking: %s at %s - %s (%s). <a href="%s">Proceed to checkout</a> or select a different time.', 'zeka-appointment-booking' ),
-							esc_html( $cart_selection['date'] ),
-							esc_html( $first_slot['start'] ),
-							esc_html( $first_slot['end'] ),
-							esc_html( ZAB_Time::business_timezone_string() ),
-							esc_url( wc_get_checkout_url() )
-						)
-					);
-					?>
-				</p>
+			<?php if ( ! empty( $cart_selection ) && ! empty( $cart_selection['selections'] ) && is_array( $cart_selection['selections'] ) ) : ?>
+				<div class="zab-booking-notice zab-booking-notice--info" role="status">
+					<p>
+						<?php
+						echo wp_kses_post(
+							sprintf(
+								__( 'You already have appointments selected in your cart. <a href="%s">Proceed to cart</a> or select a different time.', 'zeka-appointment-booking' ),
+								esc_url( wc_get_cart_url() )
+							)
+						);
+						?>
+					</p>
+					<ul class="zab-booking-notice__list">
+						<?php foreach ( $cart_selection['selections'] as $selection ) : ?>
+							<?php if ( empty( $selection['date'] ) || empty( $selection['start'] ) || empty( $selection['end'] ) ) : ?>
+								<?php continue; ?>
+							<?php endif; ?>
+							<li>
+								<?php
+								$service_name = isset( $selection['service_name'] ) ? sanitize_text_field( (string) $selection['service_name'] ) : '';
+								$line         = '' !== $service_name
+									? sprintf( '%s: %s %s - %s (%s)', $service_name, $selection['date'], $selection['start'], $selection['end'], ZAB_Time::business_timezone_string() )
+									: sprintf( '%s %s - %s (%s)', $selection['date'], $selection['start'], $selection['end'], ZAB_Time::business_timezone_string() );
+
+								echo esc_html( $line );
+								?>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
 			<?php endif; ?>
 
 			<?php /* if ( ! empty( $single_service_text ) ) : ?>
@@ -112,7 +126,7 @@ class ZAB_Frontend {
 			<div class="zab-booking-action" hidden>
 				<p class="zab-booking-action__selected" aria-live="polite"></p>
 				<button type="button" class="zab-booking-action__button">
-					<?php esc_html_e( 'Continue to checkout', 'zeka-appointment-booking' ); ?>
+					<?php esc_html_e( 'Proceed to cart', 'zeka-appointment-booking' ); ?>
 				</button>
 			</div>
 			<input type="hidden" class="zab-selected-slot-start" name="zab_selected_slot_start" value="" />
@@ -198,10 +212,11 @@ class ZAB_Frontend {
 					'selectedFormat'   => __( 'Selected: %1$s at %2$s - %3$s', 'zeka-appointment-booking' ),
 					'selectDateFirst'  => __( 'Please select a date first.', 'zeka-appointment-booking' ),
 					'selectSlotFirst'  => __( 'Please select a slot first.', 'zeka-appointment-booking' ),
-					'continueCheckout' => __( 'Continue to checkout', 'zeka-appointment-booking' ),
-					'processingCheckout' => __( 'Preparing checkout...', 'zeka-appointment-booking' ),
+					'continueCheckout' => __( 'Proceed to cart', 'zeka-appointment-booking' ),
+					'processingCheckout' => __( 'Preparing cart...', 'zeka-appointment-booking' ),
 					'verificationSent' => __( 'We sent a verification link to your email. Please confirm to finalize your free booking.', 'zeka-appointment-booking' ),
 					'multiSelectedFormat' => __( 'Selected %1$d slots on %2$s', 'zeka-appointment-booking' ),
+					'multiSelectedGlobalFormat' => __( 'Selected %1$d appointments', 'zeka-appointment-booking' ),
 					'noSlotSelected' => __( 'Please select at least one slot.', 'zeka-appointment-booking' ),
 					'replaceSelectionConfirm' => __( 'You already have a booking selected. Selecting a new time will replace it. Continue?', 'zeka-appointment-booking' ),
 					'localTimezoneFormat' => __( 'Times shown in your timezone: %1$s. Business timezone: %2$s.', 'zeka-appointment-booking' ),
