@@ -12,7 +12,7 @@
 if ( ! empty( $block['anchor'] ) ) {
 	$block_id = esc_attr( $block['anchor'] );
 } else {
-	$block_id = 'sticky-columns-' . $block['id'];
+	$block_id = 'ci-blog-block-' . $block['id'];
 }
 
 $main_block_class = 'ci-blog-block ci-block';
