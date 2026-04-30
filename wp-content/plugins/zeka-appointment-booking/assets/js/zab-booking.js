@@ -187,9 +187,14 @@
     var html = '<h3 class="zab-slot-results__title">' + escapeHtml(labels.slotsHeader) + '</h3>';
     html += '<div class="zab-slot-results__grid">';
 
+    var currentDate = getCurrentDate(widget);
+    var currentServiceId = getServiceId(widget);
+
     slots.forEach(function (slot) {
       var display = formatSlotDisplay(slot, config);
-      html += '<button type="button" class="zab-slot-button" data-start="' + escapeHtml(slot.start) + '" data-end="' + escapeHtml(slot.end) + '" data-utc-start="' + escapeHtml(slot.utc_start || '') + '" data-utc-end="' + escapeHtml(slot.utc_end || '') + '" data-site-date="' + escapeHtml(slot.site_date || '') + '">';
+      var slotDate = slot.site_date || currentDate;
+
+      html += '<button type="button" class="zab-slot-button" data-service-id="' + escapeHtml(String(currentServiceId)) + '" data-date="' + escapeHtml(slotDate || '') + '" data-start="' + escapeHtml(slot.start) + '" data-end="' + escapeHtml(slot.end) + '" data-utc-start="' + escapeHtml(slot.utc_start || '') + '" data-utc-end="' + escapeHtml(slot.utc_end || '') + '" data-site-date="' + escapeHtml(slot.site_date || slotDate || '') + '">';
       html += '<span>' + escapeHtml(display.label) + '</span>';
       html += '</button>';
 
@@ -200,71 +205,16 @@
     container.innerHTML = html;
   }
 
-  function getRestoreSelection(widget, config) {
-    var selection = (config && config.cartSelection) ? config.cartSelection : null;
-
-    if (!selection || typeof selection !== 'object') {
-      return null;
-    }
-
-    if (!selection.date || !Array.isArray(selection.slots) || selection.slots.length === 0) {
-      return null;
-    }
-
-    var dateInput = widget.querySelector('.zab-booking-date');
-    if (!dateInput || dateInput.value !== selection.date) {
-      return null;
-    }
-
-    var serviceId = getServiceId(widget);
-    var targetServiceId = parseInt(selection.serviceId || 0, 10);
-
-    if (targetServiceId > 0 && serviceId !== targetServiceId) {
-      return null;
-    }
-
-    return selection;
+  function makeSelectionKey(slot) {
+    return [slot.service_id || 0, slot.date || '', slot.start || '', slot.end || ''].join('|');
   }
 
-  function applyRestoredSelection(widget, config) {
-    if (widget.dataset.zabRestoreApplied === '1') {
-      return;
+  function getSelectionStore(widget) {
+    if (!widget.zabSelectionStore || typeof widget.zabSelectionStore !== 'object') {
+      widget.zabSelectionStore = {};
     }
 
-    var selection = getRestoreSelection(widget, config);
-    if (!selection) {
-      return;
-    }
-
-    var slotsMap = {};
-    selection.slots.forEach(function (slot) {
-      if (!slot || !slot.start || !slot.end) {
-        return;
-      }
-      slotsMap[String(slot.start) + '|' + String(slot.end)] = true;
-    });
-
-    var firstActivated = false;
-    var buttons = widget.querySelectorAll('.zab-slot-button');
-    buttons.forEach(function (button) {
-      var key = (button.getAttribute('data-start') || '') + '|' + (button.getAttribute('data-end') || '');
-      if (!slotsMap[key]) {
-        return;
-      }
-
-      if (isMultiMode(widget, config)) {
-        button.classList.add('is-active');
-        return;
-      }
-
-      if (!firstActivated) {
-        button.classList.add('is-active');
-        firstActivated = true;
-      }
-    });
-
-    widget.dataset.zabRestoreApplied = '1';
-    updateSelectionSummary(widget, config);
+    return widget.zabSelectionStore;
   }
 
   function getServiceId(widget) {
@@ -287,37 +237,214 @@
     return !!(toggle && toggle.checked);
   }
 
-  function getSelectedSlots(widget) {
-    var selected = [];
-    var activeButtons = widget.querySelectorAll('.zab-slot-button.is-active');
+  function getCurrentDate(widget) {
+    var dateInput = widget.querySelector('.zab-booking-date');
+    return dateInput && dateInput.value ? String(dateInput.value) : '';
+  }
 
-    activeButtons.forEach(function (button) {
-      var start = button.getAttribute('data-start') || '';
-      var end = button.getAttribute('data-end') || '';
-      var utcStart = button.getAttribute('data-utc-start') || '';
-      var utcEnd = button.getAttribute('data-utc-end') || '';
-      var siteDate = button.getAttribute('data-site-date') || '';
+  function normalizeSlotForStore(widget, slot) {
+    if (!slot || !slot.start || !slot.end) {
+      return null;
+    }
 
-      if (start && end) {
-        selected.push({ start: start, end: end, utc_start: utcStart, utc_end: utcEnd, site_date: siteDate });
+    var serviceId = parseInt(slot.service_id || getServiceId(widget), 10);
+    if (Number.isNaN(serviceId)) {
+      serviceId = 0;
+    }
+
+    var date = String(slot.date || slot.site_date || getCurrentDate(widget) || '');
+
+    if (!date) {
+      return null;
+    }
+
+    return {
+      service_id: serviceId,
+      date: date,
+      start: String(slot.start),
+      end: String(slot.end),
+      utc_start: String(slot.utc_start || ''),
+      utc_end: String(slot.utc_end || ''),
+      site_date: String(slot.site_date || date)
+    };
+  }
+
+  function seedSelectionStoreFromCart(widget, config) {
+    var store = getSelectionStore(widget);
+
+    if (Object.keys(store).length > 0) {
+      return;
+    }
+
+    var cartSelection = (config && config.cartSelection) ? config.cartSelection : null;
+
+    if (!cartSelection || typeof cartSelection !== 'object') {
+      return;
+    }
+
+    var sourceSlots = [];
+    if (Array.isArray(cartSelection.selections) && cartSelection.selections.length > 0) {
+      sourceSlots = cartSelection.selections;
+    } else if (Array.isArray(cartSelection.slots) && cartSelection.slots.length > 0) {
+      sourceSlots = cartSelection.slots.map(function (slot) {
+        return {
+          service_id: cartSelection.serviceId || 0,
+          date: cartSelection.date || '',
+          start: slot.start,
+          end: slot.end,
+          utc_start: slot.utc_start || '',
+          utc_end: slot.utc_end || '',
+          site_date: slot.site_date || cartSelection.date || ''
+        };
+      });
+    }
+
+    sourceSlots.forEach(function (slot) {
+      var normalized = normalizeSlotForStore(widget, slot);
+      if (!normalized) {
+        return;
       }
+
+      store[makeSelectionKey(normalized)] = normalized;
+    });
+  }
+
+  function setSlotSelected(widget, slot, selected, clearAllFirst) {
+    var store = getSelectionStore(widget);
+    var normalized = normalizeSlotForStore(widget, slot);
+
+    if (!normalized) {
+      return;
+    }
+
+    if (clearAllFirst) {
+      widget.zabSelectionStore = {};
+      store = getSelectionStore(widget);
+    }
+
+    var key = makeSelectionKey(normalized);
+
+    if (selected) {
+      store[key] = normalized;
+      return;
+    }
+
+    delete store[key];
+  }
+
+  function isSlotSelected(widget, slot) {
+    var normalized = normalizeSlotForStore(widget, slot);
+
+    if (!normalized) {
+      return false;
+    }
+
+    var store = getSelectionStore(widget);
+    return !!store[makeSelectionKey(normalized)];
+  }
+
+  function getSelectedSlots(widget) {
+    var store = getSelectionStore(widget);
+    var selected = Object.keys(store).map(function (key) {
+      return store[key];
     });
 
     selected.sort(function (a, b) {
-      return a.start.localeCompare(b.start);
+      var dateCompare = String(a.date).localeCompare(String(b.date));
+      if (dateCompare !== 0) {
+        return dateCompare;
+      }
+
+      var startCompare = String(a.start).localeCompare(String(b.start));
+      if (startCompare !== 0) {
+        return startCompare;
+      }
+
+      return String(a.end).localeCompare(String(b.end));
     });
 
     return selected;
   }
 
+  function syncActiveButtonsFromStore(widget) {
+    var buttons = widget.querySelectorAll('.zab-slot-button');
+
+    buttons.forEach(function (button) {
+      var slot = {
+        service_id: button.getAttribute('data-service-id') || getServiceId(widget),
+        date: button.getAttribute('data-date') || '',
+        start: button.getAttribute('data-start') || '',
+        end: button.getAttribute('data-end') || '',
+        utc_start: button.getAttribute('data-utc-start') || '',
+        utc_end: button.getAttribute('data-utc-end') || '',
+        site_date: button.getAttribute('data-site-date') || ''
+      };
+
+      if (isSlotSelected(widget, slot)) {
+        button.classList.add('is-active');
+      } else {
+        button.classList.remove('is-active');
+      }
+    });
+  }
+
+  function pruneUnavailableSelectionsForCurrentView(widget, slots) {
+    var serviceId = getServiceId(widget);
+    var date = getCurrentDate(widget);
+
+    if (!date) {
+      return;
+    }
+
+    var available = {};
+
+    (Array.isArray(slots) ? slots : []).forEach(function (slot) {
+      if (!slot || !slot.start || !slot.end) {
+        return;
+      }
+
+      var normalized = normalizeSlotForStore(widget, {
+        service_id: serviceId,
+        date: slot.site_date || date,
+        start: slot.start,
+        end: slot.end,
+        utc_start: slot.utc_start || '',
+        utc_end: slot.utc_end || '',
+        site_date: slot.site_date || date
+      });
+
+      if (!normalized) {
+        return;
+      }
+
+      available[makeSelectionKey(normalized)] = true;
+    });
+
+    var store = getSelectionStore(widget);
+    Object.keys(store).forEach(function (key) {
+      var slot = store[key];
+
+      if (!slot) {
+        return;
+      }
+
+      if (parseInt(slot.service_id, 10) !== serviceId || String(slot.date) !== String(date)) {
+        return;
+      }
+
+      if (!available[key]) {
+        delete store[key];
+      }
+    });
+  }
+
   function updateSelectionSummary(widget, config) {
     var selectedStart = widget.querySelector('.zab-selected-slot-start');
     var selectedEnd = widget.querySelector('.zab-selected-slot-end');
-    var dateInput = widget.querySelector('.zab-booking-date');
     var actionWrap = widget.querySelector('.zab-booking-action');
     var selectedText = widget.querySelector('.zab-booking-action__selected');
     var slots = getSelectedSlots(widget);
-    var multiFormat = config.labels.multiSelectedFormat || 'Selected %1$d slots on %2$s';
+    var multiFormat = config.labels.multiSelectedGlobalFormat || config.labels.multiSelectedFormat || 'Selected %1$d appointments';
 
     if (slots.length === 0) {
       if (selectedStart) selectedStart.value = '';
@@ -335,9 +462,11 @@
     }
 
     if (slots.length > 1) {
-      selectedText.textContent = multiFormat
-        .replace('%1$d', String(slots.length))
-        .replace('%2$s', dateInput ? (dateInput.value || '') : '');
+      var countText = multiFormat.replace('%1$d', String(slots.length));
+      var appointmentDetails = slots.map(function (slot) {
+        return String(slot.date || '') + ' ' + String(slot.start || '') + ' - ' + String(slot.end || '');
+      }).join(' | ');
+      selectedText.textContent = countText + ': ' + appointmentDetails;
     } else {
       var display = formatSlotDisplay(slots[0], config);
       selectedText.textContent = display.summary;
@@ -372,8 +501,13 @@
 
     var slots = getSelectedSlots(widget);
 
-    if (!dateInput || !dateInput.value || slots.length === 0) {
+    if (slots.length === 0) {
       window.alert(config.labels.selectSlotFirst || config.labels.selectDateFirst || '');
+      return;
+    }
+
+    if (!dateInput || !dateInput.value) {
+      window.alert(config.labels.selectDateFirst || '');
       return;
     }
 
@@ -396,11 +530,11 @@
     var formData = new FormData();
     formData.append('action', 'zab_start_checkout');
     formData.append('nonce', config.nonce);
-    formData.append('date', dateInput.value);
+    formData.append('date', String(slots[0].date || dateInput.value || ''));
     formData.append('start_time', slots[0].start);
     formData.append('end_time', slots[0].end);
     formData.append('slots', JSON.stringify(slots));
-    formData.append('service_id', String(getServiceId(widget)));
+    formData.append('service_id', String(slots[0].service_id || getServiceId(widget)));
     formData.append('browser_tz', getBrowserTimeZone());
 
     fetch(config.ajaxUrl, {
@@ -412,13 +546,20 @@
         return response.json();
       })
       .then(function (payload) {
-        if (!payload || payload.success !== true || !payload.data || !payload.data.checkout_url) {
+        if (!payload || payload.success !== true || !payload.data) {
           var errorMessage = (payload && payload.data && payload.data.message) ? payload.data.message : config.labels.checkoutError;
           window.alert(errorMessage || '');
           return;
         }
 
-        window.location.href = payload.data.checkout_url;
+        var redirectUrl = payload.data.cart_url || payload.data.checkout_url || '';
+
+        if (!redirectUrl) {
+          window.alert(config.labels.checkoutError || '');
+          return;
+        }
+
+        window.location.href = redirectUrl;
       })
       .catch(function () {
         window.alert(config.labels.checkoutError || '');
@@ -465,7 +606,9 @@
         }
 
         renderSlots(widget, payload.data.slots, config.labels);
-        applyRestoredSelection(widget, config);
+        pruneUnavailableSelectionsForCurrentView(widget, payload.data.slots);
+        syncActiveButtonsFromStore(widget);
+        updateSelectionSummary(widget, config);
       })
       .catch(function () {
         renderMessage(resultContainer, config.labels.error, 'error');
@@ -479,17 +622,24 @@
         return;
       }
 
-      var buttons = widget.querySelectorAll('.zab-slot-button');
+      var slot = {
+        service_id: button.getAttribute('data-service-id') || getServiceId(widget),
+        date: button.getAttribute('data-date') || getCurrentDate(widget),
+        start: button.getAttribute('data-start') || '',
+        end: button.getAttribute('data-end') || '',
+        utc_start: button.getAttribute('data-utc-start') || '',
+        utc_end: button.getAttribute('data-utc-end') || '',
+        site_date: button.getAttribute('data-site-date') || button.getAttribute('data-date') || ''
+      };
 
       if (isMultiMode(widget, config)) {
-        button.classList.toggle('is-active');
+        var nextSelected = !isSlotSelected(widget, slot);
+        setSlotSelected(widget, slot, nextSelected, false);
       } else {
-        buttons.forEach(function (item) {
-          item.classList.remove('is-active');
-        });
-        button.classList.add('is-active');
+        setSlotSelected(widget, slot, true, true);
       }
 
+      syncActiveButtonsFromStore(widget);
       updateSelectionSummary(widget, config);
 
       if (config.redirectToCheckout && !isMultiMode(widget, config)) {
@@ -561,6 +711,8 @@
       }
     }
 
+    seedSelectionStoreFromCart(widget, config);
+
     initDatePicker(widget, config);
     bindSlotSelection(widget, config);
 
@@ -584,18 +736,18 @@
     if (multiToggle) {
       multiToggle.addEventListener('change', function () {
         if (!multiToggle.checked) {
-          var activeButtons = widget.querySelectorAll('.zab-slot-button.is-active');
-          activeButtons.forEach(function (button, index) {
-            if (index > 0) {
-              button.classList.remove('is-active');
-            }
-          });
+          var selectedSlots = getSelectedSlots(widget);
+
+          if (selectedSlots.length > 1) {
+            setSlotSelected(widget, selectedSlots[0], true, true);
+          }
         }
 
+        syncActiveButtonsFromStore(widget);
         updateSelectionSummary(widget, config);
       });
 
-      if (cartSelection && Array.isArray(cartSelection.slots) && cartSelection.slots.length > 1) {
+      if (getSelectedSlots(widget).length > 1) {
         multiToggle.checked = true;
       }
     }
