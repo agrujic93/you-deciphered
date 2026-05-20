@@ -1,0 +1,46 @@
+@use 'assets/css/sass/custom/theme-variables' as *;
+
+.ci-stats-block.ci-block {
+	.stats-block__intro {
+		margin-bottom: 4rem;
+		@include intro-max-width;
+	}
+
+	.stats-block__panel {
+		color: var(--current-theme-text);
+		* {
+			color: var(--current-theme-text);
+		}
+	}
+
+	.stats-block__item-wrp {
+		text-align: left;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		.stats-block__item {
+			padding: 2rem 0 .5rem 0;
+			border-bottom: 1px solid var(--current-theme-text);
+			&.blank__item {
+				border-color: transparent;
+			}
+		}
+		@media screen and (max-width: 479px) {
+			&:has(.blank__item) {
+				display: none;
+			}
+		}
+	}
+
+	.stats-block__number-wrap {
+		word-break: break-word;
+		line-height: 1;
+		margin-bottom: 0;
+	}
+
+	.stats-block__suffix {
+		color: $accent-color;
+		display: inline-block;
+		margin-left: -0.08em !important;
+	}
+}

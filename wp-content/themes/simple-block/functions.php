@@ -383,6 +383,11 @@ function cwp_register_block_script() {
 	$js_url_services_slider  = get_template_directory_uri() . '/parts/blocks/services-slider/services-slider.js';
 	wp_register_script( 'services-slider-js', $js_url_services_slider, array('jquery', 'swiper'), file_exists( $js_path_services_slider ) ? filemtime( $js_path_services_slider ) : '1.0.0' );
 
+	// Registered for block: stats
+	$js_path_stats = get_template_directory() . '/parts/blocks/stats/stats.js';
+	$js_url_stats  = get_template_directory_uri() . '/parts/blocks/stats/stats.js';
+	wp_register_script( 'stats-js', $js_url_stats, array('jquery'), file_exists( $js_path_stats ) ? filemtime( $js_path_stats ) : '1.0.0' );
+
 }
 add_action( 'init', 'cwp_register_block_script' );
 

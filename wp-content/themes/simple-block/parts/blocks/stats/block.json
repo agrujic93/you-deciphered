@@ -1,0 +1,32 @@
+{
+    "name": "acf/stats",
+    "title": "Stats",
+    "description": "A custom Stats block.",
+    "style": [
+        "file:./stats.css"
+    ],
+    "viewScript": [
+        "stats-js"
+    ],
+    "category": "custom-blocks",
+    "icon": "layout",
+    "keywords": [
+        "stats"
+    ],
+    "supports": {
+        "align": [
+            "full",
+            "wide"
+        ],
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "anchor": true
+    },
+    "acf": {
+        "mode": "auto",
+        "renderTemplate": "stats.php"
+    },
+    "align": "full"
+}

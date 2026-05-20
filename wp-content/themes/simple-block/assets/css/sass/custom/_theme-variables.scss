@@ -28,3 +28,55 @@ $content-size: var(--wp--style--global--content-size);
 $wide-size: var(--wp--style--global--wide-size);
 $g-padding-left: var(--wp--style--root--padding-left);
 $g-padding-right: var(--wp--style--root--padding-right);
+
+// h1:not(#{$gutenberg}) { color: red; }
+// OR
+// h2 { @include not-gutenberg-gui { color: red; } }
+
+// Please attempt to keep this list in alphabetical order for the sake of readability!
+
+$gutenberg: (
+  '[class*="flickity"]',
+  '.acf-actions',
+  '.acf-block-fields',
+  '.acf-button',
+  '.acf-field',
+  '.acf-input',
+  '.acf-input *',
+  '.acf-input-wrap *',
+  '.acf-label',
+  '.acf-label label',
+  '.acf-repeater',
+  '.acf-row',
+  '.acf-row-handle',
+  '.acf-row-number',
+  '.acf-table',
+  '.block-editor-block-icon',
+  '.block-editor-block-variation-picker__skip',
+  '.block-editor-block-variation-picker__variations',
+  '.block-editor-default-block-appender',
+  '.block-editor-default-block-appender__content',
+  '.block-list-appender',
+  '.clear',
+  '.components-button',
+  '.components-dropdown',
+  '.components-drop-zone',
+  '.components-form-file-upload',
+  '.components-placeholder',
+  '.components-placeholder__fieldset',
+  '.components-placeholder__instructions',
+  '.components-placeholder__label',
+  '.components-placeholder__label svg',
+  '.ui-sortable',
+  '.wp-block-media-text',
+  '.link-url'
+);
+@mixin not-gutenberg-gui {
+  &:not(#{$gutenberg}) {
+    @content;
+  }
+}
+
+@mixin intro-max-width {
+  max-width: 80rem;
+}
