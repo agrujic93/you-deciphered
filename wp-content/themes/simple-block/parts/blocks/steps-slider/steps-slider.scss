@@ -9,6 +9,7 @@
 
 	// --- Desktop Layout ---
 	.steps-slider-desktop {
+		display: none;
 		padding: 5rem 0;
 
 		.steps-slider-pinned-area {
@@ -59,9 +60,7 @@
 
 				.step-desc {
 					p {
-						margin: 0;
 						color: var(--wp--preset--color--foreground-light);
-						font-size: 1.8rem;
 					}
 				}
 			}
@@ -81,6 +80,7 @@
 
 	// --- Mobile Layout ---
 	.steps-slider-mobile {
+		display: block;
 		padding: 4rem 0;
 
 		.step-mobile-slide {
@@ -110,7 +110,6 @@
 
 				.step-desc {
 					p {
-						margin: 0;
 						color: var(--wp--preset--color--foreground-light);
 					}
 				}
@@ -171,6 +170,30 @@
 					&::after {
 						display: none;
 					}
+				}
+			}
+		}
+	}
+
+	@media (min-width: 1025px) {
+		.steps-slider-desktop {
+			display: block;
+		}
+
+		.steps-slider-mobile {
+			display: none;
+		}
+
+		&.steps-slider-images-left {
+			.steps-slider-desktop {
+				.steps-slider-content-col {
+					order: 2;
+					padding-right: 0;
+					padding-left: 4rem;
+				}
+
+				.steps-slider-image-col {
+					order: 1;
 				}
 			}
 		}

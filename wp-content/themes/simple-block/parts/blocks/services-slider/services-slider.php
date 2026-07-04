@@ -52,7 +52,6 @@ if ( $has_slider && function_exists( 'wp_enqueue_style' ) ) {
 <section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
 	<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
 	<div class="container" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
-
 		<?php if ( $services_slider_intro ) : ?>
 			<div class="services-slider-intro animation-fade-item uk-margin-medium-bottom rm-last-child-margin">
 				<?php echo wp_kses_post( $services_slider_intro ); ?>

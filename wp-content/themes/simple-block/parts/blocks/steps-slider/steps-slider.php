@@ -19,6 +19,9 @@ if ( ! empty( $block['align'] ) ) {
 	$main_block_class .= ' align' . $block['align'];
 }
 
+$slide_images_position_right = get_field( 'slide_images_position' );
+$main_block_class          .= $slide_images_position_right ? ' steps-slider-images-right' : ' steps-slider-images-left';
+
 $container_class = 'section-full-width';
 if ( 'wide' == $block['align'] ) {
 	$container_class = 'section-container-wide';
@@ -53,7 +56,7 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 		<?php if ( have_rows( 'slides' ) ) : ?>
 
 			<!-- Desktop View -->
-			<div class="steps-slider-desktop uk-visible@m animation-fade-item">
+			<div class="steps-slider-desktop animation-fade-item">
 				<div class="steps-slider-pinned-area">
 					<div class="steps-slider-grid uk-grid uk-grid-large uk-child-width-1-2@m" data-uk-grid>
 
@@ -109,7 +112,7 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 			</div>
 
 			<!-- Mobile View -->
-			<div class="steps-slider-mobile uk-hidden@m animation-fade-item">
+			<div class="steps-slider-mobile animation-fade-item">
 				<div class="swiper steps-swiper">
 					<div class="swiper-wrapper">
 						<?php

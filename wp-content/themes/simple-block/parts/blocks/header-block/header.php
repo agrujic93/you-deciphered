@@ -19,7 +19,6 @@ else : /* Rendering in editor body. */
 	<header class="main-header">
 		<div class="container">
 			<div class="header-wrp">
-
 				<!-- Branding Section -->
 				<div class="site-branding">
 					<a aria-label="<?php echo esc_attr( simple_block_pll__( 'Link to home page' ) ); ?>" class="header-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
