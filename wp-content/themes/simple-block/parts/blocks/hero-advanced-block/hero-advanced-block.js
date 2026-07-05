@@ -17,14 +17,19 @@
 
 		const $headline = $hero.find('.hero-advanced-headline');
 		if ($headline.length) {
-			const text = $headline.text().trim();
-			const words = text.split(/\s+/).map(word => {
-				const chars = word.split('').map(char => {
-					return `<span class="char" style="display:inline-block">${char}</span>`;
-				}).join('');
-				return `<span class="word" style="display:inline-block">${chars}</span>`;
-			}).join(' ');
-			$headline.html(words);
+			// Split by <br> to preserve line breaks, process each line separately
+			const parts = $headline.html().split(/<br\s*\/?>/i);
+			const processedParts = parts.map(part => {
+				const text = $('<span>').html(part).text().trim();
+				if (!text) return '';
+				return text.split(/\s+/).map(word => {
+					const chars = word.split('').map(char => {
+						return `<span class="char" style="display:inline-block">${char}</span>`;
+					}).join('');
+					return `<span class="word" style="display:inline-block">${chars}</span>`;
+				}).join(' ');
+			});
+			$headline.html(processedParts.join('<br>'));
 
 			const $chars = $headline.find('.char');
 			const $words = $headline.find('.word');
