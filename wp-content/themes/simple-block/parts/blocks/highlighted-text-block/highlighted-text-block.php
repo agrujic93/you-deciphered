@@ -9,9 +9,9 @@
 
 // Create id attribute for specific styling and anchor tag.
 
-$id = 'ci-highlighted-text-' . $block['id'];
+$id = wp_unique_id( 'ci-highlighted-text-' );
 if ( ! empty( $block['anchor'] ) ) {
-	$id = $block['anchor'];
+	$id = sanitize_title( (string) $block['anchor'] );
 }
 
 $classes = [ 'ci-highlighted-text-block', 'ci-block' ];
