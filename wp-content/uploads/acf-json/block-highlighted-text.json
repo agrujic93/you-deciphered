@@ -3,9 +3,9 @@
     "title": "Block: Highlighted Text",
     "fields": [
         {
-            "key": "field_69af2a0e08195",
-            "label": "Block General Option",
-            "name": "block_general_option",
+            "key": "field_6a5366d84aa5a",
+            "label": "Block Options",
+            "name": "block_options",
             "aria-label": "",
             "type": "clone",
             "instructions": "",
@@ -17,7 +17,9 @@
                 "id": ""
             },
             "clone": [
-                "group_69aef8c3d5d44"
+                "field_69aef8c41da3d",
+                "field_69aefad8ed45e",
+                "field_69aefb21ed45f"
             ],
             "display": "seamless",
             "layout": "block",
@@ -43,7 +45,7 @@
             "allow_in_bindings": 0,
             "rows": "",
             "placeholder": "",
-            "new_lines": ""
+            "new_lines": "wpautop"
         }
     ],
     "location": [
@@ -51,7 +53,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "simple-block/highlighted-text-block"
+                "value": "simple-block\/highlighted-text-block"
             }
         ]
     ],
@@ -65,5 +67,7 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1774354101
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1784885419
 }

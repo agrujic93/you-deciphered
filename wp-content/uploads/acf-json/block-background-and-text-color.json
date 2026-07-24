@@ -99,6 +99,11 @@
                 "param": "block",
                 "operator": "!=",
                 "value": "acf\/grid-block"
+            },
+            {
+                "param": "block",
+                "operator": "!=",
+                "value": "simple-block\/highlighted-text-block"
             }
         ]
     ],
@@ -112,5 +117,7 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1774778742
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1783850637
 }

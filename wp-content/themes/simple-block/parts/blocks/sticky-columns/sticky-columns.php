@@ -32,7 +32,7 @@ $sticky_column = get_field('sticky_column');
 ?>
 
 <section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
-	<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
+	<?php include __DIR__ . '/../block-parts/block-options-visuals.php'; ?>
 	<div class="container" <?php echo $animation_data_attr; ?>>
 		<?php if ( $left_column || $right_column ) : ?>
 			<div class="uk-grid uk-grid-large sticky-columns-grid" data-uk-grid>

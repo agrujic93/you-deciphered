@@ -33,7 +33,7 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 ?>
 
 <section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $id ); ?>" <?php echo $wrapper_attributes; ?>>
-	<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
+	<?php include __DIR__ . '/../block-parts/block-options-visuals.php'; ?>
 	<div class="<?php echo esc_attr( $container_class ); ?> has-global-padding" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
 		<?php if ( have_rows( 'zig_zag_boxes' ) ) : ?>
 			<div class="zig-zag-container">
@@ -66,7 +66,7 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 						<div class="<?php echo esc_attr( $row_class ); ?>" data-uk-grid>
 
 							<!-- Image Column -->
-							<div class="uk-width-1-2@m zig-zag-col-image <?php echo $is_even ? 'uk-flex-last@m' : ''; ?>">
+							<div class="uk-width-2-3@m zig-zag-col-image <?php echo $is_even ? 'uk-flex-last@m' : ''; ?>">
 								<div class="zig-zag-image-container uk-height-1-1">
 									<?php if ( $img_id ) :
 										$img_alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
@@ -92,7 +92,7 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 							</div>
 
 							<!-- Content Column -->
-							<div class="uk-width-1-2@m zig-zag-col-content">
+							<div class="uk-width-1-3@m zig-zag-col-content">
 								<div class="zig-zag-content-inner uk-height-1-1">
 
 									<div class="zig-zag-labels">

@@ -70,14 +70,14 @@ else : /* rendering in editor body */
 
 		// Include universal logic (this will handle block_background_color, block_text_color, block_background_image, and color_variant)
 		// It will also build its own $wrapper_attributes, so we need to be careful.
-		// We'll rename our local $wrapper_attributes to $hero_wrapper_attributes if needed, 
+		// We'll rename our local $wrapper_attributes to $hero_wrapper_attributes if needed,
 		// but block-general-logic.php uses $main_block_class and $container_class to build its version.
 		include __DIR__ . '/../block-parts/block-general-logic.php';
 	?>
 
 	<section data-theme="<?php echo esc_attr($color_variant); ?>" id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
-		
-		<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
+
+		<?php include __DIR__ . '/../block-parts/block-options-visuals.php'; ?>
 
 		<div class="hero-content-wrp" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
 			<?php if (get_field('choose_hero_layout') == "hero_text_layout"): ?>

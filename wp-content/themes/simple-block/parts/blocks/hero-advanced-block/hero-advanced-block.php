@@ -58,7 +58,7 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 
 ?>
 <section id="<?php echo esc_attr($block_id); ?>" data-theme="<?php echo esc_attr($color_variant); ?>" <?php echo $wrapper_attributes; ?>>
-	<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
+	<?php include __DIR__ . '/../block-parts/block-options-visuals.php'; ?>
 
 	<?php if ($has_video && $mp4_video) : ?>
 		<div class="video-background-container uk-position-cover">

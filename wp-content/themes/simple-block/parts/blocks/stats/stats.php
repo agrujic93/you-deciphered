@@ -35,7 +35,7 @@ $statistics = get_field( 'statistics' );
 ?>
 
 <section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $id ); ?>" <?php echo $wrapper_attributes; ?>>
-	<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
+	<?php include __DIR__ . '/../block-parts/block-options-visuals.php'; ?>
 	<div class="container" <?php echo $animation_data_attr; ?>>
 		<?php if ( $intro ) : ?>
 			<div class="stats-block__intro rm-last-child-margin animation-fade-item" <?php echo $animation_duration_style; ?>>

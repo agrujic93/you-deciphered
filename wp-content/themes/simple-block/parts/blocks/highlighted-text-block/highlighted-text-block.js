@@ -22,7 +22,7 @@
 		// Check for GSAP and ScrollTrigger.
 		if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
 			// Fallback: just highlight all words.
-			words.forEach(function (word) {
+			block.querySelectorAll('.ht-word').forEach(function (word) {
 				word.classList.add('is-highlighted');
 			});
 			return;
@@ -30,10 +30,22 @@
 
 		gsap.registerPlugin(ScrollTrigger);
 
-		// Animate each word's opacity from muted (0.2) to full (1) on scroll.
+		// Reset any previous state before (re)initializing.
+		block.querySelectorAll('.ht-word').forEach(function (word) {
+			gsap.set(word, { opacity: 0.15 });
+		});
+
+		ScrollTrigger.getAll().forEach(function (trigger) {
+			if (trigger.trigger === block) {
+				trigger.kill();
+			}
+		});
+
+		// Keep the original feel: one continuous sequence across all words.
 		gsap.to(words, {
 			opacity: 1,
 			stagger: 0.1,
+			ease: 'none',
 			scrollTrigger: {
 				trigger: block,
 				start: 'top 85%',

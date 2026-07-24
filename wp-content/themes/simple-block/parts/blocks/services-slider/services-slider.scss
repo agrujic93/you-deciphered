@@ -140,6 +140,11 @@
 
 	.service-card__content {
 		margin-bottom: 2rem;
+		.service-card__labels {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1rem;
+		}
 	}
 
 	.service-card__description {

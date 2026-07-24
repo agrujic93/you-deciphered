@@ -6,7 +6,7 @@
 	"icon": "editor-textcolor",
 	"keywords": [ "highlight", "text", "scroll", "gsap" ],
 	"supports": {
-		"align": [ "full", "wide" ],
+		"align": [ "none" ],
 		"spacing": {
 			"margin": true,
 			"padding": true
@@ -24,7 +24,7 @@
 		"mode": "preview",
 		"renderTemplate": "highlighted-text-block.php"
 	},
-	"align": "full",
+	"align": "none",
 	"viewScript": "highlighted-text-js",
 	"viewStyle": "file:./highlighted-text-block.css"
 }

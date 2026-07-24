@@ -9,42 +9,79 @@
 
 // Create id attribute for specific styling and anchor tag.
 
+$id = 'ci-highlighted-text-' . $block['id'];
 if ( ! empty( $block['anchor'] ) ) {
-	$block_id = esc_attr( $block['anchor'] );
-} else {
-	$block_id = 'ci-highlighted-text-' . $block['id'];
+	$id = $block['anchor'];
 }
 
-$main_block_class = 'ci-highlighted-text-block ci-block';
-$container_class  = 'section-full-width';
-if ( 'wide' == $block['align'] ) {
-	$container_class = 'section-container-wide';
-} elseif ( '' == $block['align'] || 'center' == $block['align'] ) {
-	$container_class = 'section-container';
+$classes = [ 'ci-highlighted-text-block', 'ci-block' ];
+if ( ! empty( $block['className'] ) ) {
+	$classes[] = $block['className'];
 }
+
+$inline_styles = [];
 
 // Preview image in inserter.
 if ( isset( $block['data']['preview_image_help'] ) ) :
-	echo '<img src="' . esc_url( get_template_directory_uri() ) . esc_attr( $block['data']['preview_image_help'] ) . '" style="width:100%; height:auto;">';
+	echo '<img src="' . esc_url( get_template_directory_uri() . $block['data']['preview_image_help'] ) . '" style="width:100%; height:auto;">';
 else :
-	include __DIR__ . '/../block-parts/block-general-logic.php';
-	?>
+	require __DIR__ . '/../block-parts/block-options.php';
 
-	<section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
+	$is_empty_block = ! get_field( 'highlighted_text' );
 
-		<?php include __DIR__ . '/../block-parts/block-general-visuals.php'; ?>
+	if ( is_admin() && $is_empty_block ) {
+		ci_render_empty_block_placeholder( __( 'Highlighted Text Block is empty. Click the block to edit and add text.', 'ci-uikit' ) );
+		return;
+	}
+?>
 
-		<div class="container" <?php echo $animation_data_attr; ?> <?php echo $animation_duration_style; ?>>
+	<section data-theme="<?php echo esc_attr( $color_variant ); ?>" id="<?php echo esc_attr( $id ); ?>" <?php echo $wrapper_attributes; ?>>
+
+		<?php include __DIR__ . '/../block-parts/block-options-visuals.php'; ?>
+
+		<div class="container" <?php echo $animation_attr; ?>>
 			<?php if ( get_field( 'highlighted_text' ) ) :
-				$text = get_field( 'highlighted_text' );
-				// Split text into words and wrap each in a span.
-				$words = preg_split( '/\s+/', trim( $text ) );
-				?>
-				<p class="highlighted-text-content animation-fade-item h2">
-					<?php foreach ( $words as $word ) : ?>
-						<span class="ht-word"><?php echo esc_html( $word ); ?></span>
-					<?php endforeach; ?>
-				</p>
+				$text       = (string) get_field( 'highlighted_text' );
+				$text_html  = trim( (string) wpautop( $text ) );
+				$paragraphs = array();
+
+				if ( preg_match_all( '/<p[^>]*>(.*?)<\/p>/is', $text_html, $matches ) ) {
+					foreach ( $matches[1] as $paragraph_html ) {
+						$paragraph_text = trim(
+							wp_strip_all_tags(
+								str_replace(
+									array( '<br />', '<br/>', '<br>' ),
+									' ',
+									$paragraph_html
+								)
+							)
+						);
+
+						if ( '' !== $paragraph_text ) {
+							$paragraphs[] = $paragraph_text;
+						}
+					}
+				}
+
+				if ( empty( $paragraphs ) ) {
+					$fallback_text = trim( wp_strip_all_tags( $text ) );
+					if ( '' !== $fallback_text ) {
+						$paragraphs[] = $fallback_text;
+					}
+				}
+
+				foreach ( $paragraphs as $paragraph ) :
+					$words = preg_split( '/\s+/', $paragraph, -1, PREG_SPLIT_NO_EMPTY );
+					if ( empty( $words ) ) {
+						continue;
+					}
+					?>
+					<p class="highlighted-text-content animation-fade-item h1" <?php echo $duration; ?>>
+						<?php foreach ( $words as $word ) : ?>
+							<span class="ht-word"><?php echo esc_html( $word ); ?></span>
+						<?php endforeach; ?>
+					</p>
+				<?php endforeach; ?>
 			<?php endif; ?>
 		</div>
 	</section>

@@ -30,7 +30,7 @@ else : /* Rendering in editor body. */
 				<!-- Navigation Section (Pill) -->
 				<nav class="central-nav-pill">
 					<a aria-label="<?php echo esc_attr( simple_block_pll__( 'Link to home page' ) ); ?>" class="uk-inline-block" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-						<img class="small-logo" alt="<?php echo esc_attr( simple_block_pll__( 'Small logo' ) ); ?>" src="<?php echo get_template_directory_uri(); ?>/assets/images/yd-small-logo-cropped.svg">
+						<img class="small-logo" alt="<?php echo esc_attr( simple_block_pll__( 'Small logo' ) ); ?>" src="<?php echo get_template_directory_uri(); ?>/assets/images/yd-small-logo-cropped-light-blue.svg">
 					</a>
 					<?php
 					$menu_title = ( $lang === 'en' ) ? 'Main Menu EN' : 'Main Menu SR';
