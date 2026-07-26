@@ -76,7 +76,7 @@ else :
 						continue;
 					}
 					?>
-					<p class="highlighted-text-content animation-fade-item h1" <?php echo $duration; ?>>
+					<p class="highlighted-text-content animation-fade-item h2" <?php echo $duration; ?>>
 						<?php foreach ( $words as $word ) : ?>
 							<span class="ht-word"><?php echo esc_html( $word ); ?></span>
 						<?php endforeach; ?>

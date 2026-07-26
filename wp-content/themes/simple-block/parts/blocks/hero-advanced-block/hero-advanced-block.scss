@@ -1,6 +1,7 @@
 @use 'assets/css/sass/custom/theme-variables' as *;
 
-body:has(.hero-advanced-block.has-video) {
+body:has(.hero-advanced-block.has-video),
+body:has(.hero-advanced-block.ci-has-background) {
 	.site-main {
 		@media screen and (min-width: 1025px) {
 			margin-top: 0;
@@ -17,10 +18,11 @@ body:has(.hero-advanced-block.has-video) {
 .hero-advanced-block {
 	position: relative;
 	overflow: hidden;
-	&.has-video {
+	&.has-video, &:has(.section-background-image) {
 		display: flex;
 		align-items: flex-end;
 		margin-left: 	calc($g-padding-left * -1) !important;
+		padding-bottom: 0 !important;
 		min-height: 100vh;
 		max-width: calc(100% + $g-padding-left + $g-padding-right);
 		width: 100vw;
@@ -34,6 +36,9 @@ body:has(.hero-advanced-block.has-video) {
 		}
 		.hero-advanced-content-wrapper {
 			mix-blend-mode: difference;
+		}
+		.section-background-image {
+			object-position: top center !important;
 		}
 	}
 
