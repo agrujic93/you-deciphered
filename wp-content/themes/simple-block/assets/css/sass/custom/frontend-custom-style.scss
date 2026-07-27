@@ -691,6 +691,9 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 			margin-bottom: 0 !important;
 		}
 	}
+	*.ci-intro-large-text {
+		@include intro-large-text;
+	}
 	.social-icons {
 		display: flex;
 		align-items: center;

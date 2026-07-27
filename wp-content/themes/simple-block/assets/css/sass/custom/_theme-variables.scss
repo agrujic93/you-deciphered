@@ -80,3 +80,8 @@ $gutenberg: (
 @mixin intro-max-width {
   max-width: 80rem;
 }
+
+@mixin intro-large-text {
+  font-size: clamp(2rem, 1.6667vw, 2.4rem);
+  font-family: $main-font;
+}
