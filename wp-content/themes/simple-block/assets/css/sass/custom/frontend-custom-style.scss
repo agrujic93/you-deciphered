@@ -730,6 +730,7 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		letter-spacing: .1em;
 		line-height: 1.2;
 		font-family: $heading-font;
+		text-transform: uppercase;
 	}
 	*.ci-label-pill {
 		display: inline-block;
