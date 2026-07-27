@@ -78,7 +78,10 @@ $gutenberg: (
 }
 
 @mixin intro-max-width {
-  max-width: 80rem;
+  max-width: 90rem;
+  h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    text-wrap: pretty;
+  }
 }
 
 @mixin intro-large-text {

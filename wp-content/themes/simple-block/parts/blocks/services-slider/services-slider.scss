@@ -23,7 +23,7 @@
 		overflow: hidden;
 	}
 	.services-slider-intro {
-		max-width: 80rem;
+		@include intro-max-width;
 	}
 
 	.services-slider-sticky-region {

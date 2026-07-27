@@ -50,7 +50,7 @@ else : /* rendering in editor body */
 
 		<div class="container" <?php echo $animation_data_attr; ?>>
 			<?php if ( get_field( 'intro' ) ) : ?>
-				<div class="animation-fade-item uk-margin-medium-bottom rm-last-child-margin" <?php echo $animation_duration_style; ?>>
+				<div class="animation-fade-item uk-margin-medium-bottom rm-last-child-margin ci-blog-block-intro" <?php echo $animation_duration_style; ?>>
 					<?php echo get_field( 'intro' ); ?>
 				</div>
 			<?php endif; ?>
