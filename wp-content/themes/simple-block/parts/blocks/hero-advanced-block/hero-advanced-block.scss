@@ -108,12 +108,12 @@ body:has(.hero-advanced-block.ci-has-background) {
 		}
 
 		&.image-2 {
-			width: 22rem;
-			height: 50%;
-			top: 40%;
-			right: 5%;
+			width: 24rem;
+			height: 75%;
+			bottom: 10%;
+			right: 2%;
 			@media screen and (max-width: 1024px) {
-				width: 7rem;
+				width: 12rem;
 				height: auto;
 			}
 		}
