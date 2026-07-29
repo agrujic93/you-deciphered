@@ -5,6 +5,13 @@
 	"category": "custom-blocks",
 	"icon": "welcome-view-site",
 	"keywords": [ "hero", "advanced", "video", "gsap" ],
+	"supports" : {
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"anchor": true
+	},
 	"acf": {
 		"mode": "preview",
 		"renderTemplate": "hero-advanced-block.php"
