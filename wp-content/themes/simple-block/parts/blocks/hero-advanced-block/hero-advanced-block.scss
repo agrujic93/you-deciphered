@@ -56,12 +56,10 @@ body:has(.hero-advanced-block.ci-has-background) {
 
 	.hero-advanced-content-wrapper {
 		margin: 0 auto;
-		padding-left: $g-padding-left;
-		padding-right: $g-padding-right;
-		max-width: calc($content-size + $g-padding-left + $g-padding-right);
+		max-width: $content-size;
 		z-index: 5;
-		padding-bottom: 7rem;
-		padding-top: 7rem;
+		padding-bottom: clamp(3rem, 3.2vw, 7rem);
+		padding-top: clamp(3rem, 3.2vw, 7rem);
 	}
 
 	.hero-text-container {
@@ -69,11 +67,10 @@ body:has(.hero-advanced-block.ci-has-background) {
 			mix-blend-mode: hard-light;
 		}
 		text-align: left;
-		padding-bottom: 2rem;
 		mix-blend-mode: hard-light;
 		.hero-advanced-headline {
 			font-family: $heading-font;
-			font-size: clamp(4rem, 5.6vw, 15rem);
+			font-size: clamp(4rem, 5.6vw, 10rem);
 			font-weight: 700;
 			line-height: 1;
 			text-transform: uppercase;

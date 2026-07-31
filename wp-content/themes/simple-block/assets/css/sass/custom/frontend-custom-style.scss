@@ -152,6 +152,9 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	blockquote:not(.is-layout-constrained > blockquote) {
 		margin: 0 0 3rem;
 	}
+	hr {
+		border-top: 1px solid var(--current-theme-text) !important;
+	}
 	p, h1, h2, h3, h4, h5, h6, li {
 		a {
 			word-break: break-word;
