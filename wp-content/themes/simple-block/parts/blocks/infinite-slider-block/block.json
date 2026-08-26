@@ -1,0 +1,31 @@
+{
+	"name": "simple-block/infinite-slider-block",
+	"title": "Infinite Slider",
+	"description": "An infinite auto-scrolling image slider with smooth continuous autoplay.",
+	"category": "custom-blocks",
+	"icon": "images-alt2",
+	"keywords": [ "slider", "infinite", "gallery", "carousel", "images", "marquee" ],
+	"supports": {
+		"align": [ "none", "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"anchor": true
+	},
+	"example": {
+		"attributes": {
+			"data": {
+				"preview_image_help": "/parts/blocks/infinite-slider-block/images/preview.png"
+			}
+		}
+	},
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "infinite-slider-block.php"
+	},
+	"align": "none",
+	"style": [ "swiper-style", "file:./infinite-slider-block.css" ],
+	"viewScript": "infinite-slider-js",
+	"viewStyle": "file:./infinite-slider-block.css"
+}

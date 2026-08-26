@@ -393,6 +393,12 @@ function cwp_register_block_script() {
 	$js_url_stats  = get_template_directory_uri() . '/parts/blocks/stats/stats.js';
 	wp_register_script( 'stats-js', $js_url_stats, array('jquery'), file_exists( $js_path_stats ) ? filemtime( $js_path_stats ) : '1.0.0' );
 
+	// Registered for block: infinite-slider
+	$infinite_slider_js_path = get_template_directory() . '/parts/blocks/infinite-slider-block/infinite-slider-block.js';
+	$infinite_slider_js_url  = get_template_directory_uri() . '/parts/blocks/infinite-slider-block/infinite-slider-block.js';
+	wp_register_script( 'infinite-slider-js', $infinite_slider_js_url, array( 'swiper', 'acf' ), file_exists( $infinite_slider_js_path ) ? filemtime( $infinite_slider_js_path ) : '1.0.0' );
+
+
 }
 add_action( 'init', 'cwp_register_block_script' );
 
