@@ -39,7 +39,7 @@
 	}
 
 	.stats-block__suffix {
-		color: $accent-color;
+		color: $accent-color !important;
 		display: inline-block;
 		margin-left: -0.08em !important;
 	}

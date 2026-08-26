@@ -59,14 +59,14 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 
 
 :root :where(.is-layout-constrained) > .ci-block:first-child:not(.ci-has-background, .ci-hero-block) {
-	margin-block-start: 10rem;
+	margin-block-start: 13rem;
 	@media screen and (max-width: 769px) {
 		margin-block-start: 4rem;
 	}
 }
 
 :root :where(.is-layout-constrained) > .ci-block:last-child:not(.ci-has-background) {
-	margin-block-end: 10rem;
+	margin-block-end: 13rem;
 	@media screen and (max-width: 769px) {
 		margin-block-end: 4rem;
 	}
@@ -389,13 +389,13 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		}
 	}
 	.big-gap {
-		margin-top: 10rem;
-		margin-bottom: 10rem;
+		margin-top: 13rem;
+		margin-bottom: 13rem;
 		&.ci-has-background {
 			margin-top: 0;
 			margin-bottom: 0;
-			padding-top: 10rem;
-			padding-bottom: 10rem;
+			padding-top: 13rem;
+			padding-bottom: 13rem;
 		}
 		@media (max-width: 769px) {
 			margin-top: 4rem;
@@ -421,8 +421,8 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	}
 
 	section {
-		margin-top: 10rem;
-		margin-bottom: 10rem;
+		margin-top: 13rem;
+		margin-bottom: 13rem;
 		&.small-gap {
 			margin-top: 4rem;
 			margin-bottom: 4rem;
@@ -430,8 +430,8 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		&.ci-has-background {
 			margin-top: 0;
 			margin-bottom: 0;
-			padding-top: 10rem;
-			padding-bottom: 10rem;
+			padding-top: 13rem;
+			padding-bottom: 13rem;
 			&.small-gap {
 				margin-top: 0;
 				margin-bottom: 0;
