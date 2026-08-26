@@ -1,0 +1,30 @@
+{
+	"name": "simple-block/timeline-block",
+	"title": "Timeline",
+	"description": "A timeline block showing chronological events with smooth scroll animations.",
+	"category": "custom-blocks",
+	"icon": "backup",
+	"keywords": [ "timeline", "history", "events", "roadmap" ],
+	"supports": {
+		"align": [ "none", "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"anchor": true
+	},
+	"example": {
+		"attributes": {
+			"data": {
+				"preview_image_help": "/parts/blocks/timeline-block/images/preview.png"
+			}
+		}
+	},
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "timeline-block.php"
+	},
+	"align": "none",
+	"viewScript": "timeline-js",
+	"viewStyle": "file:./timeline-block.css"
+}

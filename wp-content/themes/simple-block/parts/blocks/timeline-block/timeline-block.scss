@@ -1,0 +1,301 @@
+@use 'assets/css/sass/custom/theme-variables' as *;
+
+.ci-timeline-block {
+	position: relative;
+
+	.container {
+		position: relative;
+		max-width: $content-size;
+		margin: 0 auto;
+		padding-left: var(--wp--preset--spacing--20);
+		padding-right: var(--wp--preset--spacing--20);
+	}
+
+	.ci-timeline-wrapper {
+		position: relative;
+		width: 100%;
+		padding: 4rem 0;
+	}
+
+	// Central vertical line
+	.ci-timeline-line {
+		position: absolute;
+		left: 50%;
+		top: 0;
+		bottom: 0;
+		width: 0.1rem;
+		transform: translateX(-50%);
+		background-color: rgba(255, 255, 255, 0.14);
+		pointer-events: none;
+		overflow: hidden;
+
+		.ci-timeline-line-progress {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 0%;
+			background-color: $contrast-color;
+			transition: height 0.15s ease-out;
+		}
+	}
+
+	// Light theme border support
+	&[data-theme="light"] {
+		.ci-timeline-line {
+			background-color: rgba(0, 0, 0, 0.12);
+		}
+	}
+
+	// Timeline items list
+	.ci-timeline-items {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	// Individual timeline item
+	.ci-timeline-item {
+		position: relative;
+		width: 100%;
+		margin-bottom: 12rem;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+		// Center node & date wrapper
+		.ci-timeline-node-wrap {
+			position: absolute;
+			top: 0.4rem;
+			top: -3rem;
+			z-index: 2;
+			display: flex;
+			align-items: center;
+		}
+
+		// Marker (Star or Dot)
+		.ci-timeline-marker {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 2.4rem;
+			height: 2.4rem;
+
+			.ci-timeline-dot {
+				display: block;
+				width: 0.8rem;
+				height: 0.8rem;
+				border-radius: 50%;
+				background-color: $contrast-color;
+				transition: transform 0.3s ease, background-color 0.3s ease;
+			}
+
+			.ci-timeline-star {
+				color: $contrast-color;
+				display: block;
+				transition: transform 0.4s ease, color 0.3s ease;
+			}
+		}
+
+		// Date label
+		.ci-timeline-date {
+			font-family: $main-font;
+			font-size: 1.6rem;
+			font-weight: 500;
+			color: $contrast-2-color;
+			white-space: nowrap;
+			line-height: 1;
+			transition: color 0.3s ease, transform 0.3s ease;
+		}
+
+		// Content card (Title + Description)
+		.ci-timeline-content {
+			width: calc(50% - 6rem);
+			width: 50%;
+			transition: transform 0.4s ease, opacity 0.4s ease;
+
+			.ci-timeline-title {
+				font-family: $heading-font;
+				font-size: clamp(2.4rem, 2.5vw, 3.8rem);
+				font-weight: 500;
+				line-height: 1.25;
+				margin: 0 0 1.6rem;
+				color: $contrast-color;
+			}
+
+			.ci-timeline-description {
+				font-family: $main-font;
+				font-size: clamp(1.5rem, 1.1vw, 1.7rem);
+				line-height: 1.6;
+				color: $contrast-2-color;
+
+				p {
+					margin: 0 0 1.2rem;
+
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+
+		// Left aligned item
+		&.is-left {
+			.ci-timeline-node-wrap {
+				left: 50%;
+			}
+
+			.ci-timeline-date {
+				position: absolute;
+				right: 2rem;
+				top: 50%;
+				transform: translateY(-50%);
+				text-align: right;
+			}
+
+			.ci-timeline-content {
+				margin-left: 0;
+				margin-right: auto;
+				text-align: right;
+				padding-right: 2rem;
+			}
+
+			.ci-timeline-description {
+				margin-left: auto;
+				margin-right: 0;
+				max-width: 48rem;
+			}
+		}
+
+		// Right aligned item
+		&.is-right {
+			.ci-timeline-node-wrap {
+				left: 50%;
+			}
+
+			.ci-timeline-date {
+				position: absolute;
+				left: 2rem;
+				top: 50%;
+				transform: translateY(-50%);
+				text-align: left;
+			}
+
+			.ci-timeline-content {
+				margin-left: auto;
+				margin-right: 0;
+				text-align: left;
+				padding-left: 2rem;
+			}
+
+			.ci-timeline-description {
+				margin-left: 0;
+				margin-right: auto;
+				max-width: 48rem;
+			}
+		}
+
+		// Active scroll state
+		&.is-inview {
+			.ci-timeline-date {
+				color: $contrast-color;
+			}
+
+			.ci-timeline-marker {
+				.ci-timeline-dot {
+					transform: scale(1.25);
+				}
+
+				.ci-timeline-star {
+					transform: scale(1.15) rotate(45deg);
+				}
+			}
+		}
+	}
+
+	// Responsive mobile & tablet layout
+	@media screen and (max-width: 768px) {
+		padding: var(--wp--preset--spacing--40) 0;
+
+		.ci-timeline-line {
+			left: 1.5rem;
+			transform: none;
+		}
+
+		.ci-timeline-item {
+			margin-bottom: 7rem;
+
+			.ci-timeline-node-wrap {
+				position: relative;
+				left: 1.5rem;
+				top: 0.2rem;
+			}
+
+			.ci-timeline-marker {
+				left: 0;
+				transform: translate(-50%, -50%);
+			}
+
+			.ci-timeline-date {
+				position: static;
+				transform: none;
+				display: block;
+				margin-left: 3rem;
+				margin-bottom: 0.8rem;
+				text-align: left;
+				font-size: 1.4rem;
+			}
+
+			.ci-timeline-content {
+				width: calc(100% - 4.5rem);
+				margin-left: 4.5rem;
+				margin-right: 0;
+				padding-left: 0;
+				padding-right: 0;
+				text-align: left;
+
+				.ci-timeline-description {
+					max-width: 100%;
+					margin-left: 0;
+					margin-right: 0;
+					text-align: left;
+				}
+			}
+
+			&.is-left,
+			&.is-right {
+				.ci-timeline-node-wrap {
+					left: 1.5rem;
+				}
+
+				.ci-timeline-date {
+					position: static;
+					left: auto;
+					right: auto;
+					transform: none;
+					text-align: left;
+				}
+
+				.ci-timeline-content {
+					margin-left: 4.5rem;
+					margin-right: 0;
+					padding-left: 0;
+					padding-right: 0;
+					text-align: left;
+				}
+
+				.ci-timeline-description {
+					margin-left: 0;
+					margin-right: 0;
+					text-align: left;
+				}
+			}
+		}
+	}
+}
