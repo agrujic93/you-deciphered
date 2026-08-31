@@ -17,13 +17,12 @@ else : /* Rendering in editor body. */
 	$lang = function_exists('pll_current_language') ? pll_current_language('slug') : 'en';
 	$lang = in_array($lang, array('en', 'sr'), true) ? $lang : 'en';
 
-	$footer_logo      = get_field('footer_logo_' . $lang, 'option');
-	$footer_logo_alt  = '';
-	$newsletter_form  = get_field('main_contact_form_shortcode_' . $lang, 'option');
-	$email            = get_field('email_' . $lang, 'option');
+	$footer_logo     = get_field('footer_logo_' . $lang, 'option');
+	$footer_logo_alt = '';
+	$email           = get_field('email_' . $lang, 'option');
 
 	if (is_array($footer_logo)) {
-		$footer_logo_alt = ! empty($footer_logo['alt']) ? $footer_logo['alt'] : ($footer_logo['title'] ?? '');
+		$footer_logo_alt = ! empty($footer_logo['alt']) ? $footer_logo['alt'] : ($footer_logo['title'] ?? get_bloginfo('name'));
 	}
 ?>
 
@@ -34,7 +33,7 @@ else : /* Rendering in editor body. */
 			<div class="footer-logo-row">
 				<a class="footer-logo" href="<?php echo esc_url(home_url('/')); ?>" rel="home" aria-label="<?php bloginfo('name'); ?>">
 					<img
-						src="<?php echo esc_url($footer_logo['sizes']['medium']); ?>"
+						src="<?php echo esc_url($footer_logo['sizes']['medium'] ?? $footer_logo['url']); ?>"
 						alt="<?php echo esc_attr($footer_logo_alt); ?>">
 				</a>
 			</div>
@@ -46,9 +45,7 @@ else : /* Rendering in editor body. */
 			<div class="footer-col footer-newsletter uk-width-1-2@m uk-width-expand@l">
 				<div class="footer-col-inner">
 					<?php
-					if ($newsletter_form) {
-						echo do_shortcode($newsletter_form);
-					} elseif ($lang === 'en') {
+					if ($lang === 'en') {
 						echo do_shortcode('[contact-form-7 id="f49eeaa" title="Newsletter En"]');
 					} else {
 						echo do_shortcode('[contact-form-7 id="0827c8f" title="Newsletter Sr"]');
@@ -71,7 +68,7 @@ else : /* Rendering in editor body. */
 						<ul class="footer-events-list">
 							<?php foreach ($events as $event) : ?>
 								<li class="footer-event-item">
-									<a href="<?php echo esc_url(tribe_get_event_link($event)); ?>" class="footer-event-link">
+									<a href="<?php echo esc_url(tribe_get_event_link($event)); ?>" class="footer-event-link" aria-label="<?php echo esc_attr($event->post_title); ?>">
 										<?php if ($lang === 'en') : ?>
 											<span class="footer-event-date"><?php echo tribe_get_start_date($event, true, 'F j, Y'); ?></span>
 										<?php else : ?>
@@ -115,16 +112,17 @@ else : /* Rendering in editor body. */
 						<div class="footer-social-icons">
 							<?php while (have_rows('social_networks_' . $lang, 'option')) : the_row(); ?>
 								<?php
-								$icon         = get_sub_field('footer_icon_' . $lang);
-								$icon         = $icon ?: get_sub_field('header_icon_' . $lang);
-								$social_title = get_sub_field('social_network_title_' . $lang);
-								$url          = get_sub_field('url_' . $lang);
+								$icon         = get_sub_field('footer_icon_' . $lang, 'option');
+								$icon         = $icon ?: get_sub_field('header_icon_' . $lang, 'option');
+								$social_title = get_sub_field('social_network_title_' . $lang, 'option');
+								$url          = get_sub_field('url_' . $lang, 'option');
 								$link_label   = $social_title;
 
 								if (! $link_label && $url) {
 									$parsed_url = wp_parse_url($url, PHP_URL_HOST);
 									$link_label = $parsed_url ? preg_replace('/^www\./', '', $parsed_url) : '';
 								}
+								$icon_alt = is_array($icon) && ! empty($icon['alt']) ? $icon['alt'] : (is_array($icon) && ! empty($icon['title']) ? $icon['title'] : ($link_label ?: 'Social link'));
 								?>
 								<?php if ($url) : ?>
 									<a
@@ -132,13 +130,12 @@ else : /* Rendering in editor body. */
 										target="_blank"
 										rel="noopener noreferrer"
 										class="footer-social-link"
-										aria-label="<?php echo esc_attr($link_label); ?>">
+										aria-label="<?php echo esc_attr($link_label ?: $icon_alt); ?>">
 										<?php if ($link_label) : ?>
 											<span class="footer-social-title"><?php echo esc_html($link_label); ?></span>
 										<?php endif; ?>
 										<?php if (is_array($icon) && ! empty($icon['url'])) : ?>
-											<?php $icon_alt = ! empty($icon['alt']) ? $icon['alt'] : ($icon['title'] ?? $link_label); ?>
-											<img src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($icon_alt); ?>">
+											<img src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($icon_alt); ?>" data-uk-svg>
 										<?php endif; ?>
 									</a>
 								<?php endif; ?>
@@ -150,9 +147,9 @@ else : /* Rendering in editor body. */
 					<?php if (have_rows('phone_numbers_' . $lang, 'option')) : ?>
 						<div class="footer-phones">
 							<?php while (have_rows('phone_numbers_' . $lang, 'option')) : the_row(); ?>
-								<?php $phone = get_sub_field('phone_' . $lang); ?>
+								<?php $phone = get_sub_field('phone_' . $lang, 'option'); ?>
 								<?php if ($phone) : ?>
-									<a class="footer-phone" href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $phone)); ?>">
+									<a class="footer-phone" href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $phone)); ?>" aria-label="<?php echo esc_attr(sprintf(simple_block_pll__('Call %s'), $phone)); ?>">
 										<?php echo esc_html($phone); ?>
 									</a>
 								<?php endif; ?>
@@ -162,7 +159,7 @@ else : /* Rendering in editor body. */
 
 					<?php /* Email */ ?>
 					<?php if ($email) : ?>
-						<a class="footer-email" href="mailto:<?php echo esc_attr(sanitize_email($email)); ?>">
+						<a class="footer-email" href="mailto:<?php echo esc_attr(sanitize_email($email)); ?>" aria-label="<?php echo esc_attr(sprintf(simple_block_pll__('Email %s'), $email)); ?>">
 							<?php echo esc_html($email); ?>
 						</a>
 					<?php endif; ?>
@@ -176,15 +173,15 @@ else : /* Rendering in editor body. */
 		<div class="footer-bottom">
 			<p class="footer-copyright">
 				&copy;<?php echo esc_html(date('Y')); ?>
-				<?php if (pll_current_language() == 'sr'): ?>
+				<?php if ($lang === 'sr'): ?>
 					<?php bloginfo('name'); ?>. Sva prava zadržana.
-					<span>| <a href="#">Politika privatnosti</a> | <a href="#">Uslovi korišćenja</a></span>
+					<span>| <a href="<?php echo esc_url(home_url('/politika-privatnosti/')); ?>" aria-label="Politika privatnosti">Politika privatnosti</a> | <a href="<?php echo esc_url(home_url('/uslovi-koriscenja/')); ?>" aria-label="Uslovi korišćenja">Uslovi korišćenja</a></span>
 				<?php else: ?>
 					<?php bloginfo('name'); ?>. All rights reserved.
-					<span>| <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></span>
+					<span>| <a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>" aria-label="Privacy Policy">Privacy Policy</a> | <a href="<?php echo esc_url(home_url('/terms-of-service/')); ?>" aria-label="Terms of Service">Terms of Service</a></span>
 				<?php endif ?>
 			</p>
-			<a class="footer-back-to-top" href="#top" uk-scroll aria-label="<?php echo esc_attr(simple_block_pll__('Back to top')); ?>">
+			<a class="footer-back-to-top" href="#top" data-uk-scroll aria-label="<?php echo esc_attr(simple_block_pll__('Back to top')); ?>">
 				<?php echo esc_html(simple_block_pll__('Back to top ↑')); ?>
 			</a>
 		</div><!-- .footer-bottom -->

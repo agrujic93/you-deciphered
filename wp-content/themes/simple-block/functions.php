@@ -809,6 +809,11 @@ function simple_block_register_polylang_strings() {
 		'Price',
 		'Box Link',
 		'Zig Zag Image',
+		'Social Networks',
+		'Call %s',
+		'Email %s',
+		'Privacy Policy',
+		'Terms of Service',
 	);
 
 	foreach ( $strings as $string ) {
