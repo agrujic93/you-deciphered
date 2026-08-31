@@ -378,6 +378,18 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 			$post_status = 'wc-' . $post_status;
 		}
 
+		// The status column holds at most 20 characters, so a longer key can't be stored.
+		if ( strlen( $post_status ) > 20 ) {
+			wc_doing_it_wrong(
+				__METHOD__,
+				sprintf(
+					'Order status "%s" is longer than the storage limit of 20 characters and cannot be stored.',
+					esc_html( $order_status )
+				),
+				'11.0.0'
+			);
+		}
+
 		return $post_status;
 	}
 
@@ -593,12 +605,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 				return;
 			}
 		}
-		$cache_keys     = array_map(
-			function ( $order_id ) {
-				return 'order-items-' . $order_id;
-			},
-			$order_ids
-		);
+		$cache_keys     = array_map( static fn( $order_id ) => 'order-items-' . $order_id, $order_ids );
 		$cache_values   = wc_cache_get_multiple( $cache_keys, 'orders' );
 		$non_cached_ids = array();
 		foreach ( $order_ids as $order_id ) {
@@ -658,7 +665,35 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 				$raw_meta_data_collection[ $raw_meta_data->object_id ][] = $raw_meta_data;
 			}
 			\WC_Order_Item::prime_raw_meta_data_cache( $raw_meta_data_collection, 'order-items' );
+
+			$this->prime_product_post_caches_for_order_items( $order_items, $raw_meta_data_collection );
 		}
+	}
+
+	/**
+	 * Primes post caches for products which are referenced in line items with 'line_item' type.
+	 *
+	 * Although the product data store can be replaced, maintaining the posts table connection, as with HPOS, is necessary
+	 * for products to function properly. We can therefore prime the post cache directly without compromising store isolation.
+	 *
+	 * @since 10.8.0
+	 *
+	 * @param array<int,object{order_item_id:int, order_item_type:string}>    $line_items_all           Line item entries.
+	 * @param array<int,array<int,object{meta_key:string, meta_value:mixed}>> $raw_meta_data_collection Meta-entries grouped by line item id.
+	 * @return void
+	 */
+	private function prime_product_post_caches_for_order_items( array $line_items_all, array $raw_meta_data_collection ): void {
+		$product_ids = array();
+		foreach ( $line_items_all as $line_item ) {
+			if ( 'line_item' === $line_item->order_item_type ) {
+				foreach ( $raw_meta_data_collection[ $line_item->order_item_id ] ?? array() as $meta ) {
+					if ( ( '_variation_id' === $meta->meta_key || '_product_id' === $meta->meta_key ) && $meta->meta_value > 0 ) {
+						$product_ids[] = (int) $meta->meta_value;
+					}
+				}
+			}
+		}
+		_prime_post_caches( array_unique( $product_ids ) );
 	}
 
 	/**
@@ -682,7 +717,7 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 
 		$cache_keys_mapping = array();
 		foreach ( $order_ids as $order_id ) {
-			$cache_keys_mapping[ $order_id ] = WC_Cache_Helper::get_cache_prefix( 'orders' ) . 'refunds' . $order_id;
+			$cache_keys_mapping[ $order_id ] = WC_Cache_Helper::get_cache_prefix( 'orders' ) . 'refund_ids' . $order_id;
 		}
 
 		$non_cached_ids = array();
@@ -715,16 +750,15 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 			)
 		);
 
-		$order_refunds = array();
+		$order_refund_ids = array_fill_keys( $non_cached_ids, array() );
 		foreach ( $refunds as $refund ) {
-			if ( $refund instanceof \WC_Order_Refund ) {
-				$order_refunds[ $refund->get_parent_id() ][] = $refund;
+			if ( $refund instanceof \WC_Order_Refund && isset( $order_refund_ids[ $refund->get_parent_id() ] ) ) {
+				$order_refund_ids[ $refund->get_parent_id() ][] = $refund->get_id();
 			}
 		}
 
 		foreach ( $non_cached_ids as $order_id ) {
-			$cached_refunds = isset( $order_refunds[ $order_id ] ) ? $order_refunds[ $order_id ] : array();
-			wp_cache_set( $cache_keys_mapping[ $order_id ], $cached_refunds, 'orders' );
+			wp_cache_set( $cache_keys_mapping[ $order_id ], $order_refund_ids[ $order_id ], 'orders' );
 		}
 	}
 
@@ -736,19 +770,14 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 	 * object cache for all transient option names in a single query, we
 	 * eliminate the N+1.
 	 *
+	 * @since 10.7.0
+	 * @deprecated 10.8.0 `\WC_Order::needs_processing` method no longer uses transients.
+	 *
 	 * @param array $order_ids  Order IDs to prime cache for.
 	 * @param array $query_vars Query vars for the query.
 	 * @return void
-	 * @since 10.7.0
 	 */
 	protected function prime_needs_processing_transients( $order_ids, $query_vars ) {
-		$option_names = array();
-		foreach ( $order_ids as $order_id ) {
-			$option_names[] = '_transient_wc_order_' . $order_id . '_needs_processing';
-			$option_names[] = '_transient_timeout_wc_order_' . $order_id . '_needs_processing';
-		}
-
-		wp_prime_option_caches( $option_names );
 	}
 
 	/**
@@ -760,12 +789,18 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 	public function delete_items( $order, $type = null ) {
 		global $wpdb;
 
+		$order_id = $order->get_id();
+
+		if ( ! $order_id ) {
+			return;
+		}
+
 		if ( ! empty( $type ) ) {
-			$wpdb->query( $wpdb->prepare( "DELETE itemmeta FROM {$wpdb->prefix}woocommerce_order_itemmeta as itemmeta INNER JOIN {$wpdb->prefix}woocommerce_order_items as items WHERE itemmeta.order_item_id = items.order_item_id AND items.order_id = %d AND items.order_item_type = %s", $order->get_id(), $type ) );
-			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = %d AND order_item_type = %s", $order->get_id(), $type ) );
+			$wpdb->query( $wpdb->prepare( "DELETE itemmeta FROM {$wpdb->prefix}woocommerce_order_itemmeta as itemmeta INNER JOIN {$wpdb->prefix}woocommerce_order_items as items WHERE itemmeta.order_item_id = items.order_item_id AND items.order_id = %d AND items.order_item_type = %s", $order_id, $type ) );
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = %d AND order_item_type = %s", $order_id, $type ) );
 		} else {
-			$wpdb->query( $wpdb->prepare( "DELETE itemmeta FROM {$wpdb->prefix}woocommerce_order_itemmeta as itemmeta INNER JOIN {$wpdb->prefix}woocommerce_order_items as items WHERE itemmeta.order_item_id = items.order_item_id and items.order_id = %d", $order->get_id() ) );
-			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = %d", $order->get_id() ) );
+			$wpdb->query( $wpdb->prepare( "DELETE itemmeta FROM {$wpdb->prefix}woocommerce_order_itemmeta as itemmeta INNER JOIN {$wpdb->prefix}woocommerce_order_items as items WHERE itemmeta.order_item_id = items.order_item_id and items.order_id = %d", $order_id ) );
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_order_items WHERE order_id = %d", $order_id ) );
 		}
 
 		$this->clear_caches( $order );
@@ -1149,6 +1184,117 @@ abstract class Abstract_WC_Order_Data_Store_CPT extends WC_Data_Store_WP impleme
 		}
 		foreach ( $non_cached_ids as $order_id ) {
 			wp_cache_set( $tax_keys[ $order_id ], $tax_by_order[ $order_id ] ?? 0.0, 'orders' );
+		}
+	}
+
+	/**
+	 * Temporarily neutralizes the WC_Emails transactional dispatch listeners
+	 * (send_transactional_email and queue_transactional_email) so that restoring an order
+	 * from the trash does not re-notify the customer about an order they were already
+	 * emailed about.
+	 *
+	 * The listeners are left in their original WP_Hook slots: the action, priority,
+	 * accepted-args count and position are all kept, and only the callback function is
+	 * wrapped to suppress dispatches for the restored order. This preserves the relative
+	 * ordering of every other listener on those actions, so third-party integrations are
+	 * unaffected. Pass the returned snapshot to {@see restore_transactional_email_dispatch()}
+	 * to undo this.
+	 *
+	 * @since 10.9.0
+	 *
+	 * @param int $restored_order_id The ID of the order being restored.
+	 * @return list<array{0: string, 1: int, 2: string, 3: callable}> Snapshot of neutralized listeners.
+	 */
+	protected function suspend_transactional_email_dispatch( int $restored_order_id ): array {
+		global $wp_filter;
+
+		$suspended           = array();
+		$dispatch_method_set = array( 'send_transactional_email', 'queue_transactional_email' );
+
+		foreach ( $wp_filter as $action => $hook ) {
+			if ( ! is_string( $action ) || ! $hook instanceof WP_Hook ) {
+				continue;
+			}
+			foreach ( $hook->callbacks as $priority => $callbacks ) {
+				foreach ( $callbacks as $key => $cb ) {
+					$function = $cb['function'] ?? null;
+					if ( ! is_array( $function ) || ! isset( $function[0], $function[1] ) ) {
+						continue;
+					}
+					if ( ! is_callable( $function ) ) {
+						continue;
+					}
+					$class  = is_object( $function[0] ) ? get_class( $function[0] ) : $function[0];
+					$method = $function[1];
+					if ( ! is_string( $class ) || ! is_string( $method ) ) {
+						continue;
+					}
+					if ( 'WC_Emails' !== $class || ! in_array( $method, $dispatch_method_set, true ) ) {
+						continue;
+					}
+					$suspended[]                                      = array( $action, (int) $priority, (string) $key, $function );
+					$hook->callbacks[ $priority ][ $key ]['function'] = function ( ...$args ) use ( $action, $function, $restored_order_id ) {
+						if ( $this->should_suppress_transactional_email_dispatch( $action, $restored_order_id, $args ) ) {
+							return null;
+						}
+
+						return call_user_func_array( $function, $args );
+					};
+				}
+			}
+		}
+
+		return $suspended;
+	}
+
+	/**
+	 * Checks whether a transactional email dispatch belongs to the restored order.
+	 *
+	 * @since 10.9.0
+	 *
+	 * @param string $action            The action being dispatched.
+	 * @param int    $restored_order_id The ID of the order being restored.
+	 * @param array  $args              The runtime action arguments.
+	 * @return bool
+	 */
+	private function should_suppress_transactional_email_dispatch( string $action, int $restored_order_id, array $args ): bool {
+		if ( 0 !== strpos( $action, 'woocommerce_order_status_' ) ) {
+			return false;
+		}
+
+		$order = $args[1] ?? null;
+		if ( $order instanceof WC_Order ) {
+			return $restored_order_id === $order->get_id();
+		}
+
+		$order_id = $args[0] ?? null;
+		return is_numeric( $order_id ) && $restored_order_id === (int) $order_id;
+	}
+
+	/**
+	 * Restores the transactional email dispatch listeners previously neutralized by
+	 * {@see suspend_transactional_email_dispatch()} to their original callbacks.
+	 *
+	 * @since 10.9.0
+	 *
+	 * @param list<array{0: string, 1: int, 2: string, 3: callable}> $suspended Snapshot returned by suspend_transactional_email_dispatch().
+	 *
+	 * @return void
+	 */
+	protected function restore_transactional_email_dispatch( array $suspended ): void {
+		global $wp_filter;
+
+		foreach ( $suspended as $entry ) {
+			list( $action, $priority, $key, $function ) = $entry;
+			if ( ! isset( $wp_filter[ $action ] ) || ! $wp_filter[ $action ] instanceof WP_Hook ) {
+				continue;
+			}
+			// Only restore the slot if it still exists; if it was removed during the
+			// suspended window we must not resurrect it.
+			if ( ! isset( $wp_filter[ $action ]->callbacks[ $priority ][ $key ] ) ) {
+				continue;
+			}
+			$wp_filter[ $action ]->callbacks[ $priority ][ $key ]['function'] = $function;
 		}
 	}
 }

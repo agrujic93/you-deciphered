@@ -176,14 +176,17 @@ class GooglepayModule implements ServiceModule, ExecutableModule
             }
             $settings = $c->get('settings.settings-provider');
             assert($settings instanceof SettingsProvider);
-            $page_methods = $settings->button_styling($current_context)->methods;
-            if (!in_array(\WooCommerce\PayPalCommerce\Googlepay\GooglePayGateway::ID, $page_methods, \true)) {
+            $styling = $settings->button_styling($current_context);
+            if (!$styling->enabled || !in_array(\WooCommerce\PayPalCommerce\Googlepay\GooglePayGateway::ID, $styling->methods, \true)) {
                 unset($methods[\WooCommerce\PayPalCommerce\Googlepay\GooglePayGateway::ID]);
             }
             return $methods;
         });
-        add_action('woocommerce_review_order_after_submit', function () {
-            echo '<div id="ppc-button-' . esc_attr(\WooCommerce\PayPalCommerce\Googlepay\GooglePayGateway::ID) . '"></div>';
+        add_action('wp', static function () {
+            $checkout_hook = (string) apply_filters('woocommerce_paypal_payments_checkout_button_renderer_hook', 'woocommerce_review_order_after_payment');
+            add_action($checkout_hook, static function () {
+                echo '<div id="ppc-button-' . esc_attr(\WooCommerce\PayPalCommerce\Googlepay\GooglePayGateway::ID) . '"></div>';
+            });
         });
         add_action('woocommerce_pay_order_after_submit', function () {
             echo '<div id="ppc-button-' . esc_attr(\WooCommerce\PayPalCommerce\Googlepay\GooglePayGateway::ID) . '"></div>';

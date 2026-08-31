@@ -1,5 +1,5 @@
 <?php
 
 namespace {
-    return array('dependencies' => array(), 'version' => 'fe307eed3d1d5ffb3952');
+    return array('dependencies' => array(), 'version' => '9b0b0b0eea476c7ab74c');
 }
