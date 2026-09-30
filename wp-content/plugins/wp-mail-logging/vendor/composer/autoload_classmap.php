@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'No3x\\WPML\\Admin\\ActiveLayerTab' => $baseDir . '/src/inc/Admin/ActiveLayerTab.php',
     'No3x\\WPML\\Admin\\EmailLogsTab' => $baseDir . '/src/inc/Admin/EmailLogsTab.php',
     'No3x\\WPML\\Admin\\SMTPTab' => $baseDir . '/src/inc/Admin/SMTPTab.php',
     'No3x\\WPML\\Admin\\SettingsTab' => $baseDir . '/src/inc/Admin/SettingsTab.php',

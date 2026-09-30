@@ -42,6 +42,7 @@ class ComposerStaticInit31f994310b2c7d6f9759f25f664a2dcc
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'No3x\\WPML\\Admin\\ActiveLayerTab' => __DIR__ . '/../..' . '/src/inc/Admin/ActiveLayerTab.php',
         'No3x\\WPML\\Admin\\EmailLogsTab' => __DIR__ . '/../..' . '/src/inc/Admin/EmailLogsTab.php',
         'No3x\\WPML\\Admin\\SMTPTab' => __DIR__ . '/../..' . '/src/inc/Admin/SMTPTab.php',
         'No3x\\WPML\\Admin\\SettingsTab' => __DIR__ . '/../..' . '/src/inc/Admin/SettingsTab.php',

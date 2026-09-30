@@ -1,0 +1,208 @@
+# Translation of Plugins - Database Addon for Contact Form 7 &#8211; CFDB7 - Stable (latest release) in Serbian
+# This file is distributed under the same license as the Plugins - Database Addon for Contact Form 7 &#8211; CFDB7 - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2026-09-29 15:45:20+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
+"X-Generator: GlotPress/4.1.0\n"
+"Language: sr_RS\n"
+"Project-Id-Version: Plugins - Database Addon for Contact Form 7 &#8211; CFDB7 - Stable (latest release)\n"
+
+#: inc/settings.php:202
+msgid "Automatically export entries"
+msgstr "Аутоматски извези уносе"
+
+#: inc/settings.php:214
+msgid "Generate professional PDF reports from Contact Form 7 submissions."
+msgstr "Правите професионалне PDF извештаје од слања из Contact Form 7."
+
+#: inc/settings.php:224
+msgid "Import CSV into database"
+msgstr "Увези CSV у базу података"
+
+#: inc/settings.php:213
+msgid "Export entries as PDF"
+msgstr "Извези уносе као PDF"
+
+#: inc/settings.php:203
+msgid "Automatically export Contact Form 7 submissions to CSV on schedule or when new entries arrive."
+msgstr "Аутоматски извозите слања из Contact Form 7 у CSV по распореду или када стигну нови уноси."
+
+#: inc/settings.php:225
+msgid "Import existing CSV files directly into the Contact Form 7 database."
+msgstr "Увезите постојеће CSV датотеке директно у базу података Contact Form 7."
+
+#: inc/settings.php:189
+msgid "Installed"
+msgstr "Постављено"
+
+#: inc/settings.php:183
+msgid "Install Add-on"
+msgstr "Постави проширење"
+
+#: inc/settings.php:127
+msgid "Semicolon (;)"
+msgstr "Тачка и зарез (;)"
+
+#: inc/settings.php:177
+msgid "Requires the premium add-on."
+msgstr "Захтева премијум проширење."
+
+#: inc/settings.php:128
+msgid "Pipe (|)"
+msgstr "Усправна црта (|)"
+
+#: inc/settings.php:126
+msgid "Comma (,)"
+msgstr "Зарез (,)"
+
+#: inc/settings.php:107
+msgid "CSV Import"
+msgstr "Увоз CSV-а"
+
+#: inc/settings.php:91
+msgid "Entry Automation"
+msgstr "Аутоматизација уноса"
+
+#: inc/settings.php:84
+msgid "Premium Features"
+msgstr "Премијум могућности"
+
+#: inc/settings.php:99
+msgid "PDF Export"
+msgstr "Извоз PDF-а"
+
+#: inc/settings.php:75
+msgid "Delimiter"
+msgstr "Разделник"
+
+#: inc/settings.php:68
+msgid "CSV Export"
+msgstr "Извоз CSV-а"
+
+#: inc/settings.php:47
+msgid "Settings"
+msgstr "Подешавања"
+
+#: inc/settings.php:46 inc/settings.php:147
+msgid "CFDB7 Settings"
+msgstr "CFDB7 подешавања"
+
+#: contact-form-cfdb-7.php:272
+msgid ""
+"%1$s If it's helpful, would you consider leaving a <strong>5-star review</strong> on WordPress?<br><br>\n"
+"            <a href=\"%3$s\" class=\"button button-primary\" target=\"_blank\">⭐ Leave a review</a>\n"
+"            <a href=\"%2$s\" class=\"button-link-delete\">I already did</a> |\n"
+"            <a href=\"%2$s\" class=\"button-link-delete\">No, thanks</a>"
+msgstr ""
+"%1$s Ако вам је од помоћи, да ли бисте оставили <strong>оцену са 5 звездица</strong> на Вордпресу?<br><br>\n"
+"            <a href=\"%3$s\" class=\"button button-primary\" target=\"_blank\">⭐ Остави оцену</a>\n"
+"            <a href=\"%2$s\" class=\"button-link-delete\">Већ је остављена</a> |\n"
+"            <a href=\"%2$s\" class=\"button-link-delete\">Не, хвала</a>"
+
+#: contact-form-cfdb-7.php:262
+msgid "🎉 Nice! CFDB7 has successfully saved your form entry."
+msgid_plural "🎉 Nice! CFDB7 has successfully saved your form entries."
+msgstr[0] "🎉 Сјајно! CFDB7 је успешно сачувао унос из обрасца."
+msgstr[1] "🎉 Сјајно! CFDB7 је успешно сачувао уносе из обрасца."
+msgstr[2] "🎉 Сјајно! CFDB7 је успешно сачувао уносе из обрасца."
+
+#: inc/add-ons.php:12
+msgid "Addons"
+msgstr "Додаци"
+
+#: inc/add-ons.php:30
+msgid "Add extra features to CFDB7 with these extensions."
+msgstr "Додајте нове могућности у CFDB7 помоћу ових проширења."
+
+#: contact-form-cfdb-7.php:309
+msgid "Submissions"
+msgstr "Слања"
+
+#. Plugin URI of the plugin
+#: contact-form-cfdb-7.php
+msgid "https://ciphercoin.com/"
+msgstr "https://ciphercoin.com/"
+
+#: inc/admin-subpage.php:39
+msgid "Search"
+msgstr "Претрага"
+
+#: inc/add-ons.php:11
+msgid "Extensions"
+msgstr "Проширења"
+
+#. Author of the plugin
+#: contact-form-cfdb-7.php
+msgid "Arshid"
+msgstr "Arshid"
+
+#. Description of the plugin
+#: contact-form-cfdb-7.php
+msgid "Save and manage Contact Form 7 messages. Never lose important data. Contact Form CFDB7 plugin is an add-on for the Contact Form 7 plugin."
+msgstr "Чувајте и управљајте порукама из Contact Form 7. Никада не изгубите важне податке. Додатак Contact Form CFDB7 је проширење за додатак Contact Form 7."
+
+#. Author URI of the plugin
+#: contact-form-cfdb-7.php
+msgid "http://ciphercoin.com/"
+msgstr "http://ciphercoin.com/"
+
+#: inc/admin-subpage.php:458
+msgid "Bulk Actions"
+msgstr "Скупне радње"
+
+#: inc/admin-subpage.php:473
+msgid "Export CSV"
+msgstr "Извези CSV"
+
+#. Plugin Name of the plugin
+#: contact-form-cfdb-7.php
+msgid "Contact Form CFDB7"
+msgstr "Contact Form CFDB7"
+
+#: inc/admin-subpage.php:468
+msgid "Apply"
+msgstr "Примени"
+
+#: inc/admin-subpage.php:456
+msgid "Select bulk action"
+msgstr "Изаберите скупну радњу"
+
+#: inc/admin-subpage.php:201
+msgid "Delete"
+msgstr "Избриши"
+
+#: inc/admin-mainpage.php:136
+msgid "Count"
+msgstr "Број"
+
+#: inc/admin-subpage.php:199
+msgid "Read"
+msgstr "Прочитано"
+
+#: inc/admin-subpage.php:200
+msgid "Unread"
+msgstr "Непрочитано"
+
+#: inc/admin-mainpage.php:135
+msgid "Name"
+msgstr "Име"
+
+#: inc/admin-mainpage.php:45 inc/admin-mainpage.php:82
+msgid "Contact Forms"
+msgstr "Обрасци за контакт"
+
+#: inc/add-ons.php:59
+msgid "There was an error retrieving the extensions list from the server. Please try again later."
+msgstr "Дошло је до грешке при преузимању списка проширења са сервера. Покушајте поново касније."
+
+#: inc/add-ons.php:27
+msgid "Browse All Extensions"
+msgstr "Прегледај сва проширења"
+
+#: inc/add-ons.php:25
+msgid "Extensions for CFDB7"
+msgstr "Проширења за CFDB7"

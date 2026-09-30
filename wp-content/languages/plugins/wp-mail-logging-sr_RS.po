@@ -1,0 +1,917 @@
+# Translation of Plugins - WP Mail Logging - Stable (latest release) in Serbian
+# This file is distributed under the same license as the Plugins - WP Mail Logging - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2026-09-27 20:21:58+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
+"X-Generator: GlotPress/4.1.0\n"
+"Language: sr_RS\n"
+"Project-Id-Version: Plugins - WP Mail Logging - Stable (latest release)\n"
+
+#: src/Renderer/Format/BaseRenderer.php:155
+msgid "Images are blocked."
+msgstr "Слике су блокиране."
+
+#: src/Renderer/Format/BaseRenderer.php:157
+msgid "Load images"
+msgstr "Учитај слике"
+
+#: src/inc/Admin/ActiveLayerTab.php:599
+msgid "Connect Your Account"
+msgstr "Повежите свој налог"
+
+#: src/inc/Admin/SettingsTab.php:277
+msgid "Load images and fonts hosted on other servers when previewing an email. Leaving this off means senders cannot tell when you open a log entry. You can still load them for a single entry from the preview."
+msgstr "Учитавај слике и словне ликове смештене на другим серверима при прегледу е-поруке. Ако ово оставите искључено, пошиљаоци не могу знати када отворите запис у дневнику. И даље их можете учитати за појединачни запис из прегледа."
+
+#: src/inc/Admin/SettingsTab.php:279
+msgid "Always Load Remote Images"
+msgstr "Увек учитавај удаљене слике"
+
+#: src/WPML_OptionsManager.php:436 src/WPML_OptionsManager.php:437
+#: src/WPML_Plugin.php:312
+msgid "Spam Protection"
+msgstr "Заштита од непожељног садржаја"
+
+#: src/inc/Admin/ActiveLayerTab.php:572
+msgid "Create a free account and verify your API key to start blocking spam."
+msgstr "Направите бесплатан налог и потврдите свој API кључ да бисте почели да блокирате непожељни садржај."
+
+#: src/inc/Admin/ActiveLayerTab.php:571
+msgid "Connect Your ActiveLayer Account"
+msgstr "Повежите свој ActiveLayer налог"
+
+#: src/inc/Admin/ActiveLayerTab.php:503
+msgid "Activate ActiveLayer"
+msgstr "Укључи ActiveLayer"
+
+#: src/inc/Admin/ActiveLayerTab.php:494
+msgid "ActiveLayer on WordPress.org"
+msgstr "ActiveLayer на WordPress.org"
+
+#: src/inc/Admin/ActiveLayerTab.php:486
+msgid "Install ActiveLayer"
+msgstr "Постави ActiveLayer"
+
+#: src/inc/Admin/ActiveLayerTab.php:478
+msgid "Install ActiveLayer from the WordPress.org plugin repository."
+msgstr "Поставите ActiveLayer из складишта додатака на WordPress.org."
+
+#: src/inc/Admin/ActiveLayerTab.php:477
+msgid "Install and Activate ActiveLayer"
+msgstr "Постави и укључи ActiveLayer"
+
+#: src/inc/Admin/ActiveLayerTab.php:399
+msgid "Also guards WordPress comments, WooCommerce reviews & registration."
+msgstr "Штити и Вордпресове коментаре, WooCommerce рецензије и регистрације."
+
+#: src/inc/Admin/ActiveLayerTab.php:397
+msgid "Asynchronous checks keep your forms instant, with zero added latency."
+msgstr "Асинхроне провере одржавају ваше обрасце тренутним, без додатног кашњења."
+
+#: src/inc/Admin/ActiveLayerTab.php:394
+msgid "ActiveLayer screenshot"
+msgstr "Снимак екрана ActiveLayer-а"
+
+#: src/inc/Admin/ActiveLayerTab.php:398
+msgid "Protects WPForms, Contact Form 7, Gravity Forms, Elementor & Fluent Forms."
+msgstr "Штити WPForms, Contact Form 7, Gravity Forms, Elementor и Fluent Forms."
+
+#: src/inc/Admin/ActiveLayerTab.php:396
+msgid "Blocks form, comment and registration spam without CAPTCHAs or puzzles."
+msgstr "Блокира непожељни садржај у обрасцима, коментарима и регистрацијама без CAPTCHA-е или загонетки."
+
+#: src/inc/Admin/ActiveLayerTab.php:363
+msgid "AI-powered spam protection. No friction for real visitors, higher form conversions. Free tier available, no credit-card required. 1,000 checks free."
+msgstr "Заштита од непожељног садржаја уз помоћ ВИ. Без препрека за стварне посетиоце, веће конверзије образаца. Доступан бесплатан ниво, није потребна кредитна картица. 1.000 бесплатних провера."
+
+#: src/inc/Admin/ActiveLayerTab.php:362
+msgid "Block Form & Comment Spam Without CAPTCHAs"
+msgstr "Блокирајте непожељни садржај у обрасцима и коментарима без CAPTCHA-е"
+
+#: src/inc/Admin/ActiveLayerTab.php:331 src/inc/Admin/ActiveLayerTab.php:361
+#: src/inc/Admin/ActiveLayerTab.php:492
+msgid "ActiveLayer"
+msgstr "ActiveLayer"
+
+#: src/inc/Admin/ActiveLayerTab.php:300 src/inc/Admin/ActiveLayerTab.php:595
+msgid "Go to ActiveLayer Settings"
+msgstr "Иди на подешавања ActiveLayer-а"
+
+#: src/inc/Admin/ActiveLayerTab.php:293 src/inc/Admin/ActiveLayerTab.php:503
+msgid "ActiveLayer Installed & Activated"
+msgstr "ActiveLayer је постављен и укључен"
+
+#: src/inc/Admin/SettingsTab.php:210
+msgid "Select the WordPress user capability required to view submission data."
+msgstr "Изаберите овлашћење Вордпресовог корисника потребно за преглед послатих података."
+
+#: src/inc/Admin/SettingsTab.php:309
+msgid "Log Retention"
+msgstr "Задржавање дневника"
+
+#: src/WPML_Email_Log_List.php:820
+msgid "Resend"
+msgstr "Поново пошаљи"
+
+#: src/inc/Admin/EmailLogsTab.php:757
+msgid "Are you sure you want to delete this log?"
+msgstr "Да ли сигурно желите да избришете овај дневник?"
+
+#: src/inc/Migration/Migration.php:455
+msgid "Upgrade"
+msgstr "Надогради"
+
+#: src/WPML_Plugin.php:428
+msgid "Heads up!"
+msgstr "Пажња!"
+
+#. translators: %d: Email Log ID to delete.
+#: src/WPML_Email_Log_List.php:788
+msgid "Delete log #%d"
+msgstr "Избриши запис #%d"
+
+#: src/WPML_Plugin.php:432
+msgid "Warning!"
+msgstr "Упозорење!"
+
+#. translators: %d: Email Log ID to resend.
+#: src/WPML_Email_Log_List.php:781
+msgid "Resend log #%d"
+msgstr "Поново пошаљи запис #%d"
+
+#. translators: %d: Email Log ID to view.
+#: src/WPML_Email_Log_List.php:774
+msgid "View log #%d"
+msgstr "Погледај запис #%d"
+
+#: src/inc/Migration/Migration.php:593
+msgid "This upgrade will delete all of your existings logs. Are you sure you want to proceed?"
+msgstr "Ова надоградња ће избрисати све ваше постојеће записе. Да ли сигурно желите да наставите?"
+
+#: src/inc/Migration/Migration.php:423
+msgid "<strong>Important!</strong> By performing this upgrade, <strong>ALL your existing logs will be deleted</strong>."
+msgstr "<strong>Важно!</strong> Извршавањем ове надоградње <strong>СВИ ваши постојећи записи биће избрисани</strong>."
+
+#: src/inc/Migration/Migration.php:434
+msgid "<i>If you wish to keep all email logs and get the above improvements as well, please <a href=\"https://wordpress.org/support/topic/how-to-keep-your-email-logs-with-manual-v1-12-0-database-upgrade/\" target=\"_blank\">read our manual upgrade guide</a> for more information.</i>"
+msgstr "<i>Ако желите да задржите све записе е-поште и добијете горња побољшања, <a href=\"https://wordpress.org/support/topic/how-to-keep-your-email-logs-with-manual-v1-12-0-database-upgrade/\" target=\"_blank\">прочитајте наш водич за ручну надоградњу</a> за више података.</i>"
+
+#: src/inc/Migration/Migration.php:451
+msgid "Please create a backup of your database before performing the upgrade."
+msgstr "Направите резервну копију базе података пре извршавања надоградње."
+
+#: src/inc/Migration/Migration.php:417
+msgid "If you do not need these improvements, you can keep using the plugin as is and dismiss this banner in the top right corner."
+msgstr "Ако вам ова побољшања нису потребна, можете наставити да користите додатак такав какав јесте и одбацити овај транспарент у горњем десном углу."
+
+#: src/inc/Migration/Migration.php:412
+msgid "Faster email log search by message."
+msgstr "Бржа претрага дневника е-поште по поруци."
+
+#: src/inc/Migration/Migration.php:406
+msgid "Support for non-UTF8 characters like emojis (%s)."
+msgstr "Подршка за знакове који нису UTF8, као што су емоџији (%s)."
+
+#: src/inc/Migration/Migration.php:368
+msgid "Database upgrade completed."
+msgstr "Надоградња базе података је завршена."
+
+#: src/inc/Migration/Migration.php:398
+msgid "This upgrade will include the following:"
+msgstr "Ова надоградња ће укључити следеће:"
+
+#: src/inc/Migration/Migration.php:327
+msgid "An optional database optimization upgrade is available. Click <a href=\"%s\">here</a> to learn more."
+msgstr "Доступна је необавезна надоградња за оптимизацију базе података. Притисните <a href=\"%s\">овде</a> да бисте сазнали више."
+
+#: src/inc/Migration/Migration.php:393
+msgid "Database Upgrade"
+msgstr "Надоградња базе података"
+
+#: src/Renderer/WPML_MailRenderer_AJAX_Handler.php:96
+#: src/WPML_Email_Log_List.php:610
+msgid "Invalid request!"
+msgstr "Неисправан захтев!"
+
+#: src/WPML_OptionsManager.php:428 src/WPML_OptionsManager.php:429
+#: src/WPML_Plugin.php:308
+msgid "SMTP"
+msgstr "SMTP"
+
+#: src/inc/Migration/Migration.php:458 src/Renderer/Format/BaseRenderer.php:245
+#: src/WPML_Email_Log_List.php:879
+msgid "Dismiss this notice."
+msgstr "Одбаците ово обавештење."
+
+#: src/inc/Admin/SMTPTab.php:724
+msgid "Start Setup"
+msgstr "Започни подешавање"
+
+#: src/inc/Admin/SMTPTab.php:696
+msgid "Set Up WP Mail SMTP"
+msgstr "Подеси WP Mail SMTP"
+
+#: src/inc/Admin/SMTPTab.php:697
+msgid "Select and configure your mailer."
+msgstr "Изаберите и подесите услугу слања."
+
+#: src/Model/Email_Log_Collection.php:484
+msgid "Failed"
+msgstr "Није успело"
+
+#: src/inc/Admin/ActiveLayerTab.php:570 src/inc/Admin/SMTPTab.php:695
+msgid "Step 2"
+msgstr "Корак 2"
+
+#: src/inc/Admin/SMTPTab.php:550
+msgid "Activate WP Mail SMTP"
+msgstr "Укључи WP Mail SMTP"
+
+#: src/inc/Admin/SMTPTab.php:521
+msgid "Install and Activate WP Mail SMTP"
+msgstr "Постави и укључи WP Mail SMTP"
+
+#: src/inc/Admin/SMTPTab.php:522
+msgid "Install WP Mail SMTP from the WordPress.org plugin repository."
+msgstr "Поставите WP Mail SMTP из складишта додатака на WordPress.org."
+
+#: src/inc/Admin/SMTPTab.php:540
+msgid "WP Mail SMTP on WordPress.org"
+msgstr "WP Mail SMTP на WordPress.org"
+
+#: src/inc/Admin/ActiveLayerTab.php:460 src/inc/Admin/SMTPTab.php:504
+msgid "Step 1"
+msgstr "Корак 1"
+
+#: src/inc/Admin/SMTPTab.php:441
+msgid "Pro mailers: Amazon SES, Microsoft 365 / Outlook.com, Zoho Mail."
+msgstr "Pro услуге слања: Amazon SES, Microsoft 365 / Outlook.com, Zoho Mail."
+
+#: src/inc/Admin/SMTPTab.php:439
+msgid "Used by 3+ million websites."
+msgstr "Користи га преко 3 милиона веб сајтова."
+
+#: src/inc/Admin/SMTPTab.php:438
+msgid "Improves email deliverability in WordPress."
+msgstr "Побољшава испоручивост е-поште у Вордпресу."
+
+#: src/inc/Admin/SMTPTab.php:407
+msgid "WP Mail SMTP fixes deliverability problems with your WordPress emails and form notifications. It's built by the same folks behind WPForms."
+msgstr "WP Mail SMTP решава проблеме са испоручивошћу ваших Вордпресових е-порука и обавештења из образаца. Направили су га исти људи који стоје иза WPForms-а."
+
+#: src/inc/Admin/SMTPTab.php:436
+msgid "WP Mail SMTP screenshot"
+msgstr "Снимак екрана WP Mail SMTP-а"
+
+#: src/inc/Admin/SMTPTab.php:406
+msgid "Making Email Deliverability Easy for WordPress"
+msgstr "Лака испоручивост е-поште за Вордпрес"
+
+#: src/inc/Admin/SMTPTab.php:377 src/inc/Admin/SMTPTab.php:405
+#: src/inc/Admin/SMTPTab.php:538
+msgid "WP Mail SMTP"
+msgstr "WP Mail SMTP"
+
+#: src/inc/Admin/SMTPTab.php:346 src/inc/Admin/SMTPTab.php:729
+msgid "Go to SMTP settings"
+msgstr "Иди на SMTP подешавања"
+
+#: src/inc/Admin/SMTPTab.php:345 src/inc/Admin/SMTPTab.php:720
+msgid "Open Setup Wizard"
+msgstr "Отвори чаробњака за подешавање"
+
+#: src/inc/Admin/ActiveLayerTab.php:295 src/inc/Admin/SMTPTab.php:339
+msgid "Go to Plugins page"
+msgstr "Иди на страницу додатака"
+
+#: src/WPML_ProductEducation.php:70
+msgid "Request invalid."
+msgstr "Неисправан захтев."
+
+#. translators: $1$s - WP Mail Logging plugin name; $2$s - WP.org review link;
+#. $3$s - WP.org review link.
+#: src/WPML_Plugin.php:635
+msgid "Please rate %1$s <a href=\"%2$s\" target=\"_blank\" rel=\"noopener noreferrer\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%3$s\" target=\"_blank\" rel=\"noopener\">WordPress.org</a> to help us spread the word."
+msgstr "Оцените %1$s <a href=\"%2$s\" target=\"_blank\" rel=\"noopener noreferrer\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> на <a href=\"%3$s\" target=\"_blank\" rel=\"noopener\">WordPress.org</a> да бисте нам помогли да се прочујемо."
+
+#: src/WPML_Plugin.php:280
+msgid "WP Mail Logging logo"
+msgstr "Лого WP Mail Logging-а"
+
+#: src/WPML_Email_Log_List.php:270
+msgid "Email was added to the sending queue."
+msgstr "Е-порука је додата у ред за слање."
+
+#. translators: %d: Number of email logs that was added to the sending queue.
+#: src/WPML_Email_Log_List.php:274
+msgid "%d email was added to the sending queue."
+msgid_plural "%d emails were added to the sending queue."
+msgstr[0] "%d е-порука је додата у ред за слање."
+msgstr[1] "%d е-поруке су додате у ред за слање."
+msgstr[2] "%d е-порука је додато у ред за слање."
+
+#: src/WPML_Email_Log_List.php:260
+msgid "Unable to add email to the sending queue."
+msgid_plural "Unable to add emails to the sending queue."
+msgstr[0] "Није могуће додати е-поруку у ред за слање."
+msgstr[1] "Није могуће додати е-поруке у ред за слање."
+msgstr[2] "Није могуће додати е-поруке у ред за слање."
+
+#: src/WPML_Email_Log_List.php:249
+msgid "One of the emails failed to be deleted."
+msgid_plural "Some emails failed to be deleted."
+msgstr[0] "Брисање једне од е-порука није успело."
+msgstr[1] "Брисање неких е-порука није успело."
+msgstr[2] "Брисање неких е-порука није успело."
+
+#. translators: %d: Number of email logs that was successfully deleted.
+#: src/WPML_Email_Log_List.php:230
+msgid "%d email log was successfully deleted."
+msgid_plural "%d email logs were successfully deleted!"
+msgstr[0] "%d запис е-поште је успешно избрисан."
+msgstr[1] "%d записа е-поште су успешно избрисана!"
+msgstr[2] "%d записа е-поште је успешно избрисано!"
+
+#. translators: %s - Link to the SMTP page.
+#: src/Renderer/Format/BaseRenderer.php:233
+msgid "<strong>This email failed to send.</strong> <a href=\"%s\">Install WP Mail SMTP</a> to solve your deliverability issues."
+msgstr "<strong>Слање ове е-поруке није успело.</strong> <a href=\"%s\">Поставите WP Mail SMTP</a> да бисте решили проблеме са испоручивошћу."
+
+#: src/WPML_Email_Log_List.php:226
+msgid "Email log was successfully deleted."
+msgstr "Запис е-поште је успешно избрисан."
+
+#: src/WPML_Email_Log_List.php:216
+msgid "Unable to delete email log."
+msgid_plural "Unable to delete email logs."
+msgstr[0] "Није могуће избрисати запис е-поште."
+msgstr[1] "Није могуће избрисати записе е-поште."
+msgstr[2] "Није могуће избрисати записе е-поште."
+
+#. translators: %d - Email Log ID.
+#: src/Renderer/Format/BaseRenderer.php:144
+msgid "Email Log ID Content: %d"
+msgstr "Садржај записа е-поште са ID-ом: %d"
+
+#: src/Model/Email_Log_Collection.php:483
+msgid "Successful"
+msgstr "Успешно"
+
+#: src/inc/Admin/SMTPTab.php:440
+msgid "Free mailers: SendLayer, SMTP.com, Brevo (formerly Sendinblue), Google / Gmail, Mailgun, Postmark, SendGrid."
+msgstr "Бесплатне услуге слања: SendLayer, SMTP.com, Brevo (раније Sendinblue), Google / Gmail, Mailgun, Postmark, SendGrid."
+
+#: src/WPML_Email_Log_List.php:287
+msgid "One email failed to be added to the sending queue."
+msgid_plural "Some emails failed to be added to the sending queue."
+msgstr[0] "Додавање једне е-поруке у ред за слање није успело."
+msgstr[1] "Додавање неких е-порука у ред за слање није успело."
+msgstr[2] "Додавање неких е-порука у ред за слање није успело."
+
+#: src/inc/Admin/SMTPTab.php:337 src/inc/Admin/SMTPTab.php:550
+msgid "WP Mail SMTP Installed & Activated"
+msgstr "WP Mail SMTP је постављен и укључен"
+
+#: src/inc/Admin/ActiveLayerTab.php:294 src/inc/Admin/SMTPTab.php:338
+msgid "Download Now"
+msgstr "Преузми одмах"
+
+#: src/inc/Admin/ActiveLayerTab.php:292 src/inc/Admin/SMTPTab.php:336
+msgid "Installing..."
+msgstr "Постављање..."
+
+#: src/inc/Admin/ActiveLayerTab.php:291 src/inc/Admin/SMTPTab.php:335
+msgid "Activating..."
+msgstr "Укључивање у току..."
+
+#. translators: %s - ActiveLayer plugin download URL.
+#. translators: %s - Lite plugin download URL.
+#: src/inc/Admin/ActiveLayerTab.php:263 src/inc/Admin/SMTPTab.php:307
+msgid "Could not install the plugin automatically. Please <a href=\"%s\">download</a> it and install it manually."
+msgstr "Није могуће аутоматски поставити додатак. <a href=\"%s\">Преузмите</a> га и поставите ручно."
+
+#. translators: %s - Plugins page URL.
+#. translators: %s - Lite plugin download URL.
+#: src/inc/Admin/ActiveLayerTab.php:275 src/inc/Admin/SMTPTab.php:319
+msgid "Could not activate the plugin. Please activate it on the <a href=\"%s\">Plugins page</a>."
+msgstr "Није могуће укључити додатак. Укључите га на <a href=\"%s\">страници додатака</a>."
+
+#: src/inc/Admin/ActiveLayerTab.php:209 src/inc/Admin/SMTPTab.php:212
+msgid "Could not activate the plugin. Please activate it on the Plugins page."
+msgstr "Није могуће укључити додатак. Укључите га на страници додатака."
+
+#: src/inc/Admin/SMTPTab.php:230
+msgid "You do not have permission."
+msgstr "Немате дозволу."
+
+#: src/inc/Admin/ActiveLayerTab.php:206 src/inc/Admin/SMTPTab.php:209
+msgid "Plugin activated."
+msgstr "Додатак је укључен."
+
+#: src/inc/Admin/SMTPTab.php:239
+msgid "Plugin unavailable."
+msgstr "Додатак није доступан."
+
+#: src/inc/Admin/ActiveLayerTab.php:196 src/inc/Admin/SMTPTab.php:197
+msgid "Plugin activation is disabled for you on this site."
+msgstr "Укључивање додатака вам је онемогућено на овом сајту."
+
+#: src/inc/Admin/ActiveLayerTab.php:175 src/inc/Admin/SMTPTab.php:176
+msgid "Plugin installed & activated."
+msgstr "Додатак је постављен и укључен."
+
+#: src/inc/Admin/ActiveLayerTab.php:164 src/inc/Admin/SMTPTab.php:163
+msgid "Plugin installed."
+msgstr "Додатак је постављен."
+
+#: src/inc/Admin/ActiveLayerTab.php:105 src/inc/Admin/ActiveLayerTab.php:200
+#: src/inc/Admin/SMTPTab.php:102 src/inc/Admin/SMTPTab.php:201
+msgid "There was an error while performing your request."
+msgstr "Дошло је до грешке приликом извршавања вашег захтева."
+
+#: src/inc/Admin/ActiveLayerTab.php:111 src/inc/Admin/SMTPTab.php:108
+msgid "Could not install the plugin. Please download and install it manually."
+msgstr "Није могуће поставити додатак. Преузмите га и поставите ручно."
+
+#: src/inc/Admin/SettingsTab.php:358
+msgid "Save Settings"
+msgstr "Сачувај подешавања"
+
+#: src/inc/Admin/EmailLogsTab.php:578
+msgid "We know you'll love the powerful features in WP Mail SMTP. It's used by over 3,000,000 websites."
+msgstr "Знамо да ће вам се допасти моћне могућности WP Mail SMTP-а. Користи га преко 3.000.000 веб сајтова."
+
+#: src/inc/Admin/EmailLogsTab.php:548
+msgid "Email Reports"
+msgstr "Извештаји о е-пошти"
+
+#: src/inc/Admin/EmailLogsTab.php:477 src/inc/Admin/SMTPTab.php:532
+msgid "Install WP Mail SMTP"
+msgstr "Постави WP Mail SMTP"
+
+#: src/inc/Admin/EmailLogsTab.php:539
+msgid "Individual Log"
+msgstr "Појединачни дневник"
+
+#: src/inc/Admin/EmailLogsTab.php:530 src/inc/Admin/EmailLogsTab.php:630
+msgid "Email Logs"
+msgstr "Дневници е-поште"
+
+#: src/inc/Admin/SettingsTab.php:336
+msgid "Set up an automated cleanup routine that is triggered after a certain amount of time has passed."
+msgstr "Подесите самостално чишћење које се покреће након што протекне одређено време."
+
+#: src/inc/Admin/SettingsTab.php:347
+msgid "Delete email logs after this many days."
+msgstr "Бриши записе е-поште након оволико дана."
+
+#: src/inc/Admin/SettingsTab.php:361
+msgid "Reset to Default"
+msgstr "Врати на подразумевано"
+
+#: src/inc/Admin/SettingsTab.php:326
+msgid "Delete email logs after this amount has been reached."
+msgstr "Бриши записе е-поште када се достигне овај број."
+
+#: src/inc/Admin/SettingsTab.php:299
+msgid "Delete all WP Mail Logging data on deactivation."
+msgstr "Избриши све податке WP Mail Logging-а при искључивању."
+
+#: src/inc/Admin/SettingsTab.php:315
+msgid "Set up an automated cleanup routine that is triggered when a certain amount of logs have been saved."
+msgstr "Подесите самостално чишћење које се покреће када се сачува одређени број записа."
+
+#: src/inc/Admin/SettingsTab.php:288
+msgid "Disabling this will condense navigation and move WP Mail Log under the WordPress Tools menu."
+msgstr "Онемогућавањем овога навигација ће се сажети, а WP Mail Log ће бити премештен у Вордпресов изборник „Алатке“."
+
+#: src/inc/Admin/SettingsTab.php:290
+msgid "Top Level Menu"
+msgstr "Изборник највишег нивоа"
+
+#: src/inc/Admin/SettingsTab.php:268
+msgid "Display Attachments"
+msgstr "Прикажи прилоге"
+
+#: src/inc/Admin/SettingsTab.php:266
+msgid "Display the attachments in Email Logs table."
+msgstr "Прикажите прилоге у табели дневника е-поште."
+
+#: src/inc/Admin/SettingsTab.php:255
+msgid "Display the IP of the host WordPress is running on. This is useful when running WP Mail Logging on multiple servers at the same time."
+msgstr "Прикажите IP хоста на коме ради Вордпрес. Ово је корисно када WP Mail Logging истовремено ради на више сервера."
+
+#: src/inc/Admin/SettingsTab.php:230
+msgid "WP Date Time Format"
+msgstr "WP облик датума и времена"
+
+#: src/inc/Admin/SettingsTab.php:204
+msgid "Change your WP Mail Logging settings."
+msgstr "Промените подешавања WP Mail Logging-а."
+
+#: src/inc/Admin/EmailLogsTab.php:614
+msgid "Get WP Mail SMTP Pro"
+msgstr "Набави WP Mail SMTP Pro"
+
+#: src/inc/Admin/EmailLogsTab.php:610
+msgid "Take Your Email Logs to the Next level"
+msgstr "Подигните дневнике е-поште на виши ниво"
+
+#. translators: 1: URL to WP Mail SMTP pricing page 2: URL to WP Forms pricing
+#. page
+#: src/inc/Admin/EmailLogsTab.php:564
+msgid "Want more from your email logs? <strong><a target=\"_blank\" href=\"%1$s\">WP Mail SMTP Pro</a></strong> offers advanced email logging, failed email alerts, backup connections, email reports, email tracking, and much more!"
+msgstr "Желите више од својих дневника е-поште? <strong><a target=\"_blank\" href=\"%1$s\">WP Mail SMTP Pro</a></strong> нуди напредно бележење е-поште, упозорења о неуспелим е-порукама, резервне везе, извештаје о е-пошти, праћење е-поште и још много тога!"
+
+#: src/inc/Admin/EmailLogsTab.php:552
+msgid "Get weekly email summary"
+msgstr "Добијајте недељни сажетак е-поштом"
+
+#: src/inc/Admin/EmailLogsTab.php:550
+msgid "Generate deliverability charts"
+msgstr "Правите графиконе испоручивости"
+
+#: src/inc/Admin/EmailLogsTab.php:543
+msgid "Download sent attachments"
+msgstr "Преузимајте послате прилоге"
+
+#: src/inc/Admin/EmailLogsTab.php:551
+msgid "Review open & click statistics"
+msgstr "Прегледајте статистику отварања и притисака"
+
+#: src/inc/Admin/EmailLogsTab.php:542
+msgid "Track open and click data"
+msgstr "Пратите податке о отварању и притисцима"
+
+#: src/inc/Admin/EmailLogsTab.php:541
+msgid "Review technical details"
+msgstr "Прегледајте техничке детаље"
+
+#: src/inc/Admin/EmailLogsTab.php:473
+msgid "Heads up! WP Mail Logging has detected a problem sending emails."
+msgstr "Пажња! WP Mail Logging је открио проблем са слањем е-порука."
+
+#: src/inc/Admin/EmailLogsTab.php:533
+msgid "Resend emails"
+msgstr "Поново шаљите е-поруке"
+
+#: src/inc/Admin/EmailLogsTab.php:532
+msgid "See delivery status"
+msgstr "Погледајте стање испоруке"
+
+#: src/inc/Admin/EmailLogsTab.php:534
+msgid "View original email content"
+msgstr "Погледајте изворни садржај е-поруке"
+
+#: src/inc/Admin/EmailLogsTab.php:468
+msgid "Use the one-click install and setup wizard to fix your emails in minutes."
+msgstr "Користите постављање једним притиском и чаробњака за подешавање да бисте за неколико минута решили проблеме са е-поштом."
+
+#: src/inc/Admin/EmailLogsTab.php:467
+msgid "To solve email delivery issues, install WP Mail SMTP (free) - trusted by over 3,000,00 sites!"
+msgstr "Да бисте решили проблеме са испоруком е-поште, поставите WP Mail SMTP (бесплатно) – верује му преко 3.000.000 сајтова!"
+
+#. Author of the plugin
+#: wp-mail-logging.php
+msgid "WP Mail Logging Team"
+msgstr "WP Mail Logging тим"
+
+#. Author URI of the plugin
+#: wp-mail-logging.php
+msgid "https://github.com/awesomemotive/wp-mail-logging"
+msgstr "https://github.com/awesomemotive/wp-mail-logging"
+
+#: src/WPML_UserFeedback.php:148
+msgid "I already did"
+msgstr "Већ сам"
+
+#: src/WPML_UserFeedback.php:146
+msgid "Nope, maybe later"
+msgstr "Не, можда касније"
+
+#: src/WPML_Plugin.php:429 src/WPML_UserFeedback.php:116
+msgid "Yes"
+msgstr "Да"
+
+#: src/WPML_UserFeedback.php:127
+msgid "Give Feedback"
+msgstr "Пошаљите повратне податке"
+
+#: src/WPML_UserFeedback.php:132
+msgid "No thanks"
+msgstr "Не, хвала"
+
+#: src/WPML_UserFeedback.php:138
+msgid "~ WP Mail Logging team"
+msgstr "~ WP Mail Logging тим"
+
+#: src/WPML_UserFeedback.php:143
+msgid "OK, you deserve it"
+msgstr "У реду, заслужујете"
+
+#: src/WPML_UserFeedback.php:122
+msgid "We're sorry to hear you aren't enjoying WP Mail Logging. We would love a chance to improve. Could you take a minute and let us know what we can do better?"
+msgstr "Жао нам је што нисте задовољни WP Mail Logging-ом. Волели бисмо прилику да га побољшамо. Можете ли одвојити минут и рећи нам шта можемо да урадимо боље?"
+
+#: src/WPML_UserFeedback.php:137
+msgid "That’s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
+msgstr "Сјајно! Можете ли нам учинити ВЕЛИКУ услугу и дати му оцену од 5 звездица на Вордпресу да бисмо се прочули и добили више мотивације?"
+
+#: src/WPML_UserFeedback.php:118
+msgid "Not Really"
+msgstr "Не баш"
+
+#: src/WPML_UserFeedback.php:113
+msgid "Are you enjoying WP Mail Logging?"
+msgstr "Да ли сте задовољни WP Mail Logging-ом?"
+
+#: src/WPML_OptionsManager.php:409 src/WPML_OptionsManager.php:410
+#: src/WPML_Plugin.php:294
+msgid "Email Log"
+msgstr "Дневник е-поште"
+
+#. translators: %d Mail Log ID that was not removed.
+#: src/WPML_PrivacyController.php:138
+msgid "A mail with the id %d was unable to be removed at this time."
+msgstr "Е-порука са ID-ом %d тренутно не може да се уклони."
+
+#: src/WPML_PrivacyController.php:101
+msgid "Mails"
+msgstr "Е-поруке"
+
+#: src/WPML_PrivacyController.php:43
+msgid "When you use this site several actions (e.g. commenting) trigger the dispatch of emails. They contain information about you associated with your email address. Which data are part of these emails depends on the action performed. These emails are stored and accessible to the site management as log."
+msgstr "Када користите овај сајт, неке радње (нпр. коментарисање) покрећу слање е-порука. Оне садрже податке о вама повезане са вашом адресом е-поште. Који подаци су део тих е-порука зависи од извршене радње. Ове е-поруке се чувају и доступне су управи сајта као дневник."
+
+#: src/inc/Admin/SettingsTab.php:446
+msgid "On"
+msgstr "Укључено"
+
+#: src/inc/Admin/SettingsTab.php:447
+msgid "Off"
+msgstr "Искључено"
+
+#: src/WPML_Email_Log_List.php:819
+msgid "Delete"
+msgstr "Избриши"
+
+#: src/Model/Email_Log_Collection.php:482
+msgid "All"
+msgstr "Све"
+
+#: src/inc/Admin/SettingsTab.php:203
+msgid "General Settings"
+msgstr "Општа подешавања"
+
+#: src/WPML_Plugin.php:430
+msgid "Cancel"
+msgstr "Откажи"
+
+#: src/inc/class-wp-list-table.php:720
+msgid "Select All"
+msgstr "Одабери све"
+
+#: src/inc/class-wp-list-table.php:584
+msgid "Go to the last page"
+msgstr "Иди на последњу страну"
+
+#: src/inc/class-wp-list-table.php:577
+msgid "Go to the next page"
+msgstr "Иди на следећу страну"
+
+#: src/inc/class-wp-list-table.php:573
+msgctxt "paging"
+msgid "%1$s of %2$s"
+msgstr "%1$s од %2$s"
+
+#: src/inc/class-wp-list-table.php:567
+msgid "Current page"
+msgstr "Тренутна страна"
+
+#: src/inc/class-wp-list-table.php:558
+msgid "Go to the previous page"
+msgstr "Иди на предходну страну"
+
+#: src/inc/class-wp-list-table.php:551
+msgid "Go to the first page"
+msgstr "Иди на прву страну"
+
+#: src/inc/class-wp-list-table.php:438
+msgid "List View"
+msgstr "Преглед у списку"
+
+#. translators: 1: month name, 2: 4-digit year
+#: src/inc/class-wp-list-table.php:422
+msgid "%1$s %2$d"
+msgstr "%1$s %2$d"
+
+#: src/inc/class-wp-list-table.php:191
+msgid "No items found."
+msgstr "Нема пронађених ставки."
+
+#: src/inc/class-wp-list-table.php:325
+msgid "Apply"
+msgstr "Прихвати"
+
+#: src/WPML_OptionsManager.php:615
+msgid "Author"
+msgstr "Аутор"
+
+#: src/WPML_OptionsManager.php:613
+msgid "Editor"
+msgstr "Уређивач"
+
+#: src/inc/Admin/EmailLogsTab.php:723 src/WPML_OptionsManager.php:581
+msgid "Search"
+msgstr "Претражи"
+
+#: src/Renderer/Format/BaseRenderer.php:57
+#: src/Renderer/WPML_ColumnManager.php:50
+msgid "Error"
+msgstr "Грешка"
+
+#: src/Renderer/Format/BaseRenderer.php:58
+msgid "Headers"
+msgstr "Заглавља"
+
+#: src/WPML_LifeCycle.php:215 src/WPML_OptionsManager.php:420
+#: src/WPML_OptionsManager.php:421 src/WPML_Plugin.php:304
+msgid "Settings"
+msgstr "Подешаванја"
+
+#: src/inc/Admin/EmailLogsTab.php:678 src/Renderer/Format/BaseRenderer.php:59
+#: src/WPML_Email_Log_List.php:520
+msgid "Message"
+msgstr "Порука"
+
+#: src/Renderer/Format/BaseRenderer.php:56
+#: src/Renderer/WPML_ColumnManager.php:48
+msgid "Subject"
+msgstr "Предмет"
+
+#: src/Renderer/Format/BaseRenderer.php:54
+#: src/Renderer/WPML_ColumnManager.php:45
+msgid "Time"
+msgstr "Време"
+
+#: src/Renderer/WPML_ColumnManager.php:44
+msgid "ID"
+msgstr "ID"
+
+#. Plugin URI of the plugin
+#: wp-mail-logging.php
+msgid "https://wordpress.org/plugins/wp-mail-logging/"
+msgstr "https://wordpress.org/plugins/wp-mail-logging/"
+
+#. Plugin Name of the plugin
+#: wp-mail-logging.php src/WPML_OptionsManager.php:363
+#: src/WPML_OptionsManager.php:400 src/WPML_OptionsManager.php:401
+#: src/WPML_PrivacyController.php:54 src/WPML_PrivacyController.php:62
+msgid "WP Mail Logging"
+msgstr "WP Mail Logging"
+
+#: wp-mail-logging.php:33
+msgid "Minimal version of PHP required: "
+msgstr "Најмање потребно издање PHP-а: "
+
+#: wp-mail-logging.php:34
+msgid "Your server's PHP version: "
+msgstr "PHP издање вашег сервера: "
+
+#: wp-mail-logging.php:32
+msgid "Error: plugin \"WP Mail Logging\" requires a newer version of PHP to be running."
+msgstr "Грешка: додатак „WP Mail Logging“ захтева новије издање PHP-а."
+
+#: src/inc/Admin/SettingsTab.php:138 src/inc/Admin/SettingsTab.php:155
+msgid "Settings saved!"
+msgstr "Подешавања су сачувана!"
+
+#: src/inc/Admin/SettingsTab.php:338
+msgid "Cleanup by Time"
+msgstr "Чишћење по времену"
+
+#: src/inc/Admin/SettingsTab.php:317
+msgid "Cleanup by Amount"
+msgstr "Чишћење по броју"
+
+#: src/inc/Admin/SettingsTab.php:310
+msgid "Save space by deleting logs regularly."
+msgstr "Уштедите простор редовним брисањем записа."
+
+#: src/inc/Admin/SettingsTab.php:257
+msgid "Display Host"
+msgstr "Прикажи хост"
+
+#: src/inc/Admin/SettingsTab.php:239
+msgid "Select your preferred display format."
+msgstr "Изаберите жељени облик приказа."
+
+#: src/inc/Admin/SettingsTab.php:241
+msgid "Default Format for Message"
+msgstr "Подразумевани облик поруке"
+
+#. translators: %s: Date time in WP format.
+#: src/inc/Admin/SettingsTab.php:221
+msgid "Use format from WordPress settings (%s)"
+msgstr "Користи облик из Вордпресових подешавања (%s)"
+
+#: src/inc/Admin/SettingsTab.php:212
+msgid "Can See Submission data"
+msgstr "Може да види послате податке"
+
+#: src/inc/class-wp-list-table.php:533 src/inc/class-wp-list-table.php:948
+msgid "1 item"
+msgid_plural "%s items"
+msgstr[0] "%s ставка"
+msgstr[1] "%s ставке"
+msgstr[2] "%s ставки"
+
+#: src/inc/Admin/SettingsTab.php:301
+msgid "Cleanup"
+msgstr "Чишћење"
+
+#: src/inc/class-wp-list-table.php:465
+msgid "%s pending"
+msgstr "%s на чекању"
+
+#: src/inc/class-wp-list-table.php:439
+msgid "Excerpt View"
+msgstr "Приказ исечка"
+
+#: src/inc/class-wp-list-table.php:409
+msgid "Show all dates"
+msgstr "Прикажи све датуме"
+
+#: src/inc/class-wp-list-table.php:315
+msgid "Bulk Actions"
+msgstr "Групне радње"
+
+#: src/WPML_OptionsManager.php:621
+msgid "Anyone"
+msgstr "Било ко"
+
+#: src/WPML_OptionsManager.php:619
+msgid "Subscriber"
+msgstr "Претплатник"
+
+#: src/WPML_OptionsManager.php:617
+msgid "Contributor"
+msgstr "Сарадник"
+
+#: src/WPML_OptionsManager.php:611
+msgid "Administrator"
+msgstr "Администратор"
+
+#: src/WPML_OptionsManager.php:608
+msgid "false"
+msgstr "нетачно"
+
+#: src/WPML_OptionsManager.php:606
+msgid "true"
+msgstr "тачно"
+
+#: src/WPML_OptionsManager.php:528 src/WPML_OptionsManager.php:566
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Немате довољно дозвола за приступ овој страници."
+
+#: src/WPML_OptionsManager.php:362
+msgid "WP Mail Log"
+msgstr "WP Mail Log"
+
+#: src/WPML_OptionsManager.php:377
+msgid "Entries per page"
+msgstr "Уноса по страници"
+
+#. translators: %s filename of the attachment that doesn't exist.
+#: src/Renderer/Column/AttachmentsColumn.php:50
+#: src/Renderer/Column/AttachmentsColumn.php:81
+msgid "Attachment %s is not present"
+msgstr "Прилог %s није присутан"
+
+#: src/Renderer/Format/BaseRenderer.php:66
+#: src/Renderer/WPML_ColumnManager.php:46
+msgid "Host"
+msgstr "Хост"
+
+#: src/Renderer/Format/BaseRenderer.php:60
+#: src/Renderer/WPML_ColumnManager.php:49
+msgid "Attachments"
+msgstr "Прилози"
+
+#: src/Renderer/Format/BaseRenderer.php:55
+#: src/Renderer/WPML_ColumnManager.php:47
+msgid "Receiver"
+msgstr "Прималац"
+
+#: src/WPML_Email_Log_List.php:339
+msgid "No email found."
+msgstr "Није пронађена е-порука."
+
+#. Description of the plugin
+#: wp-mail-logging.php
+msgid "Logs each email sent by WordPress."
+msgstr "Бележи сваку е-поруку коју пошаље Вордпрес."

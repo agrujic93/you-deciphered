@@ -43,13 +43,6 @@ class Avatar extends Base {
 	private $_avatar_realtime_gen_dict = [];
 
 	/**
-	 * Summary/status data for last requests.
-	 *
-	 * @var array<string,mixed>
-	 */
-	protected $_summary;
-
-	/**
 	 * Init.
 	 *
 	 * @since 1.4
@@ -117,9 +110,13 @@ class Avatar extends Base {
 			return;
 		}
 
-		$url = $this->_generate( $url );
+		$generated_url = $this->_generate( $url );
+		if ( $generated_url === $url ) {
+			self::debug( '[Avatar] generation failed; bypassing redirect' );
+			return;
+		}
 
-		wp_safe_redirect( $url );
+		wp_safe_redirect( $generated_url );
 		exit;
 	}
 
@@ -304,27 +301,16 @@ class Avatar extends Base {
 			]
 		);
 
-		// Ensure cache directory exists
-		$this->_maybe_mk_cache_folder( 'avatar' );
-
-		$response = wp_safe_remote_get(
-			$url,
-			[
-				'timeout'  => 180,
-				'stream'   => true,
-				'filename' => $file,
-			]
-		);
-
+		$temp = File::download( $url, $file, 180 );
 		self::debug( '[Avatar] _generate [url] ' . $url );
-
-		// Parse response data
-		if ( is_wp_error( $response ) ) {
-			$error_message = $response->get_error_message();
-			if ( file_exists( $file ) ) {
-				wp_delete_file( $file );
-			}
-			self::debug( '[Avatar] failed to get: ' . $error_message );
+		if ( is_wp_error( $temp ) ) {
+			self::debug( '[Avatar] failed to get: ' . $temp->get_error_code() );
+			return $url;
+		}
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		if ( false === @getimagesize( $temp ) || ! File::publish_temp_file( $temp, $file ) ) {
+			wp_delete_file( $temp );
+			self::debug( '[Avatar] failed to validate or save the image.' );
 			return $url;
 		}
 

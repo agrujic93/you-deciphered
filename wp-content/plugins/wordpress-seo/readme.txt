@@ -5,7 +5,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: SEO, XML sitemap, Content analysis, Readability, Schema
 Tested up to: 7.1
-Stable tag: 28.3
+Stable tag: 28.6
 Requires PHP: 7.4
 
 Real-time SEO guidance, schema, and AI built in. Help search engines and AI systems understand your content. All AI tools included, no hidden fees.
@@ -307,43 +307,40 @@ Your question has most likely been answered on our help center: [yoast.com/help/
 
 == Changelog ==
 
-= 28.3 =
+= 28.6 =
 
-Release date: 2026-08-18
-
-Yoast SEO 28.3 brings more enhancements and bugfixes. [Find more information about our software releases and updates here](https://yoa.st/releases).
+Release date: 2026-09-29
 
 #### Enhancements
 
-* Adds a schemamap.xml file at the site root that exposes the aggregated schema map.
-* Adds the failing object's type and ID to the SEO data optimization error report when an indexable cannot be built.
-* Improves performance when running the SEO optimization by warming post and term caches in bulk.
-* Improves the performance of generating XML sitemaps by warming post, term and featured-image caches in bulk.
+* Don't show a post type in the Bulk editor if `Enable SEO controls and assessments` is turned off for that post type.
+* Introduces 2 new Yoast Abilities, to allow agents to get and update SEO data for given posts.
 
 #### Bugfixes
 
-* Fixes a bug where the AI Content Planner inserted an empty paragraph block before the template blocks when a post type had a block template registered.
+* Adds a notice to the bulk editor explaining that no content types are available when *Enable SEO controls and assessments* is disabled for all post types, with a link to the settings page.
+* Fixes a bug where a `rest_invalid_content_type` error would be logged in the browser console when opening the bulk editor while *Enable SEO controls and assessments* was disabled for all post types.
 
 #### Other
 
-* Adds a first-time guided tour to the bulk editor.
-* Sets the minimum supported WordPress version to 6.9.
-* Sets the _WordPress tested up to_ version to 7.1.
+* Adds two new cards for the Schema aggregator and the WordPress abilities API features.
+* Adjust the name and description of the setting's toggle controlling the breadcrumbs' rendering to state clearly its intended behaviour.
+* Re-groups the integrations' cards in the `Integrations` page.
 
-= 28.2 =
+= 28.5 =
 
-Release date: 2026-08-04
+Release date: 2026-09-15
 
-Yoast SEO 28.2 brings more enhancements and bugfixes. [Find more information about our software releases and updates here](https://yoa.st/releases).
+Yoast SEO 28.5 brings more enhancements and bugfixes. [Find more information about our software releases and updates here](https://yoa.st/releases).
 
 #### Bugfixes
 
-* Fixes a bug where the overall SEO score was lowered when the focus keyphrase did not consist of function words only. Props to [@faisalahammad](https://github.com/faisalahammad).
-* Fixes a bug where an uncaught fatal error was thrown in the post editor on sites using the OAuth connection to MyYoast, when the `AUTH_KEY` salt in wp-config.php was set to a non-string value.
+* Fixes a bug where the SEO data optimization would loop endlessly when an indexing batch was repeatedly returned without being processed.
 
 #### Other
 
-* Prevents Yoast SEO Abilities from being registered when indexables are disabled.
+* Adds a link with more information about social previews to the social appearance sections of the editor.
+* Updates the plugin's app URL and logo that are used when initiating the MyYoast connection.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/yoast-seo-changelog).

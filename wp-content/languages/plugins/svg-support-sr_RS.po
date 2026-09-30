@@ -1,0 +1,598 @@
+# Translation of Plugins - SVG Support - Stable (latest release) in Serbian
+# This file is distributed under the same license as the Plugins - SVG Support - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2026-09-28 12:40:26+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
+"X-Generator: GlotPress/4.1.0\n"
+"Language: sr_RS\n"
+"Project-Id-Version: Plugins - SVG Support - Stable (latest release)\n"
+
+#: functions/enqueue.php:56
+msgid "Couldn't save — retrying on next change"
+msgstr "Није могуће сачувати — покушаће се поново при следећој измени"
+
+#: admin/svgs-settings-page.php:348
+msgid "ShortPixel reduces the size of your JPG and PNG images with no visible quality loss — originals are kept in a backup folder. If you upgrade to a paid plan, I'll receive a small commission."
+msgstr "ShortPixel смањује величину ваших JPG и PNG слика без видљивог губитка квалитета — оригинали се чувају у фасцикли за резерве. Ако надоградите на плаћени план, добићу малу провизију."
+
+#: admin/svgs-settings-page.php:350
+msgid "Try ShortPixel for free"
+msgstr "Испробајте ShortPixel бесплатно"
+
+#: functions/enqueue.php:55
+msgid "Changes saved"
+msgstr "Измене су сачуване"
+
+#: functions/enqueue.php:54 functions/enqueue.php:58
+msgid "Saving…"
+msgstr "Чување..."
+
+#: functions/enqueue.php:59
+msgid "Saved"
+msgstr "Сачувано"
+
+#: admin/svgs-settings-page.php:334
+msgid "Leave a review"
+msgstr "Оставите рецензију"
+
+#: admin/svgs-settings-page.php:340
+msgid "Optimize your images"
+msgstr "Оптимизујте своје слике"
+
+#: admin/svgs-settings-page.php:319
+msgid "GitHub"
+msgstr "GitHub"
+
+#: admin/svgs-settings-page.php:326
+msgid "Need a hand? Support is handled personally through the WordPress.org forums. And if you're enjoying SVG Support, a quick five-star review means the world."
+msgstr "Потребна вам је помоћ? Подршка се пружа лично преко WordPress.org форума. А ако уживате у SVG Support-у, кратка рецензија са пет звездица много значи."
+
+#: admin/svgs-settings-page.php:329
+msgid "Get support"
+msgstr "Тражи подршку"
+
+#: admin/svgs-settings-page.php:325
+msgid "Support & reviews"
+msgstr "Подршка и рецензије"
+
+#: admin/svgs-settings-page.php:319
+msgid "WordPress.org"
+msgstr "sr.WordPress.org"
+
+#: admin/svgs-settings-page.php:315
+msgid "Visit svg.support"
+msgstr "Посетите svg.support"
+
+#: admin/svgs-settings-page.php:313
+msgid "Guides for inline rendering, styling and animating SVGs — plus handy tools for animating and optimizing your files — all on the new site."
+msgstr "Водичи за уметнути приказ, обликовање и анимирање SVG-ова — уз корисне алате за анимирање и оптимизацију датотека — све на новом сајту."
+
+#: admin/svgs-settings-page.php:304
+msgid "Ethereum donation address QR code"
+msgstr "QR кôд Ethereum адресе за донације"
+
+#: admin/svgs-settings-page.php:312
+msgid "Tutorials & tools"
+msgstr "Упутства и алати"
+
+#: admin/svgs-settings-page.php:294
+msgid "Bitcoin donation address QR code"
+msgstr "QR кôд Bitcoin адресе за донације"
+
+#: admin/svgs-settings-page.php:290 admin/svgs-settings-page.php:300
+msgid "Show QR code"
+msgstr "Прикажи QR кôд"
+
+#: admin/svgs-settings-page.php:285
+msgid "Donate via PayPal"
+msgstr "Донирај преко PayPal-а"
+
+#: admin/svgs-settings-page.php:282
+msgid "If it's useful, a donation keeps it going."
+msgstr "Ако вам је користан, донација помаже да се настави."
+
+#: admin/svgs-settings-page.php:282
+msgid "Maintained by one person since 2013."
+msgstr "Одржава га једна особа од 2013."
+
+#: admin/svgs-settings-page.php:281
+msgid "active installs and counting"
+msgstr "активних постављања и број расте"
+
+#: admin/svgs-settings-page.php:259
+msgid "Removes all settings and metadata when the plugin is deleted. This cannot be undone."
+msgstr "Уклања сва подешавања и мета податке када се додатак избрише. Ово се не може опозвати."
+
+#: admin/svgs-settings-page.php:238
+msgid "(Classic Editor only) Inserts the target class into IMG tags when you embed an SVG in a post, and strips the default WordPress classes. Only affects SVG files."
+msgstr "(Само класични уређивач) Умеће циљну класу у IMG ознаке када уградите SVG у чланак и уклања подразумеване Вордпрес класе. Утиче само на SVG датотеке."
+
+#: admin/svgs-settings-page.php:258 admin/svgs-settings-page.php:262
+msgid "Delete plugin data on uninstall"
+msgstr "Избриши податке додатка при уклањању"
+
+#: admin/svgs-settings-page.php:231
+msgid "<strong>Use with caution!</strong> Automatically adds the target class to ALL image tags with SVG sources, rendering every SVG on your site inline. Useful when a page builder won't let you add a CSS class to an image."
+msgstr "<strong>Користите опрезно!</strong> Аутоматски додаје циљну класу СВИМ ознакама слика са SVG изворима, чиме се сваки SVG на вашем сајту приказује уметнуто. Корисно када градитељ страница не дозвољава додавање CSS класе слици."
+
+#: admin/svgs-settings-page.php:220
+msgid "Load the readable, non-minified script — useful if a caching plugin minifies your scripts externally."
+msgstr "Учитај читљиву, неумањену скрипту — корисно ако додатак за оставу споља умањује ваше скрипте."
+
+#: admin/svgs-settings-page.php:213
+msgid "Load the dependency-free script instead of the jQuery version."
+msgstr "Учитај скрипту без зависности уместо jQuery издања."
+
+#: admin/svgs-settings-page.php:206
+msgid "Place the inline-rendering script before the closing body tag instead of in the head. Requires your theme to call wp_footer()."
+msgstr "Постави скрипту за уметнути приказ пре завршне body ознаке уместо у head. Захтева да ваша тема позива wp_footer()."
+
+#: admin/svgs-settings-page.php:198
+msgid "Only inline the first SVG in a target container — useful for Gutenberg Cover blocks with nested SVG images."
+msgstr "Уметни само први SVG у циљном контејнеру — корисно за Gutenberg Cover блокове са угнежђеним SVG сликама."
+
+#: admin/svgs-settings-page.php:187
+msgid "in your content"
+msgstr "у вашем садржају"
+
+#: admin/svgs-settings-page.php:183
+msgid "Set your own class here, or leave blank to use the default. The plugin traverses any depth below an element carrying the class and replaces child IMG tags with SVG sources."
+msgstr "Овде поставите сопствену класу или оставите празно за подразумевану. Додатак пролази кроз све нивое испод елемента са класом и замењује подређене IMG ознаке са SVG изворима."
+
+#: admin/svgs-settings-page.php:172
+msgid "Turn on Advanced Mode to unlock inline rendering, styling and animation options."
+msgstr "Укључите напредни режим да откључате могућности уметнутог приказа, обликовања и анимације."
+
+#: admin/svgs-settings-page.php:159
+msgid "Inline rendering, styling and animation. Adds a small JS file to your front-end."
+msgstr "Уметнути приказ, обликовање и анимација. Додаје малу JS датотеку на предњи крај."
+
+#: admin/svgs-settings-page.php:140
+msgid "Auto-minify all SVG uploads to keep file sizes small."
+msgstr "Аутоматски умањуј сва SVG отпремања да величина датотека остане мала."
+
+#: admin/svgs-settings-page.php:126
+msgid "Select the user roles that should bypass SVG sanitization on upload. Leave empty unless you fully trust a role's uploads."
+msgstr "Изаберите корисничке улоге које треба да заобиђу чишћење SVG-а при отпремању. Оставите празно осим ако у потпуности верујете отпремањима неке улоге."
+
+#: admin/svgs-settings-page.php:120
+msgid "Select the user roles that are allowed to upload SVG files. Only give upload permission to roles you trust."
+msgstr "Изаберите корисничке улоге којима је дозвољено отпремање SVG датотека. Дозволу за отпремање дајте само улогама којима верујете."
+
+#: admin/svgs-settings-page.php:112
+msgid "Uploads, sanitization and performance."
+msgstr "Отпремања, чишћење и перформансе."
+
+#: admin/svgs-settings-page.php:111
+msgid "General"
+msgstr "Опште"
+
+#: admin/svgs-settings-page.php:92
+msgid "Enable Advanced Mode to embed your full SVG inline via a simple"
+msgstr "Омогућите напредни режим да уградите цео SVG уметнуто помоћу једноставне"
+
+#: admin/svgs-settings-page.php:94
+msgid "class, then target its internal elements with plain CSS. For help, check the Help tab (top right) or the tutorials at"
+msgstr "класе, а затим циљајте њене унутрашње елементе обичним CSS-ом. За помоћ погледајте језичак „Помоћ“ (горе десно) или упутства на"
+
+#: admin/svgs-settings-page.php:90
+msgid "Style SVGs with CSS — easily."
+msgstr "Обликујте SVG-ове помоћу CSS-а — лако."
+
+#: admin/svgs-settings-page.php:82 functions/enqueue.php:53
+msgid "All changes saved"
+msgstr "Све измене су сачуване"
+
+#: admin/admin-init.php:96
+msgid "Invalid settings payload."
+msgstr "Неисправан садржај подешавања."
+
+#: admin/svgs-settings-page.php:251
+msgid "Danger zone"
+msgstr "Опасна зона"
+
+#: admin/svgs-settings-page.php:225
+msgid "Legacy settings"
+msgstr "Застарела подешавања"
+
+#: includes/svg-tags.php:32
+msgid "SVG Support: SVG Sanitizer library not found. Some features may be limited."
+msgstr "SVG Support: библиотека SVG Sanitizer није пронађена. Неке функције могу бити ограничене."
+
+#: functions/attachment.php:521
+msgid "SVG sanitization failed for security reasons."
+msgstr "Чишћење SVG-а није успело из безбедносних разлога."
+
+#: functions/attachment.php:339 functions/attachment.php:364
+msgid "File is not a valid SVG."
+msgstr "Датотека није исправан SVG."
+
+#: functions/attachment.php:380
+msgid "Security check failed."
+msgstr "Безбедоносна провера није успела."
+
+#: admin/svgs-settings-page.php:197
+msgid "Skip nested SVGs"
+msgstr "Прескочи угнежђене SVG-ове"
+
+#: admin/svgs-settings-page.php:345
+msgid "ShortPixel logo"
+msgstr "Логотип ShortPixel"
+
+#. translators: %1$s: Opening strong tag, %2$s: Closing strong tag, %3$s:
+#. Opening anchor tag for rating link, %4$s: Closing anchor tag
+#: admin/admin-init.php:240
+msgid "If you like %1$sSVG Support%2$s please leave a %3$s★★★★★%4$s rating. A huge thanks in advance!"
+msgstr "Ако вам се свиђа %1$sSVG Support%2$s, оставите оцену %3$s★★★★★%4$s. Унапред велико хвала!"
+
+#: admin/svgs-settings-page.php:181
+msgid "The default target class is"
+msgstr "Подразумевана циљна класа је"
+
+#: admin/svgs-settings-page.php:124
+msgid "Do not sanitize for these roles"
+msgstr "Не чисти за ове улоге"
+
+#: admin/svgs-settings-page.php:118
+msgid "Restrict SVG uploads to"
+msgstr "Ограничи SVG отпремања на"
+
+#: admin/svgs-settings-page.php:212
+msgid "Use vanilla JS"
+msgstr "Користи обичан JS"
+
+#: admin/svgs-settings-page.php:133
+msgid "Enhance security by sanitizing SVG images on the front-end. This helps prevent XSS and injection attacks."
+msgstr "Побољшајте безбедност чишћењем SVG слика на предњем крају. Ово помаже у спречавању XSS напада и напада убацивањем."
+
+#: admin/svgs-settings-page.php:132
+msgid "Sanitize SVG on front-end"
+msgstr "Чисти SVG на предњем крају"
+
+#: functions/attachment.php:402
+msgid "Sorry, this file couldn't be sanitized for security reasons and wasn't uploaded."
+msgstr "Нажалост, ова датотека није могла да се очисти из безбедносних разлога и није отпремљена."
+
+#: admin/svgs-settings-page.php:139
+msgid "Minify SVG"
+msgstr "Умањи SVG"
+
+#: admin/svgs-settings-page-help.php:84
+msgid "You can set this target class on any element and the script will traverse all children of that target element looking for IMG tags with SVG in the src to replace."
+msgstr "Ову циљну класу можете поставити на било који елемент и скрипта ће проћи кроз све подређене елементе тог циљног елемента тражећи IMG ознаке са SVG-ом у src за замену."
+
+#: admin/svgs-settings-page-help.php:63
+msgid "If you want to enable sanitization or minification of uploaded SVG files, please enable advanced settings and then enable sanitization and/or minification."
+msgstr "Ако желите да омогућите чишћење или умањивање отпремљених SVG датотека, омогућите напредна подешавања, а затим омогућите чишћење и/или умањивање."
+
+#: admin/svgs-settings-page-help.php:61
+msgid "You can simply upload SVG files to your media library like any other image.<br>Make sure to select \"Restrict to Administrators\" if you only want to allow admins to upload SVG files."
+msgstr "SVG датотеке можете једноставно отпремити у библиотеку медија као и било коју другу слику.<br>Обавезно изаберите „Restrict to Administrators“ ако желите да само администраторима дозволите отпремање SVG датотека."
+
+#: admin/plugin-action-meta-links.php:36
+msgid "Leave a Review"
+msgstr "Остави рецензију"
+
+#: admin/svgs-settings-page.php:147
+msgid "A very small piece of CSS that helps with displaying SVGs on the front-end in some cases."
+msgstr "Веома мали део CSS-а који у неким случајевима помаже при приказу SVG-ова на предњем крају."
+
+#: admin/svgs-settings-page.php:146
+msgid "Load front-end CSS"
+msgstr "Учитај CSS предњег краја"
+
+#. Description of the plugin
+#: svg-support.php
+msgid "Upload SVG files to the Media Library and render SVG files inline for direct styling/animation of an SVG's internal elements using CSS/JS."
+msgstr "Отпремајте SVG датотеке у библиотеку медија и приказујте SVG датотеке уметнуто ради директног обликовања/анимирања унутрашњих елемената SVG-а помоћу CSS-а/JS-а."
+
+#: admin/svgs-settings-page-help.php:157
+msgid "<a target=\"_blank\" href=\"https://wordpress.org/support/plugin/svg-support\">SVG Support Forum</a>"
+msgstr "<a target=\"_blank\" href=\"https://wordpress.org/support/plugin/svg-support\">SVG Support форум</a>"
+
+#: admin/svgs-settings-page-help.php:156
+msgid "For more help, visit:"
+msgstr "За више помоћи посетите:"
+
+#: admin/svgs-settings-page-help.php:147
+msgid "DONATIONS"
+msgstr "ДОНАЦИЈЕ"
+
+#: admin/svgs-settings-page-help.php:142
+msgid "(You don't need to send me that much though, anything is appreciated!)"
+msgstr "(Не морате ми слати толико, свака сума се цени!)"
+
+#: admin/svgs-settings-page-help.php:142
+msgid "My Coinbase referral link will get $10 USD worth of BTC for free when you spend $100."
+msgstr "Моја Coinbase веза за препоруку донеће вам бесплатно BTC у вредности од 10 USD када потрошите 100 USD."
+
+#: admin/svgs-settings-page-help.php:142
+msgid "Need to buy some crypto to donate?"
+msgstr "Треба вам мало криптовалуте за донацију?"
+
+#: admin/svgs-settings-page-help.php:140
+msgid "ETH: 0x599695Eb51aFe2e5a0DAD60aD9c89Bc8f10B54f4"
+msgstr "ETH: 0x599695Eb51aFe2e5a0DAD60aD9c89Bc8f10B54f4"
+
+#: admin/svgs-settings-page-help.php:140
+msgid "LTC: LUnQPJrSk6cVFmMqBMv5FAqweJbnzRUz4o"
+msgstr "LTC: LUnQPJrSk6cVFmMqBMv5FAqweJbnzRUz4o"
+
+#: admin/svgs-settings-page-help.php:140
+msgid "BTC: 1qF8r2HkTLifND7WLGfWmvxfXc9ze55DZ"
+msgstr "BTC: 1qF8r2HkTLifND7WLGfWmvxfXc9ze55DZ"
+
+#: admin/svgs-settings-page-help.php:140
+msgid "PayPal: "
+msgstr "PayPal: "
+
+#: admin/svgs-settings-page-help.php:138
+msgid "Donation Methods:"
+msgstr "Начини донирања:"
+
+#: admin/svgs-settings-page-help.php:136
+msgid "SVG Support (this plugin) has grown to be used by over 1 million websites actively and is maintained solely by one person. I couldn't possibly tell you how many hours have gone into the development, maintenance and support of this plugin. If you find it useful and would like to donate to help keep it going, that would be amazing! I truly appreciate the support and how far this has come."
+msgstr "SVG Support (овај додатак) данас активно користи више од милион веб сајтова, а одржава га само једна особа. Тешко је и рећи колико је сати уложено у развој, одржавање и подршку овог додатка. Ако вам је користан и желите да донирате да би наставио да постоји, то би било сјајно! Искрено ценим подршку и то докле је ово стигло."
+
+#: admin/svgs-settings-page-help.php:121
+msgid "Then there's the option of animating the SVG file itself. There is a number of online tools to do this, or you can use the software of your choice. Once your SVG is animated and ready to go, you then upload it like any other image to your WordPress media library. When you embed it on a page/post, you will need to make sure to add the class to the IMG tag so SVG Support can render it inline. This will ensure your animations are displayed."
+msgstr "Постоји и могућност анимирања саме SVG датотеке. Постоји низ алата на мрежи за то, а можете користити и софтвер по свом избору. Када је SVG анимиран и спреман, отпремите га као и сваку другу слику у Вордпрес библиотеку медија. Када га уградите у страницу/чланак, морате додати класу IMG ознаци да би га SVG Support приказао уметнуто. Тако ће се ваше анимације приказивати."
+
+#: admin/svgs-settings-page-help.php:134
+msgid "Donations"
+msgstr "Донације"
+
+#: admin/svgs-settings-page-help.php:119
+msgid "Before you upload your SVG, you're going to need some classes to target inside your SVG. To do this, open your SVG file in the code editor of choice (I use Sublime Text). You will see each element within your SVG file written in XML code. Each little part of your SVG has it's own bit of code, so it's up to you which ones you want to target. It's in here that you'll place your new classes on each element you want to target."
+msgstr "Пре него што отпремите SVG, биће вам потребне неке класе за циљање унутар SVG-а. Да бисте то урадили, отворите SVG датотеку у уређивачу кода по избору (ја користим Sublime Text). Видећете сваки елемент SVG датотеке записан у XML коду. Сваки делић SVG-а има сопствени део кода, па је на вама које желите да циљате. Управо овде постављате нове класе на сваки елемент који желите да циљате."
+
+#: admin/svgs-settings-page-help.php:119
+msgid "First, let's talk about using CSS or JS to target elements within your SVG."
+msgstr "Прво, хајде да разговарамо о коришћењу CSS-а или JS-а за циљање елемената унутар SVG-а."
+
+#: admin/svgs-settings-page-help.php:117
+msgid "So you want to animate your SVG?"
+msgstr "Дакле, желите да анимирате свој SVG?"
+
+#: admin/svgs-settings-page-help.php:115 admin/svgs-settings-page-help.php:126
+msgid "Animation"
+msgstr "Анимације"
+
+#: admin/svgs-settings-page-help.php:103
+msgid "Publish, Save Draft, or Update the post a final time to render the SVG inline."
+msgstr "Последњи пут објавите, сачувајте нацрт или ажурирајте чланак да би се SVG приказао уметнуто."
+
+#: admin/svgs-settings-page-help.php:103
+msgid "Once the screen reloads, click the new checkbox below the featured image to render your SVG inline."
+msgstr "Када се екран поново учита, означите нову кућицу испод издвојене слике да би се SVG приказао уметнуто."
+
+#: admin/svgs-settings-page-help.php:117
+msgid "There's a number of ways you can animate an SVG. You could use CSS or JS to target elements within your SVG or even embed the animations in the file itself. Whichever way you choose, there is always a little bit of preparation required before uploading your SVG to your media library."
+msgstr "Постоји више начина да анимирате SVG. Можете користити CSS или JS за циљање елемената унутар SVG-а или чак уградити анимације у саму датотеку. Који год начин изаберете, увек је потребно мало припреме пре отпремања SVG-а у библиотеку медија."
+
+#: admin/svgs-settings-page-help.php:103
+msgid "Publish, Save Draft, or Update the post."
+msgstr "Објавите, сачувајте нацрт или ажурирајте чланак."
+
+#: admin/svgs-settings-page-help.php:103
+msgid "Make sure \"Advanced Mode\" is enabled."
+msgstr "Проверите да ли је „Напредни режим“ омогућен."
+
+#: admin/svgs-settings-page-help.php:103
+msgid "Add your featured SVG like you would any regular featured image format."
+msgstr "Додајте издвојени SVG као што бисте додали било коју обичну издвојену слику."
+
+#: admin/svgs-settings-page-help.php:101
+msgid "To render your featured SVG inline:"
+msgstr "Да би се издвојени SVG приказао уметнуто:"
+
+#: admin/svgs-settings-page-help.php:99
+msgid "You can use SVG files as featured images just like any other image format, with the addition of being able to render your featured SVG inline on a per-post basis."
+msgstr "SVG датотеке можете користити као издвојене слике као и сваки други облик слике, уз могућност да се издвојени SVG прикаже уметнуто за сваки чланак посебно."
+
+#: admin/svgs-settings-page-help.php:97 admin/svgs-settings-page-help.php:108
+msgid "Featured Images"
+msgstr "Издвојене слике"
+
+#: admin/svgs-settings-page-help.php:84
+msgid "Your uploaded image needs to be an SVG file for this plugin to replace the img tag with the inline SVG code. It will not create SVG files for you."
+msgstr "Отпремљена слика мора бити SVG датотека да би овај додатак заменио img ознаку уметнутим SVG кодом. Он неће направити SVG датотеке уместо вас."
+
+#: admin/svgs-settings-page-help.php:78
+msgid "You can embed your SVG image like any standard image with the addition of adding the class <code>style-svg</code> (or your custom class) to any IMG tags that you want this plugin to swap out with your actual SVG code."
+msgstr "SVG слику можете уградити као и сваку обичну слику, уз додавање класе <code>style-svg</code> (или ваше произвољне класе) свим IMG ознакама које желите да овај додатак замени стварним SVG кодом."
+
+#: admin/svgs-settings-page-help.php:76 admin/svgs-settings-page-help.php:89
+msgid "Render SVG Inline"
+msgstr "Уметнути приказ SVG-а"
+
+#: admin/svgs-settings-page-help.php:84
+msgid "You will likely need to set your own height and width in your CSS for SVG files to display correctly."
+msgstr "Вероватно ћете морати да поставите сопствену висину и ширину у CSS-у да би се SVG датотеке исправно приказале."
+
+#: admin/svgs-settings-page-help.php:59 admin/svgs-settings-page-help.php:68
+msgid "Standard Usage"
+msgstr "Стандардно коришћење"
+
+#: admin/svgs-settings-page-help.php:44
+msgid "Automatically Insert Class:"
+msgstr "Аутоматско уметање класе:"
+
+#: admin/svgs-settings-page-help.php:46
+msgid "Force Inline SVG:"
+msgstr "Принудни уметнути SVG:"
+
+#: admin/svgs-settings-page-help.php:46
+msgid "This feature is to force all SVG files that are found in your site to be rendered inline. This can help if you aren't able to set a custom class on your IMG tags for some reason, usually when used in theme options or page builder elements."
+msgstr "Ова функција принудно приказује уметнуто све SVG датотеке пронађене на вашем сајту. Може помоћи ако из неког разлога не можете да поставите произвољну класу на IMG ознаке, обично када се користе у могућностима теме или елементима градитеља страница."
+
+#: admin/svgs-settings-page-help.php:44
+msgid "When this is checked, you won't have to add the class to your SVG files during the embed process in the editor. When you pick your SVG, it will be placed in the editor with just the SVG Support class and others stripped. It does not change existing code, it's only a helper to allow you to quickly embed your SVG files and have them render inline without having to fiddle with the classes."
+msgstr "Када је ово означено, нећете морати да додајете класу SVG датотекама током уградње у уређивачу. Када изаберете SVG, биће постављен у уређивач само са SVG Support класом, а остале ће бити уклоњене. Не мења постојећи кôд, већ је само помоћ која вам омогућава да брзо уградите SVG датотеке и прикажете их уметнуто без петљања са класама."
+
+#: admin/svgs-settings-page-help.php:42
+msgid "This allows you to set your own custom class that you will use in your SVG source IMG tags that you would like rendered inline. For example, it might be easier for you to remember to add the class \"inline-svg\" or something, in which case you would use your desired class name in this field to be used across your site."
+msgstr "Ово вам омогућава да поставите сопствену произвољну класу коју ћете користити у IMG ознакама са SVG извором које желите да се прикажу уметнуто. На пример, можда ће вам бити лакше да упамтите да додате класу „inline-svg“ или нешто слично; у том случају користите жељени назив класе у овом пољу за цео сајт."
+
+#: admin/svgs-settings-page-help.php:42
+msgid "CSS Class To Target:"
+msgstr "CSS класа за циљање:"
+
+#: admin/svgs-settings-page-help.php:38
+msgid "Output JS in Footer:"
+msgstr "Испиши JS у подножју:"
+
+#: admin/svgs-settings-page-help.php:38
+msgid "This setting allows you to choose whether the SVG Support JS file is enqueued in the header or the footer of the site. Usually you would enqueue in the footer unless you need it to be loaded sooner for some reason."
+msgstr "Ово подешавање вам омогућава да изаберете да ли се JS датотека SVG Support-а учитава у заглављу или подножју сајта. Обично бисте је учитали у подножју, осим ако из неког разлога не треба да се учита раније."
+
+#: admin/svgs-settings-page-help.php:40
+msgid "Use Expanded JS:"
+msgstr "Користи проширени JS:"
+
+#: admin/svgs-settings-page-help.php:36
+msgid "When using SVG files like regular images just isn't enough ;)"
+msgstr "Када коришћење SVG датотека као обичних слика једноставно није довољно ;)"
+
+#: admin/svgs-settings-page-help.php:36
+msgid "Enable Advanced Mode:"
+msgstr "Омогући напредни режим:"
+
+#: admin/svgs-settings-page-help.php:34
+msgid "SVG files are actually XML code, so allowing regular users to upload them can pose serious security risks. Please leave this checked unless you really know what you're doing."
+msgstr "SVG датотеке су заправо XML кôд, па дозвољавање обичним корисницима да их отпремају може представљати озбиљне безбедносне ризике. Оставите ово означено осим ако заиста не знате шта радите."
+
+#: admin/svgs-settings-page-help.php:40
+msgid "This setting gives you the choice of JS file that is enqueued, the full expanded version or the minified version. You would usually enqueue the minified version, but if you want to bundle the JS file using a caching or minification plugin or similar, then you might want to enqueue the expanded, non-minified version."
+msgstr "Ово подешавање вам даје избор JS датотеке која се учитава: пуно проширено издање или умањено издање. Обично бисте учитали умањено издање, али ако желите да спојите JS датотеку помоћу додатка за оставу, умањивање или слично, можда ћете желети да учитате проширено, неумањено издање."
+
+#: admin/svgs-settings-page-help.php:36
+msgid "Enabling \"Advanced Mode\" displays options to give you more control over how you use SVG files on your site. It also includes extra JS on the front end, so leave this disabled unless you're actually using any of the advanced features."
+msgstr "Омогућавање „Напредног режима“ приказује могућности које вам дају више контроле над начином коришћења SVG датотека на сајту. Такође укључује додатни JS на предњем крају, па ово оставите искљученим осим ако заиста не користите неку од напредних функција."
+
+#: admin/svgs-settings-page-help.php:34
+msgid "Restrict To Administrators:"
+msgstr "Ограничи на администраторе:"
+
+#: admin/svgs-settings-page-help.php:32 admin/svgs-settings-page-help.php:51
+msgid "The Settings"
+msgstr "Подешавања"
+
+#: admin/svgs-settings-page-help.php:19
+msgid "So let's get into some more details! Simply click the tabs to the left to get more of an understanding of how powerful SVG Support is."
+msgstr "Хајде да уђемо у детаље! Само притисните језичке лево да бисте боље разумели колико је SVG Support моћан."
+
+#: admin/svgs-settings-page-help.php:19
+msgid "Even this most basic of usage is very powerful for modern websites, however, there's lots of cool stuff you can do with SVG files!"
+msgstr "Чак је и ово најосновније коришћење веома моћно за савремене веб сајтове, али са SVG датотекама можете урадити још много занимљивих ствари!"
+
+#: admin/svgs-settings-page-help.php:19
+msgid "SVG Support features an \"Advanced Mode\" which toggles extra features, allowing you to take more control of how your SVG files are used. By rendering SVG files inline, it opens up a huge number of possibilities including animations, embedded links within the SVG, odd shaped link areas, custom CSS targeting elements within the SVG and  whole lot more!"
+msgstr "SVG Support има „Напредни режим“ који укључује додатне функције и омогућава вам већу контролу над начином коришћења SVG датотека. Уметнутим приказом SVG датотека отвара се огроман број могућности, укључујући анимације, уграђене везе унутар SVG-а, области веза неправилног облика, произвољно CSS циљање елемената унутар SVG-а и  још много тога!"
+
+#: admin/svgs-settings-page-help.php:19
+msgid "At it's core, SVG Support allows you to upload SVG files and use them as you would any regular image with the added benefit of being scalable and looking great on any screen size, no matter what size it's displayed. Additionally, SVG file sizes are (more often than not) much smaller than conventional image formats."
+msgstr "У основи, SVG Support вам омогућава да отпремате SVG датотеке и користите их као и сваку обичну слику, уз додатну предност скалабилности и одличног изгледа на било којој величини екрана, без обзира на величину приказа. Поред тога, SVG датотеке су (у већини случајева) много мање од уобичајених облика слика."
+
+#: admin/svgs-settings-page-help.php:17 admin/svgs-settings-page-help.php:24
+msgid "Overview"
+msgstr "Преглед"
+
+#: admin/svgs-settings-page.php:230
+msgid "Force inline SVG"
+msgstr "Принудно уметни SVG"
+
+#: admin/svgs-settings-page.php:219
+msgid "Use expanded JS"
+msgstr "Користи проширени JS"
+
+#: admin/plugin-action-meta-links.php:17
+msgid "SVG Support Settings"
+msgstr "Подешавања SVG Support-а"
+
+#: admin/svgs-settings-page.php:158
+msgid "Advanced Mode"
+msgstr "Напредни режим"
+
+#: functions/featured-image.php:23
+msgid "Render this SVG inline (advanced)"
+msgstr "Прикажи овај SVG уметнуто (напредно)"
+
+#: admin/svgs-settings-page.php:163
+msgid "Enable Advanced Mode"
+msgstr "Омогући напредни режим"
+
+#. Author URI of the plugin
+#: svg-support.php
+msgid "https://benbodhi.com"
+msgstr "https://benbodhi.com"
+
+#. Plugin URI of the plugin
+#: svg-support.php
+msgid "http://wordpress.org/plugins/svg-support/"
+msgstr "http://wordpress.org/plugins/svg-support/"
+
+#: admin/svgs-settings-page-help.php:82
+msgid "The whole IMG tag element will now be dynamically replaced by the actual code of your SVG, making the inner content targetable."
+msgstr "Цела IMG ознака сада ће бити динамички замењена стварним кодом вашег SVG-а, чиме унутрашњи садржај постаје доступан за циљање."
+
+#: admin/svgs-settings-page-help.php:78
+msgid "For example:"
+msgstr "На пример:"
+
+#: admin/svgs-settings-page.php:270 functions/enqueue.php:57
+msgid "Save changes"
+msgstr "Сачувај промене"
+
+#: admin/svgs-settings-page-help.php:80
+msgid "or"
+msgstr "или"
+
+#: admin/svgs-settings-page-help.php:84
+msgid "Please Note:"
+msgstr "Напомена:"
+
+#: admin/svgs-settings-page-help.php:82
+msgid "This allows you to target elements within your SVG using CSS."
+msgstr "Ово вам омогућава да циљате елементе унутар SVG-а помоћу CSS-а."
+
+#: admin/plugin-action-meta-links.php:37
+msgid "Donate to author"
+msgstr "Донирај аутору"
+
+#: admin/svgs-settings-page.php:178
+msgid "CSS class to target"
+msgstr "CSS класа за циљање"
+
+#: admin/plugin-action-meta-links.php:17
+msgid "Settings"
+msgstr "Подешавања"
+
+#: admin/admin-init.php:15
+msgid "SVG Support Settings and Usage"
+msgstr "Подешавања и коришћење SVG Support-а"
+
+#: admin/svgs-settings-page.php:237
+msgid "Automatically insert class"
+msgstr "Аутоматски умећи класу"
+
+#: admin/svgs-settings-page.php:205
+msgid "Output JS in footer"
+msgstr "Испиши JS у подножју"
+
+#: admin/plugin-action-meta-links.php:35
+msgid "Get Support"
+msgstr "Добити подршку"
+
+#: admin/admin-init.php:37 admin/admin-init.php:90
+msgid "You can't play with this."
+msgstr "Не можете се играти са овим."
+
+#. Plugin Name of the plugin
+#: svg-support.php admin/admin-init.php:16 admin/svgs-settings-page.php:79
+msgid "SVG Support"
+msgstr "SVG Support"
