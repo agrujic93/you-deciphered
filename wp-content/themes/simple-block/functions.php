@@ -840,3 +840,8 @@ function simple_block_pll__( $string ) {
  * Include blog block backend logic from block folder.
  */
 require_once get_template_directory() . '/parts/blocks/blog-block/blog-block-functions.php';
+
+/**
+ * Keep The Events Calendar's AJAX views in the current Polylang language.
+ */
+require_once get_template_directory() . '/inc/tec-polylang.php';
