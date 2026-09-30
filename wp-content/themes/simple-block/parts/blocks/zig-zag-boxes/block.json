@@ -1,4 +1,6 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
     "name": "acf/zig-zag-boxes",
     "title": "Zig Zag Boxes",
     "description": "A custom Zig Zag Boxes block.",
@@ -26,7 +28,9 @@
     },
     "acf": {
         "mode": "auto",
-        "renderTemplate": "zig-zag-boxes.php"
+        "renderTemplate": "zig-zag-boxes.php",
+        "blockVersion": 3,
+        "hideFieldsInSidebar": true
     },
     "align": "full"
 }

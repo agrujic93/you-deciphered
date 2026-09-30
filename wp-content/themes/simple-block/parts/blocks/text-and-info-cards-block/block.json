@@ -1,4 +1,6 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
     "name": "acf/text-and-info-cards-block",
     "title": "Text and Info Cards",
     "description": "Text and Info Cards Block.",
@@ -23,7 +25,9 @@
     },
     "acf": {
         "mode": "auto",
-        "renderTemplate": "text-and-info-cards.php"
+        "renderTemplate": "text-and-info-cards.php",
+        "blockVersion": 3,
+        "hideFieldsInSidebar": true
     },
     "align": "full"
 }

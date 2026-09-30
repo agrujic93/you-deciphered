@@ -1,4 +1,6 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
     "name": "acf/hero-block",
     "title": "Hero",
     "description": "A custom Hero block.",
@@ -24,7 +26,9 @@
     },
     "acf": {
         "mode": "auto",
-        "renderTemplate": "hero.php"
+        "renderTemplate": "hero.php",
+        "blockVersion": 3,
+        "hideFieldsInSidebar": true
     },
     "align": "full"
 }

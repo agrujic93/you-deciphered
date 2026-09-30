@@ -240,23 +240,28 @@ function mytheme_enqueue_block_assets() {
 }
 add_action( 'enqueue_block_assets', 'mytheme_enqueue_block_assets' );
 
-// Include Custom CSS on editor
-function mytheme_enqueue_block_editor_assets() {
-	// Absolute path to the CSS file for filemtime
+// Load custom editor CSS inside the block editor canvas iframe.
+function mytheme_add_editor_styles()
+{
+	add_theme_support('editor-styles');
+	add_editor_style('assets/css/backend-custom-style.css');
+}
+add_action('after_setup_theme', 'mytheme_add_editor_styles');
+
+// Load custom editor CSS in the parent editor document for ACF v3 modals.
+function mytheme_enqueue_block_editor_assets()
+{
 	$css_file_path = get_template_directory() . '/assets/css/backend-custom-style.css';
+	$css_file_url  = get_template_directory_uri() . '/assets/css/backend-custom-style.css';
 
-	// URL to the CSS file for wp_enqueue_style
-	$css_file_url = get_template_directory_uri() . '/assets/css/backend-custom-style.css';
-
-	// Enqueue the backend custom style with file modification time as the version number
 	wp_enqueue_style(
-		'backend-custom-style', // Handle for the stylesheet
-		$css_file_url, // URL to the CSS file
-		array(), // Dependencies, if any
-		file_exists( $css_file_path ) ? filemtime( $css_file_path ) : '1.0.0' // Version based on file modification time
+		'backend-custom-style-editor',
+		$css_file_url,
+		array(),
+		file_exists($css_file_path) ? filemtime($css_file_path) : '1.0.0'
 	);
 }
-add_action( 'enqueue_block_editor_assets', 'mytheme_enqueue_block_editor_assets' );
+add_action('enqueue_block_editor_assets', 'mytheme_enqueue_block_editor_assets');
 
 /**
  * Register block styles.
@@ -845,3 +850,17 @@ require_once get_template_directory() . '/parts/blocks/blog-block/blog-block-fun
  * Keep The Events Calendar's AJAX views in the current Polylang language.
  */
 require_once get_template_directory() . '/inc/tec-polylang.php';
+
+/**
+ * Set ACF Blocks default version to V3.
+ *
+ * Ensures all custom blocks run on ACF Blocks V3 and work seamlessly
+ * inside the WordPress 7.0+ iframed editor canvas.
+ */
+if (! function_exists('simple_block_set_default_acf_block_version')) :
+	function simple_block_set_default_acf_block_version()
+	{
+		return 3;
+	}
+endif;
+add_filter('acf/blocks/default_block_version', 'simple_block_set_default_acf_block_version');

@@ -1,4 +1,6 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
     "name": "acf/partners-block",
     "title": "Partners",
     "description": "A custom Partners block, slider with logos.",
@@ -24,7 +26,9 @@
     },
     "acf": {
         "mode": "auto",
-        "renderTemplate": "partners.php"
+        "renderTemplate": "partners.php",
+        "blockVersion": 3,
+        "hideFieldsInSidebar": true
     },
     "align": "full"
 }

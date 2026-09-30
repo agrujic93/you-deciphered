@@ -1,4 +1,6 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
     "name": "acf/price-list-block",
     "title": "Price List Block",
     "description": "Price List for services.",
@@ -23,7 +25,9 @@
     },
     "acf": {
         "mode": "auto",
-        "renderTemplate": "price-list.php"
+        "renderTemplate": "price-list.php",
+        "blockVersion": 3,
+        "hideFieldsInSidebar": true
     },
     "align": "full"
 }

@@ -1,4 +1,6 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
     "name": "acf/footer-block",
     "title": "Footer Block",
     "description": "A custom footer block populated with data from Theme Settings.",
@@ -18,7 +20,9 @@
     },
     "acf": {
         "mode": "auto",
-        "renderTemplate": "footer.php"
+        "renderTemplate": "footer.php",
+        "blockVersion": 3,
+        "hideFieldsInSidebar": true
     },
     "align": "full"
 }

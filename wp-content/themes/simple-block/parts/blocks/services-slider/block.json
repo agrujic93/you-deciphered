@@ -1,4 +1,6 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
     "name": "acf/services-slider",
     "title": "Services Slider",
     "description": "A custom Services Slider block.",
@@ -26,7 +28,9 @@
     },
     "acf": {
         "mode": "auto",
-        "renderTemplate": "services-slider.php"
+        "renderTemplate": "services-slider.php",
+        "blockVersion": 3,
+        "hideFieldsInSidebar": true
     },
     "align": "full"
 }

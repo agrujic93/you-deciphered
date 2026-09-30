@@ -1,4 +1,6 @@
 {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
 	"name": "simple-block/hero-advanced",
 	"title": "Hero Advanced",
 	"description": "An advanced hero block with GSAP text animations and MP4 video support.",
@@ -14,7 +16,9 @@
 	},
 	"acf": {
 		"mode": "preview",
-		"renderTemplate": "hero-advanced-block.php"
+		"renderTemplate": "hero-advanced-block.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
 	},
 	"align": "full",
 	"viewScript": [

@@ -1,4 +1,6 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
     "name": "acf/sticky-columns",
     "title": "Sticky Columns",
     "description": "A custom Sticky Columns block.",
@@ -23,7 +25,9 @@
     },
     "acf": {
         "mode": "auto",
-        "renderTemplate": "sticky-columns.php"
+        "renderTemplate": "sticky-columns.php",
+        "blockVersion": 3,
+        "hideFieldsInSidebar": true
     },
     "align": "full"
 }

@@ -1,4 +1,6 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
     "name": "acf/stats",
     "title": "Stats",
     "description": "A custom Stats block.",
@@ -26,7 +28,9 @@
     },
     "acf": {
         "mode": "auto",
-        "renderTemplate": "stats.php"
+        "renderTemplate": "stats.php",
+        "blockVersion": 3,
+        "hideFieldsInSidebar": true
     },
     "align": "full"
 }

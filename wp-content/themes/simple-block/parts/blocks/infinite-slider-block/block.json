@@ -1,4 +1,6 @@
 {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
 	"name": "simple-block/infinite-slider-block",
 	"title": "Infinite Slider",
 	"description": "An infinite auto-scrolling image slider with smooth continuous autoplay.",
@@ -22,7 +24,9 @@
 	},
 	"acf": {
 		"mode": "preview",
-		"renderTemplate": "infinite-slider-block.php"
+		"renderTemplate": "infinite-slider-block.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
 	},
 	"align": "none",
 	"style": [ "swiper-style", "file:./infinite-slider-block.css" ],

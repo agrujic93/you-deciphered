@@ -1,4 +1,6 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
     "name": "acf/blog-block",
     "title": "Blog",
     "description": "A custom Blog Block.",
@@ -25,7 +27,9 @@
     },
     "acf": {
         "mode": "auto",
-        "renderTemplate": "blog-block.php"
+        "renderTemplate": "blog-block.php",
+        "blockVersion": 3,
+        "hideFieldsInSidebar": true
     },
     "align": "full"
 }

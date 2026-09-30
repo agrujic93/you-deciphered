@@ -1,4 +1,6 @@
 {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
 	"name": "simple-block/highlighted-text-block",
 	"title": "Highlighted Text",
 	"description": "A text block that progressively highlights words on scroll using GSAP.",
@@ -22,7 +24,9 @@
 	},
 	"acf": {
 		"mode": "preview",
-		"renderTemplate": "highlighted-text-block.php"
+		"renderTemplate": "highlighted-text-block.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
 	},
 	"align": "none",
 	"viewScript": "highlighted-text-js",

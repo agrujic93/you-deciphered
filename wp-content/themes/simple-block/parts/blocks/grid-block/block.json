@@ -1,4 +1,6 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
     "name": "acf/grid-block",
     "title": "Grid Block",
     "description": "Grid block with different column sizes.",
@@ -23,7 +25,9 @@
     },
     "acf": {
         "mode": "auto",
-        "renderTemplate": "grid.php"
+        "renderTemplate": "grid.php",
+        "blockVersion": 3,
+        "hideFieldsInSidebar": true
     },
     "align": "full"
 }

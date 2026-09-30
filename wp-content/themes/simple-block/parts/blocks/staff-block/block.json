@@ -1,4 +1,6 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
     "name": "acf/staff-block",
     "title": "Staff",
     "description": "Staff with image, full name, position and button.",
@@ -23,7 +25,9 @@
     },
     "acf": {
         "mode": "auto",
-        "renderTemplate": "staff.php"
+        "renderTemplate": "staff.php",
+        "blockVersion": 3,
+        "hideFieldsInSidebar": true
     },
     "align": "full"
 }

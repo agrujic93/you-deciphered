@@ -1,4 +1,6 @@
 {
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
 	"name": "simple-block/timeline-block",
 	"title": "Timeline",
 	"description": "A timeline block showing chronological events with smooth scroll animations.",
@@ -22,7 +24,9 @@
 	},
 	"acf": {
 		"mode": "preview",
-		"renderTemplate": "timeline-block.php"
+		"renderTemplate": "timeline-block.php",
+		"blockVersion": 3,
+		"hideFieldsInSidebar": true
 	},
 	"align": "none",
 	"viewScript": "timeline-js",

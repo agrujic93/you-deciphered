@@ -1,4 +1,6 @@
 {
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
     "name": "acf/featured-posts-block",
     "title": "Featured Posts",
     "description": "A custom Query Featured Posts Block.",
@@ -24,7 +26,9 @@
     },
     "acf": {
         "mode": "auto",
-        "renderTemplate": "featured-posts-block.php"
+        "renderTemplate": "featured-posts-block.php",
+        "blockVersion": 3,
+        "hideFieldsInSidebar": true
     },
     "align": "full"
 }
