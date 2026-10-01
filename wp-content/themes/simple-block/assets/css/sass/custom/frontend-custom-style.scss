@@ -713,6 +713,13 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 				max-height: 2rem;
 			}
 		}
+		&:has(:not(img)) {
+			flex-direction: column;
+			align-items: flex-start;
+			a {
+				@include link-underline($accent-color);
+			}
+		}
 	}
 	*.ci-label {
 		display: block;
@@ -898,6 +905,29 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	input, textarea {
 		width: 100%;
 	}
+	p {
+		margin-bottom: 1.6rem !important;
+	}
+	p:has(> .ci-float-label) {
+		position: relative;
+		> .ci-float-label {
+			position: absolute;
+			top: 1.2rem;
+			left: 2rem;
+			z-index: 1;
+			color: $contrast-3-color;
+			transition: top .25s ease, font-size .25s ease, color .25s ease;
+		}
+		&:focus-within, &.ci-has-value {
+			> .ci-float-label {
+				top: -2.2rem;
+				font-size: calc(#{$p-font-size} * .8);
+			}
+		}
+		&:focus-within > .ci-float-label {
+			color: $accent-color;
+		}
+	}
 	input[type="submit"] {
 		padding: 1.2rem 3rem;
 		width: auto;
@@ -980,10 +1010,19 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		&:before {
 			background-image: url('../images/clock.svg');
 		}
+		a {
+			@include link-underline($accent-color);
+		}
 	}
 	&.email-info-wrp {
 		&:before {
-			background-image: url('../images/ico-email.svg');
+			background-image: url('../images/ico-email-blue.svg');
+		}
+		a {
+			@include link-underline($accent-color);
+			&:hover {
+				color: $accent-color;
+			}
 		}
 	}
 	&.phone-info-wrp {
@@ -993,7 +1032,7 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	}
 	&.location-info-wrp {
 		&:before {
-			background-image: url('../images/ico-location.svg');
+			background-image: url('../images/ico-location-blue.svg');
 		}
 	}
 	&.social-info-wrp {

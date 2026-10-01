@@ -24,6 +24,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	}, false);
 
+	// Keep floating labels above filled fields, including autofilled values.
+	const cf7FloatFields = document.querySelectorAll('.wpcf7 .ci-float-label + .wpcf7-form-control-wrap > :is(input, textarea)');
+	cf7FloatFields.forEach(field => {
+		const syncFloatLabel = () => {
+			field.closest('p').classList.toggle('ci-has-value', field.value.length > 0);
+		};
+		field.addEventListener('input', syncFloatLabel);
+		field.addEventListener('change', syncFloatLabel);
+		field.form.addEventListener('reset', () => setTimeout(syncFloatLabel, 0));
+		syncFloatLabel();
+	});
+
 	// Global scroll-triggered background color theme
 	const blocksWithTheme = document.querySelectorAll('[data-theme]');
 	if (!blocksWithTheme.length) return;
