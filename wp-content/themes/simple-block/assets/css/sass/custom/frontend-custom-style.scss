@@ -181,8 +181,9 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		background-color: transparent;
 		font-size: $p-font-size;
 		font-family: $main-font;
-		border: .1rem solid $contrast-color;
+		border: .1rem solid var(--current-theme-text);
 		border-radius: 3rem;
+		color: var(--current-theme-text);
 	}
 	input[type="submit"] {
 		cursor: pointer;
@@ -916,6 +917,7 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 			left: 2rem;
 			z-index: 1;
 			color: $contrast-3-color;
+			cursor: text;
 			transition: top .25s ease, font-size .25s ease, color .25s ease;
 		}
 		&:focus-within, &.ci-has-value {
@@ -1020,8 +1022,9 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		}
 		a {
 			@include link-underline($accent-color);
+			color: var(--current-theme-text);
 			&:hover {
-				color: $accent-color;
+				color: var(--current-theme-text);
 			}
 		}
 	}

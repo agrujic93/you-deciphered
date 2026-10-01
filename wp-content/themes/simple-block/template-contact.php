@@ -44,7 +44,7 @@ Template Name: Contact Page
 		<main class="wp-block-group site-main is-layout-flow wp-block-group-is-layout-flow" id="wp--skip-link--target">
 			<?php echo $block_content; ?>
 			<div class="entry-content has-global-padding">
-				<section class="section-container ci-block info-cf7-map-section uk-margin-large-top" data-uk-scrollspy="cls: uk-animation-slide-bottom-small; target: .animation-fade-item; delay: 300; repeat: false;">
+				<section class="section-container ci-block info-cf7-map-section uk-margin-large-top" data-uk-scrollspy="cls: uk-animation-slide-bottom-small; target: .animation-fade-item; delay: 300; repeat: false;" data-theme="dark">
 					<div class="container">
 						<div class="uk-grid uk-grid-large uk-margin-large-bottom" data-uk-grid>
 							<div class="uk-width-2-5@l animation-fade-item">
