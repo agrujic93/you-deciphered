@@ -1,24 +1,10 @@
 # Simple Block Theme — Developer Standards & Rules
 
-## AI Integration & Rule Minification Guide
+## AI Assistant Instructions
 
-To ensure AI assistants (Cursor, Windsurf, Copilot, etc.) follow these standards, you should provide them with a "minified" version of this file as a project rule.
-
-### How to Enable Rules in Your Editor:
-
-| Editor / Tool | Method | File Path |
-|---|---|---|
-| **Cursor** | `.cursorrules` | Root directory: `.cursorrules` |
-| **Windsurf** | `.windsurfrules` | Root directory: `.windsurfrules` |
-| **GitHub Copilot** | Custom Instructions | `.github/copilot-instructions.md` |
-| **Cline / Roo Code** | `.clinerules` | Root directory: `.clinerules` |
-| **Generic Agent** | Rules folder | `.agents/rules/simple-block-{frontend|backend}-rules.md` |
-
-### Practical Advice for AI Rules:
-- **Keep it Simple**: AI performs better with concise, constraint-based rules rather than long explanations.
-- **Use YAML Frontmatter**: Tools like Windsurf and specialized agents use frontmatter (trigger, glob, description) to know when to apply rules.
-- **Focus on "Always/Never"**: Explicit constraints (e.g., "ALWAYS use rem") are more effective than suggestions.
-- **Minify Regularly**: As standards evolve, update your minified rules file to keep it under the AI's context limit.
+- The theme-root `AGENTS.md` is the portable entry point for AI assistants that support `AGENTS.md`. It scopes these standards to this theme, whether this theme is part of a WordPress workspace or opened as its own workspace.
+- Keep this document as the single source of truth. Update it directly when standards change; do not maintain separate copies of the same rules.
+- Editors that do not support `AGENTS.md` may need a small editor-specific instruction file that points back to this document.
 
 ---
 
@@ -401,17 +387,10 @@ All custom blocks are registered under the `simple-block/` namespace. Example: `
 All themes must be accessible and follow Section 508 standards.
 
 ### HTML Requirements:
-- **`<img>` Tag**: Always include an `alt` attribute. If empty in ACF, fallback to the title:
-  ```php
-  $image = get_field('image');
-  $image_alt = $image['alt'] ? $image['alt'] : $image['title'];
-  ```
-- **`<a>` Tag**: Always add an `aria-label` describing the link's destination or action. The `aria-label` must contain the visible label text:
-  ```html
-  <a href="..." aria-label="Kupite naše organske jabuke">Jabuke</a>
-  ```
+- **`<img>` Tag**: Always provide an `alt` attribute. Use concise, contextual alt text for informative images; use `alt=""` for decorative images. Do not automatically use an image title as alt text, since titles may be filenames or otherwise fail to describe the image. In ACF, use the alt text field when it is meaningful and handle an empty value according to the image's purpose.
+- **`<a>` Tag**: Every link must have an accessible name. Clear visible link text normally provides it; do not add `aria-label` by default. Use `aria-label` when visible text is absent or insufficient (for example, an icon-only control), and ensure it agrees with any visible wording.
 - **UIkit Attributes**: Always use the `data-uk-` prefix for UIkit attributes (e.g., `data-uk-switcher`).
-- **Heading Nesting**: Maintain strict hierarchy: `h1 > h2 > h3 > h4...`
+- **Heading Hierarchy**: Use headings in a meaningful semantic order. Do not skip levels when moving through nested sections, and do not choose heading levels only for their visual appearance.
 
 ### CSS Requirements:
 - Use `rem` for `font-size`.
@@ -431,8 +410,15 @@ All themes must be accessible and follow Section 508 standards.
 - Use **`INCLUDES`** for theme logic organization.
 - Always limit image sizes from ACF. Recommended Return Format: **Image Array**.
   ```php
-  <img src="<?php echo get_field('image')['sizes']['large']; ?>" alt="<?php echo get_field('image')['alt']; ?>">
+  <?php
+  $image = get_field( 'image' );
+  if ( $image ) :
+      $image_alt = $image['alt'] ?? '';
+  ?>
+      <img src="<?php echo esc_url( $image['sizes']['large'] ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>">
+  <?php endif; ?>
   ```
+- For informative images, ensure the ACF alt text is meaningful; use an empty alt only when the image is decorative. Do not substitute the image title automatically.
 - **Featured Image** (within a query):
   ```php
   <?php echo get_the_post_thumbnail_url(get_the_ID(), 'medium_large' ); ?>
