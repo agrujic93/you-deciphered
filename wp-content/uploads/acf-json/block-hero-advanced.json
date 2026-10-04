@@ -26,7 +26,7 @@
         },
         {
             "key": "field_hero_adv_headline",
-            "label": "Headline 1",
+            "label": "Headline",
             "name": "headline",
             "aria-label": "",
             "type": "textarea",
@@ -186,5 +186,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1791142322
+    "modified": 1791143893
 }
