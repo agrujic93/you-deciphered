@@ -17,14 +17,15 @@
 
 		const $headline = $hero.find('.hero-advanced-headline');
 		if ($headline.length) {
-			// Split by <br> to preserve line breaks, process each line separately
-			const parts = $headline.html().split(/<br\s*\/?>/i);
+			// Preserve blank lines and raw newlines; nl2br leaves a newline after each <br>.
+			const parts = $headline.html().split(/<br\s*\/?>(?:\r\n|\r|\n)?|\r\n|\r|\n/i);
 			const processedParts = parts.map(part => {
 				const text = $('<span>').html(part).text().trim();
 				if (!text) return '';
 				return text.split(/\s+/).map(word => {
 					const chars = word.split('').map(char => {
-						return `<span class="char" style="display:inline-block">${char}</span>`;
+						const escapedChar = $('<span>').text(char).html();
+						return `<span class="char" style="display:inline-block">${escapedChar}</span>`;
 					}).join('');
 					return `<span class="word" style="display:inline-block">${chars}</span>`;
 				}).join(' ');
@@ -33,6 +34,9 @@
 
 			const $chars = $headline.find('.char');
 			const $words = $headline.find('.word');
+
+			// Reveal the parent only after the hidden character spans are ready.
+			$headline.css('opacity', 1);
 
 			// Check if GSAP is available
 			if (typeof gsap !== 'undefined') {

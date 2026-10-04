@@ -41,7 +41,11 @@ if ('wide' == $block['align']) {
 	$container_class = 'container-right';
 }
 
-$headline  = get_field('headline') ?: 'ADVANCED HERO BLOCK.';
+// Read the raw textarea so ACF does not insert line breaks a second time.
+$headline = 'ADVANCED HERO BLOCK.';
+if (get_field('headline', false, false)) {
+	$headline = get_field('headline', false, false);
+}
 $headline_2  = get_field('headline_2');
 $has_video = get_field('has_video');
 $mp4_video = get_field('mp4_video');
@@ -84,7 +88,7 @@ include __DIR__ . '/../block-parts/block-general-logic.php';
 
 		<div class="hero-text-container uk-width-1-1">
 			<?php if ($headline) : ?>
-				<h1 class="hero-advanced-headline"><?php echo wp_kses_post($headline); ?><?php if ($headline_2) : ?><br><?php echo wp_kses_post($headline_2); ?><?php endif; ?></h1>
+				<h1 class="hero-advanced-headline"><?php echo wp_kses_post(nl2br($headline, false)); ?><?php if ($headline_2) : ?><br><?php echo wp_kses_post($headline_2); ?><?php endif; ?></h1>
 			<?php endif; ?>
 		</div>
 	</div>

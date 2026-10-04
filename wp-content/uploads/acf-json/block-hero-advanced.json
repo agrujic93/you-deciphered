@@ -29,7 +29,7 @@
             "label": "Headline 1",
             "name": "headline",
             "aria-label": "",
-            "type": "text",
+            "type": "textarea",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -38,12 +38,12 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "ADVANCED HERO BLOCK",
+            "default_value": "",
             "maxlength": "",
-            "allow_in_bindings": 1,
+            "allow_in_bindings": 0,
+            "rows": "",
             "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "new_lines": "br"
         },
         {
             "key": "field_6a4a37eba2be6",
@@ -186,5 +186,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1783248933
+    "modified": 1791142322
 }
