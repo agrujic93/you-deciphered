@@ -46,27 +46,6 @@
             "new_lines": "br"
         },
         {
-            "key": "field_6a4a37eba2be6",
-            "label": "Headline 2",
-            "name": "headline_2",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "ADVANCED HERO BLOCK",
-            "maxlength": "",
-            "allow_in_bindings": 1,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
             "key": "field_hero_adv_has_video",
             "label": "Has Background Video?",
             "name": "has_video",
@@ -186,5 +165,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1791143893
+    "modified": 1791145178
 }
