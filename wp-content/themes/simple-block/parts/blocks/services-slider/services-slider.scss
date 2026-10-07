@@ -69,11 +69,23 @@
 		background: transparent;
 		color: $base-color;
 		height: 100%;
+		.service-card__description {
+			* {
+				@include intro-large-text;
+			}
+		}
 		&:has(.service-card__bg) {
 			border-color: transparent;
 			.service-card__description {
 				* {
 					color: $base-color;
+				}
+			}
+		}
+		&:has(.service-card__cta) {
+			.service-card__description {
+				* {
+					font-size: $p-font-size;
 				}
 			}
 		}
