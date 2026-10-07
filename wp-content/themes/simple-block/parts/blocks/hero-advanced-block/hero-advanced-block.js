@@ -11,9 +11,10 @@
 	var initializeBlock = function ($block) {
 		const $hero = $block.hasClass('hero-advanced-block') ? $block : $block.find('.hero-advanced-block');
 
-		if (!$hero.length || $hero.hasClass('is-admin')) {
+		if (!$hero.length || $hero.hasClass('is-admin') || $hero.data('heroAdvancedInitialized')) {
 			return;
 		}
+		$hero.data('heroAdvancedInitialized', true);
 
 		const $headline = $hero.find('.hero-advanced-headline');
 		if ($headline.length) {
@@ -40,20 +41,31 @@
 
 			// Check if GSAP is available
 			if (typeof gsap !== 'undefined') {
-				// GSAP Load Animation
-				gsap.to($chars, {
+				const characterAnimation = {
 					duration: 1.2,
 					opacity: 1,
 					y: 0,
 					ease: 'power4.out',
 					stagger: 0.04,
 					delay: 0.1
-				});
+				};
+
+				// Off-screen headlines must not finish their reveal before being seen.
+				if (typeof ScrollTrigger !== 'undefined') {
+					gsap.registerPlugin(ScrollTrigger);
+					if ($headline[0].getBoundingClientRect().top >= window.innerHeight) {
+						characterAnimation.scrollTrigger = {
+							trigger: $headline[0],
+							start: 'top bottom',
+							once: true,
+							delay: 0.8
+						};
+					}
+				}
+				gsap.to($chars, characterAnimation);
 
 				// GSAP Scroll Animation
 				if (typeof ScrollTrigger !== 'undefined') {
-					gsap.registerPlugin(ScrollTrigger);
-
 					// Calculate center dynamically per word depending on viewport
 					gsap.to($words, {
 						x: function(index, target) {
