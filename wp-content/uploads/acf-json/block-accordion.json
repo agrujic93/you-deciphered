@@ -46,6 +46,27 @@
             "delay": 0
         },
         {
+            "key": "field_6ad127eb5b0fe",
+            "label": "Accordion Title",
+            "name": "accordion_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_675b367f9684f",
             "label": "Accordion",
             "name": "accordion",
@@ -119,7 +140,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf/accordion-block"
+                "value": "acf\/accordion-block"
             }
         ]
     ],
@@ -132,5 +153,8 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1774354101
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1792092151
 }
