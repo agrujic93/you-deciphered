@@ -56,8 +56,17 @@
 				border-color: $accent-color;
 			}
 		}
+		.uk-width-expand {
+			position: relative;
+			overflow: auto;
+			min-height: 50rem;
+		}
 		.uk-accordion {
 			margin-bottom: 0;
+		}
+		.accordion-wrp {
+			position: absolute;
+			width: calc(100% - 4rem);
 		}
 		.accordion-wrp .uk-accordion > :nth-child(n+2) {
 			margin-top: 0;
