@@ -1,0 +1,96 @@
+@use 'assets/css/sass/custom/theme-variables' as *;
+
+.price-boxes-block {
+	.price-boxes__intro {
+		@include intro-max-width;
+		margin-bottom: var(--wp--preset--spacing--40);
+	}
+
+	.price-boxes__grid {
+		row-gap: 2rem;
+	}
+
+	.price-boxes__column {
+		display: flex;
+
+		&.uk-grid-margin {
+			margin-top: 0;
+		}
+	}
+
+	.price-box {
+		--current-theme-text: #{$contrast-color};
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		padding: var(--wp--preset--spacing--40);
+		border: .1rem solid $accent-color;
+		border-radius: 3rem;
+		background: $base-2-color;
+		color: $contrast-color;
+
+		&:hover,
+		&:focus-within {
+			.btn-expand {
+				@include btn-expand-active;
+			}
+		}
+	}
+
+	.price-box__content {
+		flex: 1;
+	}
+
+	.price-box__title {
+		margin: 0;
+		color: $contrast-color;
+		font-size: $h2-font-size;
+		overflow-wrap: anywhere;
+	}
+
+	.price-box .price-box__subtitle {
+		margin: 1rem 0 0;
+		color: $contrast-2-color;
+		font-size: $p-font-size;
+	}
+
+	.price-box__price {
+		display: inline-block;
+		margin: 2rem 0 0;
+		padding: .6rem 1.4rem;
+		border: .1rem solid $accent-color;
+		border-radius: 999rem;
+		color: $contrast-color;
+		font-family: $heading-font;
+		font-size: $p-font-size;
+		line-height: 1.3;
+	}
+
+	.price-box__description {
+		margin-top: var(--wp--preset--spacing--40);
+		color: $contrast-color;
+		font-size: $p-font-size;
+
+		ul {
+			padding-left: 1.5em;
+		}
+
+		li::marker {
+			color: $accent-2-color;
+		}
+	}
+
+	.price-box__buttons {
+		margin-top: var(--wp--preset--spacing--50);
+	}
+
+	.price-box__buttons .ci-buttons-wrp {
+		gap: 1rem;
+	}
+
+	@media screen and (max-width: 639px) {
+		.price-box {
+			padding: 2.4rem;
+		}
+	}
+}

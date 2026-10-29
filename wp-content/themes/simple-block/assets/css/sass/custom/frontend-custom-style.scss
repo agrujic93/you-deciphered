@@ -41,7 +41,7 @@ body, .wp-site-blocks, .site-main {
 	.h6,
 	p,
 	li,
-	span:not(.wp-block-navigation-item__label, .service-card__cta-text) {
+	span:not(.wp-block-navigation-item__label, .btn-expand__icon, .btn-expand__text) {
 		&:not(.has-text-color) {
 			color: var(--current-theme-text);
 		}
@@ -55,6 +55,10 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	&:hover {
 		color: $accent-2-color;
 	}
+}
+
+.wp-site-blocks, .editor-styles-wrapper {
+	@include btn-expand;
 }
 
 
@@ -362,6 +366,9 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 			}
 		}
 
+	}
+	.btn span.inline-text {
+		color: inherit;
 	}
 	.wp-block-button.is-style-outline {
 		> .wp-block-button__link:not(.has-text-color, .has-background),

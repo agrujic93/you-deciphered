@@ -83,11 +83,9 @@
                         "id": ""
                     },
                     "choices": {
-                        "btn": "Dark Blue",
-                        "btn-dark-blue-outline": "Dark Blue Outline",
-                        "btn-light-blue": "Light Blue",
-                        "btn-white": "White",
-                        "btn-white-outline": "White Outline"
+                        "btn": "Primary",
+                        "btn-secondary": "Secondary",
+                        "btn-expand": "Expand Arrow"
                     },
                     "default_value": false,
                     "return_format": "value",
@@ -125,5 +123,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1779875255
+    "modified": 1793302415
 }

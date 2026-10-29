@@ -142,6 +142,15 @@ Set up `$main-font` and `$heading-font`. These variables are included in every c
 Check the variables, general styles, and section paddings in:
 `simple-block > assets > sass > custom > _frontend-custom-style.scss`
 
+### Reusable ACF Buttons
+Include `parts/blocks/block-parts/inc-buttons.php` where the cloned
+`ci-clone-buttons` repeater is available. Select **Expand Arrow** in the
+button's style field for the shared expanding arrow button, or **Primary**
+or **Secondary** for the standard buttons. The `btn-expand-active` SCSS mixin
+applies the expanded state to a `.btn-expand` selector, including on parent
+hover or focus. When identical link labels need additional context, set
+`$ci_button_context` before the include and unset it afterwards.
+
 ---
 
 ## 11. How to Duplicate an ACF Custom Block

@@ -404,6 +404,11 @@ function cwp_register_block_script() {
 	wp_register_script( 'infinite-slider-js', $infinite_slider_js_url, array( 'swiper', 'acf' ), file_exists( $infinite_slider_js_path ) ? filemtime( $infinite_slider_js_path ) : '1.0.0' );
 
 
+
+	// Registered for block: price-boxes
+	$js_path_price_boxes = get_template_directory() . '/parts/blocks/price-boxes/price-boxes.js';
+	$js_url_price_boxes  = get_template_directory_uri() . '/parts/blocks/price-boxes/price-boxes.js';
+	wp_register_script( 'price-boxes-js', $js_url_price_boxes, array('jquery'), file_exists( $js_path_price_boxes ) ? filemtime( $js_path_price_boxes ) : '1.0.0' );
 }
 add_action( 'init', 'cwp_register_block_script' );
 

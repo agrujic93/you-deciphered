@@ -1,4 +1,4 @@
-const { src, dest, watch } = require("gulp");
+const { src, dest, watch, parallel } = require("gulp");
 const path = require("path");
 const sass = require('gulp-sass')(require('sass'));
 
@@ -32,6 +32,7 @@ function watchFiles() {
 	watch('assets/css/sass/uikit-style.scss', uikitCSS);
 	watch('assets/css/sass/uikit/**/*.scss', uikitCSS);
 	watch('assets/css/sass/custom/_custom-variables.scss', uikitCSS);
+	watch('assets/css/sass/custom/_theme-variables.scss', parallel(globalFrontCSS, globalBackCSS, blocksCSS));
 	watch('parts/blocks/**/**.scss', blocksCSS);
 }
 

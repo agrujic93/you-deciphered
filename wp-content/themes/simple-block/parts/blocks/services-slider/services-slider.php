@@ -127,14 +127,14 @@ if ($has_slider && function_exists('wp_enqueue_style')) {
 										</div>
 
 										<?php if ($service_link_url) : ?>
-											<a class="service-card__cta" href="<?php echo esc_url($service_link_url); ?>" target="<?php echo esc_attr($service_link_target); ?>" <?php echo '_blank' === $service_link_target ? 'rel="noopener noreferrer"' : ''; ?> aria-label="<?php echo esc_attr($service_link_label); ?>">
-												<div class="service-card__cta-icon">
+											<a class="service-card__cta btn-expand" href="<?php echo esc_url($service_link_url); ?>" target="<?php echo esc_attr($service_link_target); ?>" <?php echo '_blank' === $service_link_target ? 'rel="noopener noreferrer"' : ''; ?> aria-label="<?php echo esc_attr($service_link_label); ?>">
+												<div class="btn-expand__icon">
 													<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
 														<line fill="none" stroke="#000" x1="3.47" y1="10" x2="15.47" y2="10"></line>
 														<polyline fill="none" stroke="#000" points="11.98 13.84 15.82 10 11.98 6.16"></polyline>
 													</svg>
 												</div>
-												<span class="service-card__cta-text"><?php echo esc_html($service_link_title); ?></span>
+												<span class="btn-expand__text"><?php echo esc_html($service_link_title); ?></span>
 											</a>
 										<?php endif; ?>
 									</article>
@@ -227,14 +227,14 @@ if ($has_slider && function_exists('wp_enqueue_style')) {
 								</div>
 
 								<?php if ($service_link_url) : ?>
-									<a class="service-card__cta" href="<?php echo esc_url($service_link_url); ?>" target="<?php echo esc_attr($service_link_target); ?>" <?php echo '_blank' === $service_link_target ? 'rel="noopener noreferrer"' : ''; ?> aria-label="<?php echo esc_attr($service_link_label); ?>">
-										<div class="service-card__cta-icon">
+									<a class="service-card__cta btn-expand" href="<?php echo esc_url($service_link_url); ?>" target="<?php echo esc_attr($service_link_target); ?>" <?php echo '_blank' === $service_link_target ? 'rel="noopener noreferrer"' : ''; ?> aria-label="<?php echo esc_attr($service_link_label); ?>">
+										<div class="btn-expand__icon">
 											<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
 												<line fill="none" stroke="#000" x1="3.47" y1="10" x2="15.47" y2="10"></line>
 												<polyline fill="none" stroke="#000" points="11.98 13.84 15.82 10 11.98 6.16"></polyline>
 											</svg>
 										</div>
-										<span class="service-card__cta-text"><?php echo esc_html($service_link_title); ?></span>
+										<span class="btn-expand__text"><?php echo esc_html($service_link_title); ?></span>
 									</a>
 								<?php endif; ?>
 							</article>

@@ -5,6 +5,7 @@ $contrast-color: var(--wp--preset--color--contrast);
 $contrast-2-color: var(--wp--preset--color--contrast-2);
 $contrast-3-color: var(--wp--preset--color--contrast-3);
 $accent-color: var(--wp--preset--color--accent);
+$accent-color-neutral: #e8f4fa;
 $accent-2-color: var(--wp--preset--color--accent-2);
 $accent-3-color: var(--wp--preset--color--accent-3);
 $accent-4-color: var(--wp--preset--color--accent-4);
@@ -87,6 +88,124 @@ $gutenberg: (
 @mixin intro-large-text {
   font-size: clamp(2rem, 1.6667vw, 2.4rem);
   font-family: $main-font;
+}
+
+@mixin btn-expand-active {
+  padding-right: 1.8rem;
+  background-color: $base-color;
+  color: $contrast-color;
+  animation-play-state: paused;
+
+  .btn-expand__text {
+    max-width: 24rem;
+    margin-left: 1.2rem;
+    opacity: 1;
+  }
+}
+
+@mixin btn-expand {
+  @keyframes btn-expand-pulse {
+    0%, 100% {
+      transform: scale(.95);
+      box-shadow: 0 0 0 0 color-mix(in srgb, #{$accent-color} 17%, transparent);
+    }
+
+    60% {
+      transform: scale(1);
+      box-shadow: 0 0 0 .8rem transparent;
+    }
+  }
+
+  .btn-expand {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    max-width: 100%;
+    padding: .6rem;
+    border-radius: 999rem;
+    background-color: color-mix(in srgb, #{$accent-color} 18%, transparent);
+    color: $base-color;
+    text-decoration: none;
+    backdrop-filter: blur(.2rem);
+    // Keep the hover target stable while the scaled button expands.
+    transform-origin: left center;
+    transition: all .4s ease;
+
+    &:hover,
+    &:focus-visible {
+      @include btn-expand-active;
+    }
+
+    &:focus-visible {
+      outline: .2rem solid $accent-2-color;
+      outline-offset: .3rem;
+    }
+  }
+
+  .btn-expand__icon {
+    display: inline-flex;
+    flex: 0 0 4.2rem;
+    align-items: center;
+    justify-content: center;
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: 50%;
+    background: $accent-color;
+    color: $base-color;
+
+    svg {
+      width: 70%;
+      height: auto;
+    }
+
+    line, polyline {
+      stroke: currentColor;
+    }
+  }
+
+  .btn-expand .btn-expand__text {
+    max-width: 0;
+    margin-left: 0;
+    overflow: hidden;
+    color: inherit;
+    font-family: $heading-font;
+    font-size: $p-font-size;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: .08em;
+    opacity: 0;
+    white-space: nowrap;
+    transition: all .5s ease;
+  }
+
+  .loaded & .btn-expand {
+    transition: all .4s ease;
+  }
+
+  @media screen and (min-width: 64.0625em) {
+    .btn-expand {
+      animation: btn-expand-pulse 3s ease infinite;
+    }
+  }
+
+  @media screen and (max-width: 64em) {
+    .btn-expand {
+      @include btn-expand-active;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-expand,
+    .btn-expand__icon,
+    .btn-expand .btn-expand__text {
+      animation: none;
+      transition: none;
+    }
+
+    .loaded & .btn-expand {
+      transition: none;
+    }
+  }
 }
 
 @mixin link-underline($bgr: #fff) {
