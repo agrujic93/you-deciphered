@@ -90,6 +90,92 @@ $gutenberg: (
   font-family: $main-font;
 }
 
+@mixin intro-small-text {
+  font-size: clamp(1.4rem, 1.1667vw, 1.6rem);
+  font-family: $main-font;
+}
+
+@mixin checkmark-list($circle-color: $accent-color, $check-color: $base-color) {
+  @at-root {
+    @property --checkmark-list-pulse {
+      syntax: '<number>';
+      inherits: false;
+      initial-value: 0;
+    }
+
+    @property --checkmark-list-intensity {
+      syntax: '<number>';
+      inherits: false;
+      initial-value: 0;
+    }
+  }
+
+  @keyframes checkmark-list-breathe {
+    0%, 100% {
+      --checkmark-list-pulse: 0;
+    }
+
+    60% {
+      --checkmark-list-pulse: 1;
+    }
+  }
+
+  padding-inline-start: 0;
+
+  > li {
+    position: relative;
+    isolation: isolate;
+    padding-inline-start: 1.8em;
+    list-style: none;
+    margin-bottom: .6em;
+    &::before,
+    &::after {
+      position: absolute;
+      top: .15em;
+      inset-inline-start: 0;
+      width: 1.2em;
+      height: 1.2em;
+      pointer-events: none;
+    }
+
+    &::before {
+      content: '\2713';
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $check-color;
+      line-height: 1;
+      font-size: .9em;
+      top: .23em;
+      left: .11em;
+    }
+
+    &::after {
+      --checkmark-list-circle-color: #{$circle-color};
+      content: '';
+      border-radius: 50%;
+      background-color: var(--checkmark-list-circle-color);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    > li::after {
+      // Pause the pulse on exit while its intensity transitions back to zero.
+      animation: checkmark-list-breathe 4s ease infinite paused;
+      transform: scale(calc(1 + .12 * var(--checkmark-list-pulse) * var(--checkmark-list-intensity)));
+      box-shadow: 0 0 0 calc(.8rem * var(--checkmark-list-pulse) * var(--checkmark-list-intensity)) color-mix(in srgb, var(--checkmark-list-circle-color) calc(17% * (1 - var(--checkmark-list-pulse)) * var(--checkmark-list-intensity)), transparent);
+      transition: --checkmark-list-intensity .5s ease;
+    }
+
+    > li:hover::after,
+    > li:focus-within::after {
+      --checkmark-list-intensity: 1;
+      animation-play-state: running;
+    }
+  }
+}
+
 @mixin btn-expand-active {
   padding-right: 1.8rem;
   background-color: $base-color;

@@ -3,6 +3,30 @@
     "title": "Block: Price Boxes",
     "fields": [
         {
+            "key": "field_6ae4e14a7db5a",
+            "label": "Block General Option",
+            "name": "block_general_option",
+            "aria-label": "",
+            "type": "clone",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "clone": [
+                "field_69aef8c41da3d",
+                "field_69aefad8ed45e",
+                "field_69aefb21ed45f"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
+        },
+        {
             "key": "field_6ad9ca90ad11a",
             "label": "Intro",
             "name": "intro",
@@ -180,5 +204,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1793296219
+    "modified": 1793384807
 }

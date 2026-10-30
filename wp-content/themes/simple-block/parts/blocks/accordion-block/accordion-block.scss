@@ -51,9 +51,11 @@
 			padding: 3rem;
 			border-radius: 3rem;
 			border: 1px solid rgba(28, 200, 255, 0.3);
-			transition: border .3s ease;
+			box-shadow: inset 0px 0px 0px 1px transparent;
+			transition: all .4s ease;
 			&:hover {
 				border-color: $accent-color;
+				box-shadow: inset 0px 0px 0px 1px $accent-color;
 			}
 		}
 		.uk-width-expand {

@@ -669,6 +669,11 @@ if ( ! function_exists( 'wysiwyg_style_formats' ) ) {
 						'selector'	=> 'p,a,h1,h2,h3,h4,h5,h6',
 						'classes'	=> 'ci-intro-large-text'
 					],
+					[
+						'title'		=> __( 'Checkmark List', 'text_domain' ),
+						'selector'	=> 'ul,ol',
+						'classes'	=> 'ci-checkmark-list'
+					],
 				],
 			),
 			array(

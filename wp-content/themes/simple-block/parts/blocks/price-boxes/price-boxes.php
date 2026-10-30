@@ -41,7 +41,7 @@ $intro = get_field('intro');
 		<?php endif; ?>
 
 		<?php if (have_rows('price_boxes')) : ?>
-			<div class="price-boxes__grid uk-grid uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@l" data-uk-grid>
+			<div class="price-boxes__grid uk-grid uk-grid-small uk-child-width-1-2@m uk-child-width-1-3@l" data-uk-grid>
 				<?php while (have_rows('price_boxes')) : the_row(); ?>
 					<?php
 					$title       = get_sub_field('title');
