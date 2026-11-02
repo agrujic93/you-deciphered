@@ -376,7 +376,7 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	}
 	.ci-buttons-wrp {
 		display: flex;
-		gap: 1rem;
+		gap: 1.5rem;
 		flex-wrap: wrap;
 		&:has(.btn-expand) {
 			flex-direction: column;

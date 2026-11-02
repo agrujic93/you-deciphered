@@ -4,8 +4,8 @@
 	position: relative;
 	.column-wrp {
 		&.ci-has-background {
-			padding: 3rem;
-			border-radius: 1rem;
+			padding: 3.5rem;
+			border-radius: 3rem;
 			overflow: hidden;
 			height: 100%;
 			@media screen and (max-width: 769px) {
