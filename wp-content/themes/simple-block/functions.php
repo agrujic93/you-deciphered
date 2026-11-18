@@ -874,3 +874,19 @@ if (! function_exists('simple_block_set_default_acf_block_version')) :
 	}
 endif;
 add_filter('acf/blocks/default_block_version', 'simple_block_set_default_acf_block_version');
+
+/**
+ * Delay TinyMCE initialization on repeater WYSIWYG fields to prevent
+ * editor hangs/timeouts when editing multi-row blocks in the modal.
+ *
+ * @param array $field ACF field array.
+ * @return array
+ */
+function ci_uikit_delay_repeater_wysiwyg($field)
+{
+	if ((is_admin() || (defined('REST_REQUEST') && REST_REQUEST)) && ! empty($field['parent_repeater'])) {
+		$field['delay'] = 1;
+	}
+	return $field;
+}
+add_filter('acf/load_field/type=wysiwyg', 'ci_uikit_delay_repeater_wysiwyg');
