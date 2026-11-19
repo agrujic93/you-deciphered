@@ -58,17 +58,17 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 }
 
 :root :where(.is-layout-constrained) > .ci-block:first-child:not(.ci-has-background, .ci-hero-block) {
-	margin-block-start: 15rem;
-	@media screen and (max-width: 769px) {
-		margin-block-start: 5rem;
-	}
+	margin-block-start: $ci-big-gap;
+	// @media screen and (max-width: 769px) {
+	// 	margin-block-start: 5rem;
+	// }
 }
 
 :root :where(.is-layout-constrained) > .ci-block:last-child:not(.ci-has-background) {
-	margin-block-end: 15rem;
-	@media screen and (max-width: 769px) {
-		margin-block-end: 5rem;
-	}
+	margin-block-end: $ci-big-gap;
+	// @media screen and (max-width: 769px) {
+	// 	margin-block-end: 5rem;
+	// }
 }
 
 .wp-site-blocks, .editor-styles-wrapper {
@@ -413,24 +413,25 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		}
 	}
 	.big-gap {
-		margin-top: 15rem;
-		margin-bottom: 15rem;
+		margin-top: $ci-big-gap;
+		margin-bottom: $ci-big-gap;
+
 		&.ci-has-background {
 			margin-top: 0;
 			margin-bottom: 0;
-			padding-top: 15rem;
-			padding-bottom: 15rem;
+			padding-top: $ci-big-gap;
+			padding-bottom: $ci-big-gap;
 		}
-		@media (max-width: 769px) {
-			margin-top: 5rem;
-			margin-bottom: 5rem;
-			&.ci-has-background {
-				margin-top: 0;
-				margin-bottom: 0;
-				padding-top: 5rem;
-				padding-bottom: 5rem;
-			}
-		}
+		// @media (max-width: 769px) {
+		// 	margin-top: 5rem;
+		// 	margin-bottom: 5rem;
+		// 	&.ci-has-background {
+		// 		margin-top: 0;
+		// 		margin-bottom: 0;
+		// 		padding-top: 5rem;
+		// 		padding-bottom: 5rem;
+		// 	}
+		// }
 	}
 
 	.small-gap {
@@ -445,8 +446,8 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	}
 
 	section {
-		margin-top: 15rem;
-		margin-bottom: 15rem;
+		margin-top: $ci-big-gap;
+		margin-bottom: $ci-big-gap;
 		&.small-gap {
 			margin-top: 5rem;
 			margin-bottom: 5rem;
@@ -454,8 +455,8 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		&.ci-has-background {
 			margin-top: 0;
 			margin-bottom: 0;
-			padding-top: 15rem;
-			padding-bottom: 15rem;
+			padding-top: $ci-big-gap;
+			padding-bottom: $ci-big-gap;
 			&.small-gap {
 				margin-top: 0;
 				margin-bottom: 0;
@@ -463,26 +464,26 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 				padding-bottom: 5rem;
 			}
 		}
-		@media screen and (max-width: 769px) {
-			margin-top: 5rem;
-			margin-bottom: 5rem;
-			&.small-gap {
-				margin-top: 5rem;
-				margin-bottom: 5rem;
-			}
-			&.ci-has-background {
-				margin-top: 0;
-				margin-bottom: 0;
-				padding-top: 5rem;
-				padding-bottom: 5rem;
-				&.small-gap {
-					margin-top: 0;
-					margin-bottom: 0;
-					padding-top: 5rem;
-					padding-bottom: 5rem;
-				}
-			}
-		}
+		// @media screen and (max-width: 769px) {
+		// 	margin-top: 5rem;
+		// 	margin-bottom: 5rem;
+		// 	&.small-gap {
+		// 		margin-top: 5rem;
+		// 		margin-bottom: 5rem;
+		// 	}
+		// 	&.ci-has-background {
+		// 		margin-top: 0;
+		// 		margin-bottom: 0;
+		// 		padding-top: 5rem;
+		// 		padding-bottom: 5rem;
+		// 		&.small-gap {
+		// 			margin-top: 0;
+		// 			margin-bottom: 0;
+		// 			padding-top: 5rem;
+		// 			padding-bottom: 5rem;
+		// 		}
+		// 	}
+		// }
 	}
 	.section-full-width {
 		margin-left: calc($g-padding-left * -1) !important;

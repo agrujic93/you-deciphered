@@ -30,6 +30,8 @@ $wide-size: var(--wp--style--global--wide-size);
 $g-padding-left: var(--wp--style--root--padding-left);
 $g-padding-right: var(--wp--style--root--padding-right);
 
+$ci-big-gap: clamp(5rem, 11.7188vw, 15rem);
+
 // h1:not(#{$gutenberg}) { color: red; }
 // OR
 // h2 { @include not-gutenberg-gui { color: red; } }
