@@ -1,0 +1,451 @@
+@use 'assets/css/sass/custom/theme-variables' as *;
+
+.psyhomatrix-calculator-block {
+	font-family: $main-font;
+	color: $contrast-color;
+
+	.psyhomatrix-calculator-inner {
+		max-width: $content-size;
+		margin-inline: auto;
+	}
+
+	.psyhomatrix-form-card {
+		max-width: 64rem;
+		margin: 0 auto var(--wp--preset--spacing--40);
+		padding: var(--wp--preset--spacing--40);
+		background-color: $base-2-color;
+		border-radius: 1.6rem;
+		text-align: center;
+	}
+
+	.psyhomatrix-title {
+		font-family: $heading-font;
+		font-size: $h2-font-size;
+		color: $accent-color;
+		margin: 0 0 1.2rem;
+	}
+
+	.psyhomatrix-subtitle {
+		font-size: $p-font-size;
+		color: $contrast-2-color;
+		margin: 0 0 2.4rem;
+	}
+
+	.psyhomatrix-controls {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.6rem;
+	}
+
+	.data_group_name.onefield {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		max-width: 36rem;
+		text-align: left;
+	}
+
+	.psyhomatrix-input-label {
+		font-size: 1.5rem;
+		font-weight: 500;
+		color: $contrast-color;
+		margin-bottom: 0.8rem;
+	}
+
+	.psyhomatrix-birthdate-input {
+		width: 100%;
+		min-height: 5.6rem;
+		padding: 1.2rem 2rem;
+		font-family: $main-font;
+		font-size: 1.8rem;
+		letter-spacing: 0.08em;
+		text-align: center;
+		color: $contrast-color;
+		background-color: $base-color;
+		border: 0.2rem solid $contrast-3-color;
+		border-radius: 0.8rem;
+		box-sizing: border-box;
+		transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+		&:focus {
+			outline: 0;
+			border-color: $accent-color;
+			box-shadow: 0 0 0 0.2rem $accent-color-neutral;
+		}
+
+		&.input-error {
+			border-color: $accent-4-color;
+		}
+	}
+
+	.btn_group {
+		width: 100%;
+		max-width: 36rem;
+	}
+
+	.informations {
+		min-height: 2.2rem;
+		margin-bottom: 1.2rem;
+		font-size: 1.4rem;
+		font-weight: 500;
+	}
+
+	.psyhomatrix-helper-msg {
+		margin: 0;
+		color: $contrast-2-color;
+	}
+
+	.psyhomatrix-warning-msg {
+		margin: 0;
+		color: $accent-4-color;
+	}
+
+	.psyhomatrix-actions {
+		gap: 1.2rem;
+	}
+
+	.psyhomatrix-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 5rem;
+		padding: 1.2rem 2.8rem;
+		font-family: $main-font;
+		font-size: 1.6rem;
+		font-weight: 600;
+		border-radius: 0.8rem;
+		border: 0.2rem solid transparent;
+		cursor: pointer;
+		transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
+
+		&:disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+
+		&--primary {
+			flex: 1 1 20rem;
+			background-color: $accent-color;
+			color: $base-color;
+
+			&:hover:not(:disabled),
+			&:focus-visible:not(:disabled) {
+				background-color: $accent-2-color;
+			}
+		}
+
+		&--secondary {
+			background-color: transparent;
+			border-color: $contrast-3-color;
+			color: $contrast-color;
+
+			&:hover,
+			&:focus-visible {
+				border-color: $accent-color;
+				color: $accent-color;
+			}
+		}
+	}
+
+	.psyhomatrix-preview {
+		margin-top: var(--wp--preset--spacing--30);
+	}
+
+	.psychomatrix {
+		margin-top: var(--wp--preset--spacing--40);
+	}
+
+	.matrixhead {
+		text-align: center;
+		margin-bottom: 2.4rem;
+	}
+
+	.psyhomatrix-result-heading {
+		font-family: $heading-font;
+		font-size: $h3-font-size;
+		color: $accent-color;
+		margin: 0;
+	}
+
+	.result-link-block {
+		gap: 1.2rem;
+		justify-content: center;
+		padding: 1.6rem 2rem;
+		margin-bottom: 2.8rem;
+		background-color: $base-2-color;
+		border-radius: 1.2rem;
+	}
+
+	.result-link-label {
+		font-size: 1.4rem;
+		font-weight: 600;
+		color: $contrast-color;
+	}
+
+	.result-link-input {
+		flex: 1 1 24rem;
+		max-width: 42rem;
+		min-height: 4.2rem;
+		padding: 0.8rem 1.4rem;
+		font-family: $main-font;
+		font-size: 1.4rem;
+		color: $contrast-2-color;
+		background-color: $base-color;
+		border: 0.1rem solid $contrast-3-color;
+		border-radius: 0.6rem;
+		box-sizing: border-box;
+	}
+
+	.result-link-actions {
+		gap: 1rem;
+	}
+
+	.result-link-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 4.2rem;
+		padding: 0.8rem 1.8rem;
+		font-family: $main-font;
+		font-size: 1.4rem;
+		font-weight: 600;
+		color: $base-color;
+		background-color: $accent-color;
+		border: 0;
+		border-radius: 0.6rem;
+		cursor: pointer;
+		transition: background-color 0.2s ease, opacity 0.2s ease;
+
+		&:hover,
+		&:focus-visible {
+			background-color: $accent-2-color;
+		}
+
+		&:disabled {
+			opacity: 0.6;
+			cursor: wait;
+		}
+
+		&.is-copied {
+			background-color: $accent-3-color;
+		}
+	}
+
+	.result-qr-wrapper {
+		position: relative;
+	}
+
+	.result-link-qrcode {
+		position: absolute;
+		top: calc(100% + 1rem);
+		right: 0;
+		z-index: 20;
+		padding: 1.2rem;
+		background-color: $base-color;
+		border: 0.1rem solid $contrast-3-color;
+		border-radius: 0.8rem;
+	}
+
+	.raschetblock {
+		padding: var(--wp--preset--spacing--30);
+		background-color: $base-color;
+		border: 0.1rem solid $base-2-color;
+		border-radius: 1.6rem;
+		overflow-x: auto;
+	}
+
+	.raschet {
+		width: 100%;
+		border-collapse: separate;
+		border-spacing: 1rem;
+		table-layout: fixed;
+
+		td {
+			position: relative;
+			padding: 2rem 1.2rem;
+			text-align: center;
+			vertical-align: middle;
+			font-family: $heading-font;
+			font-size: 2.6rem;
+			font-weight: 600;
+			line-height: 1.25;
+			border-radius: 1rem;
+			cursor: help;
+			transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+			&:focus-visible {
+				outline: 0.2rem solid $accent-color;
+				outline-offset: 0.2rem;
+			}
+
+			&[data-termin]::after {
+				content: attr(data-termin);
+				display: block;
+				margin-top: 0.8rem;
+				font-family: $main-font;
+				font-size: 1.4rem;
+				font-weight: 400;
+				line-height: 1.3;
+				opacity: 0.85;
+			}
+		}
+
+		td.dop_numbers,
+		td.numbers_1,
+		td.numbers_2,
+		td.numbers_3,
+		td.numbers_4,
+		td.numbers_5,
+		td.numbers_6,
+		td.numbers_7,
+		td.numbers_8,
+		td.numbers_9 {
+			background-color: $base-2-color;
+			color: $contrast-color;
+		}
+
+		td.dop_numbers {
+			font-size: 2.8rem;
+			color: $accent-color;
+		}
+
+		td.carnals,
+		td.goal,
+		td.family,
+		td.habit,
+		td.selfrating,
+		td.life,
+		td.potential,
+		td.spiritual {
+			background-color: $accent-color-neutral;
+			color: $accent-color;
+		}
+	}
+
+	.psyhomatrix-download-signature {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 1.2rem;
+		margin-top: 2rem;
+		padding: 1rem;
+		text-align: center;
+	}
+
+	.psyhomatrix-download-logo {
+		height: 3.6rem;
+		width: auto;
+		max-width: 100%;
+	}
+
+	.psyhomatrix-download-text {
+		font-family: $main-font;
+		font-size: 1.4rem;
+		color: $contrast-2-color;
+	}
+
+	.psyhomatrix-decoding {
+		margin-top: var(--wp--preset--spacing--40);
+	}
+
+	.psyhomatrix-decoding-heading {
+		font-family: $heading-font;
+		font-size: $h3-font-size;
+		color: $accent-color;
+		text-align: center;
+		margin: 0 0 2.8rem;
+	}
+
+	.psyhomatrix-card {
+		height: 100%;
+		padding: var(--wp--preset--spacing--30);
+		background-color: $base-2-color;
+		border-radius: 1.6rem;
+		box-sizing: border-box;
+	}
+
+	.psyhomatrix-card-title {
+		font-family: $heading-font;
+		font-size: $h4-font-size;
+		color: $accent-color;
+		margin: 0 0 1.6rem;
+	}
+
+	.psyhomatrix-card-body {
+		font-size: $p-font-size;
+		line-height: 1.65;
+		color: $contrast-color;
+
+		p:last-child,
+		ul:last-child {
+			margin-bottom: 0;
+		}
+
+		ul {
+			padding-left: 2rem;
+			margin: 0 0 1.6rem;
+		}
+
+		li {
+			margin-bottom: 0.6rem;
+		}
+	}
+
+	.psyhomatrix-cta {
+		margin-top: var(--wp--preset--spacing--40);
+		padding: var(--wp--preset--spacing--30);
+		background-color: $accent-color-neutral;
+		border-radius: 1.6rem;
+		font-size: $p-font-size;
+		line-height: 1.65;
+		text-align: center;
+
+		p:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		.psyhomatrix-form-card {
+			padding: 2.4rem 1.8rem;
+		}
+
+		.raschetblock {
+			padding: 1.2rem;
+		}
+
+		.raschet {
+			border-spacing: 0.6rem;
+
+			td {
+				padding: 1.4rem 0.6rem;
+				font-size: 2rem;
+
+				&[data-termin]::after {
+					font-size: 1.1rem;
+					margin-top: 0.5rem;
+				}
+			}
+
+			td.dop_numbers {
+				font-size: 2rem;
+			}
+		}
+
+		.result-link-block {
+			flex-direction: column;
+			align-items: stretch;
+			text-align: center;
+		}
+
+		.result-link-input {
+			max-width: 100%;
+		}
+
+		.result-link-actions {
+			justify-content: center;
+		}
+	}
+}

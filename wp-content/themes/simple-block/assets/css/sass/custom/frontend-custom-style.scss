@@ -79,6 +79,7 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 	> main {
 		flex: 1 0 auto;
 		&.site-main {
+			margin-top: 0;
 			&:has(.ci-hero-block) {
 				margin-top: 0;
 			}

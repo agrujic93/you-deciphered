@@ -409,6 +409,27 @@ function cwp_register_block_script() {
 	$js_path_price_boxes = get_template_directory() . '/parts/blocks/price-boxes/price-boxes.js';
 	$js_url_price_boxes  = get_template_directory_uri() . '/parts/blocks/price-boxes/price-boxes.js';
 	wp_register_script( 'price-boxes-js', $js_url_price_boxes, array('jquery'), file_exists( $js_path_price_boxes ) ? filemtime( $js_path_price_boxes ) : '1.0.0' );
+
+	// Registered for block: psyhomatrix-calculator
+	$qrcode_js_path = get_template_directory() . '/parts/blocks/psyhomatrix-calculator/vendor/qrcode.min.js';
+	$qrcode_js_url  = get_template_directory_uri() . '/parts/blocks/psyhomatrix-calculator/vendor/qrcode.min.js';
+	wp_register_script(
+		'qrcodejs',
+		$qrcode_js_url,
+		array(),
+		file_exists( $qrcode_js_path ) ? filemtime( $qrcode_js_path ) : '1.0.0',
+		true
+	);
+
+	$psyhomatrix_js_path = get_template_directory() . '/parts/blocks/psyhomatrix-calculator/psyhomatrix-calculator.js';
+	$psyhomatrix_js_url  = get_template_directory_uri() . '/parts/blocks/psyhomatrix-calculator/psyhomatrix-calculator.js';
+	wp_register_script(
+		'psyhomatrix-calculator-js',
+		$psyhomatrix_js_url,
+		array( 'qrcodejs' ),
+		file_exists( $psyhomatrix_js_path ) ? filemtime( $psyhomatrix_js_path ) : '1.0.0',
+		true
+	);
 }
 add_action( 'init', 'cwp_register_block_script' );
 
@@ -829,6 +850,45 @@ function simple_block_register_polylang_strings() {
 		'Email %s',
 		'Privacy Policy',
 		'Terms of Service',
+		// Psyhomatrix Calculator strings
+		'Psychomatrix Calculator',
+		'Enter your birth date to calculate your Pythagorean Psychomatrix and key numbers.',
+		'Date of birth',
+		'DD.MM.YYYY',
+		'Calculate',
+		'Reset',
+		'Copy Link',
+		'Copied',
+		'QR Code',
+		'Download Matrix',
+		'Link to your result:',
+		'Calculation results for date:',
+		'Interpretation of Additional Numbers:',
+		'Goal:',
+		'Base:',
+		'Enter your full birth date (DD.MM.YYYY) for an accurate calculation.',
+		'Invalid date. Please enter a valid calendar date in DD.MM.YYYY format.',
+		'Please enter the full date in DD.MM.YYYY format (digits only).',
+		'Day must be between 01 and 31.',
+		'Month must be between 01 and 12.',
+		'Additional Numbers',
+		'Character',
+		'Energy',
+		'Interest',
+		'Health',
+		'Logic',
+		'Labor',
+		'Luck',
+		'Duty',
+		'Memory',
+		'Goal',
+		'Family',
+		'Habits',
+		'Self-Esteem',
+		'Daily Life',
+		'Potential',
+		'Spiritual',
+		'Temperament',
 	);
 
 	foreach ( $strings as $string ) {
