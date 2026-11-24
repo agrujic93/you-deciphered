@@ -213,7 +213,7 @@
 		align-items: center;
 		gap: 0.5rem;
 
-		.lang-switcher, .search-trigger, .cart-trigger {
+		.lang-switcher, .search-trigger, .calculator-trigger, .cart-trigger {
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -236,6 +236,11 @@
 					background: rgba(0, 0, 0, 0.05);
 				}
 			}
+		}
+
+		.calculator-trigger img {
+			width: 2.4rem;
+			height: 2.4rem;
 		}
 
 		.lang-switcher {
@@ -322,6 +327,47 @@
 	}
 }
 
+.calculator-floating-link {
+	position: fixed;
+	right: 2rem;
+	bottom: 2rem;
+	z-index: 1001;
+	display: inline-flex;
+	align-items: center;
+	gap: 1rem;
+	max-width: calc(100% - 4rem);
+	padding: 1.2rem 1.8rem;
+	border: 0.1rem solid $accent-color;
+	border-radius: 10rem;
+	background: $accent-color;
+	box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.15);
+	color: $base-color;
+	font-size: $p-font-size;
+	font-weight: 600;
+	text-decoration: none;
+
+	&[hidden] {
+		display: none;
+	}
+
+	&:hover, &:focus-visible {
+		background: $contrast-color;
+		color: $base-color;
+		text-decoration: none;
+	}
+
+	img {
+		width: 2.4rem;
+		height: 2.4rem;
+		flex: 0 0 auto;
+		filter: brightness(0) invert(1);
+	}
+}
+
+.wp-site-blocks a.calculator-floating-link span:not(.has-text-color) {
+	color: $base-color;
+}
+
 // Search Dropdown Styles
 .uk-drop {
 	.uk-card {
@@ -349,9 +395,23 @@
 			}
 		}
 	}
+
 }
 
 // Mobile Styles (Below 1025px)
+@media screen and (min-width: 64.0625rem) and (max-width: 75rem) {
+	.main-header .central-nav-pill .wp-block-navigation {
+		.wp-block-navigation__container {
+			gap: 0.2rem;
+		}
+
+		.wp-block-navigation-item > a {
+			padding-left: 0.8rem;
+			padding-right: 0.8rem;
+		}
+	}
+}
+
 @media (max-width: 1024px) {
 	.main-header {
 		padding: 1.5rem $g-padding-right 1.5rem $g-padding-left;
@@ -465,7 +525,7 @@
 			border: none;
 			padding: 0;
 
-			.lang-switcher, .search-trigger, .cart-trigger {
+			.lang-switcher, .search-trigger, .calculator-trigger, .cart-trigger {
 				height: 4rem;
 				min-width: 4rem;
 			}
@@ -492,6 +552,26 @@
 				.icon-bar:nth-child(2) { opacity: 0; }
 				.icon-bar:nth-child(3) { transform: translateY(-0.8rem) rotate(-45deg); }
 			}
+		}
+	}
+}
+
+@media screen and (max-width: 40rem) {
+	.main-header {
+		padding-left: 1rem;
+		padding-right: 1rem;
+
+		&.is-sticky-manual {
+			padding-left: 1rem;
+			padding-right: 1rem;
+		}
+
+		.header-wrp {
+			gap: 0.5rem;
+		}
+
+		.actions-pill {
+			margin-right: 0;
 		}
 	}
 }

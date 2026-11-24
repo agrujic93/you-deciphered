@@ -14,15 +14,20 @@
         // for more robust detection on various resolutions if CSS classes feel laggy.
 
         const $header = $('.main-header');
+        const $calculatorFloatingLink = $('.calculator-floating-link');
 
-        $(window).on('scroll', function() {
+        function updateHeaderOnScroll() {
             var scrollPos = $(window).scrollTop();
             if (scrollPos > 100) {
                 $header.addClass('is-sticky-manual');
             } else if (scrollPos <= 20) {
                 $header.removeClass('is-sticky-manual');
             }
-        });
+            $calculatorFloatingLink.prop('hidden', scrollPos > 200);
+        }
+
+        $(window).on('scroll', updateHeaderOnScroll);
+        updateHeaderOnScroll();
 
         // Blob Navigation Logic
         const $navContainer = $('.central-nav-pill .wp-block-navigation__container, .central-nav-pill .wp-block-navigation-container');

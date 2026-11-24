@@ -15,7 +15,12 @@ if ( isset( $block['data']['preview_image_help'] ) ) :    /* rendering in insert
 else : /* Rendering in editor body. */
 	?>
 
-	<?php $lang = pll_current_language('slug'); ?>
+	<?php
+	$lang = pll_current_language('slug');
+	$calculator_url = home_url( 'sr' === $lang ? '/sr/kalkulator-psihomatrice/' : '/services/psyhomatrix-calculator/' );
+	$calculator_label = 'sr' === $lang ? 'Izračunajte svoju psihomatricu' : 'Calculate Your Psyhomatrix';
+	$calculator_icon = get_template_directory_uri() . '/assets/images/calculator.svg';
+	?>
 	<header class="main-header">
 		<div class="container">
 			<div class="header-wrp">
@@ -71,6 +76,12 @@ else : /* Rendering in editor body. */
 						</div>
 					</div>
 
+					<div class="calculator-trigger">
+						<a href="<?php echo esc_url( $calculator_url ); ?>" aria-label="<?php echo esc_attr( $calculator_label ); ?>">
+							<img src="<?php echo esc_url( $calculator_icon ); ?>" alt="" width="24" height="24">
+						</a>
+					</div>
+
 					<?php if ( class_exists( 'WooCommerce' ) ) : ?>
 						<div class="cart-trigger">
 							<a href="<?php echo wc_get_cart_url(); ?>" uk-icon="icon: cart">
@@ -89,5 +100,9 @@ else : /* Rendering in editor body. */
 			</div>
 		</div>
 	</header>
+	<a class="calculator-floating-link" href="<?php echo esc_url( $calculator_url ); ?>">
+		<img src="<?php echo esc_url( $calculator_icon ); ?>" alt="" width="24" height="24">
+		<span><?php echo esc_html( $calculator_label ); ?></span>
+	</a>
 
 <?php endif; ?>
