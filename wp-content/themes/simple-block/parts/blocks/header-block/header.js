@@ -2,18 +2,116 @@
     "use strict";
 
     $(document).ready(function() {
-        // Mobile Menu Toggle
-        $('.open-menu').on('click', function() {
-            $(this).toggleClass('is-active');
-            $('.central-nav-pill').toggleClass('nav-active');
-            $('body').toggleClass('nav-open');
+        const $menuButton = $('.open-menu');
+        const $mobileNav = $('.central-nav-pill');
+        const $header = $('.main-header');
+        const $headerActions = $header.find('.site-branding, .actions-pill');
+        const $pageBackground = $header.closest('.site-header, header.wp-block-template-part').siblings()
+            .add($header.siblings('.calculator-floating-link'))
+            .add($headerActions);
+        const mobileMenuQuery = window.matchMedia('(max-width: 1024px)');
+        let $inertedBackground = $();
+
+        $mobileNav.find('.wp-block-navigation-item.has-child').each(function(index) {
+            const $item = $(this);
+            const $link = $item.children('a').first();
+            const $submenu = $item.children('.wp-block-navigation__submenu-container').first();
+            if (!$link.length || !$submenu.length) {
+                return;
+            }
+
+            const submenuId = $mobileNav.attr('id') + '-submenu-' + index;
+            const linkText = $link.text().trim();
+            const $toggle = $('<button>', {
+                type: 'button',
+                class: 'mobile-submenu-toggle',
+                'aria-controls': submenuId,
+                'aria-expanded': 'false',
+                'aria-label': $mobileNav.attr('data-submenu-open-label').replace('%s', linkText)
+            });
+
+            $submenu.attr('id', submenuId);
+            $link.after($toggle);
+            $toggle.on('click', function() {
+                const expanded = $toggle.attr('aria-expanded') === 'true';
+                $toggle.attr({
+                    'aria-expanded': String(!expanded),
+                    'aria-label': $mobileNav.attr(expanded ? 'data-submenu-open-label' : 'data-submenu-close-label').replace('%s', linkText)
+                });
+                $item.toggleClass('submenu-open', !expanded);
+            });
+        });
+
+        function closeMobileMenu(restoreFocus) {
+            $menuButton.removeClass('is-active').attr({
+                'aria-expanded': 'false',
+                'aria-label': $menuButton.attr('data-open-label')
+            });
+            $mobileNav.removeClass('nav-active');
+            $header.removeAttr('role aria-modal aria-label');
+            $inertedBackground.removeAttr('inert');
+            $inertedBackground = $();
+            $('body').removeClass('nav-open');
+            $mobileNav.find('.mobile-submenu-toggle[aria-expanded="true"]').trigger('click');
+            if (restoreFocus) {
+                $menuButton.trigger('focus');
+            }
+        }
+
+        $menuButton.on('click', function() {
+            if ($(this).attr('aria-expanded') === 'true') {
+                closeMobileMenu(true);
+                return;
+            }
+
+            $(this).addClass('is-active').attr({
+                'aria-expanded': 'true',
+                'aria-label': $(this).attr('data-close-label')
+            });
+            $mobileNav.addClass('nav-active');
+            $header.attr({
+                role: 'dialog',
+                'aria-modal': 'true',
+                'aria-label': $mobileNav.attr('data-menu-label')
+            });
+            $inertedBackground = $pageBackground.not('[inert]').attr('inert', '');
+            $('body').addClass('nav-open');
+            $mobileNav.find('.current-menu-item').parentsUntil($mobileNav, '.wp-block-navigation-item.has-child').each(function() {
+                $(this).children('.mobile-submenu-toggle[aria-expanded="false"]').trigger('click');
+            });
+            $mobileNav.find('.wp-block-navigation-item > a:visible').first().trigger('focus');
+        });
+
+        $(document).on('keydown', function(event) {
+            if ($menuButton.attr('aria-expanded') !== 'true') {
+                return;
+            }
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                closeMobileMenu(true);
+            } else if (event.key === 'Tab') {
+                const focusable = $menuButton.add($mobileNav.find('a:visible, button:visible')).toArray();
+                const index = focusable.indexOf(document.activeElement);
+                if (event.shiftKey && index <= 0) {
+                    event.preventDefault();
+                    focusable[focusable.length - 1].focus();
+                } else if (!event.shiftKey && (index === -1 || index === focusable.length - 1)) {
+                    event.preventDefault();
+                    focusable[0].focus();
+                }
+            }
+        });
+
+        $(window).on('resize', function() {
+            if (!mobileMenuQuery.matches && $menuButton.attr('aria-expanded') === 'true') {
+                closeMobileMenu(false);
+            }
         });
 
         // Sticky State Detection Helper
         // UIkit adds .uk-navbar-sticky to the element, but we can also use IntersectionObserver
         // for more robust detection on various resolutions if CSS classes feel laggy.
 
-        const $header = $('.main-header');
         const $calculatorFloatingLink = $('.calculator-floating-link');
 
         function updateHeaderOnScroll() {

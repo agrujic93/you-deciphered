@@ -20,6 +20,12 @@ else : /* Rendering in editor body. */
 	$calculator_url = home_url( 'sr' === $lang ? '/sr/kalkulator-psihomatrice/' : '/services/psyhomatrix-calculator/' );
 	$calculator_label = 'sr' === $lang ? 'Izračunajte svoju psihomatricu' : 'Calculate Your Psyhomatrix';
 	$calculator_icon = get_template_directory_uri() . '/assets/images/calculator.svg';
+	$navigation_id = wp_unique_id( 'header-navigation-' );
+	$menu_open_label = 'sr' === $lang ? 'Otvori meni' : 'Open menu';
+	$menu_close_label = 'sr' === $lang ? 'Zatvori meni' : 'Close menu';
+	$submenu_open_label = 'sr' === $lang ? 'Otvori podmeni: %s' : 'Expand submenu: %s';
+	$submenu_close_label = 'sr' === $lang ? 'Zatvori podmeni: %s' : 'Collapse submenu: %s';
+	$header_logo = get_field( 'header_logo_' . $lang, 'option' );
 	?>
 	<header class="main-header">
 		<div class="container">
@@ -27,13 +33,18 @@ else : /* Rendering in editor body. */
 				<!-- Branding Section -->
 				<div class="site-branding">
 					<a aria-label="<?php echo esc_attr( simple_block_pll__( 'Link to home page' ) ); ?>" class="header-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-						<?php if( get_field('header_logo_'.$lang, 'option') ): ?>
-							<img class="main-logo" alt="<?php echo get_field('header_logo_'.$lang, 'option')['alt']; ?>" src="<?php echo get_field('header_logo_'.$lang, 'option')['url'] ?>">
+						<?php if ( $header_logo ) : ?>
+							<img class="main-logo" alt="<?php echo esc_attr( $header_logo['alt'] ?: $header_logo['title'] ); ?>" src="<?php echo esc_url( $header_logo['url'] ); ?>">
 						<?php endif; ?>
 					</a>
 				</div>
 				<!-- Navigation Section (Pill) -->
-				<nav class="central-nav-pill">
+				<nav class="central-nav-pill" id="<?php echo esc_attr( $navigation_id ); ?>" data-submenu-open-label="<?php echo esc_attr( $submenu_open_label ); ?>" data-submenu-close-label="<?php echo esc_attr( $submenu_close_label ); ?>" data-menu-label="<?php echo esc_attr( 'sr' === $lang ? 'Glavni meni' : 'Main menu' ); ?>">
+					<?php if ( $header_logo ) : ?>
+						<a class="mobile-menu-logo" aria-label="<?php echo esc_attr( simple_block_pll__( 'Link to home page' ) ); ?>" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+							<img alt="<?php echo esc_attr( $header_logo['alt'] ?: $header_logo['title'] ); ?>" src="<?php echo esc_url( $header_logo['url'] ); ?>">
+						</a>
+					<?php endif; ?>
 					<a aria-label="<?php echo esc_attr( simple_block_pll__( 'Link to home page' ) ); ?>" class="uk-inline-block" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
 						<img class="small-logo" alt="<?php echo esc_attr( simple_block_pll__( 'Small logo' ) ); ?>" src="<?php echo get_template_directory_uri(); ?>/assets/images/yd-small-logo-cropped-light-blue.svg">
 					</a>
@@ -92,11 +103,11 @@ else : /* Rendering in editor body. */
 				</div>
 
 				<!-- Mobile Trigger -->
-				<div class="open-menu uk-hidden@m">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</div>
+				<button class="open-menu uk-hidden@m" type="button" aria-controls="<?php echo esc_attr( $navigation_id ); ?>" aria-expanded="false" aria-label="<?php echo esc_attr( $menu_open_label ); ?>" data-open-label="<?php echo esc_attr( $menu_open_label ); ?>" data-close-label="<?php echo esc_attr( $menu_close_label ); ?>">
+					<span class="icon-bar" aria-hidden="true"></span>
+					<span class="icon-bar" aria-hidden="true"></span>
+					<span class="icon-bar" aria-hidden="true"></span>
+				</button>
 			</div>
 		</div>
 	</header>
