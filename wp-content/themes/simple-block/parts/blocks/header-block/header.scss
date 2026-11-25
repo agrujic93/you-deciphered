@@ -238,9 +238,10 @@
 			}
 		}
 
-		.calculator-trigger img {
-			width: 2.4rem;
+		.calculator-trigger svg {
 			height: 2.4rem;
+			width: auto;
+			transition: all 0.3s ease;
 		}
 
 		.lang-switcher {
@@ -321,6 +322,10 @@
 				margin-right: 1.5rem;
 				display: block;
 			}
+		}
+
+		.calculator-trigger svg {
+			stroke: $accent-color;
 		}
 
 		.actions-pill {
