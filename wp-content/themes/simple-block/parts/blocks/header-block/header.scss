@@ -34,7 +34,7 @@
 			img.main-logo {
 				height: 7rem;
 				width: auto;
-				transition: all 0.2s ease;
+				transition: all .4s cubic-bezier(0.4, 0, 0.2, 1);
 				opacity: 1;
 				visibility: visible;
 			}
@@ -301,13 +301,16 @@
 		.site-branding .header-logo img.main-logo {
 			opacity: 0;
 			visibility: hidden;
-			height: 4rem; // Collapse slightly instead of 0 for stability
+			height: 4rem !important; // Collapse slightly instead of 0 for stability
 		}
 
 		.central-nav-pill {
 			background: #fff;
 			box-shadow: 0 0.4rem 2.5rem rgba(0, 0, 0, 0.1);
 			padding-left: 1.5rem;
+			@media screen and (max-width: 1024px) {
+				padding-left: $g-padding-left;
+			}
 
 			.small-logo {
 				height: 3.2rem;
@@ -323,6 +326,9 @@
 		.actions-pill {
 			background: #fff;
 			box-shadow: 0 0.4rem 2.5rem rgba(0, 0, 0, 0.1);
+			@media screen and (max-width: 1024px) {
+				box-shadow: none;
+			}
 		}
 	}
 }
@@ -427,6 +433,10 @@
 
 		&.is-sticky-manual {
 			padding: 1rem $g-padding-right 1rem $g-padding-left;
+			.central-nav-pill {
+				padding-top: 1rem;
+				padding-bottom: 1rem;
+			}
 		}
 
 		.header-wrp {
@@ -436,7 +446,7 @@
 
 		.site-branding {
 			.header-logo img.main-logo {
-				height: 5rem !important;
+				height: 4rem !important;
 				opacity: 1 !important;
 				visibility: visible !important;
 			}
@@ -454,6 +464,7 @@
 			z-index: 1500;
 			border-radius: 0;
 			padding: 3rem 2.4rem 4rem;
+			padding: 1.5rem $g-padding-right 4rem $g-padding-left;
 			overflow-y: auto;
 			box-shadow: none;
 			border: none;
@@ -476,7 +487,7 @@
 
 				img {
 					width: auto;
-					height: 5rem;
+					height: 4rem;
 				}
 			}
 
@@ -600,7 +611,12 @@
 
 			.lang-switcher, .search-trigger, .calculator-trigger, .cart-trigger {
 				height: 4rem;
-				min-width: 4rem;
+				min-width: 3.6rem;
+			}
+			.search-trigger {
+				a {
+					padding: 0;
+				}
 			}
 		}
 
@@ -612,9 +628,9 @@
 			gap: 0.6rem;
 			cursor: pointer;
 			z-index: 1600;
-			width: 4.8rem;
-			height: 4.8rem;
-			flex: 0 0 4.8rem;
+			width: 3rem;
+			height: 3rem;
+			flex: 0 0 3rem;
 			padding: 0;
 			border: 0;
 			border-radius: 50%;
@@ -622,7 +638,7 @@
 			order: 4;
 
 			.icon-bar {
-				width: 2.6rem;
+				width: 100%;
 				height: 2px;
 				background: $contrast-color;
 				transition: all 0.3s ease;
@@ -639,16 +655,16 @@
 
 @media screen and (max-width: 40rem) {
 	.main-header {
-		padding-left: 1rem;
-		padding-right: 1rem;
+		// padding-left: 1rem;
+		// padding-right: 1rem;
 
-		&.is-sticky-manual {
-			padding-left: 1rem;
-			padding-right: 1rem;
-		}
+		// &.is-sticky-manual {
+		// 	padding-left: 1rem;
+		// 	padding-right: 1rem;
+		// }
 
 		.header-wrp {
-			gap: 0.5rem;
+			gap: 2rem;
 		}
 
 		.actions-pill {

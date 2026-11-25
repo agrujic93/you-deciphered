@@ -17,7 +17,7 @@ else : /* Rendering in editor body. */
 
 	<?php
 	$lang = pll_current_language('slug');
-	$calculator_url = home_url( 'sr' === $lang ? '/sr/kalkulator-psihomatrice/' : '/services/psyhomatrix-calculator/' );
+	$calculator_url = home_url( 'sr' === $lang ? '/sr/usluge/kalkulator-psihomatrice/' : '/services/psyhomatrix-calculator/' );
 	$calculator_label = 'sr' === $lang ? 'Izračunajte svoju psihomatricu' : 'Calculate Your Psyhomatrix';
 	$calculator_icon = get_template_directory_uri() . '/assets/images/calculator.svg';
 	$navigation_id = wp_unique_id( 'header-navigation-' );
