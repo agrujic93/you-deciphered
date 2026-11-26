@@ -1232,3 +1232,356 @@ a:not(.btn, .wp-element-button, .uk-navbar-nav > li > a) {
 		}
 	}
 }
+
+.wp-site-blocks > .hero-advanced-block.no-video:not(.ci-has-background):has(~ .tec-block__archive-events) {
+	align-self: center;
+	width: 100%;
+	margin-block: var(--wp--preset--spacing--30) 0;
+
+	.hero-text-container .hero-advanced-headline {
+		font-size: $h1-font-size;
+	}
+}
+
+.tec-block__archive-events,
+.tec-block__single-event {
+	--yd-events-border: #{color-mix(in srgb, $contrast-color 16%, $base-color)};
+	--yd-events-link: #1cc8ff;
+	--tec-color-link-primary: #1cc8ff;
+
+	.tribe-events.tribe-common,
+	.tribe-events-single {
+		--tec-font-family-sans-serif: var(--wp--preset--font-family--body, var(--wp--preset--font-family--mona-sans));
+		--tec-color-text-primary: #{$contrast-color};
+		--tec-color-text-secondary: #{$contrast-2-color};
+		--tec-color-border-default: var(--yd-events-border);
+		--tec-color-border-secondary: var(--yd-events-border);
+		--tec-color-background: #{$base-color};
+		--tec-color-accent-primary: var(--yd-events-link);
+		--tec-color-accent-primary-hover: #{$contrast-color};
+		--tec-color-text-events-title: #{$contrast-color};
+		color: $contrast-color;
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: $p-font-size;
+
+		:is(a, button):focus-visible {
+			outline: .2rem solid var(--yd-events-link);
+			outline-offset: .3rem;
+		}
+
+		.tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button {
+			max-width: 100%;
+			min-height: 4.4rem;
+			border-color: $contrast-color;
+			border-radius: 999rem;
+			background-color: $accent-color-neutral;
+			color: $contrast-color;
+
+			&:is(:hover, :focus-within, .tribe-events-c-subscribe-dropdown__button--active) {
+				background-color: $accent-color;
+				color: $contrast-color;
+			}
+
+			button.tribe-events-c-subscribe-dropdown__button-text {
+				color: inherit;
+				font-family: inherit;
+				font-size: $p-font-size;
+				font-weight: 600;
+				white-space: normal;
+			}
+		}
+	}
+}
+
+.wp-site-blocks:has(> .hero-advanced-block .hero-advanced-headline) > .tec-block__archive-events,
+.tec-block__single-event {
+	// Keep the template hero or event title instead of the plugin's extra heading.
+	.tribe-events-before-html > h1:only-child {
+		display: none;
+	}
+}
+
+.tec-block__archive-events .tribe-events.tribe-common {
+	.tribe-events-l-container {
+		max-width: calc($content-size + $g-padding-left + $g-padding-right);
+		min-height: 0;
+		padding: 0 $g-padding-right var(--wp--preset--spacing--50) $g-padding-left;
+	}
+
+	.tribe-events-header {
+		margin-block-end: var(--wp--preset--spacing--30);
+		.tribe-events-c-view-selector {
+			display: none;
+		}
+	}
+
+	.tribe-events-c-top-bar__nav-list,
+	.tribe-events-c-top-bar__nav-list-item {
+		margin-block: 0;
+	}
+
+	a.tribe-events-c-top-bar__today-button {
+		border-color: var(--yd-events-border);
+		border-radius: 999rem;
+		color: $contrast-color;
+		font-family: var(--tec-font-family-sans-serif);
+		font-size: $p-font-size;
+
+		&:is(:hover, :focus-visible) {
+			border-color: var(--yd-events-link);
+			background-color: $accent-color-neutral;
+			color: $contrast-color;
+		}
+	}
+
+	button.tribe-events-c-top-bar__datepicker-button {
+		min-height: 4.4rem;
+		color: $contrast-color;
+		font-family: $heading-font;
+		font-size: $h4-font-size;
+	}
+
+	.tribe-events-c-nav {
+		border-color: var(--yd-events-border);
+
+		.tribe-events-c-nav__list {
+			gap: 1rem;
+			margin: 0;
+		}
+
+		.tribe-events-c-nav__list-item {
+			flex: 0 1 auto;
+			width: auto;
+			min-width: 0;
+			margin: 0;
+		}
+
+		.tribe-events-c-nav__list-item--today {
+			flex: 1 1 auto;
+		}
+
+		:is(a.tribe-events-c-nav__today, a.tribe-events-c-nav__prev, a.tribe-events-c-nav__next, button.tribe-events-c-nav__prev, button.tribe-events-c-nav__next) {
+			display: inline-flex;
+			align-items: center;
+			gap: .8rem;
+			min-height: 4.4rem;
+			padding: .8rem 1.2rem;
+			border: .1rem solid var(--yd-events-border);
+			border-radius: 999rem;
+			background: $base-color;
+			color: $contrast-color;
+			font-family: var(--tec-font-family-sans-serif);
+			font-size: $p-font-size;
+			line-height: 1.3;
+			text-decoration: none;
+
+			&:is(:hover, :focus-visible):not(:disabled) {
+				border-color: var(--yd-events-link);
+				background: $accent-color-neutral;
+				color: $contrast-color;
+			}
+
+			&:disabled {
+				background: $base-2-color;
+				color: $contrast-2-color;
+			}
+
+			&:disabled span:not(.has-text-color) {
+				color: $contrast-2-color;
+			}
+		}
+
+		.tribe-events-c-nav__prev-icon-svg,
+		.tribe-events-c-nav__next-icon-svg {
+			flex: none;
+			margin: 0;
+		}
+	}
+
+	.tribe-events-calendar-list__month-separator {
+		h3 {
+			margin: 0;
+		}
+
+		& + .tribe-events-calendar-list__event-row {
+			margin-block-start: var(--wp--preset--spacing--20);
+		}
+
+		.tribe-events-calendar-list__month-separator-text {
+			color: $contrast-color;
+			font-family: $heading-font;
+			font-size: $h5-font-size;
+		}
+	}
+
+	.tribe-events-calendar-list__event-row {
+		gap: clamp(1rem, 3vw, 2.5rem);
+		margin: var(--wp--preset--spacing--30) 0;
+		padding: clamp(1.2rem, 3vw, 3rem);
+		border: .1rem solid var(--yd-events-border);
+		border-radius: 2rem;
+		background-color: $base-color;
+
+		&:focus-within {
+			border-color: var(--yd-events-link);
+		}
+
+		> .tribe-common-g-col {
+			padding-inline: 0;
+		}
+
+		.tribe-events-calendar-list__event-date-tag {
+			width: clamp(4.4rem, 8vw, 6.4rem);
+			min-width: 0;
+		}
+
+		.tribe-events-calendar-list__event-date-tag-datetime {
+			height: auto;
+			padding: .8rem 0;
+			border-radius: 1.2rem;
+			background-color: $accent-color-neutral;
+		}
+
+		.tribe-events-calendar-list__event-date-tag-daynum,
+		.tribe-events-calendar-list__event-title {
+			color: $contrast-color;
+			font-family: $heading-font;
+			font-size: $h4-font-size;
+			font-weight: 400;
+		}
+
+		.tribe-events-calendar-list__event-details {
+			min-width: 0;
+			overflow-wrap: anywhere;
+		}
+
+		.tribe-events-calendar-list__event:not(:has(.tribe-events-calendar-list__event-featured-image-wrapper)) {
+			margin-inline: 0;
+
+			.tribe-events-calendar-list__event-details {
+				width: 100%;
+				padding-inline: 0;
+			}
+		}
+
+		.tribe-events-calendar-list__event-title {
+			margin-block-end: 0;
+		}
+
+		.tribe-events-calendar-list__event-title-link {
+			font: inherit;
+
+			&:is(:hover, :focus-visible) {
+				color: var(--yd-events-link);
+			}
+		}
+
+		.tribe-events-calendar-list__event-datetime-wrapper,
+		.tribe-events-calendar-list__event-venue,
+		.tribe-events-calendar-list__event-description {
+			font-size: $p-font-size;
+
+			&,
+			span:not(.has-text-color),
+			p:not(.has-text-color) {
+				color: $contrast-color;
+			}
+		}
+
+		.tribe-events-calendar-list__event-description p:last-child {
+			margin-block-end: 0;
+		}
+	}
+}
+
+.tec-block__single-event {
+	#tribe-events-pg-template {
+		max-width: calc($content-size + $g-padding-left + $g-padding-right);
+		padding: var(--wp--preset--spacing--30) $g-padding-right var(--wp--preset--spacing--50) $g-padding-left;
+	}
+
+	#tribe-events-content {
+		.tribe-events-single-event-title {
+			margin-block-end: var(--wp--preset--spacing--20);
+			font: 400 #{$h1-font-size}/1.2 $heading-font;
+		}
+
+		.tribe-events-schedule {
+			margin-block: 0 var(--wp--preset--spacing--40);
+			font-size: $h6-font-size;
+		}
+
+		.tribe-events-content,
+		.tribe-events-content p,
+		.tribe-events-event-meta,
+		.tribe-events-sub-nav a {
+			font-family: inherit;
+			font-size: $p-font-size;
+		}
+
+		.tribe-events-back a,
+		.tribe-events-content a,
+		.tribe-events-event-meta a,
+		.tribe-events-sub-nav a {
+			color: var(--yd-events-link);
+			text-decoration: underline;
+			text-underline-offset: .2em;
+		}
+
+		.tribe-events-event-meta {
+			display: flex;
+			flex-wrap: wrap;
+			gap: var(--wp--preset--spacing--30);
+			margin-block: var(--wp--preset--spacing--30);
+			padding: 0;
+			border: 0;
+			background: transparent;
+
+			&::before {
+				content: none;
+			}
+		}
+
+		.tribe-events-meta-group {
+			flex: 1 1 24rem;
+			min-width: 0;
+			width: auto;
+			margin: 0;
+			padding: clamp(2rem, 3vw, 3rem);
+			border-radius: 2rem;
+			background: $base-color;
+			overflow-wrap: anywhere;
+		}
+
+		.tribe-events-meta-list {
+			margin: 0;
+		}
+
+		.tribe-events-event-meta .tribe-events-meta-item {
+			margin-block-end: 1.2rem;
+
+			&:last-child {
+				margin-block-end: 0;
+			}
+		}
+
+		.tribe-events-event-meta .tribe-events-meta-label {
+			margin-block-end: .4rem;
+			color: $contrast-2-color;
+		}
+
+		.tribe-events-event-meta abbr[title] {
+			text-decoration: none;
+		}
+
+		#tribe-events-footer {
+			border-top: 0;
+		}
+
+		.tribe-events-single-section-title {
+			margin-block-end: var(--wp--preset--spacing--10);
+			font-size: $h5-font-size;
+			text-transform: none;
+		}
+	}
+}

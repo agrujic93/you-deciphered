@@ -920,6 +920,7 @@ require_once get_template_directory() . '/parts/blocks/blog-block/blog-block-fun
  * Keep The Events Calendar's AJAX views in the current Polylang language.
  */
 require_once get_template_directory() . '/inc/tec-polylang.php';
+require_once get_template_directory() . '/inc/tec-notices.php';
 
 /**
  * Set ACF Blocks default version to V3.
