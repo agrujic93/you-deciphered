@@ -70,8 +70,14 @@ else : /* Rendering in editor body. */
 				<div class="actions-pill">
 					<div class="lang-switcher">
 						<?php
-						// Using dropdown for Polylang
-						pll_the_languages(array('dropdown'=>1, 'display_names_as'=>'slug', 'hide_if_no_translation'=>1));
+						pll_the_languages(
+							array(
+								'layout'                 => 'select',
+								'show_labels'            => 'codes',
+								'show_wrapper'           => false,
+								'hide_if_no_translation' => true,
+							)
+						);
 						?>
 					</div>
 
