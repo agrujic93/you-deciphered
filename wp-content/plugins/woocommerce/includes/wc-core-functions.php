@@ -13,6 +13,7 @@ use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
 use Automattic\WooCommerce\Enums\DefaultCustomerAddress;
 use Automattic\WooCommerce\Utilities\NumberUtil;
 use Automattic\WooCommerce\Internal\Logging\OrderLogsCleanupHelper;
+use Automattic\WooCommerce\Internal\Utilities\PostcodeValidation;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -563,6 +564,7 @@ function get_woocommerce_currency_symbols() {
 			'CAD' => '&#36;',
 			'CDF' => 'Fr',
 			'CHF' => '&#67;&#72;&#70;',
+			'CHW' => 'CHW',
 			'CLP' => '&#36;',
 			'CNY' => '&yen;',
 			'COP' => '&#36;',
@@ -1054,12 +1056,26 @@ function wc_fix_rewrite_rules( $rules ) {
 		}
 	}
 
-	// If the shop page is used as the base, we need to handle shop page subpages to avoid 404s.
-	if ( ! $permalinks['use_verbose_page_rules'] ) {
+	$shop_page_id      = wc_get_page_id( 'shop' );
+	$product_base      = trim( rawurldecode( $permalinks['product_base'] ), '/' );
+	$uses_shop_as_base = false;
+
+	// The product base is site-wide, while multilingual extensions can filter the Shop page for the current request.
+	$shop_page_ids = array_unique( array( absint( get_option( 'woocommerce_shop_page_id' ) ), $shop_page_id ) );
+	foreach ( $shop_page_ids as $candidate_shop_page_id ) {
+		$shop_page = $candidate_shop_page_id > 0 ? get_post( $candidate_shop_page_id ) : null;
+		$shop_base = $shop_page instanceof WP_Post && 'page' === $shop_page->post_type ? trim( rawurldecode( (string) get_page_uri( $candidate_shop_page_id ) ), '/' ) : '';
+
+		if ( '' !== $shop_base && ( $shop_base === $product_base || 0 === strpos( $product_base, $shop_base . '/' ) ) ) {
+			$uses_shop_as_base = true;
+			break;
+		}
+	}
+
+	if ( ! $uses_shop_as_base ) {
 		return $rules;
 	}
 
-	$shop_page_id = wc_get_page_id( 'shop' );
 	if ( $shop_page_id ) {
 		$page_rewrite_rules = array();
 		$subpages           = wc_get_page_children( $shop_page_id );
@@ -1480,7 +1496,7 @@ function wc_get_credit_card_type_label( $type ) {
 	$labels = apply_filters(
 		'woocommerce_credit_card_type_labels',
 		array(
-			'mastercard'       => _x( 'MasterCard', 'Name of credit card', 'woocommerce' ),
+			'mastercard'       => _x( 'Mastercard', 'Name of credit card', 'woocommerce' ),
 			'visa'             => _x( 'Visa', 'Name of credit card', 'woocommerce' ),
 			'discover'         => _x( 'Discover', 'Name of credit card', 'woocommerce' ),
 			'american express' => _x( 'American Express', 'Name of credit card', 'woocommerce' ),
@@ -1580,6 +1596,12 @@ function wc_get_wildcard_postcodes( $postcode, $country = '' ) {
 		$postcodes[] = ( function_exists( 'mb_substr' ) ? mb_substr( $formatted_postcode, 0, ( $i + 1 ) * -1 ) : substr( $formatted_postcode, 0, ( $i + 1 ) * -1 ) ) . '*';
 	}
 
+	// A ZIP+4 code lies within its 5-digit ZIP code, so it also matches rules written as that ZIP code.
+	$zip_code = PostcodeValidation::get_zip_code_from_zip_plus_four( (string) $postcode, (string) $country );
+	if ( '' !== $zip_code ) {
+		$postcodes[] = $zip_code;
+	}
+
 	return $postcodes;
 }
 
@@ -1598,6 +1620,7 @@ function wc_get_wildcard_postcodes( $postcode, $country = '' ) {
 function wc_postcode_location_matcher( $postcode, $objects, $object_id_key, $object_compare_key, $country = '' ) {
 	$postcode           = wc_normalize_postcode( $postcode );
 	$wildcard_postcodes = array_map( 'wc_clean', wc_get_wildcard_postcodes( $postcode, $country ) );
+	$zip_code           = PostcodeValidation::get_zip_code_from_zip_plus_four( (string) $postcode, (string) $country );
 	$matches            = array();
 
 	foreach ( $objects as $object ) {
@@ -1619,6 +1642,10 @@ function wc_postcode_location_matcher( $postcode, $objects, $object_id_key, $obj
 				$compare = wc_make_numeric_postcode( $postcode );
 				$min     = str_pad( wc_make_numeric_postcode( $min ), strlen( $compare ), '0' );
 				$max     = str_pad( wc_make_numeric_postcode( $max ), strlen( $compare ), '0' );
+			} elseif ( '' !== $zip_code && (int) $max < 100000 ) {
+				// Compare a ZIP+4 code with a range of 5-digit ZIP codes by its 5-digit part. The bound's
+				// value decides this, not its length: a ZIP+4 range may omit its leading zeroes.
+				$compare = $zip_code;
 			} else {
 				$compare = $postcode;
 			}
@@ -2132,10 +2159,14 @@ function wc_list_pluck( $list, $callback_or_field, $index_key = null ) {
  * Get permalink settings for things like products and taxonomies.
  *
  * As of 3.3.0, the permalink settings are stored to the option instead of
- * being blank and inheritting from the locale. This speeds up page loading
+ * being blank and inheriting from the locale. This speeds up page loading
  * times by negating the need to switch locales on each page load.
  *
  * This is more inline with WP core behavior which does not localize slugs.
+ *
+ * The `use_verbose_page_rules` key is kept for backward compatibility only. WooCommerce no longer
+ * writes or reads it - wc_fix_rewrite_rules() derives Shop subpage rules from the current product
+ * base and Shop page path instead - so its stored value is whatever the last save left behind.
  *
  * @since  3.0.0
  * @return array

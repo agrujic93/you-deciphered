@@ -170,10 +170,13 @@ class GUI extends Base {
 	 * @param bool        $finished_tick       Show a tick when 100%.
 	 * @param bool        $without_percentage  Hide the % label.
 	 * @param string|bool $append_cls          Extra CSS class.
+	 * @param string|bool $label               Text shown in the center instead of the percentage.
 	 * @return string SVG markup.
 	 */
-	public static function pie( $percent, $width = 50, $finished_tick = false, $without_percentage = false, $append_cls = false ) {
-		$label      = $without_percentage ? $percent : ( $percent . '%' );
+	public static function pie( $percent, $width = 50, $finished_tick = false, $without_percentage = false, $append_cls = false, $label = false ) {
+		if ( false === $label ) {
+			$label = $without_percentage ? $percent : ( $percent . '%' );
+		}
 		$percentage = '<text x="50%" y="50%">' . esc_html( $label ) . '</text>';
 
 		if ( 100 === $percent && $finished_tick ) {
@@ -725,7 +728,7 @@ class GUI extends Base {
 			);
 		}
 
-		if ( defined( 'LSCWP_OBJECT_CACHE' ) ) {
+		if ( defined( 'LSCWP_OBJECT_CACHE' ) && ( ! is_multisite() || current_user_can( 'manage_network_options' ) ) ) {
 			$wp_admin_bar->add_menu(
 				[
 					'parent' => 'litespeed-menu',
@@ -737,7 +740,7 @@ class GUI extends Base {
 			);
 		}
 
-		if ( Router::opcache_enabled() ) {
+		if ( Router::opcache_enabled() && ( ! is_multisite() || current_user_can( 'manage_network_options' ) ) ) {
 			$wp_admin_bar->add_menu(
 				[
 					'parent' => 'litespeed-menu',
@@ -944,7 +947,7 @@ class GUI extends Base {
 			);
 		}
 
-		if ( defined( 'LSCWP_OBJECT_CACHE' ) ) {
+		if ( defined( 'LSCWP_OBJECT_CACHE' ) && ( ! is_multisite() || current_user_can( 'manage_network_options' ) ) ) {
 			$wp_admin_bar->add_menu(
 				[
 					'parent' => 'litespeed-menu',
@@ -956,7 +959,7 @@ class GUI extends Base {
 			);
 		}
 
-		if ( Router::opcache_enabled() ) {
+		if ( Router::opcache_enabled() && ( ! is_multisite() || current_user_can( 'manage_network_options' ) ) ) {
 			$wp_admin_bar->add_menu(
 				[
 					'parent' => 'litespeed-menu',
@@ -1165,7 +1168,7 @@ class GUI extends Base {
 	 */
 	private function _enqueue_guest_docref_js( $buffer ) {
 		$js_con = File::read( LSCWP_DIR . self::LIB_GUEST_DOCREF_JS );
-		$buffer = preg_replace( '/<head>/', '<head><script data-no-optimize="1">' . $js_con . '</script>', $buffer, 1 );
+		$buffer = Utility::html_replace( '<head>', '<head><script data-no-optimize="1">' . $js_con . '</script>', $buffer, 1 );
 		return $buffer;
 	}
 
@@ -1180,9 +1183,39 @@ class GUI extends Base {
 	private function _enqueue_guest_js( $buffer ) {
 		$js_con = File::read( LSCWP_DIR . self::LIB_GUEST_JS );
 		// Build path for guest endpoint using wp_parse_url for compatibility.
-		$guest_update_path = wp_parse_url( LSWCP_PLUGIN_URL . self::PHP_GUEST, PHP_URL_PATH );
-		$js_con            = str_replace( 'litespeed_url', esc_url( $guest_update_path ), $js_con );
-		$buffer            = preg_replace( '/<\/body>/', '<script data-no-optimize="1">' . $js_con . '</script></body>', $buffer, 1 );
+		$default = wp_parse_url( LSWCP_PLUGIN_URL . self::PHP_GUEST, PHP_URL_PATH );
+
+		/**
+		 * Filters the endpoint the Guest Mode script posts to; the lightweight guest.vary.php path by default.
+		 *
+		 * @since 7.9.4
+		 * @param string $default Endpoint URL or path.
+		 */
+		$url = apply_filters( 'litespeed_guest_vary_url', $default );
+		if ( ! is_string( $url ) || '' === $url ) {
+			$url = $default;
+		}
+		// When the endpoint was replaced, the script retries once with the default one if it fails.
+		$fallback = $url === $default ? '' : $default;
+
+		// Inject as JSON string literals: esc_url() would turn `&` into `&#038;`.
+		$url_js      = wp_json_encode( $url, Str::JSON_HTML_FLAGS );
+		$fallback_js = wp_json_encode( $fallback, Str::JSON_HTML_FLAGS );
+		if ( false === $url_js || false === $fallback_js ) {
+			// An endpoint that cannot be encoded must never leave the script without a value.
+			$url_js      = wp_json_encode( $default, Str::JSON_HTML_FLAGS );
+			$fallback_js = '""';
+		}
+		$js_con = strtr(
+			$js_con,
+			[
+				"'litespeed_url'"          => $url_js,
+				'"litespeed_url"'          => $url_js,
+				"'litespeed_fallback_url'" => $fallback_js,
+				'"litespeed_fallback_url"' => $fallback_js,
+			]
+		);
+		$buffer = Utility::insert_before_last_tag( $buffer, '</body>', '<script data-no-optimize="1">' . $js_con . '</script>' );
 		return $buffer;
 	}
 }

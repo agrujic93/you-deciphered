@@ -37,6 +37,18 @@ class WC_Payments_Express_Checkout_Button_Helper {
 	private $account;
 
 	/**
+	 * Whether this class's `should_show_express_checkout_button()` last rejected only for a reason
+	 * the live cart can still change: the cart is empty, or Amazon Pay is switched on but not
+	 * available yet (for example in the cart's current currency).
+	 *
+	 * Lets `should_load_express_checkout_scripts()` relax that rejection alone, so a `false` from an
+	 * override (see `WC_Payments::set_express_checkout_helper()`) still prevents loading.
+	 *
+	 * @var bool
+	 */
+	private $rejected_for_cart_state = false;
+
+	/**
 	 * Whether the [product_page] shortcode context has been worked out for this request.
 	 *
 	 * Only ever set once the main query and its host post are available, so a caller that
@@ -331,35 +343,139 @@ class WC_Payments_Express_Checkout_Button_Helper {
 		}
 
 		if ( $this->is_checkout() || $this->is_cart() ) {
-			if ( WC_Subscriptions_Cart::cart_contains_subscription() ) {
-				return true;
-			}
-			if ( function_exists( 'wcs_cart_contains_renewal' ) && wcs_cart_contains_renewal() ) {
-				return true;
-			}
-			if ( function_exists( 'wcs_cart_contains_resubscribe' ) && wcs_cart_contains_resubscribe() ) {
-				return true;
-			}
-			if ( function_exists( 'wcs_cart_contains_switches' ) && wcs_cart_contains_switches() ) {
-				return true;
-			}
+			return $this->cart_contains_subscription();
 		}
 
 		return false;
 	}
 
 	/**
-	 * Checks if Amazon Pay can be used as an express checkout button.
-	 *
-	 * This validates:
-	 * - Express checkout is not displayed in the payment methods list
-	 * - Amazon Pay feature flag is enabled
-	 * - Gateway exists and is available for express checkout
-	 * - Tax settings are compatible (Amazon Pay doesn't support taxes based on billing address)
+	 * Whether the cart holds a subscription of any shape: initial purchase, renewal,
+	 * resubscribe, or switch. Reads cart state only, so the Store API cart endpoint
+	 * can use it when `is_cart()` / `is_checkout()` are both false.
 	 *
 	 * @return boolean
 	 */
-	public function can_use_amazon_pay() {
+	private function cart_contains_subscription() {
+		if ( ! class_exists( 'WC_Subscriptions_Cart' ) ) {
+			return false;
+		}
+
+		if ( WC_Subscriptions_Cart::cart_contains_subscription() ) {
+			return true;
+		}
+		if ( function_exists( 'wcs_cart_contains_renewal' ) && wcs_cart_contains_renewal() ) {
+			return true;
+		}
+		if ( function_exists( 'wcs_cart_contains_resubscribe' ) && wcs_cart_contains_resubscribe() ) {
+			return true;
+		}
+		if ( function_exists( 'wcs_cart_contains_switches' ) && wcs_cart_contains_switches() ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Whether paying the current order-pay order will be a recurring payment.
+	 * Pay-for-order uses the order Store API, which does not carry the cart `wcpay`
+	 * extension, so this reads the order rather than the cart. Defers to the
+	 * gateway's `is_payment_recurring()` so the token matches the intent the
+	 * gateway will create after the wallet sheet closes.
+	 *
+	 * @return boolean
+	 */
+	private function is_order_payment_recurring() {
+		// Scripts enqueue on `wp_enqueue_scripts`, before core validates the key on `the_content`,
+		// so this cannot lean on core having already turned the request away.
+		$order = WC_Payments_Utils::get_authorized_order_from_payment_link();
+
+		if ( ! $order ) {
+			return false;
+		}
+
+		return $this->gateway->is_payment_recurring( $order->get_id() );
+	}
+
+	/**
+	 * Returns the `setup_future_usage` that express checkout should mint its Stripe
+	 * ConfirmationToken with, for the current cart or product.
+	 *
+	 * Stripe fixes this value when the token is created — before the wallet sheet opens —
+	 * and rejects the confirmation if the PaymentIntent later asks for a different one.
+	 * The gateway asks for `off_session` whenever it saves the payment method. Only
+	 * WooCommerce Subscriptions is knowable this early, so the filter below is how
+	 * everything else declares itself.
+	 *
+	 * @param string|null $context Button context to evaluate for ('product', 'cart',
+	 *                             'checkout', 'pay_for_order'). Defaults to the current
+	 *                             page's context. 'cart', 'checkout' and 'pay_for_order'
+	 *                             resolve from cart or order state, so request handlers
+	 *                             with no page context can name one; 'product' needs the
+	 *                             queried product and falls back to page state.
+	 *
+	 * @return string|null 'off_session' when the payment method will be saved, null otherwise.
+	 */
+	public function get_setup_future_usage( ?string $context = null ) {
+		$context = $context ?? $this->get_button_context();
+
+		switch ( $context ) {
+			case 'pay_for_order':
+				$will_be_saved = $this->is_order_payment_recurring();
+				break;
+			case 'cart':
+			case 'checkout':
+				// Both read the same cart. Naming either works with no page state.
+				$will_be_saved = $this->cart_contains_subscription();
+				break;
+			default:
+				// 'product' included: it needs the queried product.
+				$will_be_saved = $this->has_subscription_product();
+				break;
+		}
+
+		/**
+		 * Filters the `setup_future_usage` express checkout mints its ConfirmationToken with.
+		 *
+		 * Return 'off_session' when the payment method will genuinely be saved for later —
+		 * a subscription plugin other than WooCommerce Subscriptions, or any integration that
+		 * sets `wc-woocommerce_payments-new-payment-method` while the order is processed.
+		 * Return null otherwise.
+		 *
+		 * Declare 'off_session' only when the payment method really will be saved. Stripe
+		 * inherits the token's value onto the PaymentIntent even when the intent itself omits
+		 * it, so over-declaring silently attaches the shopper's card to the Stripe customer on
+		 * an ordinary one-off purchase, with no WooPayments token recorded against it.
+		 *
+		 * @since 11.2.0
+		 *
+		 * @param string|null $setup_future_usage 'off_session' or null.
+		 * @param string      $context            Button context: 'product', 'cart', 'checkout',
+		 *                                        'pay_for_order', or '' when undetermined.
+		 */
+		$setup_future_usage = apply_filters(
+			'wcpay_express_checkout_setup_future_usage',
+			$will_be_saved ? 'off_session' : null,
+			$context
+		);
+
+		// Normalise to the two values Stripe and the Store API schema accept.
+		// Anything that is not an explicit 'off_session' resolves to null.
+		return 'off_session' === $setup_future_usage ? 'off_session' : null;
+	}
+
+	/**
+	 * Checks if the merchant switched Amazon Pay on as an express checkout button.
+	 *
+	 * Unlike `can_use_amazon_pay()`, this skips the gateway's runtime availability checks:
+	 * currency, Stripe capability status and account state. Block pages need the button
+	 * registered even when the page loads in a currency Amazon Pay doesn't support, because
+	 * the shopper can switch to one it does without a reload.
+	 *
+	 * @return boolean
+	 */
+	public function is_amazon_pay_enabled_by_merchant() {
 		// When express checkout methods are displayed in the payment methods list,
 		// Amazon Pay should not appear as a separate express button.
 		if ( \WC_Payments::get_gateway()->is_express_checkout_in_payment_methods_enabled() ) {
@@ -371,11 +487,7 @@ class WC_Payments_Express_Checkout_Button_Helper {
 		}
 
 		$amazon_pay_gateway = WC_Payments::get_payment_gateway_by_id( AmazonPayDefinition::get_id() );
-		if ( ! $amazon_pay_gateway ) {
-			return false;
-		}
-
-		if ( ! $amazon_pay_gateway->is_available_for_express_checkout() ) {
+		if ( ! $amazon_pay_gateway || ! $amazon_pay_gateway->is_enabled() ) {
 			return false;
 		}
 
@@ -385,6 +497,22 @@ class WC_Payments_Express_Checkout_Button_Helper {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Checks if Amazon Pay can be used as an express checkout button for the current request,
+	 * including its currency.
+	 *
+	 * @return boolean
+	 */
+	public function can_use_amazon_pay() {
+		if ( ! $this->is_amazon_pay_enabled_by_merchant() ) {
+			return false;
+		}
+
+		$amazon_pay_gateway = WC_Payments::get_payment_gateway_by_id( AmazonPayDefinition::get_id() );
+
+		return $amazon_pay_gateway && $amazon_pay_gateway->is_available_for_express_checkout();
 	}
 
 	/**
@@ -574,7 +702,31 @@ class WC_Payments_Express_Checkout_Button_Helper {
 	}
 
 	/**
+	 * Checks whether the Express Checkout scripts and params should be loaded on this page.
+	 *
+	 * Block cart and checkout pages add the first product through the Store API without a reload,
+	 * and the block payment methods re-run `canMakePayment()` against the live cart. So on those
+	 * pages, a rejection caused only by the cart being empty, or by Amazon Pay being switched on but
+	 * not available yet, still loads them; the buttons stay hidden until the cart has something
+	 * they can pay for.
+	 *
+	 * @return bool
+	 */
+	public function should_load_express_checkout_scripts() {
+		$this->rejected_for_cart_state = false;
+
+		if ( $this->should_show_express_checkout_button() ) {
+			return true;
+		}
+
+		return $this->rejected_for_cart_state
+			&& ( has_block( 'woocommerce/cart' ) || has_block( 'woocommerce/checkout' ) );
+	}
+
+	/**
 	 * Checks whether Express Checkout Element Button should be available on this page.
+	 *
+	 * @phpstan-impure It records a cart-state rejection for `should_load_express_checkout_scripts()`.
 	 *
 	 * @return bool
 	 */
@@ -602,9 +754,16 @@ class WC_Payments_Express_Checkout_Button_Helper {
 			return false;
 		}
 
-		// No express checkout methods are actually enabled for the current page context
-		// (checks both location settings and feature flags/availability).
-		if ( empty( $this->get_enabled_express_checkout_methods_for_context() ) ) {
+		// Amazon Pay is the only method whose availability depends on the currency, so it's the
+		// only one the page can gain later, when the shopper's address switches the currency.
+		$has_available_method = ! empty( $this->get_enabled_express_checkout_methods_for_context() );
+		if (
+			! $has_available_method
+			&& ! (
+				$this->is_amazon_pay_enabled_by_merchant()
+				&& $this->is_express_checkout_method_enabled_at( $this->get_button_context(), 'amazon_pay' )
+			)
+		) {
 			return false;
 		}
 
@@ -628,7 +787,7 @@ class WC_Payments_Express_Checkout_Button_Helper {
 
 		// Order total doesn't matter for Pay for Order page. Thus, this page should always display payment buttons.
 		if ( $this->is_pay_for_order_page() ) {
-			return $this->is_pay_for_order_supported();
+			return $has_available_method && $this->is_pay_for_order_supported();
 		}
 
 		// Non-shipping product and tax is calculated based on shopper billing address. Excludes Pay for Order page.
@@ -647,6 +806,8 @@ class WC_Payments_Express_Checkout_Button_Helper {
 			&& 'billing' === get_option( 'woocommerce_tax_based_on' )
 			&& 'yes' !== get_option( 'woocommerce_prices_include_tax' )
 		) {
+			// An empty cart doesn't need shipping either.
+			$this->rejected_for_cart_state = ! $this->is_product() && WC()->cart->is_empty();
 			return false;
 		}
 
@@ -657,6 +818,12 @@ class WC_Payments_Express_Checkout_Button_Helper {
 			|| ( $this->is_product() && 0.0 === (float) $this->get_product()->get_price() )
 		) {
 			Logger::log( 'Order price is 0 ( Express Checkout Element button disabled )' );
+			$this->rejected_for_cart_state = ! $this->is_product() && WC()->cart->is_empty();
+			return false;
+		}
+
+		if ( ! $has_available_method ) {
+			$this->rejected_for_cart_state = ! $this->is_product();
 			return false;
 		}
 

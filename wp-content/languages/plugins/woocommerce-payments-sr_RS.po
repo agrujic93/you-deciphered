@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooPayments: Integrated WooCommerce Payments - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-09-28 23:18:07+0000\n"
+"PO-Revision-Date: 2026-11-16 12:38:27+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,7 +11,155 @@ msgstr ""
 "Language: sr_RS\n"
 "Project-Id-Version: Plugins - WooPayments: Integrated WooCommerce Payments - Stable (latest release)\n"
 
-#: includes/multi-currency/CurrencySwitcherBlock.php:143
+#: src/Internal/Service/Level3Service.php:173
+msgid "Item"
+msgstr "Ставка"
+
+#: includes/woopay/class-woopay-session.php:1029
+msgid "Could not find the shopper session."
+msgstr "Није могуће пронаћи сесију купца."
+
+#. translators: %1$s: the amount the invoice collected, %2$s: the order total,
+#. %3$s: the WooPayments invoice ID
+#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:166
+msgid "The renewal invoice %3$s collected %1$s, but the order total is %2$s. The order was put <strong>on hold</strong>; review it before fulfilling."
+msgstr "Фактура за обнову %3$s наплатила је %1$s, али укупан износ поруџбине је %2$s. Поруџбина је <strong>задржана</strong>; прегледајте је пре испуњења."
+
+#: includes/payment-methods/Configs/Definitions/KlarnaDefinition.php:99
+msgid "Offer flexible ways to pay with Klarna: in full, later, or over time."
+msgstr "Понудите прилагодљиве начине плаћања уз услугу Klarna: у целости, одложено или на рате."
+
+#. translators: %1: the ID of a WooPayments payment, %2: the ID of its charge.
+#: includes/class-wc-payments-webhook-processing-service.php:636
+msgid "A WooPayments payment <code>%1$s</code> (charge <code>%2$s</code>) succeeded after this order was paid with another payment method, so the order was not updated. Check whether the payment needs a refund."
+msgstr "WooPayments плаћање <code>%1$s</code> (наплата <code>%2$s</code>) успело је након што је ова поруџбина плаћена другим начином плаћања, па поруџбина није ажурирана. Проверите да ли је за то плаћање потребна рефундација."
+
+#. translators: %1: the ID of the authorized WooPayments payment, %2: the ID of
+#. the payment the order is waiting on.
+#: includes/class-wc-payments-webhook-processing-service.php:488
+msgid "A WooPayments payment <code>%1$s</code> was authorized, but this order is waiting on payment <code>%2$s</code>, so the order was not updated. Unless the order is later updated with payment <code>%1$s</code>, its authorization is not captured and expires on its own."
+msgstr "WooPayments плаћање <code>%1$s</code> је ауторизовано, али ова поруџбина чека плаћање <code>%2$s</code>, па поруџбина није ажурирана. Ако се поруџбина касније не ажурира плаћањем <code>%1$s</code>, његова ауторизација се неће наплатити и истећи ће сама."
+
+#. translators: %1: the ID of a WooPayments payment.
+#: includes/class-wc-payments-webhook-processing-service.php:468
+msgid "A WooPayments payment <code>%1$s</code> was authorized after this order was paid with another payment method, so the order was not updated. The authorization was not captured and expires on its own."
+msgstr "WooPayments плаћање <code>%1$s</code> је ауторизовано након што је ова поруџбина плаћена другим начином плаћања, па поруџбина није ажурирана. Ауторизација није наплаћена и истећи ће сама."
+
+#: includes/class-wc-payments-utils.php:100
+msgid "A plugin or custom code turned it on using the wcpay_dev_mode filter."
+msgstr "Додатак или прилагођени код га је укључио помоћу филтера wcpay_dev_mode."
+
+#: includes/class-wc-payments-utils.php:97
+msgid "The WP_DEVELOPMENT_MODE constant is set."
+msgstr "Постављена је константа WP_DEVELOPMENT_MODE."
+
+#: includes/class-wc-payments-utils.php:94
+msgid "This site is set up as a development site."
+msgstr "Овај сајт је подешен као развојни сајт."
+
+#: includes/class-wc-payments-utils.php:91
+msgid "This site is set up as a staging site."
+msgstr "Овај сајт је подешен као пробни (staging) сајт."
+
+#: includes/class-wc-payments-utils.php:88
+msgid "The WCPAY_DEV_MODE constant is set."
+msgstr "Постављена је константа WCPAY_DEV_MODE."
+
+#. translators: %s: Link brand name (Link or Onelink).
+#: includes/class-wc-payments-token-service.php:493
+msgid "%s email"
+msgstr "Е-пошта за %s"
+
+#. translators: %1: the charged amount, %2: WooPayments, %3: transaction ID of
+#. the payment, %4: the order total, %5: transaction details URL
+#: includes/class-wc-payments-order-service.php:2105
+msgid "A payment of %1$s was charged using %2$s (<a>%3$s</a>), but the order total is %4$s. The order was put <strong>on hold</strong>; review it before fulfilling."
+msgstr "Плаћање у износу од %1$s наплаћено је путем %2$s (<a>%3$s</a>), али укупан износ поруџбине је %4$s. Поруџбина је <strong>задржана</strong>; прегледајте је пре испуњења."
+
+#. translators: %1: the ID of a WooPayments payment.
+#: includes/class-wc-payments-order-service.php:1452
+msgid "The earlier WooPayments payment <code>%1$s</code> could not be cancelled when this order was paid with another payment method. Check that it was not charged."
+msgstr "Раније WooPayments плаћање <code>%1$s</code> није могло бити отказано када је ова поруџбина плаћена другим начином плаћања. Проверите да није наплаћено."
+
+#. translators: %1: the ID of a WooPayments payment.
+#: includes/class-wc-payments-order-service.php:1448
+msgid "The earlier WooPayments payment <code>%1$s</code> was cancelled because this order was paid with another payment method."
+msgstr "Раније WooPayments плаћање <code>%1$s</code> отказано је јер је ова поруџбина плаћена другим начином плаћања."
+
+#. translators: %1: the ID of a WooPayments payment.
+#: includes/class-wc-payments-order-service.php:1330
+msgid "The payment details of an earlier WooPayments attempt (<code>%1$s</code>) were removed because this order is being paid with another payment method."
+msgstr "Подаци о плаћању из ранијег WooPayments покушаја (<code>%1$s</code>) уклоњени су јер се ова поруџбина плаћа другим начином плаћања."
+
+#: includes/class-wc-payments-order-service.php:1325
+msgid "The payment details of an earlier WooPayments attempt were removed because this order is being paid with another payment method."
+msgstr "Подаци о плаћању из ранијег WooPayments покушаја уклоњени су јер се ова поруџбина плаћа другим начином плаћања."
+
+#. translators: %1$s: a URL with more information about the declined payment.
+#: includes/class-wc-payments-order-service.php:649
+msgid "<a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">More information</a>"
+msgstr "<a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">Више информација</a>"
+
+#. translators: %1$s: the payment provider's error message, %2$s: the decline
+#. code returned by the payment provider.
+#: includes/class-wc-payments-order-service.php:637
+msgid "With the following message: <code>%1$s</code>. Decline code: <code>%2$s</code>."
+msgstr "Уз следећу поруку: <code>%1$s</code>. Код одбијања: <code>%2$s</code>."
+
+#: includes/class-wc-payments-onboarding-service.php:731
+msgid "An account is already set up. Please reset the onboarding first."
+msgstr "Налог је већ подешен. Прво поништите уводно подешавање."
+
+#. translators: 1: Link brand name (Link or Onelink), 2: customer email.
+#: includes/class-wc-payment-token-wcpay-link.php:55
+msgid "%1$s email ending in %2$s"
+msgstr "Е-пошта услуге %1$s која се завршава на %2$s"
+
+#: includes/class-wc-payment-gateway-wcpay.php:5015
+#: includes/class-wc-payment-gateway-wcpay.php:5022
+msgid "We're not able to add this payment method. Please try again later."
+msgstr "Нисмо у могућности да додамо овај начин плаћања. Покушајте поново касније."
+
+#: includes/class-wc-payment-gateway-wcpay.php:949
+#: includes/class-wc-payment-gateway-wcpay.php:1474
+msgid "We're not able to verify this WooPay preflight request. Please try again."
+msgstr "Нисмо у могућности да потврдимо овај припремни WooPay захтев. Покушајте поново."
+
+#. translators: 1: Anchor opening tag; 2: Anchor closing tag
+#: includes/admin/class-wc-payments-admin-settings.php:254
+msgid "Real payments only work on your live store. %1$sLearn more%2$s"
+msgstr "Стварна плаћања раде само у вашој активној продавници. %1$sСазнајте више%2$s"
+
+#: includes/admin/class-wc-payments-admin-settings.php:247 dist/index.js:2
+#: dist/settings.js:2
+msgid "Your store is in development mode, so payments are simulated."
+msgstr "Ваша продавница је у развојном режиму, па су плаћања симулирана."
+
+#: includes/woopay/class-woopay-session.php:1544
+msgid "The Cart-Token on this WooPay request is invalid or expired."
+msgstr "Cart-Token у овом WooPay захтеву је неисправан или је истекао."
+
+#: includes/payment-methods/Configs/Definitions/LinkDefinition.php:104
+msgid "Onelink autofills your customers' payment and shipping details to deliver an easy and seamless checkout experience."
+msgstr "Onelink аутоматски попуњава податке о плаћању и испоруци ваших купаца како би пружио лако и беспрекорно искуство наплате."
+
+#: includes/payment-methods/Configs/Definitions/LinkDefinition.php:66
+msgid "Onelink"
+msgstr "Onelink"
+
+#: includes/express-checkout/class-wc-payments-express-checkout-store-api-extension.php:119
+msgid "Whether the payment method should be saved for future off-session payments."
+msgstr "Да ли начин плаћања треба сачувати за будућа плаћања ван сесије."
+
+#: includes/class-wc-payments-token-service.php:614
+msgid "We could not set that payment method as your default. It may no longer be available, please reload the page and try again."
+msgstr "Нисмо успели да поставимо тај начин плаћања као ваш подразумевани. Можда више није доступан, поново учитајте страницу и покушајте поново."
+
+#: includes/admin/class-wc-rest-payments-transactions-controller.php:132
+msgid "Fraud outcome status to list transactions for."
+msgstr "Статус исхода провере преваре за који се излиставају трансакције."
+
+#: includes/multi-currency/CurrencySwitcherBlock.php:144
 #: includes/multi-currency/CurrencySwitcherWidget.php:109
 #: dist/multi-currency-switcher-block.js:1
 msgid "Select your currency"
@@ -50,101 +198,101 @@ msgstr "Рано упозорење о превари решено"
 msgid "Triggered risk filters:"
 msgstr "Покренути филтери ризика:"
 
-#: includes/class-wc-payments-utils.php:1339
+#: includes/class-wc-payments-utils.php:1387
 #: dist/chunks/wcpay-money-movement.js:1
 msgid "Unauthorized use of card"
 msgstr "Неовлашћено коришћење картице"
 
-#: includes/class-wc-payments-utils.php:1335
+#: includes/class-wc-payments-utils.php:1383
 #: dist/chunks/wcpay-money-movement.js:1
 msgid "Made with stolen card"
 msgstr "Извршено украденом картицом"
 
-#: includes/class-wc-payments-utils.php:1333
+#: includes/class-wc-payments-utils.php:1381
 #: dist/chunks/wcpay-money-movement.js:1
 msgid "Made with lost card"
 msgstr "Извршено изгубљеном картицом"
 
-#: includes/class-wc-payments-utils.php:1329
+#: includes/class-wc-payments-utils.php:1377
 #: dist/chunks/wcpay-money-movement.js:1
 msgid "Fraudulent card application"
 msgstr "Лажни захтев за картицу"
 
-#: includes/class-wc-payments-utils.php:1327
+#: includes/class-wc-payments-utils.php:1375
 #: dist/chunks/wcpay-money-movement.js:1
 msgid "Card never received"
 msgstr "Картица никад није примљена"
 
-#: includes/class-wc-payments-utils.php:1331
+#: includes/class-wc-payments-utils.php:1379
 #: dist/chunks/wcpay-money-movement.js:1
 msgid "Made with counterfeit card"
 msgstr "Извршено фалсификованом картицом"
 
 #. translators: %1: the early fraud warning reason, e.g. "Made with stolen
 #. card"
-#: includes/class-wc-payments-order-service.php:2606
+#: includes/class-wc-payments-order-service.php:3146
 msgid "Payment has received an early fraud warning with reason \"%1$s\". <refund>Refunding the payment now</refund> can prevent a dispute. See <a>payment details</a> for more information."
 msgstr "Плаћање је добило рано упозорење о превари са разлогом „%1$s“. <refund>Рефундирање плаћања сада</refund> може спречити спор. Погледајте <a>детаље плаћања</a> за више података."
 
-#: includes/class-wc-payments-order-service.php:2593
+#: includes/class-wc-payments-order-service.php:3133
 msgid "Payment has received an early fraud warning. <refund>Refunding the payment now</refund> can prevent a dispute. See <a>payment details</a> for more information."
 msgstr "Плаћање је добило рано упозорење о превари. <refund>Рефундирање плаћања сада</refund> може спречити спор. Погледајте <a>детаље плаћања</a> за више података."
 
 #. translators: %1: the amount held for review, %2: the list of risk filters
 #. that held the payment for review
-#: includes/class-wc-payments-order-service.php:2357
+#: includes/class-wc-payments-order-service.php:2897
 msgid "&#x26D4; A payment of %1$s was <strong>held for review</strong> by the following risk filters:<br>%2$s<br><br><a>View more details</a>."
 msgstr "&#x26D4; Плаћање од %1$s <strong>задржали су на прегледу</strong> следећи филтери ризика:<br>%2$s<br><br><a>Погледајте више детаља</a>."
 
 #. translators: %1: the blocked amount, %2: the list of risk filters that
 #. blocked the payment
-#: includes/class-wc-payments-order-service.php:2389
+#: includes/class-wc-payments-order-service.php:2929
 msgid "&#x1F6AB; A payment of %1$s was <strong>blocked</strong> by the following risk filters:<br>%2$s<br><br><a>View more details</a>."
 msgstr "&#x1F6AB; Плаћање од %1$s <strong>блокирали</strong> су следећи филтери ризика:<br>%2$s<br><br><a>Погледајте више детаља</a>."
 
-#: includes/class-wc-payments-order-service.php:2575
+#: includes/class-wc-payments-order-service.php:3115
 msgid "The early fraud warning received for this payment is no longer actionable, because the payment was refunded or disputed. See <a>payment details</a> for more information."
 msgstr "По раном упозорењу о превари примљеном за ово плаћање више није могуће поступити, јер је плаћање рефундирано или оспорено. Погледајте <a>детаље плаћања</a> за више података."
 
-#: includes/class-wc-payments-order-service.php:687
+#: includes/class-wc-payments-order-service.php:864
 msgid "The order was not marked as completed because it has already been fully refunded."
 msgstr "Поруџбина није означена као завршена јер је већ у потпуности рефундирана."
 
-#: includes/class-duplicate-payment-prevention-service.php:272
+#: includes/class-duplicate-payment-prevention-service.php:279
 msgid "WooPayments: detected and prevented a second payment for this order, which had already been paid."
 msgstr "WooPayments: откривено је и спречено друго плаћање за ову поруџбину, која је већ била плаћена."
 
 #. translators: %d: the number of disputes on this payment that are still open
-#: includes/class-wc-payments-order-service.php:669
+#: includes/class-wc-payments-order-service.php:846
 msgid "The order was not marked as completed because %d other dispute on this payment is still open."
 msgid_plural "The order was not marked as completed because %d other disputes on this payment are still open."
 msgstr[0] "Поруџбина није означена као завршена јер је %d други спор за ово плаћање још отворен."
 msgstr[1] "Поруџбина није означена као завршена јер су %d друга спора за ово плаћање још отворена."
 msgstr[2] "Поруџбина није означена као завршена јер је %d других спорова за ово плаћање још отворено."
 
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:536
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:540
 msgid "Recovered missing subscription payment method token from the parent order."
 msgstr "Опорављен је недостајући жетон начина плаћања претплате из родитељске поруџбине."
 
 #. translators: %s: the recovered payment method, e.g. "Visa ending in 4242
 #. (expires 01/26)"
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:530
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:534
 msgid "The saved payment method for this subscription was missing, so WooPayments restored %s from the original order to complete the renewal."
 msgstr "Сачувани начин плаћања за ову претплату је недостајао, па је WooPayments вратио %s из изворне поруџбине да би довршио обнову."
 
 #. translators: 1: Previous payment token ID, 2: New payment token ID.
-#: includes/class-wc-payments-webhook-processing-service.php:669
+#: includes/class-wc-payments-webhook-processing-service.php:804
 msgid "WooPayments updated the subscription payment method token from token #%1$d to #%2$d after receiving a successful renewal payment webhook."
 msgstr "WooPayments је ажурирао жетон начина плаћања претплате са жетона бр. %1$d на бр. %2$d после пријема webhook-а о успешном плаћању обнове."
 
 #. translators: %s: the dispute ID
-#: includes/class-wc-payments-order-service.php:2498
-#: includes/class-wc-payments-order-service.php:2552
-#: includes/class-wc-payments-webhook-processing-service.php:842
+#: includes/class-wc-payments-order-service.php:3038
+#: includes/class-wc-payments-order-service.php:3092
+#: includes/class-wc-payments-webhook-processing-service.php:977
 msgid "(Dispute ID: %s)"
 msgstr "(ИБ спора: %s)"
 
-#: includes/class-wc-payment-gateway-wcpay.php:2853
+#: includes/class-wc-payment-gateway-wcpay.php:3210
 msgid "Unable to save payment method for subscription. The order customer could not be found."
 msgstr "Није могуће сачувати начин плаћања за претплату. Купац поруџбине није пронађен."
 
@@ -418,15 +566,15 @@ msgstr "Проналази једну намеру плаћања по Stripe И
 msgid "Get payment intent by ID"
 msgstr "Преузми намеру плаћања по ИБ-у"
 
-#: src/Internal/Abilities/Domain/GetFraudOutcomes.php:109
+#: src/Internal/Abilities/Domain/GetFraudOutcomes.php:111
 msgid "A status is required to list fraud outcomes."
 msgstr "За приказ исхода превара потребно је стање."
 
-#: src/Internal/Abilities/Domain/GetFraudOutcomes.php:64
+#: src/Internal/Abilities/Domain/GetFraudOutcomes.php:66
 msgid "List transactions flagged by fraud protection for a given outcome status (e.g. block, review)."
 msgstr "Приказује трансакције које је заштита од превара означила за дато стање исхода (нпр. block, review)."
 
-#: src/Internal/Abilities/Domain/GetFraudOutcomes.php:63
+#: src/Internal/Abilities/Domain/GetFraudOutcomes.php:65
 msgid "List flagged (fraud outcome) transactions"
 msgstr "Прикажи означене трансакције (исход превара)"
 
@@ -434,7 +582,7 @@ msgstr "Прикажи означене трансакције (исход пр�
 msgid "Return aggregate processing-fee totals (count, fees, net) over a date range. Answers 'how much did I pay in fees this period?'."
 msgstr "Враћа збирне укупне накнаде за обраду (број, накнаде, нето) за опсег датума. Одговара на „колико је плаћено накнада у овом периоду?“."
 
-#: src/Internal/Abilities/Domain/GetFraudOutcomes.php:48
+#: src/Internal/Abilities/Domain/GetFraudOutcomes.php:50
 msgid "Fraud outcome status to filter by (e.g. block, review)."
 msgstr "Стање исхода превара по коме се филтрира (нпр. block, review)."
 
@@ -625,7 +773,7 @@ msgstr "Валута мора бити трословни ISO 4217 код."
 msgid "Balance report currency."
 msgstr "Валута извештаја о стању."
 
-#: includes/express-checkout/class-wc-payments-express-checkout-store-api-extension.php:103
+#: includes/express-checkout/class-wc-payments-express-checkout-store-api-extension.php:110
 msgid "Express Checkout methods available for the cart's current currency."
 msgstr "Начини брзог плаћања доступни за тренутну валуту корпе."
 
@@ -654,24 +802,24 @@ msgstr "%s није исправна вредност датума и време
 
 #. translators: %1$s: the failed payment amount, %2$s: the saved payment
 #. method, e.g. "Visa ending in 4242 (expires 01/26)"
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:448
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:452
 msgid "A payment of %1$s <strong>failed</strong>: the saved payment method <strong>%2$s</strong> can no longer be used. A new payment method is required."
 msgstr "Плаћање од %1$s <strong>није успело</strong>: сачувани начин плаћања <strong>%2$s</strong> више не може да се користи. Потребан је нови начин плаћања."
 
 #. translators: %1: the charged amount, %2: WooPayments, %3: transaction ID of
 #. the payment, %4: transaction details URL
-#: includes/class-wc-payments-order-service.php:2083
+#: includes/class-wc-payments-order-service.php:2623
 msgid "A test payment of %1$s was processed using %2$s in <strong>test mode</strong> (<a>%3$s</a>). No real funds were collected."
 msgstr "Пробно плаћање од %1$s обрађено је помоћу %2$s у <strong>пробном режиму</strong> (<a>%3$s</a>). Нису наплаћена стварна средства."
 
 #. translators: %1$s: the failed payment amount
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:457
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:461
 msgid "A payment of %1$s <strong>failed</strong>: the saved payment method can no longer be used. A new payment method is required."
 msgstr "Плаћање од %1$s <strong>није успело</strong>: сачувани начин плаћања више не може да се користи. Потребан је нови начин плаћања."
 
 #. translators: %s: the original email subject or heading. The leading "[Test]"
 #. flags an order paid in WooPayments test mode.
-#: includes/class-wc-payments-order-service.php:2036
+#: includes/class-wc-payments-order-service.php:2576
 msgid "[Test] %s"
 msgstr "[Проба] %s"
 
@@ -685,67 +833,14 @@ msgstr "Неправилни параметри: %s"
 msgid "Dispute readiness is disabled."
 msgstr "Припремљеност за спорове је искључена."
 
-#: includes/admin/class-wc-payments-admin.php:373
+#: includes/admin/class-wc-payments-admin.php:361
 #: dist/chunks/wcpay-reports.js:1 dist/index.js:2
 msgid "Reports"
 msgstr "Извештаји"
 
-#: templates/emails/plain/post-kyc-activation.php:37
-#: templates/emails/post-kyc-activation.php:40
-msgid "Everything on the payments side is ready. The next step is getting your first customer through the door — share your store link and start spreading the word."
-msgstr "Све на страни плаћања је спремно. Следећи корак је да доведете првог купца — поделите везу ка продавници и почните да ширите глас."
-
-#: templates/emails/plain/post-kyc-activation.php:36
-#: templates/emails/post-kyc-activation.php:39
-msgid "Your payments are ready — your first sale can be too"
-msgstr "Ваша плаћања су спремна — може бити и ваша прва продаја"
-
-#: templates/emails/plain/post-kyc-activation.php:33
-#: templates/emails/post-kyc-activation.php:36
-msgid "Your account is fully approved and accepting payments. Share your store with your first potential customers to get that first sale."
-msgstr "Ваш налог је потпуно одобрен и прима плаћања. Поделите своју продавницу са првим потенцијалним купцима да бисте остварили прву продају."
-
-#: templates/emails/plain/post-kyc-activation.php:32
-#: templates/emails/post-kyc-activation.php:35
-msgid "Two weeks in — have you shared your store yet?"
-msgstr "Две недеље касније — да ли сте већ поделили своју продавницу?"
-
-#: templates/emails/plain/post-kyc-activation.php:29
-#: templates/emails/post-kyc-activation.php:32
-msgid "Your WooPayments account is approved and ready to accept payments. Now it’s about getting eyes on your store — share your link, tell your network, and make your first sale."
-msgstr "Ваш WooPayments налог је одобрен и спреман за примање плаћања. Сада је важно да привучете пажњу на своју продавницу — поделите везу, реците својој мрежи и остварите прву продају."
-
-#: includes/emails/class-wc-payments-email-post-kyc-activation.php:198
-msgid "Thanks for choosing WooPayments."
-msgstr "Хвала што сте изабрали WooPayments."
-
-#: includes/emails/class-wc-payments-email-post-kyc-activation.php:143
-#: dist/wc-payments-one-and-done-notice.js:1
-#: dist/wc-payments-post-kyc-activation-notice.js:1
-msgid "Promote my store"
-msgstr "Промовиши моју продавницу"
-
-#: includes/emails/class-wc-payments-email-post-kyc-activation.php:65
-#: templates/emails/plain/post-kyc-activation.php:28
-#: templates/emails/post-kyc-activation.php:31
-msgid "Your store is ready — let’s make your first sale"
-msgstr "Ваша продавница је спремна — хајде да остварите прву продају"
-
-#: includes/emails/class-wc-payments-email-post-kyc-activation.php:56
-msgid "Ready for your first sale on {site_title}?"
-msgstr "Спремни за прву продају на {site_title}?"
-
-#: includes/emails/class-wc-payments-email-post-kyc-activation.php:35
-msgid "We'll send a couple of reminders during your first month of accepting payments, to help you bring in your first sale. Stops automatically once you've taken one."
-msgstr "Послаћемо неколико подсетника током првог месеца примања плаћања, да бисмо вам помогли да остварите прву продају. Самостално престаје када је остварите."
-
-#: includes/emails/class-wc-payments-email-post-kyc-activation.php:34
-msgid "First sale reminder"
-msgstr "Подсетник за прву продају"
-
-#: includes/class-wc-payments-utils.php:319
-#: includes/class-wc-payments-utils.php:320 dist/checkout.js:1
-#: dist/chunks/3158.js:1 dist/chunks/reports-fees.js:1
+#: includes/class-wc-payments-utils.php:367
+#: includes/class-wc-payments-utils.php:368 dist/checkout.js:1
+#: dist/chunks/146.js:1 dist/chunks/reports-fees.js:1
 #: dist/chunks/wcpay-money-movement.js:1 dist/settings.js:2
 msgid "eftpos"
 msgstr "eftpos"
@@ -815,7 +910,7 @@ msgstr "Накнада за обраду"
 
 #. translators: 1: fee label (e.g. "Fee" or "Processing fee") 2: monetary
 #. amount
-#: includes/class-wc-payments-captured-event-note.php:167 dist/chunks/4873.js:9
+#: includes/class-wc-payments-captured-event-note.php:167 dist/chunks/265.js:9
 #: dist/chunks/wcpay-money-movement.js:1
 msgid "%1$s: %2$s"
 msgstr "%1$s: %2$s"
@@ -828,7 +923,7 @@ msgid "%1$s (%2$s): %3$s"
 msgstr "%1$s (%2$s): %3$s"
 
 #. translators: %s: error message from the downstream exception
-#: includes/class-wc-payment-gateway-wcpay.php:1287
+#: includes/class-wc-payment-gateway-wcpay.php:1567
 msgid "Payment succeeded, but a downstream error occurred during post-payment processing: %s. Order status preserved."
 msgstr "Плаћање је успело, али је дошло до грешке током обраде после плаћања: %s. Стање поруџбине је сачувано."
 
@@ -841,130 +936,130 @@ msgstr "Плаћања преко терминала не могу се прип
 msgid "Invalid payment intent ID."
 msgstr "Неисправан ИБ намере плаћања."
 
-#: includes/woopay/class-woopay-session.php:1237
-#: includes/woopay/class-woopay-session.php:1290
+#: includes/woopay/class-woopay-session.php:2014
+#: includes/woopay/class-woopay-session.php:2067
 msgid "Invalid appearance schema."
 msgstr "Неисправна шема изгледа."
 
-#: includes/woopay/class-woopay-session.php:1228
-#: includes/woopay/class-woopay-session.php:1281
+#: includes/woopay/class-woopay-session.php:2005
+#: includes/woopay/class-woopay-session.php:2058
 msgid "Missing or invalid appearance data."
 msgstr "Недостају или су неисправни подаци о изгледу."
 
 #. translators: %1$s: minimum price, %2$s: maximum price
-#: includes/multi-currency/AsyncPriceRenderer.php:143
+#: includes/multi-currency/AsyncPriceRenderer.php:155
 msgid "Price range: %1$s through %2$s"
 msgstr "Распон цена: од %1$s до %2$s"
 
-#: includes/woopay/class-woopay-session.php:1221
-#: includes/woopay/class-woopay-session.php:1274
+#: includes/woopay/class-woopay-session.php:1998
+#: includes/woopay/class-woopay-session.php:2051
 msgid "This action is not available."
 msgstr "Ова радња није доступна."
 
-#: includes/woopay/class-woopay-session.php:1214
-#: includes/woopay/class-woopay-session.php:1267
+#: includes/woopay/class-woopay-session.php:1991
+#: includes/woopay/class-woopay-session.php:2044
 msgid "You aren't authorized to do that."
 msgstr "Немате овлашћење за то."
 
 #. translators: %s: formatted price
-#: includes/multi-currency/AsyncPriceRenderer.php:141
+#: includes/multi-currency/AsyncPriceRenderer.php:153
 msgid "Current price is: %s."
 msgstr "Тренутна цена је: %s."
 
 #. translators: %s: formatted price
-#: includes/multi-currency/AsyncPriceRenderer.php:139
+#: includes/multi-currency/AsyncPriceRenderer.php:151
 msgid "Original price was: %s."
 msgstr "Оригинална цена је била: %s."
 
-#: includes/class-wc-payments-utils.php:866
+#: includes/class-wc-payments-utils.php:914
 msgid "Your card has insufficient funds."
 msgstr "На вашој картици нема довољно средстава."
 
-#: includes/class-wc-payments-utils.php:864
+#: includes/class-wc-payments-utils.php:912
 msgid "We are unable to authenticate your payment method. Please choose a different payment method and try again."
 msgstr "Не можемо да проверимо ваш начин плаћања. Изаберите други начин плаћања и покушајте поново."
 
-#: includes/class-wc-payments-utils.php:865
+#: includes/class-wc-payments-utils.php:913
 msgid "Your card was declined because additional authentication is required. Please contact your card issuer or try a different payment method."
 msgstr "Ваша картица је одбијена јер је потребна додатна провера идентитета. Обратите се издаваоцу картице или покушајте другим начином плаћања."
 
-#: includes/class-wc-payments-utils.php:863
+#: includes/class-wc-payments-utils.php:911
 msgid "Invalid wallet payment type, please try again or use an alternative method."
 msgstr "Неисправна врста плаћања новчаником, покушајте поново или користите други начин."
 
-#: includes/class-wc-payments-utils.php:862
+#: includes/class-wc-payments-utils.php:910
 msgid "Invalid Tax ID, please try again with a valid tax ID."
 msgstr "Неисправан порески ИБ, покушајте поново са исправним пореским ИБ-ом."
 
-#: includes/class-wc-payments-utils.php:861
+#: includes/class-wc-payments-utils.php:909
 msgid "Invalid country code, please try again with a valid country code."
 msgstr "Неисправан код државе, покушајте поново са исправним кодом државе."
 
-#: includes/class-wc-payments-utils.php:860
+#: includes/class-wc-payments-utils.php:908
 msgid "Invalid email address, please correct and try again."
 msgstr "Неисправна е-адреса, исправите је и покушајте поново."
 
-#: includes/class-wc-payments-utils.php:859
+#: includes/class-wc-payments-utils.php:907
 msgid "The billing country is not accepted by Sofort. Please try another country."
 msgstr "Sofort не прихвата државу за наплату. Покушајте са другом државом."
 
-#: includes/class-wc-payments-utils.php:858
+#: includes/class-wc-payments-utils.php:906
 msgid "An error occurred while processing your card. Try again in a little bit."
 msgstr "Дошло је до грешке при обради ваше картице. Покушајте поново мало касније."
 
-#: includes/class-wc-payments-utils.php:857
+#: includes/class-wc-payments-utils.php:905
 msgid "There is no card on a customer that is being charged."
 msgstr "Купац коме се наплаћује нема картицу."
 
-#: includes/class-wc-payments-utils.php:856
+#: includes/class-wc-payments-utils.php:904
 msgid "Your card was declined."
 msgstr "Ваша картица је одбијена."
 
-#: includes/class-wc-payments-utils.php:855
+#: includes/class-wc-payments-utils.php:903
 msgid "Your card's expiration year is in the past."
 msgstr "Година истека ваше картице је у прошлости."
 
-#: includes/class-wc-payments-utils.php:854
+#: includes/class-wc-payments-utils.php:902
 msgid "Invalid zip code, please correct and try again."
 msgstr "Неисправан поштански број, исправите га и покушајте поново."
 
-#: includes/class-wc-payments-utils.php:852
+#: includes/class-wc-payments-utils.php:900
 msgid "Your card has expired."
 msgstr "Ваша картица је истекла."
 
-#: includes/class-wc-payments-utils.php:851
+#: includes/class-wc-payments-utils.php:899
 msgid "Your card's expiration date is incomplete."
 msgstr "Датум истека ваше картице није потпун."
 
-#: includes/class-wc-payments-utils.php:853
+#: includes/class-wc-payments-utils.php:901
 msgid "Your card's security code is incorrect."
 msgstr "Сигурносни кôд ваше картице није тачан."
 
-#: includes/class-wc-payments-utils.php:850
+#: includes/class-wc-payments-utils.php:898
 msgid "Your card's security code is incomplete."
 msgstr "Сигурносни кôд ваше картице није потпун."
 
-#: includes/class-wc-payments-utils.php:849
+#: includes/class-wc-payments-utils.php:897
 msgid "Your card number is incomplete."
 msgstr "Број ваше картице није потпун."
 
-#: includes/class-wc-payments-utils.php:848
+#: includes/class-wc-payments-utils.php:896
 msgid "Your card number is incorrect."
 msgstr "Број ваше картице није тачан."
 
-#: includes/class-wc-payments-utils.php:846
+#: includes/class-wc-payments-utils.php:894
 msgid "Your card's expiration year is invalid."
 msgstr "Година истека ваше картице није исправна."
 
-#: includes/class-wc-payments-utils.php:847
+#: includes/class-wc-payments-utils.php:895
 msgid "Your card's security code is invalid."
 msgstr "Сигурносни кôд ваше картице није исправан."
 
-#: includes/class-wc-payments-utils.php:845
+#: includes/class-wc-payments-utils.php:893
 msgid "Your card's expiration month is invalid."
 msgstr "Месец истека ваше картице није исправан."
 
-#: includes/class-wc-payments-utils.php:844
+#: includes/class-wc-payments-utils.php:892
 msgid "The card number is not a valid credit card number."
 msgstr "Број картице није исправан број кредитне картице."
 
@@ -980,22 +1075,24 @@ msgstr "Ова алатка ће очистити кеширане стилов�
 msgid "Clear WooPayments calculated styles"
 msgstr "Очисти израчунате WooPayments стилове"
 
-#. translators: %1$s: redacted email address for Link payment method
-#: includes/class-wc-payment-gateway-wcpay.php:1727
-msgid "Payment method is changed to: <strong>Link ending in %1$s</strong>."
-msgstr "Начин плаћања је промењен у: <strong>Link који се завршава на %1$s</strong>."
+#. translators: %1$s: Link brand name (Link or Onelink), %2$s: redacted email
+#. address for the Link payment method
+#: includes/class-wc-payment-gateway-wcpay.php:2026
+msgid "Payment method is changed to: <strong>%1$s ending in %2$s</strong>."
+msgstr "Начин плаћања је промењен у: <strong>%1$s који се завршава на %2$s</strong>."
 
 #: includes/payment-methods/Configs/Definitions/IdealDefinition.php:65
 msgid "iDEAL | Wero"
 msgstr "iDEAL | Wero"
 
 #. translators: 1: payment method (Amazon Pay), 2: redacted customer email.
-#. translators: 1: payment method (Stripe Link), 2: redacted customer email.
-#. translators: 1: payment method (Stripe Link), 2: customer email.
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:177
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:187
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1084
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1089
+#. translators: 1: payment method (Link or Onelink), 2: redacted customer
+#. email.
+#. translators: 1: payment method (Link or Onelink), 2: customer email.
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:178
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:189
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1088
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1094
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
 
@@ -1018,24 +1115,18 @@ msgstr "Amazon Pay (%s)"
 
 #. translators: %1: the successfully charged amount, %2: WooPayments, %3:
 #. transaction ID of the payment
-#: includes/class-wc-payment-gateway-wcpay.php:4269
+#: includes/class-wc-payment-gateway-wcpay.php:4697
 msgid "A payment of %1$s was successfully charged using %2$s (%3$s)."
 msgstr "Плаћање од %1$s успешно је наплаћено помоћу %2$s (%3$s)."
 
-#: includes/class-wc-payment-gateway-wcpay.php:4319
-#: includes/class-wc-payments-webhook-processing-service.php:629
+#: includes/class-wc-payment-gateway-wcpay.php:4747
+#: includes/class-wc-payments-webhook-processing-service.php:764
 msgid "Unable to save payment method for subscription. Please try again or use a different payment method."
 msgstr "Није могуће сачувати начин плаћања за претплату. Покушајте поново или користите други начин плаћања."
 
 #: includes/admin/class-wc-rest-payments-settings-controller.php:250
 msgid "If express checkout methods (Apple Pay, Google Pay, Amazon Pay) should be enabled as options in the payment methods list."
 msgstr "Да ли начине брзог плаћања (Apple Pay, Google Pay, Amazon Pay) треба укључити као могућности на списку начина плаћања."
-
-#. translators: 1: Anchor opening tag; 2: Anchor closing tag; 3: Anchor opening
-#. tag; 4: Anchor closing tag
-#: includes/admin/class-wc-payments-admin-settings.php:103
-msgid "Test mode is active because your store is running in a development or staging environment. To disable it, switch to a production %1$sWordPress environment%2$s or remove the WCPAY_DEV_MODE constant. %3$sLearn more%4$s"
-msgstr "Пробни режим је активан јер ваша продавница ради у развојном или пробном окружењу. Да бисте га искључили, пређите на производно %1$sВордпрес окружење%2$s или уклоните константу WCPAY_DEV_MODE. %3$sСазнајте више%4$s"
 
 #: includes/payment-methods/Configs/Definitions/WechatPayDefinition.php:98
 msgid "A digital wallet for customers with mainland China WeChat Pay wallets. Regional versions like WeChat Pay HK are not supported."
@@ -1155,11 +1246,11 @@ msgid "Email address used for WooPayments communications."
 msgstr "Е-адреса која се користи за WooPayments комуникацију."
 
 #. translators: %s: error message
-#: includes/woopay/class-woopay-session.php:1189
+#: includes/woopay/class-woopay-session.php:1966
 msgid "WooPay checkout encountered a fatal error: %s"
 msgstr "WooPay плаћање је наишло на кобну грешку: %s"
 
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:975
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:979
 #: dist/subscription-edit-page.js:1
 msgid "Please select a customer first"
 msgstr "Прво изаберите купца"
@@ -1168,42 +1259,38 @@ msgstr "Прво изаберите купца"
 msgid "Offer customers a fast, secure checkout experience with Amazon Pay."
 msgstr "Понудите купцима брзо и безбедно плаћање уз Amazon Pay."
 
-#: includes/payment-methods/Configs/Definitions/AfterpayDefinition.php:111
-msgid "Allow customers to pay over time with Cash App Afterpay."
-msgstr "Омогућите купцима да плаћају на рате уз Cash App Afterpay."
-
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:971
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:975
 msgid "No payment methods found for customer"
 msgstr "Нису пронађени начини плаћања за купца"
 
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:904
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:908
 msgid "Invalid user ID."
 msgstr "Неисправан ID корисника."
 
 #. translators: 1: wallet name, 2: card brand
-#: includes/class-wc-payments-token-service.php:500
+#: includes/class-wc-payments-token-service.php:527
 msgctxt "Payment token with wallet"
 msgid "%1$s %2$s"
 msgstr "%1$s %2$s"
 
-#: includes/class-wc-payment-gateway-wcpay.php:533
+#: includes/class-wc-payment-gateway-wcpay.php:755
 msgid "Express checkout methods on checkout page"
 msgstr "Начини брзог плаћања на страници плаћања"
 
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:889
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:893
 msgid "You do not have permission to perform this action."
 msgstr "Немате овлашћење да извршите ову радњу."
 
-#: includes/class-wc-payment-gateway-wcpay.php:522
+#: includes/class-wc-payment-gateway-wcpay.php:744
 msgid "Express checkout methods on cart page"
 msgstr "Начини брзог плаћања на страници корпе"
 
-#: includes/class-wc-payment-gateway-wcpay.php:511
+#: includes/class-wc-payment-gateway-wcpay.php:733
 msgid "Express checkout methods on product page"
 msgstr "Начини брзог плаћања на страници производа"
 
 #. translators: 1: charged amount, 2: current order total
-#: includes/class-duplicate-payment-prevention-service.php:134
+#: includes/class-duplicate-payment-prevention-service.php:141
 msgid "This order was already paid for %1$s, but the order total has since changed to %2$s, so we prevented an overpayment. Please create a new order for any additional items."
 msgstr "Ова поруџбина је већ плаћена у износу од %1$s, али се укупан износ поруџбине у међувремену променио на %2$s, па смо спречили преплату. Направите нову поруџбину за све додатне ставке."
 
@@ -1219,24 +1306,24 @@ msgstr "Начини брзог плаћања укључени су на стр
 msgid "Express checkout methods enabled on checkout page."
 msgstr "Начини брзог плаћања укључени су на страници плаћања."
 
-#: includes/class-wc-payment-gateway-wcpay.php:517
-#: includes/class-wc-payment-gateway-wcpay.php:528
-#: includes/class-wc-payment-gateway-wcpay.php:539
+#: includes/class-wc-payment-gateway-wcpay.php:739
+#: includes/class-wc-payment-gateway-wcpay.php:750
+#: includes/class-wc-payment-gateway-wcpay.php:761
 #: includes/class-wc-payment-token-wcpay-amazon-pay.php:60
-#: includes/class-wc-payments-token-service.php:518
+#: includes/class-wc-payments-token-service.php:545
 #: includes/payment-methods/Configs/Definitions/AmazonPayDefinition.php:65
-#: dist/checkout.js:1 dist/chunks/3158.js:1
+#: dist/checkout.js:1 dist/chunks/146.js:1
 #: dist/chunks/express-checkout-previews.js:1 dist/chunks/reports-fees.js:1
 #: dist/settings.js:2
 msgid "Amazon Pay"
 msgstr "Amazon Pay"
 
-#: includes/class-wc-payments-utils.php:1308 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1356 dist/index.js:2 dist/order.js:1
 msgid "Non-compliant"
 msgstr "Неусклађено"
 
 #. translators: %s: payment method type
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1419
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1473
 msgid "Subscription set to manual renewal because %s is a non-reusable payment method."
 msgstr "Претплата је постављена на ручну обнову јер је %s начин плаћања који се не може поново користити."
 
@@ -1302,53 +1389,41 @@ msgstr "<strong class=\"red\">Напомена:</strong> Ова могућнос
 msgid "Delete %s test orders"
 msgstr "Избриши %s пробне поруџбине"
 
-#: includes/admin/class-wc-payments-admin-settings.php:231
+#: includes/admin/class-wc-payments-admin-settings.php:222
 msgid "You are using a sandbox test account."
 msgstr "Користите пробни налог у sandbox окружењу."
 
-#. translators: 1: Anchor opening tag; 2: Anchor closing tag; 3: Anchor opening
-#. tag; 4: Anchor closing tag
-#: includes/admin/class-wc-payments-admin-settings.php:166
-#: includes/admin/class-wc-payments-admin-settings.php:247
-msgid "To begin accepting real payments, please go to the live store or change your %1$sWordPress environment%2$s to a production one. %3$sLearn more%4$s"
-msgstr "Да бисте почели да примате стварна плаћања, идите на активну продавницу или промените своје %1$sВордпрес окружење%2$s у производно. %3$sСазнајте више%4$s"
-
 #. translators: %1$s terms page link, %2$s privacy page link.
-#: includes/woopay/class-woopay-session.php:1100
+#: includes/woopay/class-woopay-session.php:1877
 msgid "By proceeding with your purchase you agree to our %1$s and %2$s"
 msgstr "Наставком куповине прихватате наше %1$s и %2$s"
 
 #. translators: 1: Anchor opening tag; 2: Anchor closing tag; 3: Anchor opening
 #. tag; 4: Anchor closing tag
-#: includes/admin/class-wc-payments-admin-settings.php:236
+#: includes/admin/class-wc-payments-admin-settings.php:226
 msgid "To begin accepting real payments you will need to first %1$sreset your account%2$s and, then, provide additional details about your business. %3$sLearn more%4$s"
 msgstr "Да бисте почели да примате стварна плаћања, прво морате %1$sпоништити свој налог%2$s, а затим пружити додатне детаље о свом пословању. %3$sСазнајте више%4$s"
 
-#: includes/admin/class-wc-payments-admin-settings.php:162
-#: includes/admin/class-wc-payments-admin-settings.php:243
-msgid "⚠️ Development mode is enabled for the store! There can be no live onboarding process while using development, testing, or staging WordPress environments!"
-msgstr "⚠️ За продавницу је укључен развојни режим! Не може постојати стварни поступак почетног подешавања док се користе развојна, тестна или пробна Вордпрес окружења!"
-
 #. translators: %s: URL to learn more
-#: includes/admin/class-wc-payments-admin-settings.php:157
+#: includes/admin/class-wc-payments-admin-settings.php:154
 msgid "Provide additional details about your business so you can begin accepting real payments. %1$sLearn more%2$s"
 msgstr "Пружите додатне детаље о свом пословању да бисте почели да примате стварна плаћања. %1$sСазнајте више%2$s"
 
 #. translators: 1: Anchor opening tag; 2: Anchor closing tag
-#: includes/admin/class-wc-payments-admin-settings.php:112
+#: includes/admin/class-wc-payments-admin-settings.php:107
 msgid "You can use %1$stest card numbers%2$s to simulate various types of transactions."
 msgstr "Можете користити %1$sпробне бројеве картица%2$s за симулацију различитих врста трансакција."
 
 #. translators: %s: WooPayments
-#: includes/admin/class-wc-payments-admin-settings.php:94
-msgid "%s is in test mode — all transactions are simulated!"
-msgstr "%s је у пробном режиму — све трансакције се симулирају!"
+#: includes/admin/class-wc-payments-admin-settings.php:99
+msgid "%s is in test mode — all transactions are simulated."
+msgstr "%s је у пробном режиму — све трансакције се симулирају."
 
 #: includes/payment-methods/Configs/Definitions/CardDefinition.php:64
 msgid "Card"
 msgstr "Картица"
 
-#: includes/admin/class-wc-payments-admin-settings.php:152
+#: includes/admin/class-wc-payments-admin-settings.php:150
 msgid "You are using a test account."
 msgstr "Користите пробни налог."
 
@@ -1381,11 +1456,11 @@ msgstr "Постави WooCommerce Subscriptions"
 msgid "<strong>Important:</strong> From version 9.7 of WooPayments (scheduled for 23 July, 2025), you'll <strong>no longer be able to offer new product subscriptions</strong>. To avoid disruption, please install <a target=\"_blank\" href=\"%1$s\">WooCommerce Subscriptions</a>."
 msgstr "<strong>Важно:</strong> Од издања 9.7 WooPayments-а (заказаног за 23. јул 2025.) <strong>више нећете моћи да нудите нове претплате на производе</strong>. Да бисте избегли прекид, поставите <a target=\"_blank\" href=\"%1$s\">WooCommerce Subscriptions</a>."
 
-#: includes/class-wc-payments-onboarding-service.php:823
+#: includes/class-wc-payments-onboarding-service.php:841
 msgid "Failed to reset the account: account does not exist."
 msgstr "Поништавање налога није успело: налог не постоји."
 
-#: includes/class-wc-payments-onboarding-service.php:878
+#: includes/class-wc-payments-onboarding-service.php:896
 msgid "Failed to activate the account: account does not exist."
 msgstr "Укључивање налога није успело: налог не постоји."
 
@@ -1561,18 +1636,18 @@ msgstr "BE VAT"
 msgid "AT VAT"
 msgstr "AT VAT"
 
-#: includes/class-wc-payments-onboarding-service.php:708
-#: includes/class-wc-payments-onboarding-service.php:818
-#: includes/class-wc-payments-onboarding-service.php:873
+#: includes/class-wc-payments-onboarding-service.php:721
+#: includes/class-wc-payments-onboarding-service.php:836
+#: includes/class-wc-payments-onboarding-service.php:891
 msgid "Your store is not connected to WordPress.com. Please connect it first."
 msgstr "Ваша продавница није повезана са WordPress.com. Прво је повежите."
 
-#: includes/class-wc-payments-onboarding-service.php:329
-#: includes/class-wc-payments-onboarding-service.php:713
+#: includes/class-wc-payments-onboarding-service.php:339
+#: includes/class-wc-payments-onboarding-service.php:726
 msgid "Onboarding initialization is already in progress. Please wait for it to finish."
 msgstr "Покретање почетног подешавања је већ у току. Сачекајте да се заврши."
 
-#: includes/class-wc-payment-gateway-wcpay.php:4591
+#: includes/class-wc-payment-gateway-wcpay.php:5041
 msgid "You cannot add a new payment method so soon after the previous one. Please try again later."
 msgstr "Не можете додати нови начин плаћања тако брзо после претходног. Покушајте поново касније."
 
@@ -1581,7 +1656,7 @@ msgid "WooPayments woopay order status sync"
 msgstr "WooPayments усклађивање стања woopay поруџбина"
 
 #. Translators: %1$s contains failure message. %2$s contains error code.
-#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:285
+#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:299
 msgid "Payment for the order failed with the following message: \"%1$s\" and failure code <code>%2$s</code>"
 msgstr "Плаћање поруџбине није успело уз следећу поруку: „%1$s“ и код грешке <code>%2$s</code>"
 
@@ -1599,7 +1674,7 @@ msgstr "Издавалац картице одбио је рефундацију
 
 #. Translators: %1$d Number of failed renewal attempts. %2$s contains failure
 #. message, %3$s contains error code.
-#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:271
+#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:285
 msgid "WooPayments subscription renewal attempt %1$d failed with the following message \"%2$s\" and failure code <code>%3$s</code>"
 msgid_plural "WooPayments subscription renewal attempt %1$d failed with the following message \"%2$s\" and failure code <code>%3$s</code>"
 msgstr[0] "WooPayments покушај обнове претплате %1$d није успео уз следећу поруку „%2$s“ и код грешке <code>%3$s</code>"
@@ -1614,7 +1689,7 @@ msgstr "Недовољно средстава на вашем WooPayments ста
 msgid "The charge for this refund is being disputed by the customer."
 msgstr "Купац оспорава задужење за ову рефундацију."
 
-#: includes/class-wc-payments-onboarding-service.php:902
+#: includes/class-wc-payments-onboarding-service.php:920
 msgid "Failed to disable test drive account."
 msgstr "Искључивање пробног налога није успело."
 
@@ -1626,7 +1701,7 @@ msgstr "Картица коришћена за изворно плаћање п�
 msgid "The card used for the original payment has expired or been canceled."
 msgstr "Картица коришћена за изворно плаћање истекла је или је отказана."
 
-#: includes/class-wc-payments-onboarding-service.php:834
+#: includes/class-wc-payments-onboarding-service.php:852
 msgid "Failed to delete account."
 msgstr "Брисање налога није успело."
 
@@ -1646,7 +1721,7 @@ msgstr "Контакт:"
 msgid "Store Name:"
 msgstr "Име продавнице:"
 
-#: includes/subscriptions/class-wc-payments-subscription-service.php:951
+#: includes/subscriptions/class-wc-payments-subscription-service.php:961
 msgid "Subscription was made when WooPayments was in the live mode and cannot be renewed in the test mode."
 msgstr "Претплата је направљена када је WooPayments био у стварном режиму и не може се обновити у пробном режиму."
 
@@ -1654,40 +1729,36 @@ msgstr "Претплата је направљена када је WooPayments �
 msgid "Store Details"
 msgstr "Детаљи продавнице"
 
-#: includes/payment-methods/Configs/Definitions/AfterpayDefinition.php:70
-msgid "Cash App Afterpay"
-msgstr "Cash App Afterpay"
-
-#: includes/subscriptions/class-wc-payments-subscription-service.php:949
+#: includes/subscriptions/class-wc-payments-subscription-service.php:959
 msgid "Subscription was made when WooPayments was in the test mode and cannot be renewed in the live mode."
 msgstr "Претплата је направљена када је WooPayments био у пробном режиму и не може се обновити у стварном режиму."
 
 #. translators: %1: the refund amount, %2: WooPayments, %3: reason, %4: refund
 #. id, %5: status text
-#: includes/class-wc-payments-order-service.php:2658
+#: includes/class-wc-payments-order-service.php:3198
 msgid "A refund of %1$s %5$s using %2$s. Reason: %3$s. (<code>%4$s</code>)"
 msgstr "Рефундација од %1$s %5$s помоћу %2$s. Разлог: %3$s. (<code>%4$s</code>)"
 
 #. translators: %1: the refund amount, %2: WooPayments, %3: ID of the refund,
 #. %4: status text
-#: includes/class-wc-payments-order-service.php:2644
+#: includes/class-wc-payments-order-service.php:3184
 msgid "A refund of %1$s %4$s using %2$s (<code>%3$s</code>)."
 msgstr "Рефундација од %1$s %4$s помоћу %2$s (<code>%3$s</code>)."
 
-#: includes/class-wc-payments-order-service.php:2638
+#: includes/class-wc-payments-order-service.php:3178
 msgid "was successfully processed"
 msgstr "успешно је обрађена"
 
-#: includes/class-wc-payments-order-service.php:2636
+#: includes/class-wc-payments-order-service.php:3176
 msgid "is pending"
 msgstr "је на чекању"
 
-#: includes/class-wc-payments-order-service.php:1989
+#: includes/class-wc-payments-order-service.php:2529
 msgid "unsuccessful"
 msgstr "није успела"
 
-#: includes/class-wc-payment-gateway-wcpay.php:1118
-#: includes/class-wc-payment-gateway-wcpay.php:1123
+#: includes/class-wc-payment-gateway-wcpay.php:1370
+#: includes/class-wc-payment-gateway-wcpay.php:1375
 msgid "Return to payments"
 msgstr "Повратак на плаћање"
 
@@ -1697,31 +1768,37 @@ msgstr "Начин плаћања заснован на ваучерима за 
 
 #. translators: %1$s: The current site domain name. %2$s: The original site
 #. domain name.
-#: woocommerce-payments.php:444
+#: woocommerce-payments.php:469
 msgid "<span>Your site is in Safe Mode because <hostname>%1$s</hostname> appears to be a staging or development copy of <hostname>%2$s</hostname>.</span> Two sites that are telling WooPayments they’re the same site. <safeModeLink>Learn more about Safe Mode issues</safeModeLink>."
 msgstr "<span>Ваш сајт је у безбедном режиму јер <hostname>%1$s</hostname> изгледа као пробна или развојна копија <hostname>%2$s</hostname>.</span> Два сајта WooPayments-у говоре да су исти сајт. <safeModeLink>Сазнајте више о проблемима безбедног режима</safeModeLink>."
 
 #. translators: %s: WooPayments.
-#: woocommerce-payments.php:435
+#: woocommerce-payments.php:460
 msgid "<p><strong>Recommended for</strong></p><list><item>short-lived test sites</item><item>sites that will be cloned back to production after testing</item></list><p><strong>Please note</strong> that staying in Safe Mode will cause issues for some %s features such as dispute and refund updates, payment confirmations for local payment methods. <safeModeLink>Learn more</safeModeLink>.</p>"
 msgstr "<p><strong>Препоручено за</strong></p><list><item>краткотрајне пробне сајтове</item><item>сајтове који ће после тестирања бити клонирани назад у производњу</item></list><p><strong>Имајте у виду</strong> да ће останак у безбедном режиму изазвати проблеме за неке %s функције као што су ажурирања спорова и рефундација и потврде плаћања за локалне начине плаћања. <safeModeLink>Сазнајте више</safeModeLink>.</p>"
 
-#: woocommerce-payments.php:383
+#. translators: %1$s: The current site domain name. %2$s: The original site
+#. domain name. %3$s: WooPayments.
+#: woocommerce-payments.php:448
+msgid "<p><strong>Recommended for</strong></p><list><item>development sites</item><item>sites that need access to all %3$s features</item></list><p><strong>Please note</strong> that creating a fresh connection for <hostname>%1$s</hostname> would require restoring the connection on <hostname>%2$s</hostname> if that site is cloned back to production. <safeModeLink>Learn more</safeModeLink>.</p>"
+msgstr "<p><strong>Препоручено за</strong></p><list><item>развојне сајтове</item><item>сајтове којима је потребан приступ свим %3$s функцијама</item></list><p><strong>Имајте у виду</strong> да би прављење нове везе за <hostname>%1$s</hostname> захтевало враћање везе на <hostname>%2$s</hostname> ако се тај сајт клонира назад у производњу. <safeModeLink>Сазнајте више</safeModeLink>.</p>"
+
+#: woocommerce-payments.php:408
 msgid "Stay in Safe Mode"
 msgstr "Остани у безбедном режиму"
 
 #. translators: %s: expiry date
 #: includes/class-wc-payments-order-success-page.php:98
-#: includes/class-wc-payments-order-success-page.php:648
+#: includes/class-wc-payments-order-success-page.php:656
 msgid "Expires <strong>%s</strong>"
 msgstr "Истиче <strong>%s</strong>"
 
-#: includes/class-wc-payments-order-success-page.php:606
+#: includes/class-wc-payments-order-success-page.php:614
 msgid "Multibanco Payment instructions"
 msgstr "Упутства за Multibanco плаћање"
 
 #. translators: %s: checkout URL
-#: includes/class-wc-payments-order-success-page.php:468
+#: includes/class-wc-payments-order-success-page.php:471
 msgid "Unfortunately, your order has failed. Please <a href=\"%s\">try checking out again</a>."
 msgstr "Нажалост, ваша поруџбина није успела. <a href=\"%s\">Покушајте поново да платите</a>."
 
@@ -1735,48 +1812,42 @@ msgid "Print"
 msgstr "Штампање"
 
 #: includes/class-wc-payments-order-success-page.php:126
-#: includes/class-wc-payments-order-success-page.php:614
-#: includes/class-wc-payments-order-success-page.php:665
+#: includes/class-wc-payments-order-success-page.php:622
+#: includes/class-wc-payments-order-success-page.php:673
 msgid "Enter the entity number, reference number, and amount."
 msgstr "Унесите број ентитета, број позива на број и износ."
 
 #: includes/class-wc-payments-order-success-page.php:132
-#: includes/class-wc-payments-order-success-page.php:615
-#: includes/class-wc-payments-order-success-page.php:671
+#: includes/class-wc-payments-order-success-page.php:623
+#: includes/class-wc-payments-order-success-page.php:679
 msgid "Entity"
 msgstr "Ентитет"
 
 #: includes/class-wc-payments-order-success-page.php:125
-#: includes/class-wc-payments-order-success-page.php:613
-#: includes/class-wc-payments-order-success-page.php:664
+#: includes/class-wc-payments-order-success-page.php:621
+#: includes/class-wc-payments-order-success-page.php:672
 msgid "Click \"Payments of services/shopping\"."
 msgstr "Притисните \"Payments of services/shopping\"."
 
-#. translators: %1$s: The current site domain name. %2$s: The original site
-#. domain name. %3$s: WooPayments.
-#: woocommerce-payments.php:423
-msgid "<p><strong>Recommended for</strong></p><list><item>development sites</item><item>sites that need access to all %3$s features</item></list><p><strong>Please note</strong> that creating a fresh connection for <hostname>%1$s</hostname> would require restoring the connection on <hostname>%2$s</hostname> if that site is cloned back to production. <safeModeLink>Learn more</safeModeLink>.</p>"
-msgstr "<p><strong>Препоручено за</strong></p><list><item>развојне сајтове</item><item>сајтове којима је потребан приступ свим %3$s функцијама</item></list><p><strong>Имајте у виду</strong> да би прављење нове везе за <hostname>%1$s</hostname> захтевало враћање везе на <hostname>%2$s</hostname> ако се тај сајт клонира назад у производњу. <safeModeLink>Сазнајте више</safeModeLink>.</p>"
-
 #: includes/class-wc-payments-order-success-page.php:124
-#: includes/class-wc-payments-order-success-page.php:612
-#: includes/class-wc-payments-order-success-page.php:663
+#: includes/class-wc-payments-order-success-page.php:620
+#: includes/class-wc-payments-order-success-page.php:671
 msgid "In your online bank account or from an ATM, choose \"Payment and other services\"."
 msgstr "На свом онлајн банковном налогу или на банкомату изаберите \"Payment and other services\"."
 
 #: includes/class-wc-payments-order-success-page.php:122
-#: includes/class-wc-payments-order-success-page.php:661
+#: includes/class-wc-payments-order-success-page.php:669
 msgid "Payment instructions"
 msgstr "Упутства за плаћање"
 
 #. translators: %s: expiry date
-#: includes/class-wc-payments-order-success-page.php:609
+#: includes/class-wc-payments-order-success-page.php:617
 msgid "Expires %s"
 msgstr "Истиче %s"
 
 #. translators: %s: order number
 #: includes/class-wc-payments-order-success-page.php:90
-#: includes/class-wc-payments-order-success-page.php:638
+#: includes/class-wc-payments-order-success-page.php:646
 msgid "Order #%s"
 msgstr "Поруџбина #%s"
 
@@ -1784,11 +1855,11 @@ msgstr "Поруџбина #%s"
 msgid "Your order is on hold until payment is received. Please follow the payment instructions by the expiry date."
 msgstr "Ваша поруџбина је на чекању док се не прими плаћање. Пратите упутства за плаћање до датума истека."
 
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1476
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1555
 msgid "Payment method updated for all your current subscriptions."
 msgstr "Начин плаћања ажуриран је за све ваше тренутне претплате."
 
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1473
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1552
 msgid "Payment method updated."
 msgstr "Начин плаћања је ажуриран."
 
@@ -1801,7 +1872,7 @@ msgid "WeChat Pay"
 msgstr "WeChat Pay"
 
 #. translators: %1$s: Formatted refund amount
-#: includes/class-wc-payments-order-service.php:3182
+#: includes/class-wc-payments-order-service.php:3736
 msgid "Refund of %1$s <strong>failed</strong> due to insufficient funds in your WooPayments balance."
 msgstr "Рефундација од %1$s <strong>није успела</strong> због недовољно средстава на вашем WooPayments стању."
 
@@ -1814,27 +1885,27 @@ msgid "Failed to create refund"
 msgstr "Прављење рефундације није успело"
 
 #. translators: %s: Formatted refund amount
-#: includes/class-wc-payments-order-service.php:3162
+#: includes/class-wc-payments-order-service.php:3716
 msgid "Refund of %s <strong>failed</strong> due to insufficient funds in your WooPayments balance. To prevent delays in refunding customers, please consider adding funds to your Future Refunds or Disputes (FROD) balance. <a>Learn more</a>."
 msgstr "Рефундација од %s <strong>није успела</strong> због недовољно средстава на вашем WooPayments стању. Да бисте спречили кашњења у рефундирању купцима, размислите о додавању средстава на стање Future Refunds or Disputes (FROD). <a>Сазнајте више</a>."
 
 #. translators: %1$s terms page link, %2$s privacy page link.
-#: includes/woopay/class-woopay-session.php:1092
+#: includes/woopay/class-woopay-session.php:1869
 msgid "You must accept our %1$s and %2$s to continue with your purchase."
 msgstr "Морате прихватити наше %1$s и %2$s да бисте наставили са куповином."
 
-#: includes/woopay/class-woopay-session.php:1087
+#: includes/woopay/class-woopay-session.php:1864
 msgid "Terms and Conditions"
 msgstr "Услови коришћења"
 
 #. translators: %1: the authorized amount, %2: WooPayments, %3: transaction ID
 #. of the payment, %4: transaction details URL
-#: includes/class-wc-payments-order-service.php:2146
+#: includes/class-wc-payments-order-service.php:2686
 msgid "A terminal payment of %1$s <strong>failed</strong> using %2$s (<a>%3$s</a>)"
 msgstr "Плаћање преко терминала од %1$s <strong>није успело</strong> помоћу %2$s (<a>%3$s</a>)"
 
 #. translators: %s: formatted minimum amount with currency
-#: includes/class-wc-payment-gateway-wcpay.php:4005
+#: includes/class-wc-payment-gateway-wcpay.php:4373
 msgid "The minimum amount to capture is %s."
 msgstr "Најмањи износ за наплату је %s."
 
@@ -1843,23 +1914,23 @@ msgstr "Најмањи износ за наплату је %s."
 msgid "Currency conversion fee"
 msgstr "Накнада за конверзију валуте"
 
-#: includes/admin/class-wc-payments-admin-settings.php:178 dist/index.js:2
+#: includes/admin/class-wc-payments-admin-settings.php:166 dist/index.js:2
 #: dist/settings.js:2
 msgid "Activate payments"
 msgstr "Укључи плаћања"
 
-#: src/Internal/Service/Level3Service.php:192
+#: src/Internal/Service/Level3Service.php:264
 msgid "Rounding fix"
 msgstr "Исправка заокруживања"
 
 #. translators: %1: the dispute status
-#: includes/class-wc-payments-order-service.php:2523
+#: includes/class-wc-payments-order-service.php:3063
 msgid "Payment inquiry has been closed with status %1$s. See <a>payment status</a> for more details."
 msgstr "Упит о плаћању затворен је са стањем %1$s. Погледајте <a>стање плаћања</a> за више детаља."
 
 #. translators: %1: the disputed amount and currency; %2: the dispute reason;
 #. %3 the deadline date for responding to the inquiry
-#: includes/class-wc-payments-order-service.php:2465
+#: includes/class-wc-payments-order-service.php:3005
 msgid "A payment inquiry has been raised for %1$s with reason \"%2$s\". <a>Response due by %3$s</a>."
 msgstr "Покренут је упит о плаћању за %1$s са разлогом „%2$s“. <a>Рок за одговор је %3$s</a>."
 
@@ -1875,8 +1946,8 @@ msgstr "Накнада за конверзију валуте: %1$s%%"
 msgid "Currency conversion fee: %1$s%% + %2$s"
 msgstr "Накнада за конверзију валуте: %1$s%% + %2$s"
 
-#: includes/class-wc-payments-order-success-page.php:261
-#: includes/class-wc-payments-order-success-page.php:292
+#: includes/class-wc-payments-order-success-page.php:263
+#: includes/class-wc-payments-order-success-page.php:295
 msgid "•••"
 msgstr "•••"
 
@@ -1913,49 +1984,45 @@ msgstr "Нето исплата: %s"
 msgid "Adjust risk filters"
 msgstr "Прилагоди филтере ризика"
 
-#: includes/admin/class-wc-payments-admin.php:567
+#: includes/admin/class-wc-payments-admin.php:555
 #: dist/chunks/wcpay-payouts.js:1 dist/index.js:2
 msgid "Payout details"
 msgstr "Детаљи исплате"
 
-#: includes/admin/class-wc-payments-admin.php:340
+#: includes/admin/class-wc-payments-admin.php:328
 #: dist/chunks/reports-balance-actions.js:1 dist/chunks/reports-balance.js:1
 #: dist/chunks/wcpay-overview.js:1 dist/index.js:2 dist/settings.js:2
 msgid "Payouts"
 msgstr "Исплате"
 
-#: includes/class-wc-payments-onboarding-service.php:443
+#: includes/class-wc-payments-onboarding-service.php:456
 msgid "Failed to finalize onboarding session."
 msgstr "Довршавање сесије почетног подешавања није успело."
 
-#: includes/class-wc-payments-checkout.php:485
-#: includes/class-wc-payments-checkout.php:594 dist/chunks/wcpay-payouts.js:1
+#: includes/class-wc-payments-checkout.php:544
+#: includes/class-wc-payments-checkout.php:653 dist/chunks/wcpay-payouts.js:1
 msgid "Copy to clipboard"
 msgstr "Умножи у оставу"
 
-#: includes/class-wc-payments-checkout.php:485
-#: includes/class-wc-payments-checkout.php:594
+#: includes/class-wc-payments-checkout.php:544
+#: includes/class-wc-payments-checkout.php:653
 msgid "Click to copy the test number to clipboard"
 msgstr "Притисните да бисте умножили пробни број у оставу"
 
 #. translators: 1: WooPayments.
-#: includes/admin/class-wc-payments-admin.php:1289
+#: includes/admin/class-wc-payments-admin.php:1260
 msgid "Please <b>complete your %1$s setup</b> to continue using it."
 msgstr "<b>Довршите подешавање %1$s</b> да бисте наставили да га користите."
 
-#: includes/admin/class-wc-payments-admin.php:471 dist/index.js:2
+#: includes/admin/class-wc-payments-admin.php:459 dist/index.js:2
 msgid "Continue onboarding"
 msgstr "Настави почетно подешавање"
 
-#: includes/payment-methods/Configs/Definitions/KlarnaDefinition.php:99
-msgid "Allow customers to pay over time or pay now with Klarna."
-msgstr "Омогућите купцима да плаћају на рате или одмах уз Klarna."
-
-#: includes/payment-methods/Configs/Definitions/AfterpayDefinition.php:114
+#: includes/payment-methods/Configs/Definitions/AfterpayDefinition.php:106
 msgid "Allow customers to pay over time with Afterpay."
 msgstr "Омогућите купцима да плаћају на рате уз Afterpay."
 
-#: includes/payment-methods/Configs/Definitions/AfterpayDefinition.php:107
+#: includes/payment-methods/Configs/Definitions/AfterpayDefinition.php:103
 msgid "Allow customers to pay over time with Clearpay."
 msgstr "Омогућите купцима да плаћају на рате уз Clearpay."
 
@@ -2005,12 +2072,12 @@ msgctxt "custom price addon price in cart"
 msgid " (%1$s)"
 msgstr " (%1$s)"
 
-#: includes/class-wc-payments-webhook-processing-service.php:1056
+#: includes/class-wc-payments-webhook-processing-service.php:1220
 msgid "The mandate used for this renewal payment is invalid. You may need to bring the customer back to your store and ask them to resubmit their payment information."
 msgstr "Налог коришћен за ово плаћање обнове није исправан. Можда ћете морати да вратите купца у своју продавницу и замолите га да поново пошаље податке о плаћању."
 
 #. translators: 1: anchor opening markup 2: closing anchor markup
-#: includes/class-wc-payments-account.php:1781
+#: includes/class-wc-payments-account.php:1797
 msgid "Another account setup session is already in progress. Please finish it or %1$sclick here to start again%2$s."
 msgstr "Друга сесија подешавања налога је већ у току. Довршите је или %1$sпритисните овде да бисте почели поново%2$s."
 
@@ -2019,24 +2086,24 @@ msgid "Invalid token: cookie and session customer mismatch"
 msgstr "Неисправан жетон: купац у колачићу и сесији се не подударају"
 
 #. translators: %s: WooPayments.
-#: includes/class-wc-payments-account.php:1831
+#: includes/class-wc-payments-account.php:1847
 msgid "There was a problem setting up your %s account. Please try again."
 msgstr "Дошло је до проблема при подешавању вашег %s налога. Покушајте поново."
 
 #. translators: 1: WooPayments.
-#: includes/class-wc-payments-account.php:1632
+#: includes/class-wc-payments-account.php:1648
 msgid "Please <b>complete your %1$s setup</b> to process transactions."
 msgstr "<b>Довршите подешавање %1$s</b> да бисте обрађивали трансакције."
 
-#: includes/class-wc-payments.php:2215
+#: includes/class-wc-payments.php:2178
 msgid "is required to create an WooPay account."
 msgstr "је потребан за прављење WooPay налога."
 
-#: includes/class-wc-payments.php:2215
+#: includes/class-wc-payments.php:2178
 msgid "Mobile Number"
 msgstr "Број мобилног телефона"
 
-#: includes/woopay/class-woopay-utilities.php:297
+#: includes/woopay/class-woopay-utilities.php:336
 msgid "WooPay blog_token is currently misconfigured."
 msgstr "WooPay blog_token тренутно није исправно подешен."
 
@@ -2049,38 +2116,38 @@ msgstr "Полупречник ивице дугмета за плаћање ј�
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
-#: includes/wc-payment-api/class-wc-payments-api-client.php:249
-#: includes/wc-payment-api/class-wc-payments-api-client.php:577
-#: includes/wc-payment-api/class-wc-payments-api-client.php:656
-#: includes/wc-payment-api/class-wc-payments-api-client.php:692
-#: includes/wc-payment-api/class-wc-payments-api-client.php:751
-#: includes/wc-payment-api/class-wc-payments-api-client.php:808
-#: includes/wc-payment-api/class-wc-payments-api-client.php:928
-#: includes/wc-payment-api/class-wc-payments-api-client.php:953
-#: includes/wc-payment-api/class-wc-payments-api-client.php:986
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1405
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1473
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1505
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1530
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1557
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1582
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1607
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1631
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1656
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1681
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1724
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1749
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1775
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1800
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1826
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1853
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1882
-#: includes/wc-payment-api/class-wc-payments-api-client.php:2061
-#: includes/wc-payment-api/class-wc-payments-api-client.php:2093
-#: includes/wc-payment-api/class-wc-payments-api-client.php:2137
-#: includes/wc-payment-api/class-wc-payments-api-client.php:2223
-#: includes/wc-payment-api/class-wc-payments-api-client.php:2510
-#: includes/wc-payment-api/class-wc-payments-api-client.php:2544
+#: includes/wc-payment-api/class-wc-payments-api-client.php:256
+#: includes/wc-payment-api/class-wc-payments-api-client.php:584
+#: includes/wc-payment-api/class-wc-payments-api-client.php:663
+#: includes/wc-payment-api/class-wc-payments-api-client.php:699
+#: includes/wc-payment-api/class-wc-payments-api-client.php:758
+#: includes/wc-payment-api/class-wc-payments-api-client.php:815
+#: includes/wc-payment-api/class-wc-payments-api-client.php:935
+#: includes/wc-payment-api/class-wc-payments-api-client.php:960
+#: includes/wc-payment-api/class-wc-payments-api-client.php:993
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1412
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1480
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1512
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1537
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1564
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1589
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1614
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1638
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1663
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1688
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1731
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1756
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1782
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1807
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1833
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1860
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1889
+#: includes/wc-payment-api/class-wc-payments-api-client.php:2068
+#: includes/wc-payment-api/class-wc-payments-api-client.php:2100
+#: includes/wc-payment-api/class-wc-payments-api-client.php:2144
+#: includes/wc-payment-api/class-wc-payments-api-client.php:2230
+#: includes/wc-payment-api/class-wc-payments-api-client.php:2517
+#: includes/wc-payment-api/class-wc-payments-api-client.php:2551
 msgid "Route param validation failed."
 msgstr "Провера параметра путање није успела."
 
@@ -2099,43 +2166,43 @@ msgstr "Стави на преглед ако AVS провера не успе"
 msgid "The subscription couldn't be created because it uses a different currency (%1$s) from your existing subscriptions (%2$s). Please ensure all subscriptions use the same currency."
 msgstr "Претплата није могла да се направи јер користи другу валуту (%1$s) од ваших постојећих претплата (%2$s). Уверите се да све претплате користе исту валуту."
 
-#: includes/class-wc-payments-utils.php:303
+#: includes/class-wc-payments-utils.php:351
 msgid "Puerto Rico"
 msgstr "Порторико"
 
 #. translators: %s: WooPay,
-#: includes/class-wc-payment-gateway-wcpay.php:5208
+#: includes/class-wc-payment-gateway-wcpay.php:5668
 msgid "Payments made simple — including %s, a new express checkout feature."
 msgstr "Плаћања поједностављена — укључујући %s, нову функцију брзог плаћања."
 
 #. translators: %1$s: WooPayments
-#: includes/class-wc-payment-gateway-wcpay.php:5198
+#: includes/class-wc-payment-gateway-wcpay.php:5658
 msgid "%1$s gives your store flexibility to accept credit cards, debit cards, and Apple Pay. Enable popular local payment methods and other digital wallets like Google Pay to give customers even more choice."
 msgstr "%1$s вашој продавници пружа прилагодљивост за прихватање кредитних картица, дебитних картица и Apple Pay. Укључите популарне локалне начине плаћања и друге дигиталне новчанике као што је Google Pay да бисте купцима пружили још већи избор."
 
-#: includes/class-wc-payments-utils.php:317
-#: includes/class-wc-payments-utils.php:318 dist/blocks-checkout.js:1
-#: dist/checkout.js:1 dist/chunks/3158.js:1 dist/chunks/reports-fees.js:1
+#: includes/class-wc-payments-utils.php:365
+#: includes/class-wc-payments-utils.php:366 dist/blocks-checkout.js:1
+#: dist/checkout.js:1 dist/chunks/146.js:1 dist/chunks/reports-fees.js:1
 #: dist/chunks/wcpay-money-movement.js:1 dist/multi-currency.js:1
 #: dist/settings.js:2 dist/woopay-express-button.js:1
 msgid "Cartes Bancaires"
 msgstr "Cartes Bancaires"
 
 #. translators: %1: charge ID
-#: includes/class-wc-payments-webhook-processing-service.php:1135
+#: includes/class-wc-payments-webhook-processing-service.php:1299
 msgid "The refund amount is not valid for charge ID: %1$s"
 msgstr "Износ рефундације није исправан за ИБ задужења: %1$s"
 
-#: includes/class-wc-payments-webhook-processing-service.php:816
+#: includes/class-wc-payments-webhook-processing-service.php:951
 msgid "Payment dispute and fees have been deducted from your next payout"
 msgstr "Спор око плаћања и накнаде одузети су од ваше следеће исплате"
 
 #. translators: %1$: order id.
-#: includes/class-wc-payment-gateway-wcpay.php:3006
+#: includes/class-wc-payment-gateway-wcpay.php:3363
 msgid "A refund cannot be found for order: %1$s"
 msgstr "Рефундација не може да се пронађе за поруџбину: %1$s"
 
-#: includes/class-wc-payments-order-service.php:1989 dist/order.js:1
+#: includes/class-wc-payments-order-service.php:2529 dist/order.js:1
 msgid "cancelled"
 msgstr "отказано"
 
@@ -2144,12 +2211,12 @@ msgstr "отказано"
 msgid "Invalid number passed. Number %1$s needs to be larger than %2$s"
 msgstr "Прослеђен је неисправан број. Број %1$s мора бити већи од %2$s"
 
-#: includes/class-wc-payments-order-service.php:1882
+#: includes/class-wc-payments-order-service.php:2422
 msgid "Capture authorization <strong>failed</strong> to complete."
 msgstr "Наплата одобрења <strong>није успела</strong> да се доврши."
 
-#: includes/woopay/class-woopay-session.php:737
-#: includes/woopay/class-woopay-session.php:806
+#: includes/woopay/class-woopay-session.php:1000
+#: includes/woopay/class-woopay-session.php:1096
 msgid "Could not determine the blog ID."
 msgstr "Није могуће утврдити ИБ блога."
 
@@ -2158,7 +2225,7 @@ msgid "Clearpay"
 msgstr "Clearpay"
 
 #. translators: %s: metadata. We do not need to translate WooPayMeta
-#: includes/class-wc-payment-gateway-wcpay.php:1809
+#: includes/class-wc-payment-gateway-wcpay.php:2109
 msgid "We're not able to process this payment. Please try again later. WooPayMeta: intent_meta_order_id: %1$s, order_id: %2$s"
 msgstr "Не можемо да обрадимо ово плаћање. Покушајте поново касније. WooPayMeta: intent_meta_order_id: %1$s, order_id: %2$s"
 
@@ -2171,25 +2238,25 @@ msgstr "Укључени алтернативни начини плаћања"
 msgid "Invalid or missing payment details. Please ensure the provided payment method is correctly entered."
 msgstr "Неисправни или недостајући подаци о плаћању. Уверите се да је наведени начин плаћања исправно унет."
 
-#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:76
+#: includes/express-checkout/class-wc-payments-express-checkout-ajax-handler.php:77
 msgid "Invalid product id"
 msgstr "Неисправан ИБ производа"
 
-#: includes/class-wc-payment-gateway-wcpay.php:504
+#: includes/class-wc-payment-gateway-wcpay.php:726
 msgid "Small"
 msgstr "Мали"
 
-#: includes/class-wc-payments-utils.php:1337
+#: includes/class-wc-payments-utils.php:1385
 #: dist/chunks/wcpay-money-movement.js:1
 msgid "Other"
 msgstr "Друго"
 
 #. translators: This is an error API response.
-#: includes/wc-payment-api/class-wc-payments-api-client.php:2862
+#: includes/wc-payment-api/class-wc-payments-api-client.php:2871
 msgid "Error: The payment could not be captured because the requested capture amount is greater than the amount you can capture for this charge."
 msgstr "Грешка: плаћање није могло да се наплати јер је тражени износ наплате већи од износа који можете наплатити за ово задужење."
 
-#: includes/class-wc-payment-gateway-wcpay.php:509
+#: includes/class-wc-payment-gateway-wcpay.php:731
 msgid "By placing this order, you agree to our [terms] and understand our [privacy_policy]."
 msgstr "Прављењем ове поруџбине прихватате наше [terms] и разумете нашу [privacy_policy]."
 
@@ -2200,7 +2267,7 @@ msgstr "Прављењем ове поруџбине прихватате наш
 msgid "WooPayments"
 msgstr "WooPayments"
 
-#: includes/class-wc-payment-gateway-wcpay.php:5340
+#: includes/class-wc-payment-gateway-wcpay.php:5800
 msgid "A valid shipping address is required for Afterpay payments."
 msgstr "За Afterpay плаћања потребна је исправна адреса за доставу."
 
@@ -2250,15 +2317,15 @@ msgstr "Да ли је одељак пореских докумената укљ
 msgid "Whether the store has the Auth & Capture feature enabled or not."
 msgstr "Да ли продавница има укључену функцију Auth & Capture."
 
+#: includes/class-wc-payments-status.php:603
+msgid "Auth and Capture"
+msgstr "Одобрење и наплата"
+
 #. Translators: %1-%4 placeholders are opening and closing a or strong HTML
 #. tags. %5$s: WooPayments, %6$s: Woo Subscriptions.
 #: includes/subscriptions/templates/html-subscriptions-plugin-notice.php:26
 msgid "Your store has subscriptions using %5$s Stripe Billing functionality for payment processing. Due to the %1$soff-site billing engine%2$s these subscriptions use,%3$s they will continue to renew even after you deactivate %6$s%4$s."
 msgstr "Ваша продавница има претплате које за обраду плаћања користе %5$s Stripe Billing функционалност. Због %1$sспољног механизма наплате%2$s који ове претплате користе,%3$s наставиће да се обнављају и после искључивања %6$s%4$s."
-
-#: includes/class-wc-payments-status.php:603
-msgid "Auth and Capture"
-msgstr "Одобрење и наплата"
 
 #: includes/class-wc-payments-status.php:599
 msgid "Whether the store has the Multi-currency feature enabled or not."
@@ -2487,7 +2554,7 @@ msgstr "Врста начина плаћања."
 msgid "ID for the payment method."
 msgstr "ИБ начина плаћања."
 
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1309
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1316
 msgid "Onboarding field data could not be retrieved"
 msgstr "Подаци поља почетног подешавања нису могли да се преузму"
 
@@ -2525,7 +2592,7 @@ msgstr "Да ли је у току сеоба Stripe Billing са спољне �
 msgid "If Stripe Billing is enabled."
 msgstr "Да ли је Stripe Billing укључен."
 
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1353
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1360
 msgid "Link type is required"
 msgstr "Врста везе је обавезна"
 
@@ -2616,6 +2683,13 @@ msgstr "Врста трансакције."
 msgid "The payment method ID used to create the transaction type."
 msgstr "ИБ начина плаћања коришћен за прављење врсте трансакције."
 
+#: includes/reports/class-wc-rest-payments-reports-authorizations-controller.php:291
+#: includes/reports/class-wc-rest-payments-reports-authorizations-controller.php:296
+#: includes/reports/class-wc-rest-payments-reports-transactions-controller.php:284
+#: includes/reports/class-wc-rest-payments-reports-transactions-controller.php:289
+msgid "Specifies whether the payment method used was a card (Visa, Mastercard, etc.) or an Alternative Payment Method (APM) or Local Payment Method (LPM) (iDEAL | Wero, Apple Pay, Google Pay, etc.)."
+msgstr "Одређује да ли је коришћени начин плаћања била картица (Visa, Mastercard итд.) или алтернативни начин плаћања (APM) или локални начин плаћања (LPM) (iDEAL | Wero, Apple Pay, Google Pay итд.)."
+
 #: includes/reports/class-wc-rest-payments-reports-authorizations-controller.php:286
 #: includes/reports/class-wc-rest-payments-reports-transactions-controller.php:279
 msgid "Indicates whether the transaction was made online or offline."
@@ -2645,13 +2719,6 @@ msgstr "Смер ређања."
 #: includes/reports/class-wc-rest-payments-reports-transactions-controller.php:236
 msgid "Field on which to sort."
 msgstr "Поље по коме се ређа."
-
-#: includes/reports/class-wc-rest-payments-reports-authorizations-controller.php:291
-#: includes/reports/class-wc-rest-payments-reports-authorizations-controller.php:296
-#: includes/reports/class-wc-rest-payments-reports-transactions-controller.php:284
-#: includes/reports/class-wc-rest-payments-reports-transactions-controller.php:289
-msgid "Specifies whether the payment method used was a card (Visa, Mastercard, etc.) or an Alternative Payment Method (APM) or Local Payment Method (LPM) (iDEAL | Wero, Apple Pay, Google Pay, etc.)."
-msgstr "Одређује да ли је коришћени начин плаћања била картица (Visa, Mastercard итд.) или алтернативни начин плаћања (APM) или локални начин плаћања (LPM) (iDEAL | Wero, Apple Pay, Google Pay итд.)."
 
 #: includes/reports/class-wc-rest-payments-reports-authorizations-controller.php:235
 #: includes/reports/class-wc-rest-payments-reports-transactions-controller.php:228
@@ -2713,24 +2780,19 @@ msgstr "Филтрирај трансакције после овог датум
 msgid "Filter transactions before this date."
 msgstr "Филтрирај трансакције пре овог датума."
 
-#. translators: customer email
-#: includes/class-wc-payment-token-wcpay-link.php:53
-msgid "Stripe Link email ending in %s"
-msgstr "Stripe Link е-адреса која се завршава на %s"
-
 #: includes/subscriptions/class-wc-payments-subscriptions-migrator.php:149
 msgid "This subscription has been successfully migrated to a WooPayments tokenized subscription."
 msgstr "Ова претплата успешно је пресељена у WooPayments претплату са жетоном."
 
-#: includes/class-wc-payment-gateway-wcpay.php:688
+#: includes/class-wc-payment-gateway-wcpay.php:912
 msgid "We're not able to process this payment due to the order ID mismatch. Please try again later."
 msgstr "Не можемо да обрадимо ово плаћање због неподударања ИБ-а поруџбине. Покушајте поново касније."
 
-#: includes/class-wc-payments-utils.php:281
+#: includes/class-wc-payments-utils.php:329
 msgid "Japan"
 msgstr "Јапан"
 
-#: includes/class-wc-payments-utils.php:265
+#: includes/class-wc-payments-utils.php:313
 msgid "United Arab Emirates"
 msgstr "Уједињени Арапски Емирати"
 
@@ -2739,7 +2801,7 @@ msgid "Error: Invalid Japanese phone number: "
 msgstr "Грешка: неисправан јапански број телефона: "
 
 #: includes/class-wc-payments-order-success-page.php:84
-#: includes/class-wc-payments-order-success-page.php:632
+#: includes/class-wc-payments-order-success-page.php:640
 #: includes/payment-methods/Configs/Definitions/MultibancoDefinition.php:65
 msgid "Multibanco"
 msgstr "Multibanco"
@@ -2755,27 +2817,27 @@ msgstr "Alipay"
 #. translators: %1$s: The current site domain name. %2$s: The original site
 #. domain name. Please keep hostname tags in your translation so that they can
 #. be formatted properly. %3$s: WooPayments.
-#: woocommerce-payments.php:399
+#: woocommerce-payments.php:424
 msgid "Transfer your %3$s connection from <hostname>%2$s</hostname> to this site <hostname>%1$s</hostname>. <hostname>%2$s</hostname> will be disconnected from %3$s."
 msgstr "Пренесите своју %3$s везу са <hostname>%2$s</hostname> на овај сајт <hostname>%1$s</hostname>. <hostname>%2$s</hostname> биће прекинут са %3$s."
 
 #. translators: %s: WooPayments.
-#: woocommerce-payments.php:380
+#: woocommerce-payments.php:405
 msgid "%s Safe Mode"
 msgstr "%s безбедни режим"
 
 #. translators: %s: WooPayments.
-#: woocommerce-payments.php:364
+#: woocommerce-payments.php:389
 msgid "Safe Mode has been deactivated and %s is fully functional."
 msgstr "Безбедни режим је искључен и %s потпуно ради."
 
 #. translators: %s: WooPayments.
-#: woocommerce-payments.php:359
+#: woocommerce-payments.php:384
 msgid "%s connection successfully transferred"
 msgstr "%s веза је успешно пренета"
 
 #. translators: %1 WooPayments.
-#: woocommerce-payments.php:334
+#: woocommerce-payments.php:359
 msgid "The version of Jetpack installed is too old to be used with %1$s. %1$s has been disabled. Please deactivate or update Jetpack."
 msgstr "Постављено издање Jetpack-а је престаро за коришћење са %1$s. %1$s је искључен. Искључите или ажурирајте Jetpack."
 
@@ -2796,7 +2858,7 @@ msgid "Are you sure you want to deactivate %s?"
 msgstr "Да ли сигурно желите да искључите %s?"
 
 #. translators: %s: WooPayments
-#: includes/subscriptions/class-wc-payments-subscription-service.php:765
+#: includes/subscriptions/class-wc-payments-subscription-service.php:772
 msgid "%s Subscription ID"
 msgstr "%s ИБ претплате"
 
@@ -2816,7 +2878,7 @@ msgid "To add new currencies to your store, please finish setting up %s."
 msgstr "Да бисте продавници додали нове валуте, довршите подешавање %s."
 
 #. translators: %1$s: WooCommerce, %2$s: WooPayments, a1: documentation URL
-#: includes/class-wc-payments.php:1646
+#: includes/class-wc-payments.php:1609
 msgid "The %1$s version you have installed is not compatible with %2$s for a Norwegian business. Please update %1$s to version 7.5 or above. You can do that via the <a1>the plugins page.</a1>"
 msgstr "Издање %1$s које сте поставили није сагласно са %2$s за пословни субјект из Норвешке. Ажурирајте %1$s на издање 7.5 или новије. То можете урадити преко <a1>странице додатака.</a1>"
 
@@ -2827,7 +2889,7 @@ msgstr "Филтрирање ризика доступно је само за п
 
 #. translators: %1$s: the refund amount, %2$s: status (cancelled/unsuccessful),
 #. %3$s: WooPayments, %4$s: ID of the refund, %5$s: failure message or period
-#: includes/class-wc-payments-order-service.php:1982
+#: includes/class-wc-payments-order-service.php:2522
 msgid "A refund of %1$s was <strong>%2$s</strong> using %3$s (<code>%4$s</code>)%5$s"
 msgstr "Рефундација од %1$s <strong>%2$s</strong> помоћу %3$s (<code>%4$s</code>)%5$s"
 
@@ -2843,37 +2905,37 @@ msgstr "Очисти кеш %s налога"
 
 #. translators: %1: the authorized amount, %2: WooPayments, %3: transaction ID
 #. of the payment, %4: transaction details URL
-#: includes/class-wc-payments-order-service.php:2263
+#: includes/class-wc-payments-order-service.php:2803
 msgid "A capture of %1$s <strong>failed</strong> to complete using %2$s (<a>%3$s</a>)."
 msgstr "Наплата од %1$s <strong>није успела</strong> да се доврши помоћу %2$s (<a>%3$s</a>)."
 
 #. translators: %1: the authorized amount, %2: WooPayments, %3: intent ID of
 #. the payment
-#: includes/class-wc-payments-order-service.php:2206
+#: includes/class-wc-payments-order-service.php:2746
 msgid "A payment of %1$s was <strong>started</strong> using %2$s (<code>%3$s</code>)."
 msgstr "Плаћање од %1$s <strong>започето је</strong> помоћу %2$s (<code>%3$s</code>)."
 
 #. translators: %1: the successfully charged amount, %2: WooPayments, %3:
 #. transaction ID of the payment, %4: transaction details URL
-#: includes/class-wc-payments-order-service.php:2234
+#: includes/class-wc-payments-order-service.php:2774
 msgid "A payment of %1$s was <strong>successfully captured</strong> using %2$s (<a>%3$s</a>)."
 msgstr "Плаћање од %1$s <strong>успешно је наплаћено</strong> помоћу %2$s (<a>%3$s</a>)."
 
 #. translators: %1: the authorized amount, %2: WooPayments, %3: transaction ID
 #. of the payment, %4: transaction details URL
-#: includes/class-wc-payments-order-service.php:2179
+#: includes/class-wc-payments-order-service.php:2719
 msgid "A payment of %1$s was <strong>authorized</strong> using %2$s (<a>%3$s</a>)."
 msgstr "Плаћање од %1$s <strong>одобрено је</strong> помоћу %2$s (<a>%3$s</a>)."
 
 #. translators: %1: the authorized amount, %2: WooPayments, %3: transaction ID
 #. of the payment, %4: transaction details URL
-#: includes/class-wc-payments-order-service.php:2111
+#: includes/class-wc-payments-order-service.php:2651
 msgid "A payment of %1$s <strong>failed</strong> using %2$s (<a>%3$s</a>)."
 msgstr "Плаћање од %1$s <strong>није успело</strong> помоћу %2$s (<a>%3$s</a>)."
 
 #. translators: %1: the successfully charged amount, %2: WooPayments, %3:
 #. transaction ID of the payment, %4: transaction details URL
-#: includes/class-wc-payments-order-service.php:2054
+#: includes/class-wc-payments-order-service.php:2594
 msgid "A payment of %1$s was <strong>successfully charged</strong> using %2$s (<a>%3$s</a>)."
 msgstr "Плаћање од %1$s <strong>успешно је задужено</strong> помоћу %2$s (<a>%3$s</a>)."
 
@@ -2913,7 +2975,7 @@ msgid "%1$s requires <a>%2$s</a> to be installed and active."
 msgstr "%1$s захтева да <a>%2$s</a> буде постављен и активан."
 
 #. translators: %s: WooPayments
-#: includes/class-wc-payment-gateway-wcpay.php:4423
+#: includes/class-wc-payment-gateway-wcpay.php:4850
 msgid "A %s payment method was not provided"
 msgstr "%s начин плаћања није наведен"
 
@@ -2968,12 +3030,12 @@ msgid "If %s should be enabled."
 msgstr "Да ли треба укључити %s."
 
 #. translators: %s: WooPayments
-#: includes/admin/class-wc-payments-admin.php:1349
+#: includes/admin/class-wc-payments-admin.php:1320
 msgid "This represents the fee %s collects for the transaction."
 msgstr "Ово представља накнаду коју %s наплаћује за трансакцију."
 
 #. translators: %s: WooPayments
-#: includes/admin/class-wc-payments-admin.php:265
+#: includes/admin/class-wc-payments-admin.php:253
 msgid "The selected currency is not available for the country set in your %s account."
 msgstr "Изабрана валута није доступна за државу постављену у вашем %s налогу."
 
@@ -2981,57 +3043,57 @@ msgstr "Изабрана валута није доступна за држав�
 msgid "Affirm"
 msgstr "Affirm"
 
-#: includes/payment-methods/Configs/Definitions/AfterpayDefinition.php:73
+#: includes/payment-methods/Configs/Definitions/AfterpayDefinition.php:69
 msgid "Afterpay"
 msgstr "Afterpay"
 
 #. translators: %1$s: WooCommerce , %2$s: WooPayments, %3$s: The current
 #. WooCommerce version used by the store
-#: includes/class-wc-payments.php:2171
+#: includes/class-wc-payments.php:2134
 msgid "The %1$s version you have installed is not compatible with %2$s for a Czech Republic business. Please update %1$s to version 7.8 or above (you are using %3$s). You can do that via the <a1>the plugins page.</a1>"
 msgstr "Издање %1$s које сте поставили није сагласно са %2$s за пословни субјект из Чешке. Ажурирајте %1$s на издање 7.8 или новије (користите %3$s). То можете урадити преко <a1>странице додатака.</a1>"
 
 #. translators: %1$s: WooCommerce , %2$s: WooPayments, %3$s: The current
 #. WooCommerce version used by the store
-#: includes/class-wc-payments.php:2167
+#: includes/class-wc-payments.php:2130
 msgid "The %1$s version you have installed is not compatible with %2$s for a Swedish business. Please update %1$s to version 7.8 or above (you are using %3$s). You can do that via the <a1>the plugins page.</a1>"
 msgstr "Издање %1$s које сте поставили није сагласно са %2$s за пословни субјект из Шведске. Ажурирајте %1$s на издање 7.8 или новије (користите %3$s). То можете урадити преко <a1>странице додатака.</a1>"
 
 #. translators: %1$s: WooCommerce , %2$s: WooPayments, %3$s: The current
 #. WooCommerce version used by the store
-#: includes/class-wc-payments.php:2163
+#: includes/class-wc-payments.php:2126
 msgid "The %1$s version you have installed is not compatible with %2$s for a Hungarian business. Please update %1$s to version 7.8 or above (you are using %3$s). You can do that via the <a1>the plugins page.</a1>"
 msgstr "Издање %1$s које сте поставили није сагласно са %2$s за пословни субјект из Мађарске. Ажурирајте %1$s на издање 7.8 или новије (користите %3$s). То можете урадити преко <a1>странице додатака.</a1>"
 
-#: includes/class-wc-payments-utils.php:1294 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1342 dist/index.js:2 dist/order.js:1
 msgid "Transaction unauthorized"
 msgstr "Трансакција није одобрена"
 
-#: includes/class-wc-payments-utils.php:286
+#: includes/class-wc-payments-utils.php:334
 msgid "Hungary"
 msgstr "Мађарска"
 
-#: includes/class-wc-payments-utils.php:298
+#: includes/class-wc-payments-utils.php:346
 msgid "Sweden"
 msgstr "Шведска"
 
-#: includes/class-wc-payments-utils.php:273
+#: includes/class-wc-payments-utils.php:321
 msgid "Czech Republic"
 msgstr "Република Чешка"
 
 #. translators: %1: the disputed amount and currency; %2: the dispute reason;
 #. %3 the deadline date for responding to dispute
-#: includes/class-wc-payments-order-service.php:2479
+#: includes/class-wc-payments-order-service.php:3019
 msgid "Payment has been disputed for %1$s with reason \"%2$s\". <a>Response due by %3$s</a>."
 msgstr "Плаћање за %1$s је оспорено са разлогом „%2$s“. <a>Рок за одговор је %3$s</a>."
 
 #. translators: %d is the number of disputes.
-#: includes/admin/tasks/class-wc-payments-task-disputes.php:213 dist/index.js:2
+#: includes/admin/tasks/class-wc-payments-task-disputes.php:213
 msgid "Last week to respond to %d of the disputes"
 msgstr "Последња недеља за одговор на %d спорова"
 
 #. translators: %d is the number of disputes.
-#: includes/admin/tasks/class-wc-payments-task-disputes.php:203 dist/index.js:2
+#: includes/admin/tasks/class-wc-payments-task-disputes.php:203
 msgid "Final day to respond to %d of the disputes"
 msgstr "Последњи дан за одговор на %d спорова"
 
@@ -3078,7 +3140,7 @@ msgid "Not connected"
 msgstr "Није повезано"
 
 #. Translators: %1$s: Opening anchor tag. %2$s: Closing anchor tag.
-#: includes/admin/class-wc-payments-admin.php:306
+#: includes/admin/class-wc-payments-admin.php:294
 msgid "Icelandic Króna does not accept decimals. Please update your currency number of decimals to 0 or select a different currency. %1$sVisit settings%2$s"
 msgstr "Исландска круна не прихвата децимале. Ажурирајте број децимала валуте на 0 или изаберите другу валуту. %1$sПосетите подешавања%2$s"
 
@@ -3086,24 +3148,23 @@ msgstr "Исландска круна не прихвата децимале. А
 msgid "The payment for this order was held for review by your risk filtering and manually approved."
 msgstr "Плаћање за ову поруџбину задржало је на прегледу ваше филтрирање ризика, а затим је ручно одобрено."
 
-#: includes/fraud-prevention/class-order-fraud-and-risk-meta-box.php:103
-msgid "Approved"
-msgstr "Прихваћен"
-
-#: includes/class-wc-payments-utils.php:297
+#: includes/class-wc-payments-utils.php:345
 msgid "Romania"
 msgstr "Румунија"
 
-#: includes/class-wc-payments-utils.php:280
+#: includes/class-wc-payments-utils.php:328
 msgid "Croatia"
 msgstr "Хрватска"
 
-#: includes/class-wc-payments-utils.php:269
+#: includes/class-wc-payments-utils.php:317
 msgid "Bulgaria"
 msgstr "Бугарска"
 
-#: includes/woopay/class-woopay-session.php:112
-#: includes/woopay/class-woopay-session.php:113
+#: includes/fraud-prevention/class-order-fraud-and-risk-meta-box.php:103
+msgid "Approved"
+msgstr "Одобрен"
+
+#: includes/woopay/class-woopay-session.php:1551
 msgid "WooPay request is not signed correctly."
 msgstr "WooPay захтев није исправно потписан."
 
@@ -3137,7 +3198,7 @@ msgstr "%s није исправно корисничко име."
 msgid "%1$s is not a valid redirect URL. Use a URL in the allowed_redirect_hosts filter."
 msgstr "%1$s није исправна адреса преусмеравања. Користите адресу из филтера allowed_redirect_hosts."
 
-#: includes/class-wc-payment-gateway-wcpay.php:1207
+#: includes/class-wc-payment-gateway-wcpay.php:1481
 msgid "Invalid phone number."
 msgstr "Неисправан број телефона."
 
@@ -3226,6 +3287,7 @@ msgstr "Обрис црвеног штита"
 #: includes/fraud-prevention/class-order-fraud-and-risk-meta-box.php:184
 #: includes/fraud-prevention/class-order-fraud-and-risk-meta-box.php:191
 #: includes/fraud-prevention/class-order-fraud-and-risk-meta-box.php:198
+#: dist/index.js:2
 msgid "Review payment"
 msgstr "Прегледај плаћање"
 
@@ -3255,7 +3317,7 @@ msgstr "Није предузета радња"
 msgid "Green check mark"
 msgstr "Зелена ознака потврде"
 
-#: includes/class-wc-payments-order-service.php:3019
+#: includes/class-wc-payments-order-service.php:3573
 msgid "The requested order was not found."
 msgstr "Тражена поруџбина није пронађена."
 
@@ -3264,12 +3326,12 @@ msgid "Fraud &amp; Risk"
 msgstr "Преваре и ризик"
 
 #. translators: %1: the blocked amount
-#: includes/class-wc-payments-order-service.php:2391
+#: includes/class-wc-payments-order-service.php:2931
 msgid "&#x1F6AB; A payment of %1$s was <strong>blocked</strong> by one or more risk filters.<br><br><a>View more details</a>."
 msgstr "&#x1F6AB; Плаћање од %1$s <strong>блокирао је</strong> један или више филтера ризика.<br><br><a>Погледајте више детаља</a>."
 
 #. translators: %1: the amount held for review
-#: includes/class-wc-payments-order-service.php:2359
+#: includes/class-wc-payments-order-service.php:2899
 msgid "&#x26D4; A payment of %1$s was <strong>held for review</strong> by one or more risk filters.<br><br><a>View more details</a>."
 msgstr "&#x26D4; Плаћање од %1$s <strong>задржао је на прегледу</strong> један или више филтера ризика.<br><br><a>Погледајте више детаља</a>."
 
@@ -3287,7 +3349,7 @@ msgstr "Плаћање не може да се откаже"
 msgid "Payment cannot be canceled for partially or fully refunded orders."
 msgstr "Плаћање не може да се откаже за делимично или потпуно рефундиране поруџбине."
 
-#: includes/admin/class-wc-payments-admin.php:1354
+#: includes/admin/class-wc-payments-admin.php:1325
 msgid "Transaction Fee:"
 msgstr "Накнада за трансакцију:"
 
@@ -3303,7 +3365,7 @@ msgstr "Високо"
 msgid "The search parameter must be a string, or an array of strings."
 msgstr "Параметар претраге мора бити ниска или низ ниски."
 
-#: includes/core/server/request/class-create-and-confirm-setup-intention.php:143
+#: includes/core/server/request/class-create-and-confirm-setup-intention.php:144
 msgid "Intentions require at least one payment method"
 msgstr "Намере захтевају бар један начин плаћања"
 
@@ -3326,55 +3388,55 @@ msgstr "%s није исправан Stripe идентификатор"
 msgid "Empty parameter is not allowed"
 msgstr "Празан параметар није дозвољен"
 
-#: includes/class-wc-payments-utils.php:300
+#: includes/class-wc-payments-utils.php:348
 msgid "Slovakia"
 msgstr "Словачка"
 
-#: includes/class-wc-payments-utils.php:299
+#: includes/class-wc-payments-utils.php:347
 msgid "Slovenia"
 msgstr "Словенија"
 
-#: includes/class-wc-payments-utils.php:293
+#: includes/class-wc-payments-utils.php:341
 msgid "Norway"
 msgstr "Норвешка"
 
-#: includes/class-wc-payments-utils.php:291
+#: includes/class-wc-payments-utils.php:339
 msgid "Malta"
 msgstr "Малта"
 
-#: includes/class-wc-payments-utils.php:290
+#: includes/class-wc-payments-utils.php:338
 msgid "Latvia"
 msgstr "Летонија"
 
-#: includes/class-wc-payments-utils.php:289
+#: includes/class-wc-payments-utils.php:337
 msgid "Lithuania"
 msgstr "Литванија"
 
-#: includes/class-wc-payments-utils.php:284
+#: includes/class-wc-payments-utils.php:332
 msgid "Greece"
 msgstr "Грчка"
 
-#: includes/class-wc-payments-utils.php:282
+#: includes/class-wc-payments-utils.php:330
 msgid "Luxembourg"
 msgstr "Луксембург"
 
-#: includes/class-wc-payments-utils.php:276
+#: includes/class-wc-payments-utils.php:324
 msgid "Estonia"
 msgstr "Естонија"
 
-#: includes/class-wc-payments-utils.php:277
+#: includes/class-wc-payments-utils.php:325
 msgid "Finland"
 msgstr "Финска"
 
-#: includes/class-wc-payments-utils.php:275
+#: includes/class-wc-payments-utils.php:323
 msgid "Denmark"
 msgstr "Данска"
 
-#: includes/class-wc-payments-utils.php:272
+#: includes/class-wc-payments-utils.php:320
 msgid "Cyprus"
 msgstr "Кипар"
 
-#: includes/payment-methods/Configs/Definitions/LinkDefinition.php:98
+#: includes/payment-methods/Configs/Definitions/LinkDefinition.php:107
 msgid "Link autofills your customers' payment and shipping details to deliver an easy and seamless checkout experience."
 msgstr "Link самостално попуњава податке о плаћању и достави ваших купаца ради лаког и глатког плаћања."
 
@@ -3411,20 +3473,20 @@ msgstr "WooPayments претплата обустављена је у руков
 msgid "Suspended WooPayments Subscription because subscription status changed to on-hold."
 msgstr "WooPayments претплата обустављена је јер је стање претплате промењено у на чекању."
 
-#: includes/class-wc-payments-order-success-page.php:402
+#: includes/class-wc-payments-order-success-page.php:405
 msgid "We prevented multiple payments for the same order. If this was a mistake and you wish to try again, please create a new order."
 msgstr "Спречили смо више плаћања за исту поруџбину. Ако је ово грешка и желите да покушате поново, направите нову поруџбину."
 
-#: includes/class-wc-payments-order-success-page.php:385
+#: includes/class-wc-payments-order-success-page.php:388
 msgid "We detected and prevented an attempt to pay for a duplicate order. If this was a mistake and you wish to try again, please create a new order."
 msgstr "Открили смо и спречили покушај плаћања удвостручене поруџбине. Ако је ово грешка и желите да покушате поново, направите нову поруџбину."
 
 #. translators: order ID integer number
-#: includes/class-duplicate-payment-prevention-service.php:193
+#: includes/class-duplicate-payment-prevention-service.php:200
 msgid "WooCommerce Payments: detected and deleted order ID %d, which has duplicate cart content with this order."
 msgstr "WooCommerce Payments: откривена је и избрисана поруџбина ИБ %d, која има исти садржај корпе као ова поруџбина."
 
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1054
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1061
 msgid "Currency From parameter is required"
 msgstr "Параметар Currency From је обавезан"
 
@@ -3434,25 +3496,6 @@ msgstr "Параметар Currency From је обавезан"
 msgid "If you do not want these subscriptions to continue to be billed, you should %1$scancel all subscriptions%2$s prior to deactivating %3$s. "
 msgstr "Ако не желите да се ове претплате и даље наплаћују, требало би да %1$sоткажете све претплате%2$s пре искључивања %3$s. "
 
-#. translators: 1) date in date_format or 'F j, Y'; 2) time in time_format or
-#. 'g:i a'
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1345
-msgid "The customer must authorize this payment via a notification sent to them by the bank which issued their card. The authorization must be completed before %1$s at %2$s, when the charge will be attempted."
-msgstr "Купац мора одобрити ово плаћање преко обавештења које му шаље банка која је издала картицу. Одобрење мора бити довршено пре %1$s у %2$s, када ће се покушати задужење."
-
-#. translators: %s Stripe error message.
-#: includes/class-wc-payments-webhook-processing-service.php:1067
-msgid "With the following message: <code>%s</code>"
-msgstr "Уз следећу поруку: <code>%s</code>"
-
-#: includes/class-wc-payments-webhook-processing-service.php:1062
-msgid "For recurring payment greater than mandate amount or INR 15000, payment was not approved by the card holder."
-msgstr "За понављајуће плаћање веће од износа налога или 15000 INR, власник картице није одобрио плаћање."
-
-#: includes/class-wc-payments-webhook-processing-service.php:1060
-msgid "The customer's bank could not send pre-debit notification for the payment."
-msgstr "Банка купца није могла да пошаље обавештење пре задужења за плаћање."
-
 #. translators: $1 $2 $3 placeholders are opening and closing HTML link tags,
 #. linking to documentation. $4 $5 placeholders are opening and closing strong
 #. HTML tags. $6 is WooPayments.
@@ -3460,17 +3503,34 @@ msgstr "Банка купца није могла да пошаље обавеш
 msgid "Your store has active subscriptions using the built-in %6$s functionality. Due to the %1$soff-site billing engine%3$s these subscriptions use, %4$sthey will continue to renew even after you deactivate %6$s%5$s. %2$sLearn more%3$s."
 msgstr "Ваша продавница има активне претплате које користе уграђену %6$s функционалност. Због %1$sспољног механизма наплате%3$s који ове претплате користе, %4$sнаставиће да се обнављају и после искључивања %6$s%5$s. %2$sСазнајте више%3$s."
 
-#: includes/notes/class-wc-payments-notes-set-up-stripelink.php:73
-msgid "Reduce cart abandonment and create a frictionless checkout experience with Link by Stripe. Link autofills your customer’s payment and shipping details, so they can check out in just six seconds with the Link optimized experience."
-msgstr "Смањите напуштање корпе и направите плаћање без препрека уз Link by Stripe. Link самостално попуњава податке о плаћању и достави вашег купца, тако да може да плати за само шест секунди уз искуство оптимизовано за Link."
+#. translators: 1) date in date_format or 'F j, Y'; 2) time in time_format or
+#. 'g:i a'
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1399
+msgid "The customer must authorize this payment via a notification sent to them by the bank which issued their card. The authorization must be completed before %1$s at %2$s, when the charge will be attempted."
+msgstr "Купац мора одобрити ово плаћање преко обавештења које му шаље банка која је издала картицу. Одобрење мора бити довршено пре %1$s у %2$s, када ће се покушати задужење."
 
-#: includes/notes/class-wc-payments-notes-set-up-stripelink.php:72
+#. translators: %s Stripe error message.
+#: includes/class-wc-payments-order-service.php:643
+#: includes/class-wc-payments-webhook-processing-service.php:1231
+msgid "With the following message: <code>%s</code>"
+msgstr "Уз следећу поруку: <code>%s</code>"
+
+#: includes/class-wc-payments-webhook-processing-service.php:1226
+msgid "For recurring payment greater than mandate amount or INR 15000, payment was not approved by the card holder."
+msgstr "За понављајуће плаћање веће од износа налога или 15000 INR, власник картице није одобрио плаћање."
+
+#: includes/class-wc-payments-webhook-processing-service.php:1224
+msgid "The customer's bank could not send pre-debit notification for the payment."
+msgstr "Банка купца није могла да пошаље обавештење пре задужења за плаћање."
+
+#: includes/notes/class-wc-payments-notes-set-up-stripelink.php:74
 msgid "Increase conversion at checkout"
 msgstr "Повећајте конверзију при плаћању"
 
-#: includes/class-wc-payments-token-service.php:468
-msgid "Stripe Link email"
-msgstr "Stripe Link е-адреса"
+#. translators: %1$s: Link brand name (Link or Onelink).
+#: includes/notes/class-wc-payments-notes-set-up-stripelink.php:78
+msgid "Reduce cart abandonment and create a frictionless checkout experience with %1$s. %1$s autofills your customer’s payment and shipping details, so they can check out in just six seconds with the %1$s optimized experience."
+msgstr "Смањите напуштање корпе и направите једноставну потврду куповине уз %1$s. %1$s аутоматски попуњава податке о плаћању и достави вашег купца, тако да може да обави куповину за само шест секунди уз искуство оптимизовано за %1$s."
 
 #: includes/notes/class-wc-payments-notes-set-https-for-checkout.php:52
 msgid "Enable HTTPS on your checkout pages to display all available payment methods and protect your customers data."
@@ -3481,7 +3541,7 @@ msgid "Enable secure checkout"
 msgstr "Укључи безбедно плаћање"
 
 #. Translators: %d is the numeric ID of the product without a price.
-#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:1066
+#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:1233
 msgid "Express checkout does not support products without prices! Please add a price to product #%d"
 msgstr "Брзо плаћање не подржава производе без цена! Додајте цену производу бр. %d"
 
@@ -3497,7 +3557,7 @@ msgstr "Недељни дан за заказивање уплата када ј
 msgid "An interval for deposit scheduling."
 msgstr "Интервал за заказивање уплата."
 
-#: includes/class-wc-payments-order-service.php:869
+#: includes/class-wc-payments-order-service.php:1046
 msgid "<strong>Fee details:</strong>"
 msgstr "<strong>Детаљи накнаде:</strong>"
 
@@ -3526,31 +3586,23 @@ msgstr "%1$sИзаберите претплату%2$s%3$s%4$s додаје дв�
 msgid "Store logo to display to WooPay customers."
 msgstr "Логотип продавнице који се приказује WooPay купцима."
 
-#: includes/admin/class-wc-payments-admin.php:1315
-#: includes/class-wc-payments-order-success-page.php:316
+#: includes/admin/class-wc-payments-admin.php:1286
+#: includes/class-wc-payments-order-success-page.php:319
 msgid "Card ending in"
 msgstr "Картица која се завршава на"
 
-#: includes/admin/class-wc-payments-admin.php:1311
+#: includes/admin/class-wc-payments-admin.php:1282
 msgid "Paid with"
 msgstr "Плаћено помоћу"
 
-#. translators: 1: payment method (Stripe Link), 2: redacted customer email.
-#. translators: 1: payment method (Stripe Link), 2: customer email.
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:187
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1089
-msgid "Stripe Link"
-msgstr "Stripe Link"
-
-#: includes/class-wc-payment-gateway-wcpay.php:518
-#: includes/class-wc-payment-gateway-wcpay.php:529
-#: includes/class-wc-payment-gateway-wcpay.php:540
-#: includes/class-wc-payment-gateway-wcpay.php:1763
-#: includes/payment-methods/Configs/Definitions/LinkDefinition.php:64
+#: includes/class-wc-payment-gateway-wcpay.php:740
+#: includes/class-wc-payment-gateway-wcpay.php:751
+#: includes/class-wc-payment-gateway-wcpay.php:762
+#: includes/payment-methods/Configs/Definitions/LinkDefinition.php:69
 msgid "Link"
 msgstr "Веза"
 
-#: includes/class-wc-payments-account.php:2665
+#: includes/class-wc-payments-account.php:2669
 msgid "Failed to update Account locale. "
 msgstr "Ажурирање локала налога није успело. "
 
@@ -3561,7 +3613,7 @@ msgstr "Назив апликације"
 
 #: templates/emails/email-ipp-receipt-compliance-details.php:28
 #: templates/emails/plain/email-ipp-receipt-compliance-details.php:21
-#: dist/chunks/3158.js:1
+#: dist/chunks/146.js:1
 msgid "Payment Method"
 msgstr "Начин плаћања"
 
@@ -3577,14 +3629,19 @@ msgstr "Ово је признаница за вашу поруџбину бр. 
 msgid "Hi %s,"
 msgstr "Здраво %s,"
 
-#: includes/class-wc-payment-gateway-wcpay.php:516
-#: includes/class-wc-payment-gateway-wcpay.php:527
-#: includes/class-wc-payment-gateway-wcpay.php:538
+#: includes/class-wc-payment-gateway-wcpay.php:738
+#: includes/class-wc-payment-gateway-wcpay.php:749
+#: includes/class-wc-payment-gateway-wcpay.php:760
 #: includes/class-wc-payments-woopay-button-handler.php:352
 #: dist/blocks-checkout.js:1 dist/chunks/wcpay-money-movement.js:1
 #: dist/multi-currency.js:1 dist/settings.js:2 dist/woopay-express-button.js:1
 msgid "WooPay"
 msgstr "WooPay"
+
+#. translators: %s: WooPayments.
+#: woocommerce-payments.php:411
+msgid "<strong>Notice:</strong> It appears that your 'wp-config.php' file might be using dynamic site URL values. Dynamic site URLs could cause %s to enter Safe Mode. <dynamicSiteUrlSupportLink>Learn how to set a static site URL.</dynamicSiteUrlSupportLink>"
+msgstr "<strong>Обавештење:</strong> Изгледа да ваша датотека 'wp-config.php' можда користи динамичке вредности адресе сајта. Динамичке адресе сајта могу довести до тога да %s уђе у безбедни режим. <dynamicSiteUrlSupportLink>Сазнајте како да поставите статичну адресу сајта.</dynamicSiteUrlSupportLink>"
 
 #: includes/in-person-payments/templates/html-in-person-payment-receipt.php:182
 msgid "Shipping:"
@@ -3593,11 +3650,6 @@ msgstr "Достава:"
 #: includes/emails/class-wc-payments-email-ipp-receipt.php:378
 msgid "Thanks for using {site_url}!"
 msgstr "Хвала што користите {site_address}!"
-
-#. translators: %s: WooPayments.
-#: woocommerce-payments.php:386
-msgid "<strong>Notice:</strong> It appears that your 'wp-config.php' file might be using dynamic site URL values. Dynamic site URLs could cause %s to enter Safe Mode. <dynamicSiteUrlSupportLink>Learn how to set a static site URL.</dynamicSiteUrlSupportLink>"
-msgstr "<strong>Обавештење:</strong> Изгледа да ваша датотека 'wp-config.php' можда користи динамичке вредности адресе сајта. Динамичке адресе сајта могу довести до тога да %s уђе у безбедни режим. <dynamicSiteUrlSupportLink>Сазнајте како да поставите статичну адресу сајта.</dynamicSiteUrlSupportLink>"
 
 #: includes/in-person-payments/templates/html-in-person-payment-receipt.php:174
 msgid "Fees:"
@@ -3619,7 +3671,7 @@ msgstr "Е-поруке о новој признаници шаљу се куп�
 msgid "New receipt"
 msgstr "Нова признаница"
 
-#: includes/class-wc-payment-gateway-wcpay.php:2964
+#: includes/class-wc-payment-gateway-wcpay.php:3321
 msgid "You shall refund this payment in the same application where the payment was made."
 msgstr "Ово плаћање треба да рефундирате у истој апликацији у којој је плаћање извршено."
 
@@ -3632,40 +3684,46 @@ msgid "Custom message to display to WooPay customers."
 msgstr "Произвољна порука која се приказује WooPay купцима."
 
 #. translators: %1: The document ID. %2: The error message.
-#: includes/admin/class-wc-rest-payments-documents-controller.php:94
+#: includes/admin/class-wc-rest-payments-documents-controller.php:93
 msgid "There was an error accessing document %1$s. %2$s"
 msgstr "Дошло је до грешке при приступању документу %1$s. %2$s"
 
-#: includes/admin/class-wc-payments-admin.php:454 dist/index.js:2
+#: includes/admin/class-wc-payments-admin.php:442 dist/index.js:2
 msgid "Onboarding"
 msgstr "Увођење"
 
-#: includes/admin/class-wc-payments-admin.php:514
+#: includes/admin/class-wc-payments-admin.php:502
 #: includes/class-wc-payments-status.php:627 dist/chunks/wcpay-documents.js:1
 #: dist/index.js:2
 msgid "Documents"
 msgstr "Документи"
 
-#: includes/class-wc-payment-gateway-wcpay.php:515
-#: includes/class-wc-payment-gateway-wcpay.php:526
-#: includes/class-wc-payment-gateway-wcpay.php:537 dist/settings.js:2
+#: includes/class-wc-payment-gateway-wcpay.php:737
+#: includes/class-wc-payment-gateway-wcpay.php:748
+#: includes/class-wc-payment-gateway-wcpay.php:759 dist/settings.js:2
 msgid "Apple Pay / Google Pay"
 msgstr "Apple Pay / Google Pay"
 
-#: includes/woopay/class-woopay-session.php:949
-#: includes/woopay/class-woopay-session.php:950
-#: includes/woopay/class-woopay-session.php:1079 dist/woopay.js:1
+#: includes/woopay/class-woopay-session.php:1727
+#: includes/woopay/class-woopay-session.php:1728
+#: includes/woopay/class-woopay-session.php:1856 dist/woopay.js:1
 msgid "Privacy Policy"
 msgstr "Политика приватности"
 
-#: includes/woopay/class-woopay-session.php:946
-#: includes/woopay/class-woopay-session.php:947 dist/woopay.js:1
+#: includes/woopay/class-woopay-session.php:1724
+#: includes/woopay/class-woopay-session.php:1725 dist/woopay.js:1
 msgid "Terms of Service"
 msgstr "Услови коришћења"
 
 #: includes/notes/class-wc-payments-notes-loan-approved.php:76
 msgid "View loan details"
 msgstr "Види детаље зајма"
+
+#. Translators: %1: total amount lent to the merchant formatted in the account
+#. currency, %2: WooPayments
+#: includes/notes/class-wc-payments-notes-loan-approved.php:50
+msgid "Congratulations! Your capital loan has been approved and %1$s was deposited into the bank account linked to %2$s. You'll automatically repay the loan, plus a flat fee, through a fixed percentage of each %2$s transaction."
+msgstr "Честитамо! Ваш капитални зајам је одобрен и %1$s је уплаћено на банковни рачун повезан са %2$s. Зајам ћете самостално отплаћивати, уз фиксну накнаду, кроз фиксни проценат сваке %2$s трансакције."
 
 #: includes/notes/class-wc-payments-notes-loan-approved.php:46
 msgid "Your capital loan has been approved!"
@@ -3675,20 +3733,21 @@ msgstr "Ваш капитални зајам је одобрен!"
 msgid "Powered by WooCommerce"
 msgstr "Покреће WooCommerce"
 
-#: includes/class-wc-payments-order-service.php:2931
+#: includes/class-wc-payments-order-service.php:3485
 msgid "Intent id was not included for payment complete status change."
 msgstr "ИБ намере није укључен за промену стања довршеног плаћања."
 
 #: includes/class-wc-payments-woopay-button-handler.php:205
-#: includes/class-wc-payments.php:1897 includes/class-woopay-tracker.php:100
-#: includes/woopay/class-woopay-session.php:681
-#: includes/woopay/class-woopay-session.php:729
-#: includes/woopay/class-woopay-session.php:755
-#: includes/woopay/class-woopay-session.php:798
+#: includes/class-wc-payments.php:1860 includes/class-woopay-tracker.php:107
+#: includes/woopay/class-woopay-session.php:924
+#: includes/woopay/class-woopay-session.php:942
+#: includes/woopay/class-woopay-session.php:992
+#: includes/woopay/class-woopay-session.php:1020
+#: includes/woopay/class-woopay-session.php:1088
 msgid "You aren’t authorized to do that."
 msgstr "Немате овлашћење за то."
 
-#: includes/class-woopay-tracker.php:107
+#: includes/class-woopay-tracker.php:118 includes/class-woopay-tracker.php:148
 msgid "No valid event name or type."
 msgstr "Нема исправног имена или врсте догађаја."
 
@@ -3696,15 +3755,9 @@ msgstr "Нема исправног имена или врсте догађај�
 msgid "Sorry, you are not allowed to do that."
 msgstr "Жао нам је, није вам дозвољено да урадите то."
 
-#: includes/admin/class-wc-payments-admin.php:501 dist/index.js:2
+#: includes/admin/class-wc-payments-admin.php:489 dist/index.js:2
 msgid "Capital Loans"
 msgstr "Капитални зајмови"
-
-#. Translators: %1: total amount lent to the merchant formatted in the account
-#. currency, %2: WooPayments
-#: includes/notes/class-wc-payments-notes-loan-approved.php:50
-msgid "Congratulations! Your capital loan has been approved and %1$s was deposited into the bank account linked to %2$s. You'll automatically repay the loan, plus a flat fee, through a fixed percentage of each %2$s transaction."
-msgstr "Честитамо! Ваш капитални зајам је одобрен и %1$s је уплаћено на банковни рачун повезан са %2$s. Зајам ћете самостално отплаћивати, уз фиксну накнаду, кроз фиксни проценат сваке %2$s трансакције."
 
 #: includes/payment-methods/Configs/Definitions/EpsDefinition.php:98
 msgid "Accept your payment with EPS — a common payment method in Austria."
@@ -3725,49 +3778,49 @@ msgstr "BECS Direct Debit"
 #. translators: %1$s: The current site domain name. %2$s: The original site
 #. domain name. Please keep hostname tags in your translation so that they can
 #. be formatted properly. %3$s: WooPayments.
-#: woocommerce-payments.php:411
+#: woocommerce-payments.php:436
 msgid "Create a new connection to %3$s for <hostname>%1$s</hostname>. You’ll have to re-verify your business details to begin accepting payments. Your <hostname>%2$s</hostname> connection will remain as is."
 msgstr "Направите нову везу са %3$s за <hostname>%1$s</hostname>. Мораћете поново да потврдите детаље пословања да бисте почели да примате плаћања. Ваша веза <hostname>%2$s</hostname> остаће непромењена."
 
 #. translators: %s: WooPayments.
-#: woocommerce-payments.php:374
+#: woocommerce-payments.php:399
 msgid "We’ve detected that you have duplicate sites connected to %s. When Safe Mode is active, payments will not be interrupted. However, some features may not be available until you’ve resolved this issue below. Safe Mode is most frequently activated when you’re transferring your site from one domain to another, or creating a staging site for testing. A site administrator can resolve this issue. <safeModeLink>Learn more</safeModeLink>"
 msgstr "Открили смо да имате удвостручене сајтове повезане са %s. Када је безбедни режим активан, плаћања неће бити прекинута. Међутим, неке функције можда неће бити доступне док не решите овај проблем испод. Безбедни режим се најчешће укључује када пребацујете сајт са једног домена на други или правите пробни сајт за тестирање. Администратор сајта може да реши овај проблем. <safeModeLink>Сазнајте више</safeModeLink>"
 
-#: woocommerce-payments.php:368
+#: woocommerce-payments.php:393
 msgid "Transfer your connection"
 msgstr "Пренесите своју везу"
 
-#: woocommerce-payments.php:369 woocommerce-payments.php:370
+#: woocommerce-payments.php:394 woocommerce-payments.php:395
 msgid "Create a new connection"
 msgstr "Направи нову везу"
 
-#: woocommerce-payments.php:367
+#: woocommerce-payments.php:392
 msgid "Transfer connection"
 msgstr "Пренеси везу"
 
-#. translators: %s: WooPayments.
-#: woocommerce-payments.php:354
-msgid "We’ve detected that you have duplicate sites connected to %s. When Safe Mode is active, payments will not be interrupted. However, some features may not be available until you’ve resolved this issue below. Safe Mode is most frequently activated when you’re transferring your site from one domain to another, or creating a staging site for testing. <safeModeLink>Learn more</safeModeLink>"
-msgstr "Открили смо да имате удвостручене сајтове повезане са %s. Када је безбедни режим активан, плаћања неће бити прекинута. Међутим, неке функције можда неће бити доступне док не решите овај проблем испод. Безбедни режим се најчешће укључује када пребацујете сајт са једног домена на други или правите пробни сајт за тестирање. <safeModeLink>Сазнајте више</safeModeLink>"
-
-#: woocommerce-payments.php:351 woocommerce-payments.php:371
+#: woocommerce-payments.php:376 woocommerce-payments.php:396
 msgid "Safe Mode activated"
 msgstr "Безбедни режим је укључен"
 
-#: includes/class-wc-payments.php:1964
+#: includes/class-wc-payments.php:1927
 msgid "Contact information"
 msgstr "Информације за контактирање"
 
-#: includes/class-wc-payments.php:1971 dist/index.js:2 dist/settings.js:2
+#: includes/class-wc-payments.php:1934 dist/index.js:2 dist/settings.js:2
 msgid "Email address"
 msgstr "Адреса е-поште"
+
+#. translators: %s: WooPayments.
+#: woocommerce-payments.php:379
+msgid "We’ve detected that you have duplicate sites connected to %s. When Safe Mode is active, payments will not be interrupted. However, some features may not be available until you’ve resolved this issue below. Safe Mode is most frequently activated when you’re transferring your site from one domain to another, or creating a staging site for testing. <safeModeLink>Learn more</safeModeLink>"
+msgstr "Открили смо да имате удвостручене сајтове повезане са %s. Када је безбедни режим активан, плаћања неће бити прекинута. Међутим, неке функције можда неће бити доступне док не решите овај проблем испод. Безбедни режим се најчешће укључује када пребацујете сајт са једног домена на други или правите пробни сајт за тестирање. <safeModeLink>Сазнајте више</safeModeLink>"
 
 #: includes/admin/class-wc-rest-payments-settings-controller.php:468
 msgid "Error: Invalid address format!"
 msgstr "Грешка: неисправан облик адресе!"
 
-#: woocommerce-payments.php:350
+#: woocommerce-payments.php:375
 msgid "Safe Mode"
 msgstr "Режим Сигурног рада"
 
@@ -3787,31 +3840,31 @@ msgstr "Грешка: неисправна е-адреса: "
 msgid "There was a problem creating your subscription. %1$s doesn't meet the %2$sminimum recurring amount%3$s this payment method can process."
 msgstr "Дошло је до проблема при прављењу ваше претплате. %1$s не испуњава %2$sнајмањи понављајући износ%3$s који овај начин плаћања може да обради."
 
-#: includes/class-wc-payments-webhook-processing-service.php:1054
+#: includes/class-wc-payments-webhook-processing-service.php:1218
 msgid "You have exceeded the number of allowed verification attempts."
 msgstr "Премашили сте број дозвољених покушаја провере."
 
-#: includes/class-wc-payments-webhook-processing-service.php:1052
+#: includes/class-wc-payments-webhook-processing-service.php:1216
 msgid "Microdeposit transfers failed. Please check the account, institution and transit numbers."
 msgstr "Преноси микроуплата нису успели. Проверите број рачуна, институције и транзита."
 
-#: includes/class-wc-payments-webhook-processing-service.php:1050
+#: includes/class-wc-payments-webhook-processing-service.php:1214
 msgid "The customer's bank account could not be located."
 msgstr "Банковни рачун купца није могао да се пронађе."
 
-#: includes/class-wc-payments-webhook-processing-service.php:1048
+#: includes/class-wc-payments-webhook-processing-service.php:1212
 msgid "The customer's account has insufficient funds to cover this payment."
 msgstr "На рачуну купца нема довољно средстава за покривање овог плаћања."
 
-#: includes/class-wc-payments-webhook-processing-service.php:1046
+#: includes/class-wc-payments-webhook-processing-service.php:1210
 msgid "The customer has notified their bank that this payment was unauthorized."
 msgstr "Купац је обавестио своју банку да ово плаћање није одобрено."
 
-#: includes/class-wc-payments-webhook-processing-service.php:1044
+#: includes/class-wc-payments-webhook-processing-service.php:1208
 msgid "The customer's bank account has been closed."
 msgstr "Банковни рачун купца је затворен."
 
-#: includes/admin/class-wc-payments-admin.php:610 dist/index.js:2
+#: includes/admin/class-wc-payments-admin.php:598 dist/index.js:2
 msgid "Set up multiple currencies"
 msgstr "Подеси више валута"
 
@@ -3843,11 +3896,11 @@ msgstr "УКУПНО"
 msgid "SUBTOTAL"
 msgstr "МЕЂУЗБИР"
 
-#: includes/class-wc-payment-gateway-wcpay.php:804
+#: includes/class-wc-payment-gateway-wcpay.php:1057
 msgid "Next we’ll ask you to share a few details about your business to create your account."
 msgstr "Затим ћемо тражити да поделите неколико детаља о свом пословању ради отварања налога."
 
-#: includes/class-wc-payment-gateway-wcpay.php:3886
+#: includes/class-wc-payment-gateway-wcpay.php:4255
 msgid "Failed to update Stripe account. "
 msgstr "Ажурирање Stripe налога није успело. "
 
@@ -3887,7 +3940,7 @@ msgstr "Јавно доступан сајт пословања."
 msgid "The customer-facing business name."
 msgstr "Име пословања које виде купци."
 
-#: includes/admin/class-wc-payments-admin.php:602
+#: includes/admin/class-wc-payments-admin.php:590
 msgid "Add new payment methods"
 msgstr "Додај нове начине плаћања"
 
@@ -3895,13 +3948,13 @@ msgstr "Додај нове начине плаћања"
 msgid "Invalid payment intent"
 msgstr "Неисправна намера плаћања"
 
-#: includes/admin/class-wc-payments-admin.php:488
+#: includes/admin/class-wc-payments-admin.php:476
 msgid "Card Readers"
 msgstr "Читачи картица"
 
 #: includes/in-person-payments/templates/html-in-person-payment-receipt.php:149
 msgid "SKU"
-msgstr "Шифра"
+msgstr "ШИФРА ПРОИЗВОДА"
 
 #. translators: %1$s% is the fee percentage
 #: includes/class-wc-payments-captured-event-note.php:833
@@ -3926,12 +3979,12 @@ msgstr "%1$sДошло је до проблема при чувању ваших
 msgid "%1$sThere was an issue saving your product!%2$s A subscription product's billing period cannot be longer than one year. We have updated this product to renew every %3$s."
 msgstr "%1$sДошло је до проблема при чувању вашег производа!%2$s Обрачунски период производа претплате не може бити дужи од једне године. Ажурирали смо овај производ да се обнавља сваких %3$s."
 
-#: includes/class-wc-payments-utils.php:800
+#: includes/class-wc-payments-utils.php:848
 msgid "We couldn’t verify the postal code in your billing address. Make sure the information is current with your card issuing bank and try again."
 msgstr "Нисмо могли да проверимо поштански број у вашој адреси за наплату. Уверите се да су подаци ажурни код банке која је издала картицу и покушајте поново."
 
 #. translators: %s a formatted price.
-#: includes/class-wc-payments-utils.php:787
+#: includes/class-wc-payments-utils.php:835
 msgid "The selected payment method requires a total amount of at least %s."
 msgstr "Изабрани начин плаћања захтева укупан износ од најмање %s."
 
@@ -3962,34 +4015,34 @@ msgstr "Издање"
 msgid "You have installed a development version of %s which requires files to be built. From the plugin directory, run <code>npm run build:client</code> to build and minify assets. Alternatively, you can download a pre-built version of the plugin from the <a1>WordPress.org repository</a1> or by visiting the <a2>releases page in the GitHub repository</a2>."
 msgstr "Поставили сте развојно издање %s које захтева изградњу датотека. Из директоријума додатка покрените <code>npm run build:client</code> да бисте изградили и смањили ресурсе. Можете и преузети унапред изграђено издање додатка из <a1>WordPress.org складишта</a1> или посетом <a2>страници издања у GitHub складишту</a2>."
 
-#: includes/class-wc-payment-gateway-wcpay.php:1381
+#: includes/class-wc-payment-gateway-wcpay.php:1674
 msgid "We couldn’t verify the postal code in the billing address. If the issue persists, suggest the customer to reach out to the card issuing bank."
 msgstr "Нисмо могли да проверимо поштански број у адреси за наплату. Ако се проблем настави, предложите купцу да се обрати банци која је издала картицу."
 
 #. translators: %1: the failed payment amount, %2: error message
-#: includes/class-wc-payment-gateway-wcpay.php:1376
+#: includes/class-wc-payment-gateway-wcpay.php:1669
 msgid "A payment of %1$s <strong>failed</strong>. %2$s"
 msgstr "Плаћање од %1$s <strong>није успело</strong>. %2$s"
 
 #. translators: %1: the dispute message, %2: the dispute details URL
-#: includes/class-wc-payments-webhook-processing-service.php:827
+#: includes/class-wc-payments-webhook-processing-service.php:962
 msgid "%1$s. See <a href=\"%2$s\">dispute overview</a> for more details."
 msgstr "%1$s. Погледајте <a href=\"%2$s\">преглед спора</a> за више детаља."
 
-#: includes/class-wc-payments-webhook-processing-service.php:819
+#: includes/class-wc-payments-webhook-processing-service.php:954
 msgid "Payment dispute funds have been reinstated"
 msgstr "Средства из спора око плаћања су враћена"
 
-#: includes/class-wc-payments-webhook-processing-service.php:822
+#: includes/class-wc-payments-webhook-processing-service.php:957
 msgid "Payment dispute has been updated"
 msgstr "Спор око плаћања је ажуриран"
 
-#: includes/class-wc-payments-order-service.php:657
+#: includes/class-wc-payments-order-service.php:834
 msgid "Dispute lost."
 msgstr "Спор је изгубљен."
 
 #. translators: %1: the dispute status
-#: includes/class-wc-payments-order-service.php:2535
+#: includes/class-wc-payments-order-service.php:3075
 msgid "Dispute has been closed with status %1$s. See <a>dispute overview</a> for more details."
 msgstr "Спор је затворен са стањем %1$s. Погледајте <a>преглед спора</a> за више детаља."
 
@@ -4004,36 +4057,36 @@ msgstr "WooCommerce плаћања уживо"
 msgid "Base fee: capped at %2$s"
 msgstr "Основна накнада: ограничено на %2$s"
 
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1497
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1504
 msgid "Price ID is required"
 msgstr "ИБ цене је обавезан"
 
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1465
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1472
 msgid "Product ID is required"
 msgstr "ИБ производа је обавезан"
 
 #. Translators: %s Property name not found in event data array.
-#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:330
+#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:344
 msgid "%s not found in array"
 msgstr "%s није пронађен у низу"
 
 #. Translators: %d Number of failed renewal attempts.
-#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:295
+#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:309
 msgid "WooPayments subscription renewal attempt %d failed."
 msgid_plural "WooPayments subscription renewal attempt %d failed."
 msgstr[0] "WooPayments покушај обнове претплате %d није успео."
 msgstr[1] "WooPayments покушај обнове претплате %d није успео."
 msgstr[2] "WooPayments покушај обнове претплате %d није успео."
 
-#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:260
+#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:274
 msgid "Unable to generate renewal order for subscription to record the incoming \"invoice.payment_failed\" event."
 msgstr "Није могуће направити поруџбину обнове за претплату ради бележења долазног догађаја „invoice.payment_failed“."
 
-#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:233
+#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:247
 msgid "Cannot find subscription for the incoming \"invoice.payment_failed\" event."
 msgstr "Није могуће пронаћи претплату за долазни догађај „invoice.payment_failed“."
 
-#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:152
+#: includes/subscriptions/class-wc-payments-subscriptions-event-handler.php:155
 msgid "Unable to generate renewal order for subscription on the \"invoice.paid\" event."
 msgstr "Није могуће направити поруџбину обнове за претплату за догађај „invoice.paid“."
 
@@ -4051,15 +4104,15 @@ msgid "Cannot find subscription to handle the \"invoice.upcoming\" event."
 msgstr "Није могуће пронаћи претплату за руковање догађајем „invoice.upcoming“."
 
 #. Translators: %s Stripe subscription item ID.
-#: includes/subscriptions/class-wc-payments-subscription-service.php:1070
+#: includes/subscriptions/class-wc-payments-subscription-service.php:1080
 msgid "Unable to set subscription item ID meta for WooPayments subscription item %s."
 msgstr "Није могуће поставити мета ИБ ставке претплате за WooPayments ставку претплате %s."
 
-#: includes/subscriptions/class-wc-payments-subscription-service.php:788
+#: includes/subscriptions/class-wc-payments-subscription-service.php:795
 msgid "The subscription's next payment date has been updated to match WooPayments server."
 msgstr "Датум следећег плаћања претплате ажуриран је да одговара WooPayments серверу."
 
-#: includes/subscriptions/class-wc-payments-subscription-service.php:691
+#: includes/subscriptions/class-wc-payments-subscription-service.php:698
 msgid "We've successfully collected payment for your subscription using your new payment method."
 msgstr "Успешно смо наплатили вашу претплату помоћу новог начина плаћања."
 
@@ -4088,16 +4141,16 @@ msgstr "Ажурирај податке о плаћању"
 msgid "Update payment method"
 msgstr "Ажурирај начин плаћања"
 
-#: includes/subscriptions/class-wc-payments-invoice-service.php:441
+#: includes/subscriptions/class-wc-payments-invoice-service.php:486
 msgid "The WooPayments invoice items do not match WC subscription items."
 msgstr "Ставке WooPayments рачуна не одговарају ставкама WC претплате."
 
-#: includes/subscriptions/class-wc-payments-invoice-service.php:296
+#: includes/subscriptions/class-wc-payments-invoice-service.php:341
 msgid "The payment info couldn't be added to the order."
 msgstr "Подаци о плаћању нису могли да се додају у поруџбину."
 
-#: includes/class-wc-payment-gateway-wcpay.php:1767
-#: includes/class-wc-payment-gateway-wcpay.php:1770
+#: includes/class-wc-payment-gateway-wcpay.php:2067
+#: includes/class-wc-payment-gateway-wcpay.php:2070
 #: includes/payment-methods/Configs/Definitions/CardDefinition.php:113
 msgid "Credit / Debit Cards"
 msgstr "Кредитне / дебитне картице"
@@ -4115,31 +4168,31 @@ msgstr "Ажурирај"
 msgid "Currency Switcher Widget"
 msgstr "Виџет бирача валута"
 
-#: includes/wc-payment-api/class-wc-payments-api-client.php:2018
+#: includes/wc-payment-api/class-wc-payments-api-client.php:2025
 msgid "Address country and line 1 are required."
 msgstr "Држава и ред 1 адресе су обавезни."
 
-#: includes/class-wc-payments-utils.php:796
-#: includes/class-wc-payments-utils.php:798
+#: includes/class-wc-payments-utils.php:844
+#: includes/class-wc-payments-utils.php:846
 msgid "We're not able to process this request. Please refresh the page and try again."
 msgstr "Не можемо да обрадимо овај захтев. Освежите страницу и покушајте поново."
 
-#: includes/class-wc-payments-account.php:1725
+#: includes/class-wc-payments-account.php:1741
 msgid "There was a duplicate attempt to initiate account setup. Please wait a few seconds and try again."
 msgstr "Дошло је до удвострученог покушаја покретања подешавања налога. Сачекајте неколико секунди и покушајте поново."
 
 #. translators: %1: the failed payment amount
-#: includes/class-wc-payment-gateway-wcpay.php:1410
+#: includes/class-wc-payment-gateway-wcpay.php:1703
 msgid "A payment of %1$s <strong>failed</strong> to complete because of too many failed transactions. A rate limiter was enabled for the user to prevent more attempts temporarily."
 msgstr "Плаћање од %1$s <strong>није успело</strong> да се доврши због превише неуспелих трансакција. За корисника је укључен ограничавач учесталости да би се привремено спречили даљи покушаји."
 
-#: includes/class-wc-payment-gateway-wcpay.php:1232
+#: includes/class-wc-payment-gateway-wcpay.php:1506
 msgid "Your payment was not processed."
 msgstr "Ваше плаћање није обрађено."
 
 #: includes/class-wc-payments-order-success-page.php:136
-#: includes/class-wc-payments-order-success-page.php:616
-#: includes/class-wc-payments-order-success-page.php:675
+#: includes/class-wc-payments-order-success-page.php:624
+#: includes/class-wc-payments-order-success-page.php:683
 #: dist/chunks/wcpay-money-movement.js:1
 msgid "Reference"
 msgstr "Референца"
@@ -4212,7 +4265,7 @@ msgstr "Основна накнада: %1$s%% + %2$s"
 
 #. translators: %1 User's country, %2 Selected currency name, %3 Default store
 #. currency name, %4 Link to switch currency
-#: includes/multi-currency/MultiCurrency.php:1085
+#: includes/multi-currency/MultiCurrency.php:1639
 msgid "We noticed you're visiting from %1$s. We've updated our prices to %2$s for your shopping convenience. <a href=\"%4$s\">Use %3$s instead.</a>"
 msgstr "Приметили смо да долазите из %1$s. Ажурирали смо наше цене у %2$s ради ваше лакше куповине. <a href=\"%4$s\">Користите %3$s уместо тога.</a>"
 
@@ -4221,6 +4274,15 @@ msgstr "Приметили смо да долазите из %1$s. Ажурир�
 #: includes/compat/subscriptions/emails/failed-renewal-authentication.php:18
 msgid "Authorize the payment &raquo;"
 msgstr "Одобри плаћање &raquo;"
+
+#: includes/compat/subscriptions/emails/failed-renewal-authentication-requested.php:32
+#: includes/compat/subscriptions/emails/plain/failed-renewal-authentication-requested.php:26
+msgid "The renewal order is as follows:"
+msgstr "Поруџбина обнове је следећа:"
+
+#: includes/compat/subscriptions/class-wc-payments-email-failed-renewal-authentication.php:148
+msgid "Payment authorization needed for renewal of order {order_number}"
+msgstr "Потребно је одобрење плаћања за обнову поруџбине {order_number}"
 
 #. translators: %1$s: name of the blog, %2$s: link to payment re-authentication
 #. URL, note: no full stop due to url at the end.
@@ -4232,11 +4294,6 @@ msgctxt "In failed renewal authentication email"
 msgid "The automatic payment to renew your subscription with %1$s has failed. To reactivate the subscription, please login and authorize the renewal from your account page: %2$s"
 msgstr "Самостално плаћање за обнову ваше претплате код %1$s није успело. Да бисте поново укључили претплату, пријавите се и одобрите обнову са странице свог налога: %2$s"
 
-#: includes/compat/subscriptions/emails/failed-renewal-authentication-requested.php:32
-#: includes/compat/subscriptions/emails/plain/failed-renewal-authentication-requested.php:26
-msgid "The renewal order is as follows:"
-msgstr "Поруџбина обнове је следећа:"
-
 #. translators: %1$s: an order number, %2$s: the customer's full name, %3$s:
 #. lowercase human time diff in the form returned by wcs_get_human_time_diff(),
 #. e.g. 'in 12 hours'.
@@ -4245,10 +4302,6 @@ msgstr "Поруџбина обнове је следећа:"
 msgctxt "In admin renewal failed email"
 msgid "The automatic recurring payment for order %1$s from %2$s has failed. The customer was sent an email requesting authentication of payment. If the customer does not authenticate the payment, they will be requested by email again %3$s."
 msgstr "Самостално понављајуће плаћање за поруџбину %1$s од %2$s није успело. Купцу је послата е-порука са захтевом за потврду плаћања. Ако купац не потврди плаћање, поново ће му бити затражено е-поштом %3$s."
-
-#: includes/compat/subscriptions/class-wc-payments-email-failed-renewal-authentication.php:148
-msgid "Payment authorization needed for renewal of order {order_number}"
-msgstr "Потребно је одобрење плаћања за обнову поруџбине {order_number}"
 
 #: includes/compat/subscriptions/class-wc-payments-email-failed-renewal-authentication.php:139
 msgid "Payment authorization needed for renewal of {site_title} order {order_number}"
@@ -4279,52 +4332,52 @@ msgstr "[{site_title}] Самостално плаћање није успело
 msgid "Automatic renewal payment failed due to authentication required"
 msgstr "Самостално плаћање обнове није успело јер је потребна провера идентитета"
 
-#: includes/compat/subscriptions/class-wc-payments-email-failed-authentication-retry.php:54
-msgid "Payment authentication requested email"
-msgstr "Е-порука о захтеву за потврду плаћања"
-
-#: includes/class-wc-payments-utils.php:301
-msgid "Singapore"
-msgstr "Сингапур"
-
 #: includes/compat/subscriptions/class-wc-payments-email-failed-authentication-retry.php:55
 msgid "Payment authentication requested emails are sent to chosen recipient(s) when an attempt to automatically process a subscription renewal payment fails because the transaction requires an SCA verification, the customer is requested to authenticate the payment, and a retry rule has been applied to notify the customer again within a certain time period."
 msgstr "Е-поруке о захтеву за потврду плаћања шаљу се изабраним примаоцима када покушај самосталне обраде плаћања обнове претплате не успе јер трансакција захтева SCA проверу, од купца се тражи потврда плаћања, а примењено је правило поновног покушаја да се купац поново обавести у одређеном периоду."
 
-#: includes/class-wc-payments-utils.php:296
+#: includes/compat/subscriptions/class-wc-payments-email-failed-authentication-retry.php:54
+msgid "Payment authentication requested email"
+msgstr "Е-порука о захтеву за потврду плаћања"
+
+#: includes/class-wc-payments-utils.php:349
+msgid "Singapore"
+msgstr "Сингапур"
+
+#: includes/class-wc-payments-utils.php:344
 msgid "Portugal"
 msgstr "Португал"
 
-#: includes/class-wc-payments-utils.php:295
+#: includes/class-wc-payments-utils.php:343
 msgid "Poland"
 msgstr "Пољска"
 
-#: includes/class-wc-payments-utils.php:292
+#: includes/class-wc-payments-utils.php:340
 msgid "Netherlands"
 msgstr "Холандија"
 
-#: includes/class-wc-payments-utils.php:285
+#: includes/class-wc-payments-utils.php:333
 msgid "Hong Kong"
 msgstr "Хонг Конг"
 
-#: includes/class-wc-payments-utils.php:271
+#: includes/class-wc-payments-utils.php:319
 msgid "Switzerland"
 msgstr "Швајцарска"
 
-#: includes/class-wc-payments-utils.php:268
+#: includes/class-wc-payments-utils.php:316
 msgid "Belgium"
 msgstr "Белгија"
 
-#: includes/admin/class-wc-payments-admin.php:259
-#: includes/admin/class-wc-payments-admin.php:299
+#: includes/admin/class-wc-payments-admin.php:247
+#: includes/admin/class-wc-payments-admin.php:287
 msgid "Unsupported currency:"
 msgstr "Неподржана валута:"
 
-#: includes/class-wc-payment-gateway-wcpay.php:2936
+#: includes/class-wc-payment-gateway-wcpay.php:3293
 msgid "The refund amount is not valid."
 msgstr "Износ рефундације није исправан."
 
-#: includes/class-wc-payments-utils.php:266
+#: includes/class-wc-payments-utils.php:314
 msgid "Austria"
 msgstr "Аустрија"
 
@@ -4352,7 +4405,7 @@ msgstr "Акција није успела. Освежите страницу и
 msgid "Are you sure?"
 msgstr "Да ли сте сигурни?"
 
-#: includes/class-wc-payment-gateway-wcpay.php:2246
+#: includes/class-wc-payment-gateway-wcpay.php:2541
 msgid "Payment method successfully added."
 msgstr "Додат начин плаћања."
 
@@ -4366,7 +4419,7 @@ msgid "Get immediate access to your funds when you need them – including night
 msgstr "Добијте тренутан приступ својим средствима када су вам потребна – укључујући ноћи, викенде и празнике. Уз <a>функцију тренутних исплата</a> %s, своју зараду можете пренети на дебитну картицу за неколико минута."
 
 #: includes/multi-currency/Notes/NoteMultiCurrencyAvailable.php:54
-#: includes/notes/class-wc-payments-notes-set-up-stripelink.php:80
+#: includes/notes/class-wc-payments-notes-set-up-stripelink.php:88
 msgid "Set up now"
 msgstr "Подеси одмах"
 
@@ -4421,65 +4474,65 @@ msgstr "Наслов"
 msgid "Let your customers switch between your enabled currencies"
 msgstr "Омогући купцима да бирају између укључених валута"
 
-#: includes/class-wc-payments-utils.php:302
+#: includes/class-wc-payments-utils.php:350
 msgid "United States (US)"
 msgstr "Сједињене Државе (САД)"
 
-#: includes/class-wc-payments-utils.php:294
+#: includes/class-wc-payments-utils.php:342
 msgid "New Zealand"
 msgstr "Нови Зеланд"
 
-#: includes/class-wc-payments-utils.php:287
+#: includes/class-wc-payments-utils.php:335
 msgid "Ireland"
 msgstr "Ирска"
 
-#: includes/class-wc-payments-utils.php:288
+#: includes/class-wc-payments-utils.php:336
 msgid "Italy"
 msgstr "Италија"
 
-#: includes/class-wc-payments-utils.php:283
+#: includes/class-wc-payments-utils.php:331
 msgid "United Kingdom (UK)"
 msgstr "Уједињено Краљевство (УК)"
 
-#: includes/class-wc-payments-utils.php:279
+#: includes/class-wc-payments-utils.php:327
 msgid "France"
 msgstr "Француска"
 
-#: includes/class-wc-payments-utils.php:278
+#: includes/class-wc-payments-utils.php:326
 msgid "Spain"
 msgstr "Шпанија"
 
-#: includes/class-wc-payments-utils.php:274
+#: includes/class-wc-payments-utils.php:322
 msgid "Germany"
 msgstr "Немачка"
 
-#: includes/class-wc-payments-utils.php:270
+#: includes/class-wc-payments-utils.php:318
 msgid "Canada"
 msgstr "Канада"
 
-#: includes/class-wc-payments-utils.php:267
+#: includes/class-wc-payments-utils.php:315
 msgid "Australia"
 msgstr "Аустралија"
 
 #. translators: The text encapsulated in `**` can be replaced with "Apple Pay"
 #. or "Google Pay". Please translate this text, but don't remove the `**`.
-#: includes/express-checkout/class-wc-payments-express-checkout-button-handler.php:164
+#: includes/express-checkout/class-wc-payments-express-checkout-button-handler.php:166
 msgid "To complete your transaction with **the selected payment method**, you must log in or create an account with our site."
 msgstr "Да бисте довршили трансакцију **изабраним начином плаћања**, морате се пријавити или отворити налог на нашем сајту."
 
-#: includes/class-wc-payment-gateway-wcpay.php:506
+#: includes/class-wc-payment-gateway-wcpay.php:728
 msgid "Large"
 msgstr "Велика"
 
-#: includes/class-wc-payment-gateway-wcpay.php:505
+#: includes/class-wc-payment-gateway-wcpay.php:727
 msgid "Medium"
 msgstr "Средња величина"
 
-#: includes/class-wc-payment-gateway-wcpay.php:500
+#: includes/class-wc-payment-gateway-wcpay.php:722
 msgid "Select the size of the button."
 msgstr "Изаберите величину дугмета."
 
-#: includes/class-wc-payment-gateway-wcpay.php:498
+#: includes/class-wc-payment-gateway-wcpay.php:720
 msgid "Size of the button displayed for Express Checkouts"
 msgstr "Величина дугмета приказаног за брза плаћања"
 
@@ -4495,25 +4548,20 @@ msgstr "Величине дугмета за плаћање једним при�
 msgid "1-click checkout button types."
 msgstr "Врсте дугмета за плаћање једним притиском."
 
-#: includes/admin/class-wc-payments-admin.php:874
+#: includes/admin/class-wc-payments-admin.php:851
 msgid "Refunding manually requires reimbursing your customer offline via cash, check, etc. The refund amounts entered here will only be used to balance your analytics."
 msgstr "Ручна рефундација захтева надокнаду купцу ван мреже, у готовини, чеком итд. Износи рефундације унети овде користиће се само за усклађивање аналитике."
 
-#: includes/multi-currency/MultiCurrency.php:1112
-#: dist/chunks/wcpay-overview.js:1
-msgid "Dismiss"
-msgstr "Одбаци"
-
-#: includes/class-wc-payment-gateway-wcpay.php:442
+#: includes/class-wc-payment-gateway-wcpay.php:664
 msgid "Book"
 msgstr "Резервиши"
 
-#: includes/class-wc-payment-gateway-wcpay.php:439 dist/settings.js:2
+#: includes/class-wc-payment-gateway-wcpay.php:661 dist/settings.js:2
 msgid "Only icon"
 msgstr "Само иконица"
 
 #. translators: localized exception message
-#: includes/class-wc-payment-gateway-wcpay.php:2443
+#: includes/class-wc-payment-gateway-wcpay.php:2766
 msgid "UPE payment failed: %s"
 msgstr "UPE плаћање није успело: %s"
 
@@ -4521,7 +4569,12 @@ msgstr "UPE плаћање није успело: %s"
 msgid "Payment method IDs that should be enabled. Other methods will be disabled."
 msgstr "ИБ-ови начина плаћања које треба укључити. Остали начини биће искључени."
 
-#: includes/class-wc-payment-gateway-wcpay.php:492 dist/settings.js:2
+#: includes/multi-currency/MultiCurrency.php:1658
+#: dist/chunks/wcpay-overview.js:1
+msgid "Dismiss"
+msgstr "Уклони"
+
+#: includes/class-wc-payment-gateway-wcpay.php:714 dist/settings.js:2
 msgid "Payments accepted on checkout"
 msgstr "Плаћања прихваћена при плаћању"
 
@@ -4536,7 +4589,7 @@ msgstr "Омогућите купцима да плаћају главним к�
 #: includes/subscriptions/templates/html-subscriptions-plugin-notice.php:59
 #: includes/subscriptions/templates/html-wcpay-deactivate-warning.php:59
 #: includes/subscriptions/templates/html-woo-payments-deactivate-warning.php:59
-#: dist/chunks/4873.js:9 dist/chunks/reports-balance.js:1
+#: dist/chunks/265.js:9 dist/chunks/reports-balance.js:1
 #: dist/chunks/wcpay-money-movement.js:1 dist/chunks/wcpay-onboarding.js:1
 #: dist/chunks/wcpay-overview.js:1 dist/index.js:2 dist/multi-currency.js:1
 #: dist/order.js:1 dist/settings.js:2
@@ -4589,7 +4642,7 @@ msgid "Order not found"
 msgstr "Поруџбина није пронађена"
 
 #. translators: %1: intent ID
-#: includes/class-wc-payments-webhook-processing-service.php:1019
+#: includes/class-wc-payments-webhook-processing-service.php:1183
 msgid "Could not find order via intent ID: %1$s"
 msgstr "Није могуће пронаћи поруџбину преко ИБ-а намере: %1$s"
 
@@ -4598,8 +4651,8 @@ msgstr "Није могуће пронаћи поруџбину преко ИБ-
 msgid "SEPA IBAN ending in %s"
 msgstr "SEPA IBAN који се завршава на %s"
 
-#: includes/class-wc-payments-token-service.php:452
-#: includes/class-wc-payments-token-service.php:531
+#: includes/class-wc-payments-token-service.php:474
+#: includes/class-wc-payments-token-service.php:558
 msgid "SEPA IBAN"
 msgstr "SEPA IBAN"
 
@@ -4607,54 +4660,54 @@ msgstr "SEPA IBAN"
 msgid "Share feedback"
 msgstr "Поделите поврате информације"
 
-#: includes/class-wc-payment-gateway-wcpay.php:488
+#: includes/class-wc-payment-gateway-wcpay.php:710
 msgid "Select pages"
 msgstr "Изабери странице"
-
-#: includes/class-wc-payment-gateway-wcpay.php:485
-msgid "Checkout"
-msgstr "Плаћање"
 
 #: includes/notes/class-wc-payments-notes-qualitative-feedback.php:74
 msgid "Share your feedback in this 2 minute survey about how we can make the process of accepting payments more useful for your store."
 msgstr "Поделите повратне информације у овој анкети од 2 минута о томе како можемо учинити поступак примања плаћања кориснијим за вашу продавницу."
 
-#: includes/class-wc-payment-gateway-wcpay.php:484
+#: includes/class-wc-payment-gateway-wcpay.php:706
 msgid "Cart"
 msgstr "Корпа"
 
-#: includes/class-wc-payment-gateway-wcpay.php:483
+#: includes/class-wc-payment-gateway-wcpay.php:705
 msgid "Product"
 msgstr "Производ"
 
-#: includes/class-wc-payment-gateway-wcpay.php:474
+#: includes/class-wc-payment-gateway-wcpay.php:696
 msgid "Select where you would like to display the button."
 msgstr "Изаберите где желите да се приказује дугме."
 
-#: includes/class-wc-payment-gateway-wcpay.php:465
+#: includes/class-wc-payment-gateway-wcpay.php:687
 msgid "Custom button label"
 msgstr "Произвољни натпис дугмета"
 
-#: includes/class-wc-payment-gateway-wcpay.php:472
+#: includes/class-wc-payment-gateway-wcpay.php:694
 msgid "Button locations"
 msgstr "Локације дугмета"
+
+#: includes/class-wc-payment-gateway-wcpay.php:707
+msgid "Checkout"
+msgstr "Потврда куповине"
 
 #: includes/class-wc-payments-status.php:95
 #: includes/class-wc-payments-status.php:119
 msgid "Clear"
-msgstr "Очисти"
+msgstr "Уклони"
 
 #: includes/payment-methods/Configs/Definitions/SepaDefinition.php:65
 msgid "SEPA Direct Debit"
 msgstr "SEPA Direct Debit"
 
-#: includes/admin/class-wc-payments-admin.php:330 dist/index.js:2
+#: includes/admin/class-wc-payments-admin.php:318 dist/index.js:2
 msgid "Overview"
 msgstr "Преглед"
 
 #. translators: 1: payment method likely credit card, 2: last 4 digit.
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:168
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1080
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:169
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:1084
 msgid "%1$s ending in %2$s"
 msgstr "%1$s се завршава %2$s"
 
@@ -4670,61 +4723,61 @@ msgstr "Провера домена за Apple Pay није успела уз с
 msgid "Your domain has been verified with Apple Pay!"
 msgstr "Ваш домен је проверен уз Apple Pay!"
 
-#: includes/class-wc-payment-gateway-wcpay.php:467
+#: includes/class-wc-payment-gateway-wcpay.php:689
 msgid "Enter the custom text you would like the button to have."
 msgstr "Унесите произвољни текст који желите да дугме има."
 
-#: includes/class-wc-payment-gateway-wcpay.php:460
+#: includes/class-wc-payment-gateway-wcpay.php:682
 msgid "Enter the height you would like the button to be in pixels. Width will always be 100%."
 msgstr "Унесите висину дугмета у пикселима. Ширина ће увек бити 100%."
 
-#: includes/class-wc-payment-gateway-wcpay.php:458
+#: includes/class-wc-payment-gateway-wcpay.php:680
 msgid "Button height"
 msgstr "Висина дугмета"
 
-#: includes/class-wc-payment-gateway-wcpay.php:454
+#: includes/class-wc-payment-gateway-wcpay.php:676
 msgid "Light-Outline"
 msgstr "Светли обрис"
 
-#: includes/class-wc-payment-gateway-wcpay.php:453 dist/settings.js:2
+#: includes/class-wc-payment-gateway-wcpay.php:675 dist/settings.js:2
 msgid "Light"
 msgstr "Светло"
 
-#: includes/class-wc-payment-gateway-wcpay.php:452 dist/settings.js:2
+#: includes/class-wc-payment-gateway-wcpay.php:674 dist/settings.js:2
 msgid "Dark"
 msgstr "Тамно"
 
-#: includes/class-wc-payment-gateway-wcpay.php:448
+#: includes/class-wc-payment-gateway-wcpay.php:670
 msgid "Select the button theme you would like to show."
 msgstr "Изаберите тему дугмета коју желите да прикажете."
 
-#: includes/class-wc-payment-gateway-wcpay.php:446
+#: includes/class-wc-payment-gateway-wcpay.php:668
 msgid "Button theme"
 msgstr "Тема дугмета"
 
-#: includes/class-wc-payment-gateway-wcpay.php:441
+#: includes/class-wc-payment-gateway-wcpay.php:663
 msgid "Donate"
 msgstr "Донирај"
 
-#: includes/class-wc-payment-gateway-wcpay.php:440
+#: includes/class-wc-payment-gateway-wcpay.php:662
 msgid "Buy"
 msgstr "Купи"
 
-#: includes/class-wc-payment-gateway-wcpay.php:435
+#: includes/class-wc-payment-gateway-wcpay.php:657
 msgid "Select the button type you would like to show."
 msgstr "Изаберите врсту дугмета коју желите да прикажете."
 
-#: includes/class-wc-payment-gateway-wcpay.php:433
+#: includes/class-wc-payment-gateway-wcpay.php:655
 msgid "Button type"
 msgstr "Врста дугмета"
 
-#: includes/class-wc-payment-gateway-wcpay.php:428
+#: includes/class-wc-payment-gateway-wcpay.php:650
 msgid "Payment request buttons"
 msgstr "Дугмад за захтев плаћања"
 
 #: includes/class-wc-payments-captured-event-note.php:363
 #: includes/class-wc-payments-captured-event-note.php:835
-#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:166
+#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:178
 #: includes/in-person-payments/templates/html-in-person-payment-receipt.php:166
 #: dist/blocks-checkout.js:1 dist/chunks/wcpay-money-movement.js:1
 #: dist/express-checkout.js:1
@@ -4735,59 +4788,59 @@ msgstr "Попуст"
 msgid "OR"
 msgstr "ИЛИ"
 
-#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:158
-#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:817
+#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:170
+#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:984
 #: dist/blocks-checkout.js:1 dist/express-checkout.js:1 dist/settings.js:2
 msgid "Shipping"
 msgstr "Достава"
 
 #: includes/class-wc-payments-captured-event-note.php:1026
-#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:149
-#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:809
+#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:161
+#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:976
 #: includes/in-person-payments/templates/html-in-person-payment-receipt.php:191
 #: dist/blocks-checkout.js:1 dist/chunks/wcpay-money-movement.js:1
 #: dist/express-checkout.js:1
 msgid "Tax"
 msgstr "Порез"
 
-#: includes/class-wc-payment-gateway-wcpay.php:468
+#: includes/class-wc-payment-gateway-wcpay.php:690
 msgid "Buy now"
 msgstr "Купи сада"
 
 #. translators: %1$s: the last 4 digit of the credit card
-#: includes/class-wc-payment-gateway-wcpay.php:1738
+#: includes/class-wc-payment-gateway-wcpay.php:2038
 msgid "Payment method is changed to: <strong>Credit card ending in %1$s</strong>."
 msgstr "Начин плаћања је промењен у: <strong>кредитна картица која се завршава на %1$s</strong>."
 
-#: includes/class-wc-payments-utils.php:775
+#: includes/class-wc-payments-utils.php:823
 msgid "There was an error while processing this request. If you continue to see this notice, please contact the admin."
 msgstr "Дошло је до грешке при обради овог захтева. Ако и даље видите ово обавештење, обратите се администратору."
 
-#. translators: an error message which will appear if a user tries to refund an
-#. order which is has been authorized but not yet charged.
-#: includes/class-wc-payment-gateway-wcpay.php:2922
-msgid "This payment is not captured yet. To cancel this order, please go to 'Order Actions' > 'Cancel authorization'. To proceed with a refund, please go to 'Order Actions' > 'Capture charge' to charge the payment card, and then trigger a refund via the 'Refund' button."
-msgstr "Ово плаћање још није наплаћено. Да бисте отказали ову поруџбину, идите на 'Order Actions' > 'Cancel authorization'. Да бисте наставили са рефундацијом, идите на 'Order Actions' > 'Capture charge' да бисте задужили платну картицу, а затим покрените рефундацију дугметом 'Refund'."
-
-#: includes/class-wc-payment-gateway-wcpay.php:408
+#: includes/class-wc-payment-gateway-wcpay.php:630
 msgid "If enabled, users will be able to pay with a saved card during checkout. Card details are saved on our platform, not on your store."
 msgstr "Ако је укључено, корисници ће моћи да плаћају сачуваном картицом при плаћању. Подаци о картици чувају се на нашој платформи, а не у вашој продавници."
 
-#: includes/class-wc-payment-gateway-wcpay.php:405
+#: includes/class-wc-payment-gateway-wcpay.php:627
 msgid "Saved cards"
 msgstr "Сачуване картице"
 
-#: includes/class-wc-payment-gateway-wcpay.php:406
+#: includes/class-wc-payment-gateway-wcpay.php:628
 msgid "Enable payment via saved cards"
 msgstr "Укључи плаћање сачуваним картицама"
 
-#: includes/class-wc-payments-account.php:256
+#. translators: an error message which will appear if a user tries to refund an
+#. order which is has been authorized but not yet charged.
+#: includes/class-wc-payment-gateway-wcpay.php:3279
+msgid "This payment is not captured yet. To cancel this order, please go to 'Order Actions' > 'Cancel authorization'. To proceed with a refund, please go to 'Order Actions' > 'Capture charge' to charge the payment card, and then trigger a refund via the 'Refund' button."
+msgstr "Ово плаћање још није наплаћено. Да бисте отказали ову поруџбину, идите на 'Order Actions' > 'Cancel authorization'. Да бисте наставили са рефундацијом, идите на 'Order Actions' > 'Capture charge' да бисте задужили платну картицу, а затим покрените рефундацију дугметом 'Refund'."
+
+#: includes/class-wc-payments-account.php:272
 msgid "Failed to detect connection status"
 msgstr "Откривање стања везе није успело"
 
 #. translators: %1: the failed payment amount, %2: error message
-#: includes/class-wc-payment-gateway-wcpay.php:1359
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:471
+#: includes/class-wc-payment-gateway-wcpay.php:1652
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:475
 msgid "A payment of %1$s <strong>failed</strong> to complete with the following message: <code>%2$s</code>."
 msgstr "Плаћање од %1$s <strong>није успело</strong> да се доврши уз следећу поруку: <code>%2$s</code>."
 
@@ -4807,11 +4860,11 @@ msgid "Read more"
 msgstr "Прочитај више"
 
 #. translators: %1: error message
-#: includes/class-wc-payment-gateway-wcpay.php:4108
+#: includes/class-wc-payment-gateway-wcpay.php:4474
 msgid "Canceling authorization <strong>failed</strong> to complete with the following message: <code>%1$s</code>."
 msgstr "Отказивање одобрења <strong>није успело</strong> да се доврши уз следећу поруку: <code>%1$s</code>."
 
-#: includes/class-wc-payment-gateway-wcpay.php:393
+#: includes/class-wc-payment-gateway-wcpay.php:615
 msgid "Edit the way your store name appears on your customers’ bank statements (read more about requirements <a>here</a>)."
 msgstr "Уредите како се име ваше продавнице приказује на изводима банке ваших купаца (прочитајте више о захтевима <a>овде</a>)."
 
@@ -4821,56 +4874,57 @@ msgstr "Уредите како се име ваше продавнице при
 msgid "Base fee"
 msgstr "Основна накнада"
 
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:983
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:987
 #: dist/subscription-edit-page.js:1
 msgid "Please select a payment method"
 msgstr "Изаберите начин плаћања"
 
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:702
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:706
 msgid "The saved payment method selected does not belong to this order's customer."
 msgstr "Изабрани сачувани начин плаћања не припада купцу ове поруџбине."
 
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:695
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:699
 msgid "The saved payment method selected is invalid or does not exist."
 msgstr "Изабрани сачувани начин плаћања није исправан или не постоји."
 
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:686
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:690
 msgid "A customer saved payment method was not selected for this order."
 msgstr "За ову поруџбину није изабран сачувани начин плаћања купца."
 
-#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:610
+#: includes/compat/subscriptions/trait-wc-payment-gateway-wcpay-subscriptions.php:614
 msgid "Saved payment method"
 msgstr "Сачувани начин плаћања"
 
-#: includes/class-wc-payments-utils.php:427
-#: includes/wc-payment-api/class-wc-payments-api-client.php:401
-#: includes/wc-payment-api/class-wc-payments-api-client.php:613
-#: dist/chunks/3158.js:1
+#: includes/class-wc-payments-utils.php:475
+#: includes/wc-payment-api/class-wc-payments-api-client.php:408
+#: includes/wc-payment-api/class-wc-payments-api-client.php:620
+#: dist/chunks/146.js:1
 msgid "Subscription #"
 msgstr "Претплата бр."
 
-#: includes/class-wc-payment-gateway-wcpay.php:3916
+#: includes/class-wc-payment-gateway-wcpay.php:4285
 msgid "Customer bank statement is invalid. Statement should be between 5 and 22 characters long, contain at least single Latin character and does not contain special characters: ' \" * &lt; &gt;"
 msgstr "Извод купца није исправан. Опис треба да има између 5 и 22 знака, да садржи бар један латинични знак и да не садржи посебне знакове: ' \" * &lt; &gt;"
 
-#: includes/class-wc-payment-gateway-wcpay.php:391 dist/settings.js:2
+#: includes/class-wc-payment-gateway-wcpay.php:613 dist/settings.js:2
 msgid "Customer bank statement"
 msgstr "Извод купца"
 
-#: includes/class-wc-payment-gateway-wcpay.php:4573
-#: includes/class-wc-payment-gateway-wcpay.php:4583
+#: includes/class-wc-payment-gateway-wcpay.php:5008
+#: includes/class-wc-payment-gateway-wcpay.php:5034
 msgid "We're not able to add this payment method. Please refresh the page and try again."
 msgstr "Не можемо да додамо овај начин плаћања. Освежите страницу и покушајте поново."
 
-#: includes/class-wc-payment-gateway-wcpay.php:4448
+#: includes/class-wc-payment-gateway-wcpay.php:4875
 msgid "Failed to add the provided payment method. Please try again later"
 msgstr "Додавање наведеног начина плаћања није успело. Покушајте поново касније"
 
-#: includes/class-wc-payment-gateway-wcpay.php:4437
+#: includes/class-wc-payment-gateway-wcpay.php:4864
+#: includes/class-wc-payment-gateway-wcpay.php:4883
 msgid "We're not able to add this payment method. Please try again later"
 msgstr "Не можемо да додамо овај начин плаћања. Покушајте поново касније"
 
-#: includes/class-wc-payment-gateway-wcpay.php:1160
+#: includes/class-wc-payment-gateway-wcpay.php:1412
 msgid "Save payment information to my account for future purchases."
 msgstr "Спремите податке о плаћању на мој налог за будуће куповине."
 
@@ -4884,26 +4938,26 @@ msgstr "Постави WooCommerce"
 
 #. translators: %1: transaction ID of the payment or a translated string
 #. indicating an unknown ID.
-#: includes/class-wc-payment-gateway-wcpay.php:4377
+#: includes/class-wc-payment-gateway-wcpay.php:4804
 msgid "A payment with ID <code>%1$s</code> was used in an attempt to pay for this order. This payment intent ID does not match any payments for this order, so it was ignored and the order was not updated."
 msgstr "Плаћање са ИБ-ом <code>%1$s</code> коришћено је у покушају плаћања ове поруџбине. Овај ИБ намере плаћања не одговара ниједном плаћању за ову поруџбину, па је занемарен и поруџбина није ажурирана."
 
-#: includes/class-wc-payment-gateway-wcpay.php:401
+#: includes/class-wc-payment-gateway-wcpay.php:623
 msgid "Charge must be captured within 7 days of authorization, otherwise the authorization and order will be canceled."
 msgstr "Задужење мора бити наплаћено у року од 7 дана од одобрења, у супротном ће одобрење и поруџбина бити отказани."
 
 #. translators: %1: transaction ID of the payment, %2: transaction details URL
-#: includes/class-wc-payments-order-service.php:2296
+#: includes/class-wc-payments-order-service.php:2836
 msgid "Payment authorization has <strong>expired</strong> (<a>%1$s</a>)."
 msgstr "Одобрење плаћања је <strong>истекло</strong> (<a>%1$s</a>)."
 
 #. translators: %s: error message.
-#: includes/class-wc-payments-account.php:1682
+#: includes/class-wc-payments-account.php:1698
 msgid "There was a problem connecting your store to WordPress.com: \"%s\""
 msgstr "Дошло је до проблема при повезивању ваше продавнице са WordPress.com: „%s“"
 
 #. translators: %s: WooPayments
-#: includes/class-wc-payments-account.php:1567
+#: includes/class-wc-payments-account.php:1583
 msgid "Connection to WordPress.com failed. Please connect to WordPress.com to start using %s."
 msgstr "Повезивање са WordPress.com није успело. Повежите се са WordPress.com да бисте почели да користите %s."
 
@@ -4911,21 +4965,24 @@ msgstr "Повезивање са WordPress.com није успело. Пове�
 msgid "Site is not connected to WordPress.com"
 msgstr "Сајт није повезан са WordPress.com"
 
-#: includes/class-payment-information.php:292
-#: includes/class-wc-payment-gateway-wcpay.php:1940
-#: includes/class-wc-payment-gateway-wcpay.php:2380
-#: includes/class-wc-payment-gateway-wcpay.php:4180
-#: includes/class-wc-payment-gateway-wcpay.php:4193
-#: includes/class-wc-payment-gateway-wcpay.php:4205
+#: includes/class-payment-information.php:293
+#: includes/class-wc-payment-gateway-wcpay.php:1460
+#: includes/class-wc-payment-gateway-wcpay.php:2240
+#: includes/class-wc-payment-gateway-wcpay.php:2681
+#: includes/class-wc-payment-gateway-wcpay.php:4568
+#: includes/class-wc-payment-gateway-wcpay.php:4606
+#: includes/class-wc-payment-gateway-wcpay.php:4619
+#: includes/class-wc-payment-gateway-wcpay.php:4631
+#: includes/class-wc-payments-order-service.php:627
 msgid "We're not able to process this payment. Please try again later."
 msgstr "Не можемо да обрадимо ово плаћање. Покушајте поново касније."
 
-#: includes/class-wc-payment-gateway-wcpay.php:1224
-#: includes/class-wc-payment-gateway-wcpay.php:4171
+#: includes/class-wc-payment-gateway-wcpay.php:1498
+#: includes/class-wc-payment-gateway-wcpay.php:4598
 msgid "We're not able to process this payment. Please refresh the page and try again."
 msgstr "Не можемо да обрадимо ово плаћање. Освежите страницу и покушајте поново."
 
-#: includes/class-wc-payments-checkout.php:191
+#: includes/class-wc-payments-checkout.php:250
 msgid "There was a problem processing the payment. Please check your email inbox and refresh the page to try again."
 msgstr "Дошло је до проблема при обради плаћања. Проверите пријемно сандуче е-поште и освежите страницу да бисте покушали поново."
 
@@ -4934,33 +4991,33 @@ msgstr "Дошло је до проблема при обради плаћања
 msgid "https://woocommerce.com/payments/"
 msgstr "https://woocommerce.com/payments/"
 
-#: includes/wc-payment-api/class-wc-payments-api-client.php:1397
+#: includes/wc-payment-api/class-wc-payments-api-client.php:1404
 msgid "Customer ID is required"
 msgstr "ИБ купца је обавезан"
 
 #. translators: %1: ID being fetched
-#: includes/class-wc-payments-webhook-processing-service.php:938
+#: includes/class-wc-payments-webhook-processing-service.php:1081
 msgid "%1$s not found in array"
 msgstr "%1$s није пронађен у низу"
 
 #. translators: %1: charge ID
-#: includes/class-wc-payments-webhook-processing-service.php:320
-#: includes/class-wc-payments-webhook-processing-service.php:386
-#: includes/class-wc-payments-webhook-processing-service.php:720
-#: includes/class-wc-payments-webhook-processing-service.php:760
-#: includes/class-wc-payments-webhook-processing-service.php:808
-#: includes/class-wc-payments-webhook-processing-service.php:887
-#: includes/class-wc-payments-webhook-processing-service.php:1114
+#: includes/class-wc-payments-webhook-processing-service.php:321
+#: includes/class-wc-payments-webhook-processing-service.php:387
+#: includes/class-wc-payments-webhook-processing-service.php:855
+#: includes/class-wc-payments-webhook-processing-service.php:895
+#: includes/class-wc-payments-webhook-processing-service.php:943
+#: includes/class-wc-payments-webhook-processing-service.php:1022
+#: includes/class-wc-payments-webhook-processing-service.php:1278
 msgid "Could not find order via charge ID: %1$s"
 msgstr "Није могуће пронаћи поруџбину преко ИБ-а задужења: %1$s"
 
 #. translators: %1$s Name.
-#: includes/class-wc-payments-customer-service.php:313
+#: includes/class-wc-payments-customer-service.php:315
 msgid "Name: %1$s, Guest"
 msgstr "Име: %1$s, гост"
 
 #. translators: %1$s Name, %2$s Username.
-#: includes/class-wc-payments-customer-service.php:309
+#: includes/class-wc-payments-customer-service.php:311
 msgid "Name: %1$s, Username: %2$s"
 msgstr "Име: %1$s, корисничко име: %2$s"
 
@@ -4988,62 +5045,57 @@ msgstr "Искључено"
 msgid "Enabled"
 msgstr "Омогућено"
 
-#: includes/in-person-payments/templates/html-in-person-payment-receipt.php:138
-#: dist/chunks/4873.js:9 dist/chunks/wcpay-money-movement.js:1
-msgid "Order"
-msgstr "Поредак"
-
-#: includes/class-wc-payments-utils.php:1306 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1354 dist/index.js:2 dist/order.js:1
 msgid "Unrecognized"
 msgstr "Непрепознато"
 
-#: includes/class-wc-payments-utils.php:1304 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1352 dist/index.js:2 dist/order.js:1
 msgid "Subscription canceled"
 msgstr "Претплата је отказана"
 
-#: includes/class-wc-payments-utils.php:1302 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1350 dist/index.js:2 dist/order.js:1
 msgid "Product unacceptable"
 msgstr "Производ није прихватљив"
 
-#: includes/class-wc-payments-utils.php:1300 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1348 dist/index.js:2 dist/order.js:1
 msgid "Product not received"
 msgstr "Производ није примљен"
 
-#: includes/class-wc-payments-utils.php:1298 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1346 dist/index.js:2 dist/order.js:1
 msgid "Insufficient funds"
 msgstr "Недовољно средстава"
 
-#: includes/class-wc-payments-utils.php:1296 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1344 dist/index.js:2 dist/order.js:1
 msgid "Incorrect account details"
 msgstr "Нетачни подаци о рачуну"
 
-#: includes/class-wc-payments-utils.php:1311 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1359 dist/index.js:2 dist/order.js:1
 #: dist/settings.js:2
 msgid "General"
 msgstr "Опште"
 
-#: includes/class-wc-payments-utils.php:1288 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1336 dist/index.js:2 dist/order.js:1
 msgid "Customer initiated"
 msgstr "Покренуо купац"
 
-#: includes/class-wc-payments-utils.php:1292
+#: includes/class-wc-payments-utils.php:1340
 #: dist/chunks/wcpay-money-movement.js:1 dist/index.js:2 dist/order.js:1
 msgid "Duplicate"
 msgstr "Дуплирај"
 
-#: includes/class-wc-payments-utils.php:1290 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1338 dist/index.js:2 dist/order.js:1
 msgid "Debit not authorized"
 msgstr "Задужење није одобрено"
 
-#: includes/class-wc-payments-utils.php:1284 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1332 dist/index.js:2 dist/order.js:1
 msgid "Check returned"
 msgstr "Чек је враћен"
 
-#: includes/class-wc-payments-utils.php:1286 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1334 dist/index.js:2 dist/order.js:1
 msgid "Credit not processed"
 msgstr "Одобрење није обрађено"
 
-#: includes/class-wc-payments-utils.php:1282 dist/index.js:2 dist/order.js:1
+#: includes/class-wc-payments-utils.php:1330 dist/index.js:2 dist/order.js:1
 msgid "Bank cannot process"
 msgstr "Банка не може да обради"
 
@@ -5054,7 +5106,7 @@ msgid "%1$s %2$s card"
 msgstr "%1$s %2$s картица"
 
 #. translators: This will be used to indicate an unknown value for an ID.
-#: includes/class-wc-payment-gateway-wcpay.php:4189
+#: includes/class-wc-payment-gateway-wcpay.php:4615
 #: includes/payment-methods/Configs/Definitions/CardDefinition.php:88
 #: dist/chunks/wcpay-money-movement.js:1
 msgid "unknown"
@@ -5081,163 +5133,157 @@ msgstr "дебитна"
 msgid "Fee"
 msgstr "Накнада"
 
-#: includes/class-wc-payments-utils.php:417
-#: includes/wc-payment-api/class-wc-payments-api-client.php:403
-#: includes/wc-payment-api/class-wc-payments-api-client.php:615
-#: dist/chunks/3158.js:1 dist/chunks/wcpay-money-movement.js:1
+#: includes/class-wc-payments-utils.php:465
+#: includes/wc-payment-api/class-wc-payments-api-client.php:410
+#: includes/wc-payment-api/class-wc-payments-api-client.php:622
+#: dist/chunks/146.js:1 dist/chunks/wcpay-money-movement.js:1
 msgid "Order #"
 msgstr "Поруџбина #"
 
 #: includes/fraud-prevention/class-order-fraud-and-risk-meta-box.php:266
-#: dist/chunks/3158.js:1 dist/chunks/reports-fees.js:1
+#: dist/chunks/146.js:1 dist/chunks/reports-fees.js:1
 msgid "Elevated"
 msgstr "Повишен"
 
 #: includes/fraud-prevention/class-order-fraud-and-risk-meta-box.php:265
-#: dist/chunks/3158.js:1 dist/chunks/reports-fees.js:1
+#: dist/chunks/146.js:1 dist/chunks/reports-fees.js:1
 msgid "Normal"
 msgstr "Нормално"
 
 #: includes/class-wc-payments-order-success-page.php:140
-#: includes/class-wc-payments-order-success-page.php:617
-#: includes/class-wc-payments-order-success-page.php:679 dist/chunks/3158.js:1
+#: includes/class-wc-payments-order-success-page.php:625
+#: includes/class-wc-payments-order-success-page.php:687 dist/chunks/146.js:1
 #: dist/chunks/reports-balance.js:1 dist/chunks/wcpay-capital.js:1
 #: dist/chunks/wcpay-money-movement.js:1 dist/chunks/wcpay-overview.js:1
 #: dist/chunks/wcpay-payouts.js:1
 msgid "Amount"
 msgstr "Износ"
 
-#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:824
-#: dist/blocks-checkout.js:1 dist/chunks/3158.js:1
-#: dist/chunks/wcpay-overview.js:1 dist/express-checkout.js:1
-msgid "Pending"
-msgstr "Чека"
-
-#: includes/admin/class-wc-payments-admin.php:442
-#: includes/admin/class-wc-payments-admin.php:593
+#: includes/admin/class-wc-payments-admin.php:430
+#: includes/admin/class-wc-payments-admin.php:581
 #: dist/chunks/wcpay-money-movement.js:1 dist/index.js:2
 msgid "Challenge dispute"
 msgstr "Оспори спор"
 
-#: includes/admin/class-wc-payments-admin.php:434
-#: includes/admin/class-wc-payments-admin.php:584
+#: includes/admin/class-wc-payments-admin.php:422
+#: includes/admin/class-wc-payments-admin.php:572
 #: dist/chunks/wcpay-money-movement.js:1 dist/index.js:2
 msgid "Dispute details"
 msgstr "Детаљи спора"
 
-#: includes/admin/class-wc-payments-admin.php:426
-#: includes/admin/class-wc-payments-admin.php:575 dist/index.js:2
+#: includes/admin/class-wc-payments-admin.php:414
+#: includes/admin/class-wc-payments-admin.php:563 dist/index.js:2
 msgid "Payment details"
 msgstr "Детаљи плаћања"
 
-#: includes/admin/class-wc-payments-admin.php:360
+#: includes/admin/class-wc-payments-admin.php:348
 #: dist/chunks/reports-balance-actions.js:1 dist/chunks/reports-balance.js:1
 #: dist/chunks/wcpay-money-movement.js:1 dist/index.js:2
 msgid "Disputes"
 msgstr "Спорови"
 
-#: includes/admin/class-wc-payments-admin.php:350 dist/chunks/3158.js:1
+#: includes/admin/class-wc-payments-admin.php:338 dist/chunks/146.js:1
 #: dist/chunks/wcpay-money-movement.js:1 dist/index.js:2 dist/settings.js:2
 msgid "Transactions"
 msgstr "Трансакције"
 
-#: includes/admin/class-wc-payments-admin.php:400 dist/index.js:2
+#: includes/admin/class-wc-payments-admin.php:388 dist/index.js:2
 msgid "Payments"
 msgstr "Плаћања"
 
 #. translators: %1: original error message.
-#: includes/wc-payment-api/class-wc-payments-api-client.php:549
+#: includes/wc-payment-api/class-wc-payments-api-client.php:556
 #: includes/wc-payment-api/class-wc-payments-http.php:121
 msgid "Http request failed. Reason: %1$s"
 msgstr "HTTP захтев није успео. Разлог: %1$s"
 
 #. translators: This is an error API response.
-#: includes/class-wc-payments-utils.php:809
-#: includes/class-wc-payments-utils.php:815
-#: includes/wc-payment-api/class-wc-payments-api-client.php:2908
+#: includes/class-wc-payments-utils.php:857
+#: includes/class-wc-payments-utils.php:863
+#: includes/wc-payment-api/class-wc-payments-api-client.php:2917
 msgctxt "API error message to throw as Exception"
 msgid "Error: %1$s"
 msgstr "Грешка: %1$s"
 
-#: includes/wc-payment-api/class-wc-payments-api-client.php:2903
+#: includes/wc-payment-api/class-wc-payments-api-client.php:2912
 msgid "Server error. Please try again."
 msgstr "Грешка сервера. Покушајте поново."
 
-#: includes/wc-payment-api/class-wc-payments-api-client.php:2828
+#: includes/wc-payment-api/class-wc-payments-api-client.php:2837
 msgid "Unable to decode response from WooCommerce Payments API"
 msgstr "Није могуће декодирати одговор WooCommerce Payments API-ја"
 
-#: includes/wc-payment-api/class-wc-payments-api-client.php:2694
+#: includes/wc-payment-api/class-wc-payments-api-client.php:2703
 msgid "Unable to encode body for request to WooCommerce Payments API."
 msgstr "Није могуће кодирати тело захтева за WooCommerce Payments API."
 
-#: includes/wc-payment-api/class-wc-payments-api-client.php:856
+#: includes/wc-payment-api/class-wc-payments-api-client.php:863
 msgid "Max file size exceeded."
 msgstr "Премашена је највећа величина датотеке."
 
-#: includes/class-wc-payments-account.php:2361
+#: includes/class-wc-payments-account.php:2371
 msgid "There was a problem processing your account data. Please try again."
 msgstr "Дошло је до проблема при обради података вашег налога. Покушајте поново."
 
-#: includes/class-wc-payment-gateway-wcpay.php:4123
-#: includes/class-wc-payments-order-service.php:1829
+#: includes/class-wc-payment-gateway-wcpay.php:4489
+#: includes/class-wc-payments-order-service.php:2363
 msgid "Canceling authorization <strong>failed</strong> to complete."
 msgstr "Отказивање одобрења <strong>није успело</strong> да се доврши."
 
 #. translators: %1: transaction ID of the payment, %2: transaction details URL
-#: includes/class-wc-payments-order-service.php:2321
+#: includes/class-wc-payments-order-service.php:2861
 msgid "Payment authorization was successfully <strong>cancelled</strong> (<a>%1$s</a>)."
 msgstr "Одобрење плаћања успешно је <strong>отказано</strong> (<a>%1$s</a>)."
 
-#: includes/class-wc-payment-gateway-wcpay.php:3949
+#: includes/class-wc-payment-gateway-wcpay.php:4318
 msgid "Cancel authorization"
 msgstr "Откажи одобрење"
 
-#: includes/class-wc-payment-gateway-wcpay.php:3948
+#: includes/class-wc-payment-gateway-wcpay.php:4317
 msgid "Capture charge"
 msgstr "Наплати задужење"
 
 #. translators: %1: the successfully charged amount, %2: error message
-#: includes/class-wc-payment-gateway-wcpay.php:2989
+#: includes/class-wc-payment-gateway-wcpay.php:3346
 msgid "A refund of %1$s failed to complete: %2$s"
 msgstr "Рефундација од %1$s није успела да се доврши: %2$s"
 
-#: includes/class-wc-payments-checkout.php:539 dist/blocks-checkout.js:1
+#: includes/class-wc-payments-checkout.php:598 dist/blocks-checkout.js:1
 #: dist/checkout.js:1
 msgid "An error was encountered when preparing the payment form. Please try again later."
 msgstr "Дошло је до грешке при припреми обрасца за плаћање. Покушајте поново касније."
 
-#: includes/class-wc-payment-gateway-wcpay.php:422
+#: includes/class-wc-payment-gateway-wcpay.php:644
 msgid "When enabled debug notes will be added to the log."
 msgstr "Када је укључено, белешке за отклањање грешака биће додате у дневник."
 
-#: includes/class-wc-payment-gateway-wcpay.php:421
+#: includes/class-wc-payment-gateway-wcpay.php:643
 msgid "Debug log"
 msgstr "Белешка отклањања грешака"
 
-#: includes/class-wc-payment-gateway-wcpay.php:416
+#: includes/class-wc-payment-gateway-wcpay.php:638
 msgid "Simulate transactions using test card numbers."
 msgstr "Симулирајте трансакције помоћу пробних бројева картица."
 
-#: includes/class-wc-payment-gateway-wcpay.php:414 dist/settings.js:2
+#: includes/class-wc-payment-gateway-wcpay.php:636 dist/settings.js:2
 msgid "Enable test mode"
 msgstr "Укључи пробни режим"
 
-#: includes/class-wc-payment-gateway-wcpay.php:413 dist/settings.js:2
+#: includes/class-wc-payment-gateway-wcpay.php:635 dist/settings.js:2
 msgid "Test mode"
 msgstr "Тест режим"
 
-#: includes/class-wc-payment-gateway-wcpay.php:398
+#: includes/class-wc-payment-gateway-wcpay.php:620
 msgid "Manual capture"
 msgstr "Ручна наплата"
 
-#: includes/class-wc-payment-gateway-wcpay.php:399
+#: includes/class-wc-payment-gateway-wcpay.php:621
 msgid "Issue an authorization on checkout, and capture later."
 msgstr "Издајте одобрење при плаћању и наплатите касније."
 
 #: includes/admin/class-wc-payments-admin-settings.php:314
-#: includes/admin/class-wc-payments-admin.php:547
-#: includes/admin/class-wc-payments-admin.php:1243 dist/settings.js:2
+#: includes/admin/class-wc-payments-admin.php:535
+#: includes/admin/class-wc-payments-admin.php:1214 dist/settings.js:2
 msgid "Settings"
 msgstr "Подешавања"
 
@@ -5266,3 +5312,14 @@ msgstr "https://woocommerce.com/"
 #: woocommerce-payments.php
 msgid "Accept payments via credit card. Manage transactions within WordPress."
 msgstr "Примајте плаћања кредитним картицама. Управљајте трансакцијама у Вордпресу."
+
+#: includes/express-checkout/class-wc-payments-express-checkout-button-helper.php:991
+#: dist/blocks-checkout.js:1 dist/chunks/146.js:1
+#: dist/chunks/wcpay-overview.js:1 dist/express-checkout.js:1
+msgid "Pending"
+msgstr "На чекању"
+
+#: includes/in-person-payments/templates/html-in-person-payment-receipt.php:138
+#: dist/chunks/265.js:9 dist/chunks/wcpay-money-movement.js:1
+msgid "Order"
+msgstr "Редослед"

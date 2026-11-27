@@ -13,7 +13,6 @@ use WCPay\Core\Server\Request;
 use WCPay\Database_Cache;
 use WCPay\Inline_Script_Payloads\Woo_Payments_Payment_Method_Definitions;
 use WCPay\Inline_Script_Payloads\Woo_Payments_Payment_Methods_Config;
-use WCPay\Internal\Experiment\ReviewPromptExperiment;
 use WCPay\Logger;
 use WCPay\WooPay\WooPay_Utilities;
 
@@ -82,13 +81,6 @@ class WC_Payments_Admin {
 	private $order_service;
 
 	/**
-	 * WC_Payments_Incentives_Service instance to get information for incentives.
-	 *
-	 * @var WC_Payments_Incentives_Service
-	 */
-	private $incentives_service;
-
-	/**
 	 * WC_Payments_PM_Promotions_Service instance to get information for payment method promotions.
 	 *
 	 * @var WC_Payments_PM_Promotions_Service
@@ -135,7 +127,6 @@ class WC_Payments_Admin {
 	 * @param WC_Payments_Account               $account               Account instance.
 	 * @param WC_Payments_Onboarding_Service    $onboarding_service    Onboarding service instance.
 	 * @param WC_Payments_Order_Service         $order_service         Order service instance.
-	 * @param WC_Payments_Incentives_Service    $incentives_service    Incentives service instance.
 	 * @param WC_Payments_PM_Promotions_Service $pm_promotions_service PM Promotions service instance.
 	 * @param WC_Payments_Fraud_Service         $fraud_service         Fraud service instance.
 	 * @param Database_Cache                    $database_cache        Database Cache instance.
@@ -146,7 +137,6 @@ class WC_Payments_Admin {
 		WC_Payments_Account $account,
 		WC_Payments_Onboarding_Service $onboarding_service,
 		WC_Payments_Order_Service $order_service,
-		WC_Payments_Incentives_Service $incentives_service,
 		WC_Payments_PM_Promotions_Service $pm_promotions_service,
 		WC_Payments_Fraud_Service $fraud_service,
 		Database_Cache $database_cache
@@ -156,7 +146,6 @@ class WC_Payments_Admin {
 		$this->account               = $account;
 		$this->onboarding_service    = $onboarding_service;
 		$this->order_service         = $order_service;
-		$this->incentives_service    = $incentives_service;
 		$this->pm_promotions_service = $pm_promotions_service;
 		$this->fraud_service         = $fraud_service;
 		$this->database_cache        = $database_cache;
@@ -186,7 +175,6 @@ class WC_Payments_Admin {
 		add_action( 'admin_init', [ $this, 'add_css_classes' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_wc_payment_settings_spotlight' ] );
 		add_action( 'admin_footer', [ $this, 'inject_payment_settings_spotlight_container' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_wc_payments_review_prompt' ] );
 	}
 
 	/**
@@ -730,17 +718,6 @@ class WC_Payments_Admin {
 			WC_Payments::get_file_version( 'dist/wc-payments-settings-spotlight.css' ),
 			'all'
 		);
-
-		WC_Payments::register_script_with_dependencies( 'WCPAY_REVIEW_PROMPT', 'dist/wc-payments-review-prompt' );
-		wp_set_script_translations( 'WCPAY_REVIEW_PROMPT', 'woocommerce-payments' );
-
-		WC_Payments_Utils::register_style(
-			'WCPAY_REVIEW_PROMPT',
-			plugins_url( 'dist/wc-payments-review-prompt.css', WCPAY_PLUGIN_FILE ),
-			[],
-			WC_Payments::get_file_version( 'dist/wc-payments-review-prompt.css' ),
-			'all'
-		);
 	}
 
 	/**
@@ -981,19 +958,16 @@ class WC_Payments_Admin {
 			Logger::log( sprintf( 'WooPayments JS settings: Could not determine if we should onboard accounts in test mode! Message: %s', $e->getMessage() ), 'warning' );
 		}
 
-		$dev_mode = false;
+		$dev_mode        = false;
+		$dev_mode_reason = '';
 		try {
-			$dev_mode = WC_Payments::mode()->is_dev();
+			$dev_mode        = WC_Payments::mode()->is_dev();
+			$dev_mode_reason = WC_Payments_Utils::get_dev_mode_reason( WC_Payments::mode()->get_dev_mode_triggers() );
 		} catch ( Exception $e ) {
 			Logger::log( sprintf( 'WooPayments JS settings: Could not determine if the gateway should be in dev mode! Message: %s', $e->getMessage() ), 'warning' );
 		}
 
-		$connect_url       = WC_Payments_Account::get_connect_url();
-		$connect_incentive = $this->incentives_service->get_connect_incentive();
-		// If we have an incentive ID, attach it to the connect URL.
-		if ( ! empty( $connect_incentive['id'] ) ) {
-			$connect_url = add_query_arg( [ 'promo' => sanitize_text_field( $connect_incentive['id'] ) ], $connect_url );
-		}
+		$connect_url = WC_Payments_Account::get_connect_url();
 
 		// Get the site logo URL, if available.
 		$site_logo_id  = get_theme_mod( 'custom_logo' );
@@ -1008,8 +982,8 @@ class WC_Payments_Admin {
 				'availableCountries' => WC_Payments_Utils::supported_countries(),
 				'availableStates'    => WC()->countries->get_states(),
 			],
-			'connectIncentive'                   => $connect_incentive,
 			'devMode'                            => $dev_mode,
+			'devModeReason'                      => $dev_mode_reason,
 			'testModeOnboarding'                 => $test_mode_onboarding,
 			'testMode'                           => $test_mode,
 			// Set this flag for use in the front-end to alter messages and notices if on-boarding has been disabled.
@@ -1047,9 +1021,6 @@ class WC_Payments_Admin {
 			'currencyData'                       => $currency_data,
 			'restUrl'                            => get_rest_url( null, '' ), // rest url to concatenate when merchant use Plain permalinks.
 			'siteLogoUrl'                        => $site_logo_url,
-			'fraudProtection'                    => [
-				'isWelcomeTourDismissed' => WC_Payments_Features::is_fraud_protection_welcome_tour_dismissed(),
-			],
 			'accountDefaultCurrency'             => $this->account->get_account_default_currency(),
 			'storeCurrency'                      => get_option( 'woocommerce_currency' ),
 			'isWooPayStoreCountryAvailable'      => WooPay_Utilities::is_store_country_available(),
@@ -1472,7 +1443,7 @@ class WC_Payments_Admin {
 	 */
 	private function get_uncaptured_transactions_count() {
 		$test_mode = WC_Payments::mode()->is_test();
-		$cache_key = $test_mode ? DATABASE_CACHE::AUTHORIZATION_SUMMARY_KEY_TEST_MODE : DATABASE_CACHE::AUTHORIZATION_SUMMARY_KEY;
+		$cache_key = $test_mode ? Database_Cache::AUTHORIZATION_SUMMARY_KEY_TEST_MODE : Database_Cache::AUTHORIZATION_SUMMARY_KEY;
 
 		$send_callback         = function () {
 			$request = Request::get( WC_Payments_API_Client::AUTHORIZATIONS_API . '/summary' );
@@ -1560,93 +1531,5 @@ class WC_Payments_Admin {
 			! isset( $_REQUEST['section'] )
 			&& is_admin();
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-	}
-
-	/**
-	 * Check if the review prompt should be shown based on eligibility and user state.
-	 *
-	 * @return bool True if the prompt should be shown, false otherwise.
-	 */
-	public function should_show_review_prompt() {
-		// Only show on top-level Payments Settings page.
-		if ( ! $this->is_wc_admin_payments_settings_page() ) {
-			return false;
-		}
-
-		// Check account eligibility.
-		if ( ! $this->account->is_review_prompt_eligible() ) {
-			return false;
-		}
-
-		// Check user dismissal/cooldown state.
-		$user_id     = get_current_user_id();
-		$dismissed   = (int) get_user_meta( $user_id, 'woocommerce_admin_wc_payments_review_prompt_dismissed', true );
-		$maybe_later = (int) get_user_meta( $user_id, 'woocommerce_admin_wc_payments_review_prompt_maybe_later', true );
-
-		// If dismissed permanently, don't show.
-		if ( $dismissed > 0 ) {
-			return false;
-		}
-
-		// If cooldown is active (within 10 days), don't show.
-		if ( $maybe_later > 0 ) {
-			$cooldown_seconds = 10 * DAY_IN_SECONDS;
-			$now              = time();
-			if ( $now < ( $maybe_later + $cooldown_seconds ) ) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	/**
-	 * Enqueue the review prompt script on top-level Payments Settings page.
-	 */
-	public function enqueue_wc_payments_review_prompt() {
-		if ( ! $this->should_show_review_prompt() ) {
-			return;
-		}
-
-		add_action( 'admin_footer', [ $this, 'inject_review_prompt_container' ] );
-
-		$experiment = wcpay_get_container()->get( ReviewPromptExperiment::class );
-
-		/**
-		 * Filters the review prompt experiment variant.
-		 *
-		 * Internal filter for QA: forces a specific design variant locally
-		 * without an ExPlat assignment. Not a public extension point.
-		 *
-		 * @since 11.0.0
-		 *
-		 * @param string $variant The assigned variant.
-		 */
-		$variant = apply_filters( 'wcpay_review_prompt_experiment_variant', $experiment->get_variant() );
-		$variant = is_scalar( $variant ) ? (string) $variant : '';
-
-		if ( ! $experiment->is_valid_variant( $variant ) ) {
-			$variant = ReviewPromptExperiment::VARIANT_CONTROL;
-		}
-
-		wp_localize_script(
-			'WCPAY_REVIEW_PROMPT',
-			'wcpayReviewPromptSettings',
-			[
-				'version'    => WCPAY_VERSION_NUMBER,
-				'experiment' => $experiment->name(),
-				'variant'    => $variant,
-			]
-		);
-
-		wp_enqueue_script( 'WCPAY_REVIEW_PROMPT' );
-		wp_enqueue_style( 'WCPAY_REVIEW_PROMPT' );
-	}
-
-	/**
-	 * Inject the container div for the review prompt on top-level Payments settings page.
-	 */
-	public function inject_review_prompt_container() {
-		echo '<div id="wcpay-review-prompt"></div>';
 	}
 }

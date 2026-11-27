@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO &#8211; Advanced SEO with real-time guidance and built-in AI - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-09-29 14:55:04+0000\n"
+"PO-Revision-Date: 2026-11-18 06:23:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,55 +11,529 @@ msgstr ""
 "Language: sr_RS\n"
 "Project-Id-Version: Plugins - Yoast SEO &#8211; Advanced SEO with real-time guidance and built-in AI - Stable (latest release)\n"
 
+#. translators: %s expands to the name of the analysis, e.g. "SEO analysis".
+#: src/abilities/user-interface/seo-data-output-schema.php:135
+msgid "The result of the %s as calculated at the last save in the editor."
+msgstr "Резултат за %s израчунат при последњем чувању у уређивачу."
+
+#: src/abilities/user-interface/seo-data-output-schema.php:47
+msgid "Whether search engines are told not to index this term archive. true means noindex (the archive is excluded from search results); false means the archive is forced to be indexed; null means no setting is stored and the taxonomy default applies."
+msgstr "Да ли је претраживачима речено да не индексирају архиву овог члана таксономије. Вредност true значи noindex (архива је искључена из резултата претраге); вредност false значи да се архива принудно индексира; вредност null значи да ниједно подешавање није сачувано и да се примењује подразумевана вредност таксономије."
+
+#: src/abilities/user-interface/seo-data-output-schema.php:43
+msgid "The canonical URL as output on the front end: the custom value when set, otherwise the permalink of the term. Null when nothing is output."
+msgstr "Канонски URL који се исписује на предњем делу: прилагођена вредност када је подешена, а у супротном стална веза члана таксономије. Вредност null када се ништа не исписује."
+
+#: src/abilities/user-interface/seo-data-output-schema.php:39
+msgid "The custom canonical URL as stored for the term. Null when no custom value is set; the rendered companion field carries what is actually output."
+msgstr "Прилагођени канонски URL сачуван за члан таксономије. Вредност null када прилагођена вредност није подешена; исцртано пратеће поље садржи оно што се заправо исписује."
+
+#. translators: %s expands to the name of the SEO field, e.g. "SEO title".
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:169
+msgid "The %s for the term."
+msgstr "%s за члан таксономије."
+
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:142
+msgid "Whether the term is marked as cornerstone content."
+msgstr "Да ли је члан таксономије означен као кључни садржај."
+
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:138
+msgid "The custom canonical URL for the term archive. Use null or an empty string to remove it and fall back to the default canonical."
+msgstr "Прилагођени канонски URL за архиву члана таксономије. Користите null или празан стринг да га уклоните и вратите се на подразумевани канонски URL."
+
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:132
+msgid "The permalink (URL) of the term archive to update."
+msgstr "Стална веза (URL) архиве члана таксономије коју треба ажурирати."
+
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:127
+msgid "The ID of the term to update."
+msgstr "ID члана таксономије који треба ажурирати."
+
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:146
+msgid "Whether search engines should be told not to index this term archive. true sets noindex (the archive is excluded from search results); false forces the archive to be indexed; null clears the setting and falls back to the taxonomy default."
+msgstr "Да ли претраживачима треба рећи да не индексирају архиву овог члана таксономије. Вредност true поставља noindex (архива је искључена из резултата претраге); вредност false принудно индексира архиву; вредност null уклања подешавање и враћа се на подразумевану вредност таксономије."
+
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:82
+msgid "Update the SEO data for a single taxonomy term, such as a category or a tag. Identify the term by term_id or by permalink (URL). Only the fields you provide are changed; a provided empty value clears that field. Only terms the current user is allowed to edit can be updated."
+msgstr "Ажурирајте SEO податке за појединачни члан таксономије, као што је категорија или ознака. Одредите члан помоћу параметра term_id или сталне везе (URL). Мењају се само поља која наведете; наведена празна вредност празни то поље. Могу се ажурирати само чланови које тренутни корисник има дозволу да уређује."
+
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:81
+msgid "Update Term SEO Data"
+msgstr "Ажурирај SEO податке члана таксономије"
+
+#: src/abilities/user-interface/abilities/update-author-schema-ability.php:125
+msgid "Only present when a requested setting could not be applied or saved, for example when a social profile is not a valid URL. Meant to be relayed to the user."
+msgstr "Присутно само када тражено подешавање није могло бити примењено или сачувано, на пример када друштвени профил није исправан URL. Намењено је за преношење кориснику."
+
+#. translators: %s expands to Yoast SEO.
+#: src/abilities/user-interface/abilities/update-author-schema-ability.php:108
+msgid "Update %s's author schema settings of a user, which provide their pronouns, social profiles and, depending on the active add-ons, other details for the user's Person schema. That schema describes the user as the author of their posts, on their author archive, and as the site itself when the site represents this user. Only the settings you provide are changed; a provided empty string clears that setting. Provide only the user ID to read the current settings without changing anything. These settings are published as personal details about the user: only use values you were given, never guessed, inferred (for example pronouns from a name) or found elsewhere, and confirm them before saving."
+msgstr "Ажурирајте подешавања ауторске шеме додатка %s за корисника, која обезбеђују заменице, друштвене профиле и, у зависности од укључених допуна, друге детаље за шему Person тог корисника. Та шема описује корисника као аутора његових чланака, на његовој архиви аутора и као сам сајт када сајт представља тог корисника. Мењају се само подешавања која наведете; наведени празан стринг уклања то подешавање. Наведите само ID корисника да бисте прочитали тренутна подешавања без икаквих измена. Ова подешавања се објављују као лични подаци о кориснику: користите само вредности које су вам дате, никада претпостављене, изведене (на пример заменице из имена) или пронађене на другом месту, и потврдите их пре чувања."
+
+#. translators: %s expands to the name of a target.
+#: src/abilities/user-interface/abilities/update-archive-and-special-page-seo-settings-ability.php:106
+msgid "The post type of the content type whose archive to update. Required for the %s target, ignored for the others."
+msgstr "Врста чланка за врсту садржаја чију архиву треба ажурирати. Обавезно за циљ %s, занемарује се за остале."
+
+#: src/abilities/user-interface/abilities/update-archive-and-special-page-seo-settings-ability.php:100
+msgid "The pages to update."
+msgstr "Странице које треба ажурирати."
+
+#. translators: %s: the name of an ability.
+#: src/abilities/user-interface/abilities/update-archive-and-special-page-seo-settings-ability.php:86
+msgid "Update the SEO settings of the homepage when it shows the latest posts, an archive or a special page. Category, tag and other taxonomy archives are not included; use the %s ability for their individual terms. Only the settings you provide are changed. Only use snippet variables that apply to the pages you update, as the ones that do not are silently removed when the page is rendered."
+msgstr "Ажурирајте SEO подешавања почетне странице када приказује најновије чланке, архиву или посебну страницу. Архиве категорија, ознака и других таксономија нису обухваћене; користите способност %s за њихове појединачне чланове. Мењају се само подешавања која наведете. Користите само променљиве исечка које важе за странице које ажурирате, јер се оне које не важе тихо уклањају при исцртавању странице."
+
+#: src/abilities/user-interface/abilities/update-author-schema-ability.php:105
+msgid "Update Author Schema"
+msgstr "Ажурирај шему аутора"
+
+#: src/abilities/user-interface/abilities/update-author-schema-ability.php:101
+msgid "The ID of the user whose settings to update or read."
+msgstr "ID корисника чија подешавања треба ажурирати или прочитати."
+
+#: src/abilities/user-interface/abilities/update-archive-and-special-page-seo-settings-ability.php:83
+msgid "Update SEO Settings for Archives and Special Pages"
+msgstr "Ажурирај SEO подешавања за архиве и посебне странице"
+
+#: src/abilities/user-interface/abilities/update-archive-and-special-page-seo-settings-ability.php:79
+msgid "Only present when some of the provided settings were not saved, or when the pages are disabled so the saved settings have no effect yet. Meant to be relayed to the user."
+msgstr "Присутно само када нека од наведених подешавања нису сачувана или када су странице онемогућене па сачувана подешавања још немају дејство. Намењено је за преношење кориснику."
+
+#. translators: 1: the name of an ability, 2: the name of an ability.
+#: src/abilities/user-interface/abilities/get-archive-and-special-page-seo-settings-ability.php:76
+msgid "Get the SEO settings of the homepage when it shows the latest posts, the archives and the special pages. Category, tag and other taxonomy archives are not included; use the %1$s ability for their individual terms. A static homepage is not included either, as it is a page whose SEO data is read with the %2$s ability. The title and description templates can contain snippet variables, and are returned as stored rather than as shown on the site."
+msgstr "Преузмите SEO подешавања почетне странице када приказује најновије чланке, архиве и посебне странице. Архиве категорија, ознака и других таксономија нису обухваћене; користите способност %1$s за њихове појединачне чланове. Статичка почетна страница такође није обухваћена, јер је то страница чији се SEO подаци читају помоћу способности %2$s. Шаблони наслова и описа могу да садрже променљиве исечка и враћају се онако како су сачувани, а не онако како се приказују на сајту."
+
+#: src/abilities/user-interface/abilities/get-term-seo-data-ability.php:107
+msgid "The permalink (URL) of the term archive to retrieve."
+msgstr "Стална веза (URL) архиве члана таксономије коју треба преузети."
+
+#: src/abilities/user-interface/abilities/get-term-seo-data-ability.php:102
+msgid "The ID of the term to retrieve."
+msgstr "ID члана таксономије који треба преузети."
+
+#: src/abilities/user-interface/abilities/get-term-seo-data-ability.php:70
+msgid "Get the SEO data for a single taxonomy term, such as a category or a tag. Identify the term by term_id or by permalink (URL). Only terms the current user is allowed to edit are returned."
+msgstr "Преузмите SEO податке за појединачни члан таксономије, као што је категорија или ознака. Одредите члан помоћу параметра term_id или сталне везе (URL). Враћају се само чланови које тренутни корисник има дозволу да уређује."
+
+#: src/abilities/user-interface/abilities/get-term-seo-data-ability.php:69
+msgid "Get Term SEO Data"
+msgstr "Преузми SEO податке члана таксономије"
+
+#: src/abilities/user-interface/abilities/get-archive-and-special-page-seo-settings-ability.php:73
+msgid "Get SEO Settings for Archives and Special Pages"
+msgstr "Преузми SEO подешавања за архиве и посебне странице"
+
+#: src/abilities/user-interface/abilities/abstract-archive-and-special-page-seo-settings-ability.php:116
+msgid "Whether these pages are in use on the site. Read-only: it can only be changed in the Yoast SEO settings. The settings of disabled pages can still be changed, but have no effect until they are enabled."
+msgstr "Да ли се ове странице користе на сајту. Само за читање: може се променити само у Yoast SEO подешавањима. Подешавања онемогућених страница се и даље могу мењати, али немају дејство док се странице не омогуће."
+
+#: src/abilities/user-interface/abilities/abstract-archive-and-special-page-seo-settings-ability.php:120
+msgid "Whether these settings are shared by many pages, like all author archives. Shared settings apply to every one of those pages, so their templates must not contain text about one specific page; use snippet variables for what differs between them."
+msgstr "Да ли ова подешавања дели више страница, попут свих архива аутора. Дељена подешавања се примењују на сваку од тих страница, па њихови шаблони не смеју да садрже текст о једној одређеној страници; користите променљиве исечка за оно што се међу њима разликује."
+
+#. translators: %s expands to the name of a target.
+#: src/abilities/user-interface/abilities/abstract-archive-and-special-page-seo-settings-ability.php:107
+msgid "Only present for the %s target: the name of the content type."
+msgstr "Присутно само за циљ %s: назив врсте садржаја."
+
+#. translators: %s expands to the name of a target.
+#: src/abilities/user-interface/abilities/abstract-archive-and-special-page-seo-settings-ability.php:99
+msgid "Only present for the %s target: the post type of the content type."
+msgstr "Присутно само за циљ %s: врста чланка за врсту садржаја."
+
+#: src/abilities/user-interface/abilities/abstract-archive-and-special-page-seo-settings-ability.php:93
+msgid "The pages these settings belong to."
+msgstr "Странице којима ова подешавања припадају."
+
+#. translators: 1: WooCommerce, 2: the ID of a page, 3: the name of an ability.
+#: src/abilities/infrastructure/global-setting-targets/post-type-archive-target.php:169
+msgid "With %1$s active, the product archive takes its SEO data from the Shop page (ID %2$d), so it is set on that page with the %3$s ability instead."
+msgstr "Када је %1$s укључен, архива производа преузима своје SEO податке са странице продавнице (ID %2$d), па се уместо тога подешава на тој страници помоћу способности %3$s."
+
+#. translators: %1$s expands to WooCommerce.
+#: src/abilities/infrastructure/global-setting-targets/post-type-archive-target.php:159
+msgid "With %1$s active, the product archive takes its SEO data from the Shop page, but no Shop page is set in the %1$s settings."
+msgstr "Када је %1$s укључен, архива производа преузима своје SEO податке са странице продавнице, али ниједна страница продавнице није подешена у подешавањима додатка %1$s."
+
+#. translators: 1: the name of a parameter, 2: the name of an ability.
+#: src/abilities/infrastructure/global-setting-targets/post-type-archive-target.php:130
+msgid "No content type archive with SEO data exists for the given %1$s. The %2$s ability lists the ones that do."
+msgstr "За дати %1$s не постоји архива врсте садржаја са SEO подацима. Способност %2$s приказује оне које постоје."
+
+#. translators: %s expands to the name of a parameter.
+#: src/abilities/infrastructure/global-setting-targets/post-type-archive-target.php:118
+msgid "Provide the %s of the content type whose archive to update."
+msgstr "Наведите %s врсте садржаја чију архиву треба ажурирати."
+
+#. translators: 1: the ID of a page, 2: the name of an ability.
+#: src/abilities/infrastructure/global-setting-targets/homepage-target.php:67
+msgid "The homepage of this site is a static page (ID %1$d), so its SEO data is set on that page with the %2$s ability instead."
+msgstr "Почетна страница овог сајта је статичка страница (ID %1$d), па се њени SEO подаци уместо тога подешавају на тој страници помоћу способности %2$s."
+
+#: src/abilities/infrastructure/global-setting-targets/global-setting-target-repository.php:110
+msgid "The given target is not valid."
+msgstr "Наведени циљ није исправан."
+
+#: src/abilities/infrastructure/global-setting-field-map.php:162
+msgid "Whether search engines are told not to index these pages. true hides them from search results; false lets them be shown in search results."
+msgstr "Да ли је претраживачима речено да не индексирају ове странице. Вредност true их сакрива из резултата претраге; вредност false омогућава њихово приказивање у резултатима претраге."
+
+#. translators: %s: the format of a snippet variable.
+#: src/abilities/infrastructure/global-setting-field-map.php:150
+msgid "The meta description template, shown below the title in search results. It can contain snippet variables in the %s format, which are replaced with the values of the page it is shown on. When empty, no meta description is output."
+msgstr "Шаблон мета описа, приказан испод наслова у резултатима претраге. Може да садржи променљиве исечка у облику %s, које се замењују вредностима странице на којој се приказује. Када је празно, мета опис се не исписује."
+
+#: src/abilities/infrastructure/term-identifier-resolver.php:107
+msgid "No term could be found for the given identifier."
+msgstr "Ниједан члан таксономије није пронађен за дати идентификатор."
+
+#: src/abilities/infrastructure/term-identifier-resolver.php:51
+msgid "Provide a term_id or a permalink to identify the term."
+msgstr "Наведите term_id или сталну везу за одређивање члана таксономије."
+
+#: src/abilities/infrastructure/indexable-access-checker.php:38
+msgid "Sorry, you are not allowed to edit this term."
+msgstr "Жао нам је, није вам дозвољено да уређујете овај члан таксономије."
+
+#. translators: %s: the format of a snippet variable.
+#: src/abilities/infrastructure/global-setting-field-map.php:134
+msgid "The SEO title template. It can contain snippet variables in the %s format, which are replaced with the values of the page it is shown on. When empty, the default title is used."
+msgstr "Шаблон SEO наслова. Може да садржи променљиве исечка у облику %s, које се замењују вредностима странице на којој се приказује. Када је празно, користи се подразумевани наслов."
+
+#: src/abilities/infrastructure/author-schema-field-map.php:246
+msgid "Only users who can edit other users can change them."
+msgstr "Само корисници који могу да уређују друге кориснике могу да их промене."
+
+#: src/abilities/infrastructure/author-schema-field-map.php:242
+msgid "Author archives are disabled on this site, so the pronouns cannot be changed."
+msgstr "Архиве аутора су онемогућене на овом сајту, па се заменице не могу мењати."
+
+#: src/abilities/infrastructure/author-schema-field-map.php:239
+msgid "The pronouns of the user, like \"she/her\", \"he/him\" or \"they/them\"."
+msgstr "Заменице корисника, као што су „она/њој“, „он/њему“ или „они/њима“."
+
+#. translators: %s expands to the name of a setting.
+#: src/abilities/infrastructure/author-schema-field-map.php:223
+msgid "The %s setting was not changed, because only users who can edit other users can change it."
+msgstr "Подешавање %s није промењено јер могу да га мењају само корисници који могу да уређују друге кориснике."
+
+#. translators: %s expands to the name of a setting.
+#: src/abilities/infrastructure/author-schema-field-map.php:214
+msgid "The %s setting was not changed, because author archives are disabled on this site."
+msgstr "Подешавање %s није промењено јер су архиве аутора онемогућене на овом сајту."
+
+#: src/abilities/infrastructure/author-schema-field-map.php:196
+msgid "The URL of the Wikipedia page about the user."
+msgstr "URL странице на пројекту Wikipedia о кориснику."
+
+#: src/abilities/infrastructure/author-schema-field-map.php:192
+msgid "The URL of the user's YouTube channel."
+msgstr "URL YouTube канала корисника."
+
+#: src/abilities/infrastructure/author-schema-field-map.php:188
+msgid "The X username of the user. A leading @ is removed, and an X profile URL is also accepted and saved as the username. It is also used in the X card meta tags: as the creator of the user's posts, and as the site's X account when the site represents this user."
+msgstr "X корисничко име корисника. Почетни знак @ се уклања, а прихвата се и URL X профила који се чува као корисничко име. Такође се користи у мета ознакама X картице: као аутор чланака корисника и као X налог сајта када сајт представља тог корисника."
+
+#. translators: 1: the name of a setting, 2: the name of a target.
+#: src/abilities/application/archive-and-special-page-seo-settings-updater.php:143
+msgid "The %1$s setting is not available for %2$s, so it was not saved."
+msgstr "Подешавање %1$s није доступно за %2$s, па није сачувано."
+
+#: src/abilities/application/archive-and-special-page-seo-settings-updater.php:116
+msgid "The settings were saved, but these pages are disabled on this site, so the settings have no effect until the pages are enabled in the Yoast SEO settings."
+msgstr "Подешавања су сачувана, али су ове странице онемогућене на овом сајту, па подешавања немају дејство док се странице не омогуће у Yoast SEO подешавањима."
+
+#: src/abilities/application/archive-and-special-page-seo-settings-updater.php:103
+msgid "Provide at least one setting to change."
+msgstr "Наведите бар једно подешавање за промену."
+
+#: src/abilities/infrastructure/author-schema-field-map.php:184
+msgid "The URL of the user's Tumblr profile."
+msgstr "URL Tumblr профила корисника."
+
+#: src/abilities/infrastructure/author-schema-field-map.php:180
+msgid "The URL of the user's SoundCloud profile."
+msgstr "URL SoundCloud профила корисника."
+
+#: src/abilities/infrastructure/author-schema-field-map.php:176
+msgid "The URL of the user's Pinterest profile."
+msgstr "URL Pinterest профила корисника."
+
+#: src/abilities/infrastructure/author-schema-field-map.php:172
+msgid "The URL of the user's MySpace profile."
+msgstr "URL MySpace профила корисника."
+
+#: src/abilities/infrastructure/author-schema-field-map.php:168
+msgid "The URL of the user's LinkedIn profile."
+msgstr "URL LinkedIn профила корисника."
+
+#: src/abilities/infrastructure/author-schema-field-map.php:164
+msgid "The URL of the user's Instagram profile."
+msgstr "URL Instagram профила корисника."
+
+#: src/abilities/infrastructure/author-schema-field-map.php:160
+msgid "The URL of the user's Facebook profile. It is also used as the article author in the Open Graph meta tags of the user's posts."
+msgstr "URL Facebook профила корисника. Такође се користи као аутор чланка у Open Graph мета ознакама чланака корисника."
+
+#: src/abilities/application/term-seo-data-updater.php:116
+msgid "The term SEO data was saved but the indexable could not be rebuilt."
+msgstr "SEO подаци члана таксономије су сачувани, али запис за индексирање није могао бити поново изграђен."
+
+#: src/abilities/application/term-seo-data-updater.php:108
+msgid "The term SEO data could not be saved."
+msgstr "SEO подаци члана таксономије нису могли бити сачувани."
+
+#: src/abilities/application/author-schema-updater.php:98
+msgid "No user exists with the given ID."
+msgstr "Не постоји корисник са наведеним ID-ом."
+
+#: src/abilities/user-interface/abilities/update-site-representation-ability.php:128
+msgid "Only present when a requested setting could not be applied or saved, for example when Yoast Local SEO requires the site to represent an organization or when the user to represent does not exist. Meant to be relayed to the user."
+msgstr "Присутно само када тражено подешавање није могло бити примењено или сачувано, на пример када Yoast Local SEO захтева да сајт представља организацију или када корисник кога треба представљати не постоји. Намењено је да се пренесе кориснику."
+
+#. translators: %s expands to Yoast SEO.
+#: src/abilities/user-interface/abilities/update-site-representation-ability.php:111
+msgid "Update %s's site representation settings, which tell search engines whether the site represents an organization or a person, and provide its name, logo, social profiles and, depending on the active add-ons, other details for the site's organization schema. Only the settings you provide are changed; a provided empty value (an empty string, 0 or an empty array) clears that setting, and a provided list replaces the current one. These settings are public facts about who owns the site: only use values the user provided or that come from the site itself, never guessed or found elsewhere, and confirm them with the user before saving."
+msgstr "Ажурирајте подешавања представљања сајта за %s, која претраживачима говоре да ли сајт представља организацију или особу, и наведите његов назив, логотип, друштвене профиле и, у зависности од укључених допуна, друге детаље за шему организације сајта. Мењају се само подешавања која наведете; наведена празна вредност (празан стринг, 0 или празан низ) брише то подешавање, а наведени списак замењује тренутни. Ова подешавања су јавне чињенице о томе ко је власник сајта: користите само вредности које је корисник навео или које потичу са самог сајта, никада нагађане или пронађене другде, и потврдите их са корисником пре чувања."
+
+#: src/abilities/user-interface/abilities/update-site-representation-ability.php:108
+msgid "Update Site Representation"
+msgstr "Ажурирај представљање сајта"
+
+#: src/abilities/user-interface/abilities/set-xml-sitemap-status-ability.php:86
+msgid "Set XML Sitemap Status"
+msgstr "Подеси статус XML мапе сајта"
+
+#. translators: %s expands to Yoast SEO
+#: src/abilities/user-interface/abilities/set-xml-sitemap-status-ability.php:97
+msgid "Enable or disable %s's XML sitemap feature. Enabling it serves the sitemap index at /sitemap_index.xml and its sub-sitemaps, and replaces the WordPress core sitemaps; disabling it stops serving them."
+msgstr "Омогућите или онемогућите функционалност XML мапе сајта за %s. Омогућавањем се испоручује индекс мапе сајта на /sitemap_index.xml и њене под-мапе сајта, и замењују мапе сајта основног Вордпрес система; онемогућавањем се зауставља њихово испоручивање."
+
+#. translators: %s expands to Yoast SEO
+#: src/abilities/user-interface/abilities/set-x-card-status-ability.php:58
+msgid "Enable or disable %s's X card data feature. Enabling it outputs X card meta tags on the site's pages, so X can display a preview with an image and a text excerpt when a link to the site is shared; disabling it stops outputting the tags."
+msgstr "Омогућите или онемогућите функционалност података X картице за %s. Омогућавањем се исписују мета ознаке X картице на страницама сајта, тако да X може да прикаже преглед са сликом и текстуалним одломком када се подели веза ка сајту; онемогућавањем се зауставља исписивање ознака."
+
+#: src/abilities/user-interface/abilities/set-x-card-status-ability.php:47
+msgid "Set X Card Data Status"
+msgstr "Подеси статус података X картице"
+
+#. translators: %s expands to Yoast SEO
+#: src/abilities/user-interface/abilities/set-schema-framework-status-ability.php:58
+msgid "Enable or disable %s's Schema Framework feature. Enabling it outputs a single structured data graph (JSON-LD) on the site's pages, so search engines and language models can consistently read every person, product, organization, and piece of content; disabling it stops outputting the graph."
+msgstr "Омогућите или онемогућите функционалност Оквира шеме за %s. Омогућавањем се исписује јединствени граф структурираних података (JSON-LD) на страницама сајта, тако да претраживачи и језички модели могу доследно да прочитају сваку особу, производ, организацију и део садржаја; онемогућавањем се зауставља исписивање графа."
+
+#: src/abilities/user-interface/abilities/set-schema-framework-status-ability.php:47
+msgid "Set Schema Framework Status"
+msgstr "Подеси статус Оквира шеме"
+
+#. translators: %s expands to Yoast SEO
+#: src/abilities/user-interface/abilities/set-schema-aggregation-status-ability.php:58
+msgid "Enable or disable %s's Schema aggregation endpoint feature. Enabling it serves the site's public structured data as a schema map at /schemamap.xml and through the schema aggregator REST endpoints, so conversational interfaces like NLWeb can query the site's content; disabling it stops serving them."
+msgstr "Омогућите или онемогућите функционалност крајње тачке агрегације шеме за %s. Омогућавањем се јавни структурирани подаци сајта испоручују као мапа шеме на /schemamap.xml и кроз REST крајње тачке агрегатора шеме, тако да конверзацијска сучеља попут NLWeb-а могу да упућују упите садржају сајта; онемогућавањем се зауставља њихово испоручивање."
+
+#: src/abilities/user-interface/abilities/set-schema-aggregation-status-ability.php:47
+msgid "Set Schema Aggregation Endpoint Status"
+msgstr "Подеси статус крајње тачке агрегације шеме"
+
+#. translators: %s expands to Yoast SEO
+#: src/abilities/user-interface/abilities/set-open-graph-status-ability.php:58
+msgid "Enable or disable %s's Open Graph data feature. Enabling it outputs Open Graph meta tags on the site's pages, so Facebook and other social media can display a preview with an image and a text excerpt when a link to the site is shared; disabling it stops outputting the tags."
+msgstr "Омогућите или онемогућите функционалност Open Graph података за %s. Омогућавањем се исписују Open Graph мета ознаке на страницама сајта, тако да Фејсбук и друге друштвене мреже могу да прикажу преглед са сликом и текстуалним одломком када се подели веза ка сајту; онемогућавањем се зауставља исписивање ознака."
+
+#: src/abilities/user-interface/abilities/set-open-graph-status-ability.php:47
+msgid "Set Open Graph Data Status"
+msgstr "Подеси статус Open Graph података"
+
+#. translators: %s expands to Yoast SEO
+#: src/abilities/user-interface/abilities/set-llms-txt-status-ability.php:124
+msgid "Enable or disable %s's llms.txt feature. Enabling it generates an llms.txt file for the site and keeps it up to date; disabling it removes the generated file."
+msgstr "Омогућите или онемогућите функционалност llms.txt за %s. Омогућавањем се генерише датотека llms.txt за сајт и одржава ажурном; онемогућавањем се уклања генерисана датотека."
+
+#: src/abilities/user-interface/abilities/set-llms-txt-status-ability.php:109
+msgid "Only present when the feature is enabled but the llms.txt file could not be generated. Meant to be relayed to the user."
+msgstr "Присутно само када је функционалност омогућена, али датотека llms.txt није могла бити генерисана. Намењено је да се пренесе кориснику."
+
+#: src/abilities/user-interface/abilities/set-llms-txt-status-ability.php:95
+msgid "Set llms.txt Status"
+msgstr "Подеси статус за llms.txt"
+
+#. translators: %1$s expands to Yoast SEO, %2$s: the name of the feature.
+#: src/abilities/user-interface/abilities/abstract-set-feature-status-ability.php:151
+msgid "Whether %1$s's %2$s feature is enabled."
+msgstr "Да ли је функционалност %2$s за %1$s омогућена."
+
+#. translators: %1$s expands to Yoast SEO, %2$s: the name of the feature.
+#: src/abilities/user-interface/abilities/abstract-set-feature-status-ability.php:136
+msgid "Whether %1$s's %2$s feature should be enabled. true enables it; false disables it."
+msgstr "Да ли функционалност %2$s за %1$s треба да буде омогућена. true је омогућава; false је онемогућава."
+
+#. translators: %s expands to the name of a setting.
+#: src/abilities/infrastructure/site-representation-field-validators.php:158
+msgid "The %s setting was not changed, because it is not the ID of an image in the media library."
+msgstr "Подешавање %s није промењено јер то није ID слике у медијској библиотеци."
+
+#: src/abilities/infrastructure/site-representation-field-validators.php:101
+msgid "The user to represent was not changed, because no user that you can select exists with the given ID."
+msgstr "Корисник за представљање није промењен јер не постоји ниједан корисник кога можете одабрати са датим ID-јем."
+
+#. translators: %s expands to Yoast Local SEO.
+#: src/abilities/infrastructure/site-representation-field-validators.php:75
+msgid "The site was not set to represent a person, because %s is active and requires the site to represent an organization."
+msgstr "Сајт није подешен да представља особу јер је %s укључен и захтева да сајт представља организацију."
+
+#. translators: %s expands to Yoast Local SEO.
+#: src/abilities/infrastructure/site-representation-field-map.php:152
+msgid "%s is active on this site and requires the site to represent an organization, so it always does."
+msgstr "%s је укључен на овом сајту и захтева да сајт представља организацију, па је то увек случај."
+
+#: src/abilities/infrastructure/site-representation-field-map.php:144
+msgid "Whether the site represents an organization (\"company\") or a person (\"person\")."
+msgstr "Да ли сајт представља организацију („company“) или особу („person“)."
+
+#: src/abilities/infrastructure/site-representation-field-map.php:130
+msgid "The URLs of the other social profiles of the organization, like Instagram, LinkedIn or YouTube. Only used when company_or_person is \"company\". For a person, the social profiles from the user's profile are used instead."
+msgstr "УРЛ-ови других друштвених профила организације, као што су Инстаграм, LinkedIn или Јутјуб. Користи се само када је company_or_person постављено на „company“. За особу се уместо тога користе друштвени профили из профила корисника."
+
+#: src/abilities/infrastructure/site-representation-field-map.php:123
+msgid "The X username of the organization, without the @. Only added to the schema when company_or_person is \"company\". It is also used in the X card meta tags: as the site's X account, unless the site represents a person whose profile has an X username, and as the X account of posts whose author has no X username."
+msgstr "X корисничко име организације, без знака @. Додаје се у шему само када је company_or_person постављено на „company“. Такође се користи у мета ознакама X картице: као X налог сајта, осим ако сајт представља особу чији профил има X корисничко име, и као X налог чланака чији аутор нема X корисничко име."
+
+#: src/abilities/infrastructure/site-representation-field-map.php:119
+msgid "The URL of the Facebook page of the organization. Only used when company_or_person is \"company\". For a person, the Facebook URL from the user's profile is used instead."
+msgstr "УРЛ Фејсбук странице организације. Користи се само када је company_or_person постављено на „company“. За особу се уместо тога користи Фејсбук УРЛ из профила корисника."
+
+#: src/abilities/infrastructure/site-representation-field-map.php:114
+msgid "The attachment ID of the personal logo or avatar, an image from the media library. 0 when no logo is set, in which case the site logo is used. Only used when company_or_person is \"person\"."
+msgstr "ID прилога личног логотипа или аватара, слике из медијске библиотеке. 0 када логотип није подешен, у ком случају се користи логотип сајта. Користи се само када је company_or_person постављено на „person“."
+
+#: src/abilities/infrastructure/site-representation-field-map.php:108
+msgid "The ID of the user the site represents, whose profile information is used in search results. The person's name is taken from the display name of this user. Unless you can list users, only users with published posts can be set. 0 when no user is set. Only used when company_or_person is \"person\"."
+msgstr "ID корисника кога сајт представља, чије се информације из профила користе у резултатима претраге. Име особе се преузима из приказаног имена овог корисника. Осим ако можете да излистате кориснике, могу се поставити само корисници са објављеним чланцима. 0 када није постављен ниједан корисник. Користи се само када је company_or_person постављено на „person“."
+
+#: src/abilities/infrastructure/site-representation-field-map.php:93
+msgid "The name of the organization the site represents. When empty, the site name is used. Only used when company_or_person is \"company\"."
+msgstr "Назив организације коју сајт представља. Када је празно, користи се назив сајта. Користи се само када је company_or_person постављено на „company“."
+
+#: src/abilities/infrastructure/site-representation-field-map.php:102
+msgid "The attachment ID of the organization logo, an image from the media library. 0 when no logo is set, in which case the site logo is used. Only used when company_or_person is \"company\"."
+msgstr "ID прилога логотипа организације, слике из медијске библиотеке. 0 када логотип није подешен, у ком случају се користи логотип сајта. Користи се само када је company_or_person постављено на „company“."
+
+#: src/abilities/infrastructure/site-representation-field-map.php:97
+msgid "An alternate name of the organization the site represents, like an acronym or a shorter version of its name. Only used when company_or_person is \"company\"."
+msgstr "Алтернативни назив организације коју сајт представља, попут акронима или краће издања њеног назива. Користи се само када је company_or_person постављено на „company“."
+
+#. translators: %s expands to the name of a setting.
+#: src/abilities/application/abstract-fields-updater.php:93
+msgid "The %s setting could not be saved as provided, so its current value is returned."
+msgstr "Подешавање %s није могло бити сачувано како је наведено, па се враћа његова тренутна вредност."
+
+#: src/abilities/application/abstract-fields-updater.php:62
+msgid "No other settings were saved."
+msgstr "Ниједно друго подешавање није сачувано."
+
+#: src/abilities/application/abstract-fields-updater.php:62
+msgid "The other settings were saved."
+msgstr "Остала подешавања су сачувана."
+
+#: src/abilities/application/llms-txt-status-updater.php:129
+msgid "The llms.txt feature is enabled, but the file could not be generated or updated, for unknown reasons."
+msgstr "Функционалност llms.txt је омогућена, али датотека није могла бити генерисана нити ажурирана, из непознатих разлога."
+
+#: src/abilities/application/llms-txt-status-updater.php:127
+msgid "The llms.txt feature is enabled, but the file could not be generated or updated: the web server's filesystem permissions do not allow writing it."
+msgstr "Функционалност llms.txt је омогућена, али датотека није могла бити генерисана нити ажурирана: дозволе система датотека веб сервера не дозвољавају њено уписивање."
+
+#. translators: %1$s expands to Yoast SEO
+#: src/abilities/application/llms-txt-status-updater.php:123
+msgid "The llms.txt feature is enabled, but the file could not be generated or updated: an llms.txt file already exists that was not created by %1$s or has been edited manually, and it will not be overwritten. Delete it manually to let %1$s generate the file, or disable the %1$s feature."
+msgstr "Функционалност llms.txt је омогућена, али датотека није могла бити генерисана нити ажурирана: већ постоји датотека llms.txt коју није направио %1$s или је ручно уређивана, и неће бити преписана. Избришите је ручно да бисте дозволили да %1$s генерише датотеку, или онемогућите функционалност %1$s."
+
+#: src/abilities/application/feature-status-updater.php:56
+msgid "The feature status could not be saved."
+msgstr "Статус функционалности није могао бити сачуван."
+
+#: src/abilities/application/feature-status-updater.php:46
+msgid "The enabled status is required and must be a boolean."
+msgstr "Статус омогућености је обавезан и мора бити логичка вредност (boolean)."
+
+#: admin/class-premium-upsell-admin-block.php:164
+#: src/presenters/admin/sidebar-presenter.php:86 js/dist/ai-consent.js:2
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/block-editor.js:665 js/dist/bulk-editor-page.js:2
+#: js/dist/classic-editor.js:2 js/dist/classic-editor.js:596
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
+msgid "Bulk AI-generated alt text for product images"
+msgstr "Масовни алт текст генерисан вештачком интелигенцијом за слике производа"
+
+#. translators: %s expands to the name of the SEO field, e.g. "SEO title".
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:183
+msgid "The %s for the post."
+msgstr "%s за чланак."
+
+#. translators: %s expands to "Yoast AI Generate".
+#: src/abilities/user-interface/ai-generate-upsell.php:101
+msgid "A hint about %s to relay to the user. Only present when a title or description field was updated on a site without Yoast SEO Premium. Meant to be assisting users that seek SEO-optimised titles and descriptions."
+msgstr "Савет о %s који треба пренети кориснику. Присутан је само када је поље наслова или описа ажурирано на сајту без Yoast SEO Premium. Намењен је као помоћ корисницима који траже SEO оптимизоване наслове и описе."
+
+#. translators: %1$s expands to "Yoast AI Generate", %2$s expands to a URL.
+#: src/abilities/user-interface/ai-generate-upsell.php:75
+msgid "%1$s can write SEO-optimised titles and descriptions, more details here: %2$s"
+msgstr "%1$s може да пише SEO оптимизоване наслове и описе, више детаља овде: %2$s"
+
 #. translators: %s expands to Yoast SEO
 #: src/abilities/user-interface/ability-categories-integration.php:45
 msgid "Abilities for %s data and operations."
 msgstr "Могућности за податке и радње %s."
 
-#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:126
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:152
 msgid "Whether search engines should be told not to show a snippet of this post in the search results."
 msgstr "Да ли претраживачима треба рећи да не приказују исечак овог чланка."
 
-#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:122
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:148
 msgid "Whether search engines should be told not to show a cached copy of this post."
 msgstr "Да ли претраживачима треба рећи да не приказују кеширану копију овог чланка."
 
-#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:118
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:144
 msgid "Whether search engines should be told not to index the images on this post."
 msgstr "Да ли претраживачима треба рећи да не индексирају слике овог чланка."
 
-#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:114
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:140
 msgid "Whether search engines should be told not to follow the links on this post."
 msgstr "Да ли претраживачима треба рећи да не прате везе овог чланка."
 
-#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:106
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:132
 msgid "Whether the post is marked as cornerstone content."
 msgstr "Да ли је чланак означен као темељни садржај."
 
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:158
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:105
 msgid "The Schema.org article type stored for the post. Null means no override is set and the default for the post type applies."
 msgstr "Schema.org врста чланка сачувана за чланак. Null значи да замена није подешена и примењује се подразумевана вредност за врсту чланка."
 
-#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:102
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:128
 msgid "The custom canonical URL for the post. Use null or an empty string to remove it and fall back to the default canonical."
 msgstr "Произвољна канонска адреса за чланак. Користите null или празну ниску да бисте је уклонили и вратили се на подразумевану канонску адресу."
 
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:154
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:101
 msgid "The Schema.org page type stored for the post. Null means no override is set and the default for the post type applies."
 msgstr "Schema.org врста странице сачувана за чланак. Null значи да замена није подешена и примењује се подразумевана вредност за врсту чланка."
 
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:133
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:80
 msgid "The canonical URL as output on the front end: the custom value when set, otherwise the permalink of the post. Null when nothing is output."
 msgstr "Канонска адреса како се исписује на предњем делу: произвољна вредност када је подешена, у супротном стална веза чланка. Null када се ништа не исписује."
 
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:129
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:76
 msgid "The custom canonical URL as stored for the post. Null when no custom value is set; the rendered companion field carries what is actually output."
 msgstr "Произвољна канонска адреса како је сачувана за чланак. Null када произвољна вредност није подешена; пратеће приказано поље носи оно што се заиста исписује."
 
 #. translators: %s expands to the name of the SEO field, e.g. "SEO title".
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:108
-msgid "The custom %s as stored for the post, which may contain unexpanded replacement variables. Null when no custom value is set; the rendered companion field carries what is actually output."
-msgstr "Произвољни %s како је сачуван за чланак, који може да садржи неразвијене променљиве замене. Null када произвољна вредност није подешена; пратеће приказано поље носи оно што се заиста исписује."
+#: src/abilities/user-interface/seo-data-output-schema.php:98
+msgid "The custom %s as stored, which may contain unexpanded snippet variables. Null when no custom value is set; the rendered companion field carries what is actually output."
+msgstr "Прилагођена вредност %s онако како је сачувана, што може да садржи непроширене променљиве исечка. Вредност null када прилагођена вредност није подешена; исцртано пратеће поље садржи оно што се заправо исписује."
 
 #: src/bulk-editor/user-interface/posts-overview-bulk-actions-integration.php:110
 msgid "Bulk edit"
@@ -71,55 +545,66 @@ msgstr "Групно уређивање"
 msgid "Yoast SEO could not build the indexable for %1$s: %2$s"
 msgstr "Yoast SEO није могао да направи индексабилни елемент за %1$s: %2$s"
 
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:162
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:109
+#: src/abilities/user-interface/seo-data-output-schema.php:80
 msgid "inclusive language analysis"
 msgstr "анализа инклузивног језика"
 
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:161
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:108
+#: src/abilities/user-interface/seo-data-output-schema.php:79
 msgid "readability analysis"
 msgstr "анализа читљивости"
 
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:146
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:147
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:93
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:94
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:155
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:149
+#: src/abilities/user-interface/seo-data-output-schema.php:72
+#: src/abilities/user-interface/seo-data-output-schema.php:73
 msgid "Open Graph description"
 msgstr "Open Graph опис"
 
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:144
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:145
-msgid "Open Graph title"
-msgstr "Open Graph наслов"
-
-#. translators: %s expands to the name of the SEO field, e.g. "SEO title".
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:96
-msgid "The %s as output on the front end: the global default template applied when no custom value is set, with replacement variables expanded. Null when nothing is output."
-msgstr "%s онако како се исписује на сајту: глобални подразумевани шаблон који се примењује када није постављена произвољна вредност, са развијеним променљивама замене. Null када се ништа не исписује."
-
-#. translators: %s expands to the name of the analysis, e.g. "SEO analysis".
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:84
-msgid "The result of the %s that ran on the post when it was last saved."
-msgstr "Резултат %s која је покренута на чланку када је последњи пут сачуван."
-
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:138
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:85
 msgid "Whether search engines are told not to index this post. true means noindex (the post is excluded from search results); false means the post is forced to be indexed; null means no setting is stored and the post-type default applies."
 msgstr "Да ли је претраживачима речено да не индексирају овај чланак. true значи noindex (чланак је искључен из резултата претраге); false значи да је индексирање чланка наметнуто; null значи да подешавање није сачувано и важи подразумевана вредност за врсту чланка."
 
-#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:110
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:91
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:92
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:154
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:148
+#: src/abilities/user-interface/seo-data-output-schema.php:70
+#: src/abilities/user-interface/seo-data-output-schema.php:71
+msgid "Open Graph title"
+msgstr "Open Graph наслов"
+
+#. translators: %s expands to the name of the analysis, e.g. "SEO analysis".
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:31
+msgid "The result of the %s that ran on the post when it was last saved."
+msgstr "Резултат %s која је покренута на чланку када је последњи пут сачуван."
+
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:136
 msgid "Whether search engines should be told not to index this post. true sets noindex (the post is excluded from search results); false forces the post to be indexed; null clears the setting and falls back to the post-type default."
 msgstr "Да ли претраживачима треба рећи да не индексирају овај чланак. true поставља noindex (чланак је искључен из резултата претраге); false намеће индексирање чланка; null уклања подешавање и враћа на подразумевану вредност за врсту чланка."
 
-#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:134
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:164
 msgid "The Schema.org article type for the post. Must be one of the supported article types. Use null or an empty string to clear it and fall back to the default."
 msgstr "Schema.org врста чланка за чланак. Мора бити једна од подржаних врста чланака. Користите null или празну ниску да бисте је очистили и вратили се на подразумевану."
 
-#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:130
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:160
 msgid "The Schema.org page type for the post. Must be one of the supported page types. Use null or an empty string to clear it and fall back to the default."
 msgstr "Schema.org врста странице за чланак. Мора бити једна од подржаних врста страница. Користите null или празну ниску да бисте је очистили и вратили се на подразумевану."
 
-#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:98
+#. translators: %s expands to the name of the SEO field, e.g. "SEO title".
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:43
+#: src/abilities/user-interface/seo-data-output-schema.php:116
+msgid "The %s as output on the front end: the global default template applied when no custom value is set, with snippet variables expanded. Null when nothing is output."
+msgstr "%s као излазни податак на предњем делу сајта: глобални подразумевани шаблон који се примењује када није постављена прилагођена вредност, са развијеним променљивама исечка. Null када нема излазног податка."
+
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:122
 msgid "The permalink (URL) of the post to update."
 msgstr "Трајна веза (URL) чланка који се ажурира."
 
-#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:93
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:117
 msgid "The ID of the post to update."
 msgstr "ID чланка који се ажурира."
 
@@ -139,11 +624,11 @@ msgstr "Трајна веза (URL) чланка који се преузима.
 msgid "The ID of the post to retrieve."
 msgstr "ID чланка који се преузима."
 
-#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:60
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:72
 msgid "Update the SEO data for a single post. Identify the post by post_id or by permalink (URL). Only the fields you provide are changed; a provided empty value clears that field. Only posts the current user is allowed to edit can be updated."
 msgstr "Ажурирајте SEO податке за један чланак. Одредите чланак помоћу post_id или трајне везе (URL). Мењају се само поља која наведете; наведена празна вредност брише то поље. Могу се ажурирати само чланци које тренутни корисник сме да уређује."
 
-#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:59
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:71
 msgid "Update Post SEO Data"
 msgstr "Ажурирај SEO податке чланка"
 
@@ -155,19 +640,20 @@ msgstr "Преузмите SEO податке за чланак. Одредит�
 msgid "Get Post SEO Data"
 msgstr "Преузми SEO податке чланка"
 
-#: src/abilities/infrastructure/post-identifier-resolver.php:185
+#: src/abilities/infrastructure/post-identifier-resolver.php:205
 msgid "No post could be found for the given identifier."
 msgstr "Није пронађен ниједан чланак за дати идентификатор."
 
-#: src/abilities/infrastructure/post-identifier-resolver.php:95
+#: src/abilities/infrastructure/post-identifier-resolver.php:106
 msgid "Provide a post_id, a permalink, or title keywords to identify the post."
 msgstr "Наведите post_id, трајну везу или кључне речи наслова да бисте одредили чланак."
 
-#: src/abilities/infrastructure/post-identifier-resolver.php:59
+#: src/abilities/infrastructure/post-identifier-resolver.php:70
 msgid "Provide a post_id or a permalink to identify the post."
 msgstr "Наведите post_id или трајну везу да бисте одредили чланак."
 
-#: src/abilities/infrastructure/post-access-checker.php:44
+#: src/abilities/infrastructure/indexable-access-checker.php:45
+#: src/abilities/infrastructure/post-access-checker.php:47
 msgid "Sorry, you are not allowed to edit this post."
 msgstr "Жао нам је, није вам дозвољено да уређујете овај чланак."
 
@@ -264,6 +750,11 @@ msgstr "Општи наслови и описи чине ваше резулта
 msgid "%1$sBy aligning your content with search intent and focus keyphrases, you make it easier for people and AI systems to find your website, improving your organic visibility. Use the recommendations in the SEO analysis to strengthen your technical performance and ranking potential.%2$s%3$sPro tip%5$s: Use %6$sAI Generate%7$s to quickly generate high quality meta descriptions and keyphrase-rich headers that rank well.%4$s"
 msgstr "%1$sУсклађивањем садржаја са намером претраге и фокусним кључним фразама олакшавате људима и ВИ системима да пронађу ваш веб сајт, чиме побољшавате органску видљивост. Користите препоруке из SEO анализе да бисте ојачали техничке перформансе и потенцијал рангирања.%2$s%3$sСавет стручњака%5$s: користите %6$sAI Generate%7$s да брзо направите квалитетне мета описе и наслове богате кључним фразама који се добро рангирају.%4$s"
 
+#. translators: %1$s expands to the post type label this task is about
+#: src/task-list/application/tasks/improve-content-seo.php:110
+msgid "Improve the SEO of your recent content: %1$s"
+msgstr "Побољшајте SEO недавног садржаја: %1$s"
+
 #. translators: %1$s expands to an opening p tag, %2$s and %4$s expand to a
 #. closing p tag, %3$s expands to an opening p tag and opening strong tag, %5$s
 #. expands to a closing strong tag, %6$s expands to an opening strong tag, %7$s
@@ -271,11 +762,6 @@ msgstr "%1$sУсклађивањем садржаја са намером пре
 #: src/task-list/application/tasks/improve-content-readability.php:112
 msgid "%1$sChecking your recent content's readability ensures it stays clear and easy to follow, improving your user experience. Follow the feedback to refine your sentence structure and word choice and maintain a high standard of engagement and comprehension.%2$s%3$sPro tip%5$s: Use %6$sAI Optimize%7$s to automatically simplify complex sentences and improve the flow of your writing.%4$s"
 msgstr "%1$s Провера читљивости недавног садржаја осигурава да он остане јасан и лак за праћење, што побољшава корисничко искуство. Пратите повратне информације како бисте унапредили структуру реченица и избор речи и одржали висок ниво ангажованости и разумевања. %2$s %3$s Савет %5$s: Користите %6$sAI Optimize%7$s да аутоматски поједноставите сложене реченице и побољшате ток вашег писања. %4$s"
-
-#. translators: %1$s expands to the post type label this task is about
-#: src/task-list/application/tasks/improve-content-seo.php:110
-msgid "Improve the SEO of your recent content: %1$s"
-msgstr "Побољшајте SEO недавног садржаја: %1$s"
 
 #. translators: %1$s expands to the post type label this task is about
 #: src/task-list/application/tasks/improve-content-readability.php:109
@@ -324,19 +810,19 @@ msgstr "Вредност за „page“ мора бити цео позитив
 msgid "An error occurred while aggregating the site schema."
 msgstr "Дошло је до грешке при обједињавању шеме сајта."
 
-#: src/schema-aggregator/user-interface/site-schema-aggregator-cache-cli-command.php:99
-msgid "All site schema cache has been cleared successfully."
-msgstr "Сва остава шеме сајта је успешно очишћена."
-
-#: src/schema-aggregator/user-interface/site-schema-aggregator-cache-cli-command.php:90
-msgid "The site schema cache has been cleared successfully."
-msgstr "Остава шеме сајта је успешно очишћена."
-
 #. translators: %1$s expands to "Yoast", %2$s expands to an opening anchor tag,
 #. %3$s expands to a closing anchor tag.
 #: src/alerts/application/indexables-disabled/indexables-disabled-alert.php:120
 msgid "%1$s indexables are disabled because your site is in a non-production environment or custom code is blocking them. This may affect your SEO features. %2$sLearn more about this%3$s."
 msgstr "Индексабилни елементи %1$s су искључени јер је ваш сајт у окружењу које није продукционо или их блокира произвољни кôд. Ово може утицати на ваше SEO могућности. %2$sСазнајте више о томе%3$s."
+
+#: src/schema-aggregator/user-interface/site-schema-aggregator-cache-cli-command.php:99
+msgid "All site schema cache has been cleared successfully."
+msgstr "Сав кеш шеме сајта је успешно очишћен."
+
+#: src/schema-aggregator/user-interface/site-schema-aggregator-cache-cli-command.php:90
+msgid "The site schema cache has been cleared successfully."
+msgstr "Кеш шеме сајта је успешно очишћен."
 
 #. translators: %1$s expands to the post type label this task is about
 #: src/task-list/application/tasks/set-search-appearance-templates.php:132
@@ -359,21 +845,18 @@ msgstr "Укључивање могућности llms.txt није успело
 msgid "Failed to delete the Hello World post."
 msgstr "Брисање „Здраво свете“ чланка није успело."
 
-#: src/presenters/admin/sidebar-presenter.php:77
-#: js/dist/ai-content-planner.js:75 js/dist/block-editor.js:75
-#: js/dist/general-page.js:5 js/dist/new-settings.js:5 js/dist/support.js:5
+#: src/presenters/admin/sidebar-presenter.php:77 js/dist/general-page.js:5
+#: js/dist/new-settings.js:5 js/dist/support.js:5
 msgid "Help ready-to-buy shoppers and search engines find your product."
 msgstr "Помозите купцима који су спремни за куповину и претраживачима да пронађу ваш производ."
 
-#: src/presenters/admin/sidebar-presenter.php:72
-#: js/dist/ai-content-planner.js:75 js/dist/block-editor.js:75
-#: js/dist/general-page.js:5 js/dist/new-settings.js:5 js/dist/support.js:5
+#: src/presenters/admin/sidebar-presenter.php:72 js/dist/general-page.js:5
+#: js/dist/new-settings.js:5 js/dist/support.js:5
 msgid "Spend less time on SEO tasks!"
 msgstr "Уштедите време на SEO задацима!"
 
-#: src/presenters/admin/sidebar-presenter.php:72
-#: js/dist/ai-content-planner.js:75 js/dist/block-editor.js:75
-#: js/dist/general-page.js:5 js/dist/new-settings.js:5 js/dist/support.js:5
+#: src/presenters/admin/sidebar-presenter.php:72 js/dist/general-page.js:5
+#: js/dist/new-settings.js:5 js/dist/support.js:5
 msgid "Grow your store's visibility!"
 msgstr "Повећајте видљивост ваше продавнице!"
 
@@ -385,75 +868,58 @@ msgstr "Направите нови садржај"
 msgid "Create new post"
 msgstr "Направите нови чланак"
 
-#: src/presenters/admin/sidebar-presenter.php:115
-#: js/dist/ai-content-planner.js:75 js/dist/block-editor.js:75
-#: js/dist/general-page.js:5 js/dist/new-settings.js:5 js/dist/support.js:5
+#: src/presenters/admin/sidebar-presenter.php:115 js/dist/general-page.js:5
+#: js/dist/new-settings.js:5 js/dist/support.js:5
 msgid "Less friction. Faster publishing."
 msgstr "Мање препрека. Брже објављивање."
 
-#: src/presenters/admin/sidebar-presenter.php:115
-#: js/dist/ai-content-planner.js:75 js/dist/block-editor.js:75
-#: js/dist/general-page.js:5 js/dist/new-settings.js:5 js/dist/support.js:5
+#: src/presenters/admin/sidebar-presenter.php:115 js/dist/general-page.js:5
+#: js/dist/new-settings.js:5 js/dist/support.js:5
 msgid "Less friction. Smarter optimization."
 msgstr "Мање препрека. Паметнија оптимизација."
 
 #: src/presenters/admin/sidebar-presenter.php:92 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/bulk-editor-page.js:2 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Optimize pages for multiple keywords with guidance"
 msgstr "Оптимизујте странице за више кључних речи уз смернице"
 
 #: src/presenters/admin/sidebar-presenter.php:91 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/bulk-editor-page.js:2 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Manage redirects with ease and without extra plugins"
 msgstr "Лако управљајте преусмеравањима без додатака"
 
 #: src/presenters/admin/sidebar-presenter.php:89 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/bulk-editor-page.js:2 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Create optimized SEO titles & meta descriptions in seconds"
 msgstr "Направите оптимизоване SEO наслове и мета описе за неколико секунди"
 
-#: src/presenters/admin/sidebar-presenter.php:86 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
-msgid "Receive clear SEO and readability guidance to optimize your products"
-msgstr "Добијајте јасне SEO и савете за читљивост за бољу оптимизацију ваших производа"
-
 #: src/presenters/admin/sidebar-presenter.php:84 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/bulk-editor-page.js:2 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Make sure search engines show the right version of your product page"
 msgstr "Осигурајте да претраживачи приказују исправну верзију странице вашег производа."
 
 #: src/presenters/admin/sidebar-presenter.php:83 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/bulk-editor-page.js:2 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Add product details to help your listings stand out"
 msgstr "Додајте детаље о производу како би ваши огласи били упечатљивији"
 
@@ -480,28 +946,25 @@ msgid "Leaving placeholder content makes your site look unfinished and untrustwo
 msgstr "Остављање привременог садржаја чини да ваш сајт изгледа недовршено и неповерљиво. Његово уклањање одржава сајт уредним и професионалним за посетиоце и претраживаче."
 
 #: src/presenters/admin/sidebar-presenter.php:90 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/bulk-editor-page.js:2 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Apply AI suggestions to improve content in 1 click"
 msgstr "Примените ВИ предлоге за побољшање садржаја једним притиском"
 
-#: src/presenters/admin/sidebar-presenter.php:77
-#: js/dist/ai-content-planner.js:75 js/dist/block-editor.js:75
-#: js/dist/general-page.js:5 js/dist/new-settings.js:5 js/dist/support.js:5
+#: src/presenters/admin/sidebar-presenter.php:77 js/dist/general-page.js:5
+#: js/dist/new-settings.js:5 js/dist/support.js:5
 msgid "Optimize your site faster, smarter, and with more confidence."
 msgstr "Оптимизујте свој сајт брже, паметније и са више самопоуздања."
 
 #: src/presenters/admin/sidebar-presenter.php:85 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/bulk-editor-page.js:2 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Create optimized SEO titles & meta descriptions with AI"
 msgstr "Направите оптимизоване SEO наслове и мета описе помоћу ВИ"
 
@@ -556,7 +1019,7 @@ msgid "Your recent posts are using default %1$s, which can make them easy to ove
 msgstr "Ваши недавни чланци користе подразумевани %1$s, што их може учинити лако занемаривим у резултатима претраге. Ажурирајте их ручно или %2$sсазнајте како %3$sYoast AI генерисање%4$s може да их побољша за вас.%5$s"
 
 #: src/alerts/application/default-seo-data/default-seo-data-alert.php:182
-#: js/dist/bulk-editor-page.js:8 js/dist/bulk-editor-page.js:21
+#: js/dist/bulk-editor-page.js:8 js/dist/bulk-editor-page.js:24
 msgid "SEO titles"
 msgstr "SEO наслови"
 
@@ -573,9 +1036,8 @@ msgstr "мета описи"
 msgid "Google Docs add-on (1 seat)"
 msgstr "Google Docs додатак (1 место)"
 
-#: src/presenters/admin/sidebar-presenter.php:104
-#: js/dist/ai-content-planner.js:75 js/dist/block-editor.js:75
-#: js/dist/general-page.js:5 js/dist/new-settings.js:5 js/dist/support.js:5
+#: src/presenters/admin/sidebar-presenter.php:104 js/dist/general-page.js:5
+#: js/dist/new-settings.js:5 js/dist/support.js:5
 msgid "Buy now for 30% off"
 msgstr "Купите одмах уз 30% попуста"
 
@@ -607,7 +1069,7 @@ msgstr "Ваш %1$s додатак не може бити ажуриран је�
 msgid "%1$s30%% OFF - Black Friday %2$s"
 msgstr "%1$s30%% попуста - Црни петак %2$s"
 
-#: admin/class-premium-upsell-admin-block.php:213 js/dist/general-page.js:7
+#: admin/class-premium-upsell-admin-block.php:214 js/dist/general-page.js:7
 #: js/dist/new-settings.js:7
 msgid "Get 30% off now!"
 msgstr "Добијате 30% попуста одмах!"
@@ -617,54 +1079,48 @@ msgid "Not all needed fields are present."
 msgstr "Нису попуњена сва потребна поља."
 
 #: admin/class-premium-upsell-admin-block.php:155 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/bulk-editor-page.js:2 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Make your articles visible, be seen in Google News"
 msgstr "Учините своје чланке видљивим, будите примећени у Google News"
 
 #: admin/class-premium-upsell-admin-block.php:158 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/bulk-editor-page.js:2 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Internal links and redirect management, easy"
 msgstr "Унутрашње повезивање и управљање преусмеравањем, једноставно"
 
 #: admin/class-premium-upsell-admin-block.php:157 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/bulk-editor-page.js:2 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Easy Local SEO. Show up in Google Maps results"
 msgstr "Једноставан локални SEO. Појавите се у резултатима Google Maps"
 
-#: admin/class-premium-upsell-admin-block.php:163
-#: js/dist/ai-content-planner.js:237 js/dist/block-editor.js:237
-#: js/dist/general-page.js:5 js/dist/new-settings.js:5 js/dist/support.js:5
+#: admin/class-premium-upsell-admin-block.php:163 js/dist/general-page.js:5
+#: js/dist/new-settings.js:5 js/dist/support.js:5
 msgid "Boost visibility for your products, from 10 or 10,000+"
 msgstr "Повећава видљивост ваших производа, било да их има 10 или 10+ хиљада"
 
 #: admin/class-premium-upsell-admin-block.php:159 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/bulk-editor-page.js:2 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Access to friendly help when you need it, day or night"
 msgstr "Приступ пријатељској помоћи кад год вам затреба, дању или ноћу"
 
-#: src/presenters/admin/sidebar-presenter.php:122
-#: js/dist/ai-content-planner.js:75 js/dist/block-editor.js:75
-#: js/dist/general-page.js:5 js/dist/new-settings.js:5 js/dist/support.js:5
+#: src/presenters/admin/sidebar-presenter.php:122 js/dist/general-page.js:5
+#: js/dist/new-settings.js:5 js/dist/support.js:5
 msgid "30-day money back guarantee"
 msgstr "Гарантовани поврат новца у року од 30 дана"
 
@@ -675,22 +1131,20 @@ msgid "%1$s%2$s %3$s"
 msgstr "%1$s%2$s %3$s"
 
 #: admin/class-premium-upsell-admin-block.php:156 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/bulk-editor-page.js:2 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Built to get found by search, AI, and real users"
 msgstr "Направљено да га пронађу претрага, ВИ и стварни корисници"
 
 #: admin/class-premium-upsell-admin-block.php:154 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:237 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:237 js/dist/bulk-editor-page.js:2
-#: js/dist/classic-editor.js:2 js/dist/editor-modules.js:195
-#: js/dist/externals-components.js:105 js/dist/general-page.js:5
-#: js/dist/integrations-page.js:58 js/dist/new-settings.js:5
-#: js/dist/redirects.js:2 js/dist/support.js:5
+#: js/dist/ai-generator.js:2 js/dist/block-editor.js:19
+#: js/dist/bulk-editor-page.js:2 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:195 js/dist/externals-components.js:105
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:58
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Generate SEO optimized metadata in seconds with AI"
 msgstr "Направите SEO оптимизоване метаподатке за неколико секунди помоћу ВИ"
 
@@ -764,7 +1218,7 @@ msgid "Not analyzed"
 msgstr "Није анализирано"
 
 #. translators: %s: Yoast SEO.
-#: wp-seo-main.php:566
+#: wp-seo-main.php:540
 msgid "%s activation failed"
 msgstr "%s укључивање није успело"
 
@@ -773,9 +1227,8 @@ msgstr "%s укључивање није успело"
 msgid "%s is unable to create database tables"
 msgstr "%s не може да направи табеле базе података"
 
-#: src/presenters/admin/sidebar-presenter.php:107
-#: js/dist/ai-content-planner.js:75 js/dist/block-editor.js:75
-#: js/dist/general-page.js:5 js/dist/new-settings.js:5 js/dist/support.js:5
+#: src/presenters/admin/sidebar-presenter.php:107 js/dist/general-page.js:5
+#: js/dist/new-settings.js:5 js/dist/support.js:5
 msgid "Buy now"
 msgstr "Купи сада"
 
@@ -796,10 +1249,6 @@ msgstr "Издање Yoast SEO-а на вашем сајту је %1$s, али �
 #: src/user-meta/framework/custom-meta/noindex-author.php:108
 msgid "Do not allow search engines to show this author's archives in search results."
 msgstr "Не дозволи претраживачима да прикажу архиве овог аутора у резултатима претраге."
-
-#: admin/menu/class-base-menu.php:257 admin/menu/class-base-menu.php:260
-msgid "Upgrades"
-msgstr "Надоградње"
 
 #: blocks/dynamic-blocks/breadcrumbs/block.json
 msgctxt "block title"
@@ -880,13 +1329,16 @@ msgctxt "block keyword"
 msgid "How-to"
 msgstr "Како да"
 
-#: admin/class-admin.php:315
 #: src/user-meta/framework/additional-contactmethods/x.php:28
 msgid "X username (without @)"
 msgstr "X корисничко име (без @)"
 
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:148
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:149
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:95
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:96
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:156
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:150
+#: src/abilities/user-interface/seo-data-output-schema.php:74
+#: src/abilities/user-interface/seo-data-output-schema.php:75
 #: js/dist/externals/socialMetadataForms.js:23
 msgid "X title"
 msgstr "X наслов"
@@ -900,8 +1352,8 @@ msgstr "Класа %1$s не сме бити инстанцирана пре н�
 #. translators: %s expands to Yoast SEO Premium
 #. translators: %s expands to product name: "Yoast WooCommerce SEO" or "Yoast
 #. SEO Premium"
-#: admin/class-premium-upsell-admin-block.php:219
-#: admin/class-premium-upsell-admin-block.php:221 js/dist/general-page.js:7
+#: admin/class-premium-upsell-admin-block.php:220
+#: admin/class-premium-upsell-admin-block.php:222 js/dist/general-page.js:7
 #: js/dist/new-settings.js:7
 msgid "Explore %s now!"
 msgstr "Истражите %s одмах!"
@@ -920,14 +1372,13 @@ msgstr "%1$s интерфејс тренутно није омогућен у б
 msgid "Compatibility issue: Yoast SEO is incompatible with the beta WooCommerce product editor."
 msgstr "Проблем са компатибилношћу: Yoast SEO није компатибилан са WooCommerce бета уређивачем производа"
 
-#: admin/class-premium-upsell-admin-block.php:89 js/dist/block-editor.js:696
+#: admin/class-premium-upsell-admin-block.php:89 js/dist/block-editor.js:665
 #: js/dist/classic-editor.js:596 js/dist/general-page.js:8
 #: js/dist/new-settings.js:8
 msgid "BLACK FRIDAY"
 msgstr "ЦРНИ ПЕТАК"
 
-#: admin/class-premium-upsell-admin-block.php:90
-#: admin/menu/class-base-menu.php:260 js/dist/block-editor.js:696
+#: admin/class-premium-upsell-admin-block.php:90 js/dist/block-editor.js:665
 #: js/dist/classic-editor.js:596 js/dist/general-page.js:8
 #: js/dist/new-settings.js:8
 msgid "30% OFF"
@@ -1058,12 +1509,12 @@ msgstr "Изгледа да сте укључили странице медиј�
 
 #. translators: CTA to finish the first time configuration. %s: Either
 #. first-time SEO configuration or SEO configuration.
-#: admin/class-admin.php:235
+#: admin/class-admin.php:223
 msgid "Finish your %s"
 msgstr "Заврши свој %s"
 
 #: inc/class-wpseo-rank.php:156 inc/class-wpseo-rank.php:245
-#: js/dist/block-editor.js:696 js/dist/editor-modules.js:194
+#: js/dist/block-editor.js:666 js/dist/editor-modules.js:194
 #: js/dist/editor-modules.js:477 js/dist/externals-components.js:163
 #: js/dist/externals-components.js:463
 #: js/dist/frontend-inspector-resources.js:1
@@ -1115,28 +1566,11 @@ msgstr "WordPress.org форуми подршке"
 msgid "The value for 'batch-size' must be a positive integer higher than equal to 1."
 msgstr "Вредност за 'batch-size' мора бити позитиван цео број већи или једнак 1."
 
-#. translators: %1$d is the number of records that are removed.
-#: src/commands/cleanup-command.php:98
-msgid "Cleaned up %1$d record."
-msgid_plural "Cleaned up %1$d records."
-msgstr[0] "Очишћен %1$d запис."
-msgstr[1] "Очишћена %1$d записа."
-msgstr[2] "Очишћено %1$d записа."
-
 #. translators: %1$s is the site url of the site that is cleaned up. %2$s is
 #. the name of the cleanup task that is currently running.
 #: src/commands/cleanup-command.php:160
 msgid "Cleaning up %1$s [%2$s]"
 msgstr "Чишћење %1$s [%2$s]"
-
-#. translators: %1$d is the number of records that were removed. %2$s is the
-#. site url.
-#: src/commands/cleanup-command.php:184
-msgid "Cleaned up %1$d record from %2$s."
-msgid_plural "Cleaned up %1$d records from %2$s."
-msgstr[0] "Очишћен %1$d запис са %2$s."
-msgstr[1] "Очишћена %1$d записа са %2$s."
-msgstr[2] "Очишћено %1$d записа са %2$s."
 
 #. translators: %s: expands to the post id
 #: src/exceptions/indexable/post-not-built-exception.php:20
@@ -1171,19 +1605,33 @@ msgstr "Прескакање %1$s. %2$s није активан на овом с
 msgid "The value for 'interval' must be a positive integer."
 msgstr "Вредност за „интервал“ мора бити позитиван цео број."
 
-#: src/presenters/admin/sidebar-presenter.php:21
-#: js/dist/ai-content-planner.js:75 js/dist/block-editor.js:75
-#: js/dist/block-editor.js:621 js/dist/classic-editor.js:311
-#: js/dist/editor-modules.js:190 js/dist/externals-components.js:159
-#: js/dist/general-page.js:5 js/dist/new-settings.js:5 js/dist/support.js:5
+#. translators: %1$d is the number of records that were removed. %2$s is the
+#. site url.
+#: src/commands/cleanup-command.php:184
+msgid "Cleaned up %1$d record from %2$s."
+msgid_plural "Cleaned up %1$d records from %2$s."
+msgstr[0] "Очишћен је %1$d запис са %2$s."
+msgstr[1] "Очишћена су %1$d записа са %2$s."
+msgstr[2] "Очишћено је %1$d записа са %2$s."
+
+#. translators: %1$d is the number of records that are removed.
+#: src/commands/cleanup-command.php:98
+msgid "Cleaned up %1$d record."
+msgid_plural "Cleaned up %1$d records."
+msgstr[0] "Очишћен је %1$d запис."
+msgstr[1] "Очишћена су %1$d записа."
+msgstr[2] "Очишћено је %1$d записа."
+
+#: src/presenters/admin/sidebar-presenter.php:21 js/dist/block-editor.js:379
+#: js/dist/classic-editor.js:310 js/dist/editor-modules.js:190
+#: js/dist/externals-components.js:159 js/dist/general-page.js:5
+#: js/dist/new-settings.js:5 js/dist/support.js:5
 msgid "BLACK FRIDAY | 30% OFF"
 msgstr "Црни петак - 30$ попуста"
 
-#: admin/views/class-yoast-feature-toggles.php:206
-#: js/dist/ai-content-planner.js:97 js/dist/ai-content-planner.js:275
-#: js/dist/ai-content-planner.js:296 js/dist/ai-generator.js:55
-#: js/dist/block-editor.js:97 js/dist/block-editor.js:244
-#: js/dist/block-editor.js:265 js/dist/bulk-editor-page.js:5
+#: admin/views/class-yoast-feature-toggles.php:206 js/dist/ai-generator.js:55
+#: js/dist/block-editor.js:69 js/dist/block-editor.js:722
+#: js/dist/block-editor.js:743 js/dist/bulk-editor-page.js:5
 #: js/dist/editor-modules.js:245 js/dist/externals-components.js:155
 #: js/dist/general-page.js:8 js/dist/general-page.js:21
 #: js/dist/integrations-page.js:2 js/dist/integrations-page.js:52
@@ -1257,7 +1705,7 @@ msgstr "Уклања анализу инклузивног језика из м�
 msgid "Front-end SEO inspector"
 msgstr "Front-end SEO инспектор"
 
-#: admin/class-yoast-form.php:931
+#: admin/class-yoast-form.php:874
 msgid "Unlock with Premium!"
 msgstr "Откључајте уз Premium!"
 
@@ -1593,10 +2041,6 @@ msgstr "Садржај чланка"
 msgid "Current or first category title"
 msgstr "Тренутни или наслов прве категорије"
 
-#: inc/class-wpseo-replace-vars.php:1499
-msgid "Category Title"
-msgstr "Наслов категорије"
-
 #: inc/class-wpseo-replace-vars.php:1498
 msgid "Replaced with the post content"
 msgstr "Замењено са садржајем чланка"
@@ -1604,6 +2048,10 @@ msgstr "Замењено са садржајем чланка"
 #: inc/class-wpseo-replace-vars.php:1497
 msgid "Replaced with the permalink"
 msgstr "Замењено са сталном везом"
+
+#: inc/class-wpseo-replace-vars.php:1499
+msgid "Category Title"
+msgstr "Назив категорије"
 
 #: inc/class-wpseo-replace-vars.php:1490
 msgid "Current month"
@@ -1704,8 +2152,8 @@ msgstr "Сазнајте како вам Увиди могу помоћи да �
 msgid "Link suggestions"
 msgstr "Предлози за повезивање"
 
-#: admin/views/class-yoast-feature-toggles.php:112 js/dist/block-editor.js:621
-#: js/dist/block-editor.js:712 js/dist/classic-editor.js:311
+#: admin/views/class-yoast-feature-toggles.php:112 js/dist/block-editor.js:379
+#: js/dist/block-editor.js:682 js/dist/classic-editor.js:310
 #: js/dist/new-settings.js:28 js/dist/new-settings.js:524
 msgid "Insights"
 msgstr "Увиди"
@@ -1763,7 +2211,7 @@ msgid "No %1$s plugins have been installed. You don't seem to own any active sub
 msgstr "Није постављен ниједан %1$s додатак. Изгледа да немате активне претплате."
 
 #. translators: %s expands to Yoast SEO Premium.
-#: admin/class-admin.php:248
+#: admin/class-admin.php:236
 msgid "Required by %s"
 msgstr "Потребно за %s"
 
@@ -1798,7 +2246,7 @@ msgstr "Члан није пронађен."
 msgid "The post could not be found."
 msgstr "Чланак није пронађен."
 
-#: admin/class-yoast-form.php:1066 js/dist/general-page.js:55
+#: admin/class-yoast-form.php:1009 js/dist/general-page.js:55
 msgid "This feature has been disabled since subsites never send tracking data."
 msgstr "Ова функција је онемогућена јер подстранице никада не шаљу податке о праћењу."
 
@@ -1833,14 +2281,6 @@ msgstr "Написано од"
 msgid "Est. reading time"
 msgstr "Процењено време читања"
 
-#. translators: %s expands to the reading time number, in minutes
-#: src/presenters/slack/enhanced-data-presenter.php:55
-msgid "%s minute"
-msgid_plural "%s minutes"
-msgstr[0] "%s минут"
-msgstr[1] "%s минута"
-msgstr[2] "%s минута"
-
 #. translators: 1: Expands to Yoast SEO
 #: src/presenters/admin/indexing-notification-presenter.php:129
 msgid "Wait for a week or so, until %1$s automatically processes most of your content in the background."
@@ -1849,6 +2289,14 @@ msgstr "Сачекајте отприлике недељу дана, док %1$s
 #: admin/views/class-yoast-feature-toggles.php:183
 msgid "Enhanced Slack sharing"
 msgstr "Побољшано Slack дељење"
+
+#. translators: %s expands to the reading time number, in minutes
+#: src/presenters/slack/enhanced-data-presenter.php:55
+msgid "%s minute"
+msgid_plural "%s minutes"
+msgstr[0] "%s минут"
+msgstr[1] "%s минута"
+msgstr[2] "%s минута"
 
 #: src/presenters/admin/indexing-notification-presenter.php:84
 msgid "Because of a change in your tag base setting, some of your SEO data needs to be reprocessed."
@@ -1868,7 +2316,7 @@ msgstr "Ова картица вам омогућава да појединач�
 msgid "Oops, something has gone wrong and we couldn't complete the optimization of your SEO data. Please click the button again to re-start the process. "
 msgstr "Упс, нешто није у реду и нисмо могли да довршимо оптимизацију ваших SEO података. Поново притисните дугме да бисте поново покренули поступак. "
 
-#: admin/class-admin.php:259
+#: admin/class-admin.php:247
 msgid "Activate your subscription"
 msgstr "Укључите претплату"
 
@@ -1942,7 +2390,7 @@ msgstr "Безбедност: без напредних подешавања и 
 msgid "Web Page"
 msgstr "Веб страница"
 
-#: src/config/schema-types.php:64 js/dist/block-editor.js:691
+#: src/config/schema-types.php:64 js/dist/block-editor.js:660
 #: js/dist/classic-editor.js:591
 msgid "Item Page"
 msgstr "Страница ставке"
@@ -1974,10 +2422,6 @@ msgstr "Медицинска интернет страница"
 #: src/config/schema-types.php:92
 msgid "Collection Page"
 msgstr "Страница колекције"
-
-#: src/config/schema-types.php:96
-msgid "Checkout Page"
-msgstr "Страница завршетка куповине"
 
 #: src/config/schema-types.php:100
 msgid "Real Estate Listing"
@@ -2018,6 +2462,10 @@ msgstr "Школски чланак"
 #: src/config/schema-types.php:135
 msgid "Social Media Posting"
 msgstr "Објављивање на друштвеним мрежама"
+
+#: src/config/schema-types.php:96
+msgid "Checkout Page"
+msgstr "Страница за наплату"
 
 #: admin/views/class-yoast-feature-toggles.php:161
 #: admin/views/class-yoast-feature-toggles.php:162 js/dist/new-settings.js:28
@@ -2187,7 +2635,7 @@ msgstr "Још увек имате подразумевани Вордпрес �
 #. translators: 1: link open tag; 2: link close tag.
 #: src/services/health-check/default-tagline-reports.php:63
 msgid "%1$sYou can change the tagline in the customizer%2$s."
-msgstr "%1$sПоднаслов можете да промените у прилагођавачу%2$s."
+msgstr "%1$sПоднаслов можете да промените у прилагођивачу%2$s."
 
 #: src/services/health-check/page-comments-reports.php:45
 msgid "Comments on your posts break into multiple pages. As this is not needed in 999 out of 1000 cases, we recommend you disable it. To fix this, uncheck \"Break comments into pages...\" on the Discussion Settings page."
@@ -2224,10 +2672,6 @@ msgstr "%1$sОво је пријавио %2$s додатак%3$s"
 msgid "The browser you are currently using is unfortunately rather dated. Since we strive to give you the best experience possible, we no longer support this browser. Instead, please use %1$sFirefox%4$s, %2$sChrome%4$s or %3$sMicrosoft Edge%4$s."
 msgstr "Претраживач који тренутно користите је нажалост прилично застарео. Будући да се трудимо да вам пружимо најбоље могуће искуство, више не подржавамо овај претраживач. Уместо тога, користите %1$sFirefox%4$s, %2$sChrome%4$s или %3$sМајкрософт Edge%4$s."
 
-#: admin/metabox/class-metabox.php:191
-msgid "If you want to apply advanced <code>meta</code> robots settings for this page, please define them in the following field."
-msgstr "Ако желите да примените напредна подешавања <code>мета</code> робота за ову страницу, дефинишите их у следећем пољу."
-
 #. translators: %1$s expands to Yoast SEO
 #: admin/class-export.php:72
 msgid "Your %1$s settings:"
@@ -2238,31 +2682,20 @@ msgstr "Ваша %1$s подешавања:"
 msgid "%s settings to import:"
 msgstr "%s подешавања за увоз:"
 
-#: src/presenters/admin/sidebar-presenter.php:137
-#: js/dist/ai-content-planner.js:134 js/dist/block-editor.js:134
-#: js/dist/general-page.js:2 js/dist/new-settings.js:2 js/dist/support.js:2
+#: src/presenters/admin/sidebar-presenter.php:137 js/dist/general-page.js:2
+#: js/dist/new-settings.js:2 js/dist/support.js:2
 msgid "Learn SEO"
 msgstr "Научи SEO"
 
-#. translators: %1$s expands to Yoast SEO academy, which is a clickable link.
-#. translators: %1$s expands to "Yoast SEO" academy, which is a clickable link.
-#: src/presenters/admin/sidebar-presenter.php:145
-#: js/dist/ai-content-planner.js:134 js/dist/block-editor.js:134
-#: js/dist/general-page.js:2 js/dist/new-settings.js:2 js/dist/support.js:2
-msgid "Want to learn SEO from Team Yoast? Check out our %1$s!"
-msgstr "Желиш да научиш SEO од Yoast тима? Баци поглед на нашу %1$s!"
-
-#: src/presenters/admin/sidebar-presenter.php:147
-#: js/dist/ai-content-planner.js:134 js/dist/block-editor.js:134
-#: js/dist/general-page.js:2 js/dist/new-settings.js:2 js/dist/support.js:2
+#: src/presenters/admin/sidebar-presenter.php:147 js/dist/general-page.js:2
+#: js/dist/new-settings.js:2 js/dist/support.js:2
 msgid "We have both free and premium online courses to learn everything you need to know about SEO."
 msgstr "Имамо и бесплатне и премиум онлајн курсеве да научимо све што треба да знате о SEO-у."
 
 #. translators: %1$s expands to Yoast SEO academy
 #. translators: %1$s expands to "Yoast SEO academy".
-#: src/presenters/admin/sidebar-presenter.php:154
-#: js/dist/ai-content-planner.js:135 js/dist/block-editor.js:135
-#: js/dist/general-page.js:3 js/dist/new-settings.js:3 js/dist/support.js:3
+#: src/presenters/admin/sidebar-presenter.php:154 js/dist/general-page.js:3
+#: js/dist/new-settings.js:3 js/dist/support.js:3
 msgid "Check out %1$s"
 msgstr "Баци поглед на %1$s"
 
@@ -2271,7 +2704,14 @@ msgstr "Баци поглед на %1$s"
 msgid "Import settings from another %1$s installation by pasting them here and clicking \"%2$s\"."
 msgstr "Увезите подешавања из друге %1$s инсталације тако што ћете их убацити овде и притиснути „%2$s“."
 
-#: admin/metabox/class-metabox.php:439 js/dist/block-editor.js:737
+#. translators: %1$s expands to Yoast SEO academy, which is a clickable link.
+#. translators: %1$s expands to "Yoast SEO" academy, which is a clickable link.
+#: src/presenters/admin/sidebar-presenter.php:145 js/dist/general-page.js:2
+#: js/dist/new-settings.js:2 js/dist/support.js:2
+msgid "Want to learn SEO from Team Yoast? Check out our %1$s!"
+msgstr "Желите да научите SEO од Yoast тима? Погледајте нашу %1$s!"
+
+#: admin/metabox/class-metabox.php:383 js/dist/block-editor.js:707
 #: js/dist/new-settings.js:21 js/dist/new-settings.js:31
 #: js/dist/new-settings.js:35 js/dist/new-settings.js:40
 #: js/dist/new-settings.js:92 js/dist/new-settings.js:410
@@ -2328,7 +2768,7 @@ msgid "SEO: %s"
 msgstr "SEO %s"
 
 #. translators: %s: expends to Yoast SEO
-#: admin/class-admin.php:354
+#: admin/class-admin.php:313
 msgid "%s video tutorial"
 msgstr "%s видео туторијал"
 
@@ -2364,32 +2804,26 @@ msgstr "Организација"
 msgid "You have previously set your site to represent a person. We’ve improved our functionality around Schema and the Knowledge Graph, so you should go in and %1$scomplete those settings%2$s."
 msgstr "Раније сте подесили да ваш сајт представља особу. Побољшали смо функционалност у вези са шемом и Knowledge Graph-ом, па треба да %1$sдовршите та подешавања%2$s."
 
-#: admin/class-admin.php:317
 #: src/user-meta/framework/additional-contactmethods/wikipedia.php:28
 msgid "(if one exists)"
 msgstr "(ако постоји)"
 
-#: admin/class-admin.php:316
 #: src/user-meta/framework/additional-contactmethods/youtube.php:28
 msgid "YouTube profile URL"
 msgstr "URL YouTube профила"
 
-#: admin/class-admin.php:314
 #: src/user-meta/framework/additional-contactmethods/tumblr.php:28
 msgid "Tumblr profile URL"
 msgstr "URL Tumblr профила"
 
-#: admin/class-admin.php:313
 #: src/user-meta/framework/additional-contactmethods/soundcloud.php:28
 msgid "SoundCloud profile URL"
 msgstr "URL SoundCloud профила"
 
-#: admin/class-admin.php:311
 #: src/user-meta/framework/additional-contactmethods/myspace.php:28
 msgid "MySpace profile URL"
 msgstr "URL MySpace профила"
 
-#: admin/class-admin.php:317
 #: src/user-meta/framework/additional-contactmethods/wikipedia.php:28
 msgid "Wikipedia page about you"
 msgstr "Википедијина страница о вама"
@@ -2398,17 +2832,14 @@ msgstr "Википедијина страница о вама"
 msgid "Uncategorized"
 msgstr "Некатегоризовано"
 
-#: admin/class-admin.php:312
 #: src/user-meta/framework/additional-contactmethods/pinterest.php:28
 msgid "Pinterest profile URL"
 msgstr "URL Pinterest профила"
 
-#: admin/class-admin.php:310
 #: src/user-meta/framework/additional-contactmethods/linkedin.php:28
 msgid "LinkedIn profile URL"
 msgstr "URL LinkedIn профила"
 
-#: admin/class-admin.php:309
 #: src/user-meta/framework/additional-contactmethods/instagram.php:28
 msgid "Instagram profile URL"
 msgstr "URL Instagram профила"
@@ -2427,7 +2858,7 @@ msgstr "Одлазне интерне везе"
 msgid "Received internal links"
 msgstr "Примљене интерне везе"
 
-#: admin/class-meta-columns.php:132 js/dist/block-editor.js:399
+#: admin/class-meta-columns.php:132 js/dist/block-editor.js:158
 #: js/dist/classic-editor.js:89 js/dist/wincher-dashboard-widget.js:130
 msgid "Keyphrase"
 msgstr "Кључна фраза"
@@ -2493,8 +2924,8 @@ msgstr "Умножите сва ова подешавања у картицу %1
 #. translators: %s expands to Yoast SEO Premium
 #. translators: %s expands to product name: "Yoast WooCommerce SEO" or "Yoast
 #. SEO Premium"
-#: admin/class-premium-upsell-admin-block.php:181
-#: admin/class-premium-upsell-admin-block.php:192 js/dist/general-page.js:6
+#: admin/class-premium-upsell-admin-block.php:182
+#: admin/class-premium-upsell-admin-block.php:193 js/dist/general-page.js:6
 #: js/dist/new-settings.js:6
 msgid "Upgrade to %s"
 msgstr "Надоградите на %s"
@@ -2541,15 +2972,16 @@ msgstr "%s је обавезан аргумент за пребацивање к
 msgid "Focus keyphrase not set."
 msgstr "Фокусни кључни израз није постављен."
 
-#: admin/class-yoast-form.php:1062 js/dist/general-page.js:55
+#: admin/class-yoast-form.php:1005 js/dist/general-page.js:55
 msgid "This feature has been disabled by the network admin."
 msgstr "Ова могућност је онемогућена од стране мрежног управитеља."
 
 #. translators: %s expands to Yoast SEO Premium
+#. translators: %s expands to Yoast WooCommerce SEO.
 #. translators: WooCommerce SEO
 #: admin/class-premium-popup.php:81
-#: admin/watchers/class-slug-change-watcher.php:228
-#: js/dist/externals-components.js:438
+#: admin/watchers/class-slug-change-watcher.php:228 js/dist/block-editor.js:666
+#: js/dist/classic-editor.js:597 js/dist/externals-components.js:438
 msgid "Get %s"
 msgstr "Узмите %s"
 
@@ -2583,7 +3015,7 @@ msgstr[2] "%d минута"
 #. translators: %d expands to the number of day/days.
 #. translators: %d expands to the number of days.
 #: src/integrations/blocks/structured-data-blocks.php:132
-#: js/dist/block-editor.js:378 js/dist/classic-editor.js:68
+#: js/dist/block-editor.js:137 js/dist/classic-editor.js:68
 #: js/dist/how-to-block.js:2 js/dist/how-to-block.js:8
 #: js/dist/wincher-dashboard-widget.js:72
 msgid "%d day"
@@ -2647,11 +3079,6 @@ msgstr "Није вам дозвољено да урадите ово."
 msgid "You are not allowed to modify unregistered network settings."
 msgstr "Није вам дозвољено да прилагођавате нерегистрована подешавања мреже."
 
-#. translators: %s expands to the ID of a site within a multisite network.
-#: admin/class-yoast-network-admin.php:168
-msgid "Site with ID %d not found."
-msgstr "Веб место са ID %d није пронађено"
-
 #: admin/pages/network.php:31
 msgid "Restore Site"
 msgstr "Врати сајт"
@@ -2663,6 +3090,11 @@ msgstr "Није изабран ниједан сајт за враћање."
 #: admin/class-yoast-network-admin.php:81
 msgid "deleted"
 msgstr "избрисан"
+
+#. translators: %s expands to the ID of a site within a multisite network.
+#: admin/class-yoast-network-admin.php:168
+msgid "Site with ID %d not found."
+msgstr "Сајт са ID %d није пронађено"
 
 #: inc/class-wpseo-replace-vars.php:1475
 msgid "The site's tagline"
@@ -2847,10 +3279,6 @@ msgstr "%s функционалност за увоз података кори�
 msgid "Replaced with the normal title for an archive generated by WordPress"
 msgstr "Замењен нормалним насловом за архиву коју генерише Вордпрес"
 
-#: admin/views/tabs/tool/import-seo.php:126
-msgid "Clean"
-msgstr "Очисти"
-
 #: admin/views/tabs/tool/import-seo.php:93
 msgid "Step 3: Check your data"
 msgstr "3. корак: Проверите ваше податке"
@@ -2925,7 +3353,11 @@ msgstr "Направите резервну копију базе податак
 msgid "We've detected data from one or more SEO plugins on your site. Please follow the following steps to import that data:"
 msgstr "Открили смо податке једног или више SEO додатака на вашем сајту. Пратите следеће кораке да бисте увезли те податке:"
 
-#: admin/class-yoast-form.php:959 admin/class-yoast-form.php:999
+#: admin/views/tabs/tool/import-seo.php:126
+msgid "Clean"
+msgstr "Прегледан"
+
+#: admin/class-yoast-form.php:902 admin/class-yoast-form.php:942
 #: admin/views/class-yoast-feature-toggles.php:156
 #: js/dist/externals/componentsNew.js:532
 msgid "Off"
@@ -2938,7 +3370,7 @@ msgstr "Искључено"
 msgid "Help on: %s"
 msgstr "Помоћ за: %s"
 
-#: admin/class-yoast-form.php:958 admin/class-yoast-form.php:998
+#: admin/class-yoast-form.php:901 admin/class-yoast-form.php:941
 #: js/dist/externals/componentsNew.js:532
 msgid "On"
 msgstr "На дан"
@@ -2963,24 +3395,9 @@ msgstr "Погледајте XML мапу сајта."
 
 #. translators: %s expands to an indexable object's name, like a post type or
 #. taxonomy
-#: admin/class-yoast-form.php:969
+#: admin/class-yoast-form.php:912
 msgid "Show %s in search results?"
 msgstr "Да ли да се прикаже %s у резултатима претраге?"
-
-#. translators: %1$s expands to Yes or No,  %2$s expands to the post type name.
-#: admin/metabox/class-metabox.php:181
-msgid "Default for %2$s, currently: %1$s"
-msgstr "Подразумевано за %2$s, тренутно: %1$s"
-
-#. translators: %s expands to the post type name.
-#: admin/metabox/class-metabox.php:176
-msgid "Allow search engines to show this %s in search results?"
-msgstr "Да ли треба дозволити претраживачима да %s приказује у резултатима претраге?"
-
-#. translators: %1$s expands to the post type name.
-#: admin/metabox/class-metabox.php:186
-msgid "Should search engines follow links on this %1$s?"
-msgstr "Да ли претраживачи треба да следе везу до %1$s?"
 
 #. translators: %1$s expands to Yoast SEO.
 #: admin/class-plugin-conflict.php:82
@@ -2995,7 +3412,8 @@ msgid "%s integration"
 msgstr "%s интеграција"
 
 #: admin/views/class-yoast-feature-toggles.php:71
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:160
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:107
+#: src/abilities/user-interface/seo-data-output-schema.php:78
 #: src/task-list/application/tasks/child-tasks/improve-content-seo-child.php:64
 #: js/dist/externals-components.js:445 js/dist/new-settings.js:28
 #: js/dist/new-settings.js:524
@@ -3102,24 +3520,21 @@ msgstr "Стари чаробњак за конфигурацију"
 
 #. translators: Hidden accessibility text.
 #: admin/class-admin-utils.php:79 admin/class-premium-popup.php:83
-#: admin/class-premium-upsell-admin-block.php:76 admin/class-yoast-form.php:933
+#: admin/class-premium-upsell-admin-block.php:76 admin/class-yoast-form.php:876
 #: admin/watchers/class-slug-change-watcher.php:230
 #: src/integrations/admin/workouts-integration.php:215
 #: src/integrations/admin/workouts-integration.php:245
 #: src/presenters/admin/help-link-presenter.php:76
 #: src/presenters/admin/sidebar-presenter.php:159 js/dist/academy.js:12
-#: js/dist/ai-consent.js:2 js/dist/ai-content-planner.js:85
-#: js/dist/ai-content-planner.js:97 js/dist/ai-content-planner.js:136
-#: js/dist/ai-content-planner.js:275 js/dist/ai-content-planner.js:280
-#: js/dist/ai-content-planner.js:292 js/dist/ai-generator.js:2
-#: js/dist/ai-generator.js:55 js/dist/ai-generator.js:67
-#: js/dist/ai-generator.js:282 js/dist/block-editor.js:85
-#: js/dist/block-editor.js:97 js/dist/block-editor.js:136
-#: js/dist/block-editor.js:244 js/dist/block-editor.js:249
-#: js/dist/block-editor.js:261 js/dist/block-editor.js:697
-#: js/dist/block-editor.js:698 js/dist/bulk-editor-page.js:2
+#: js/dist/ai-consent.js:2 js/dist/ai-generator.js:2 js/dist/ai-generator.js:55
+#: js/dist/ai-generator.js:67 js/dist/ai-generator.js:282
+#: js/dist/block-editor.js:19 js/dist/block-editor.js:69
+#: js/dist/block-editor.js:667 js/dist/block-editor.js:668
+#: js/dist/block-editor.js:722 js/dist/block-editor.js:727
+#: js/dist/block-editor.js:739 js/dist/bulk-editor-page.js:2
 #: js/dist/bulk-editor-page.js:5 js/dist/bulk-editor-page.js:6
-#: js/dist/bulk-editor-page.js:15 js/dist/classic-editor.js:2
+#: js/dist/bulk-editor-page.js:15 js/dist/bulk-editor-page.js:22
+#: js/dist/bulk-editor-page.js:23 js/dist/classic-editor.js:2
 #: js/dist/editor-modules.js:195 js/dist/editor-modules.js:245
 #: js/dist/editor-modules.js:260 js/dist/editor-modules.js:475
 #: js/dist/externals-components.js:100 js/dist/externals-components.js:104
@@ -3217,14 +3632,13 @@ msgstr "Резултат читљивости"
 msgid "Cornerstone content"
 msgstr "Битан садржај"
 
-#: src/presenters/admin/sidebar-presenter.php:127
-#: js/dist/ai-content-planner.js:75 js/dist/block-editor.js:75
-#: js/dist/general-page.js:5 js/dist/new-settings.js:5 js/dist/support.js:5
+#: src/presenters/admin/sidebar-presenter.php:127 js/dist/general-page.js:5
+#: js/dist/new-settings.js:5 js/dist/support.js:5
 msgid "24/7 support"
 msgstr "24/7 подршка"
 
 #: admin/class-yoast-form.php:149 admin/class-yoast-form.php:154
-#: js/dist/bulk-editor-page.js:20 js/dist/general-page.js:45
+#: js/dist/bulk-editor-page.js:23 js/dist/general-page.js:45
 #: js/dist/new-settings.js:9
 msgid "Save changes"
 msgstr "Сними измене"
@@ -3240,7 +3654,7 @@ msgstr "Укључена једна година бесплатних ажури
 msgid "The plugin %2$s changes your site's output and in doing that differentiates between search engines and normal users, a process that's called cloaking. We highly recommend that you disable it."
 msgstr "Додатак %2$s даје различит излаз за претраживаче и и нормалне кориснике. Овај проце се зове прикривање садржаја. Препоручујемо да искључите овај додатак."
 
-#: admin/class-admin.php:355
+#: admin/class-admin.php:314
 msgid "Scroll to see the table content."
 msgstr "Скролујте како бисте видели садржај табеле."
 
@@ -3288,7 +3702,7 @@ msgstr "Не приказуј ми више ово обавештење"
 #. translators: %1$s: '%%term_title%%' variable used in titles and meta's
 #. template that's not compatible with the given template, %2$s: expands to
 #. 'HelpScout beacon'
-#: admin/class-admin.php:349
+#: admin/class-admin.php:308
 msgid "Warning: the variable %1$s cannot be used in this template. See the %2$s for more info."
 msgstr "Упозорење: променљива %1$s не може да се користи у овом шаблону. За додатне информације косултујте %2$s."
 
@@ -3319,10 +3733,13 @@ msgstr "Изборник на администраторској траци"
 msgid "Features"
 msgstr "Особине"
 
-#: admin/metabox/class-metabox.php:172
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:122
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:123
-#: js/dist/bulk-editor-page.js:21
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:69
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:70
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:124
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:134
+#: src/abilities/user-interface/seo-data-output-schema.php:64
+#: src/abilities/user-interface/seo-data-output-schema.php:65
+#: js/dist/bulk-editor-page.js:24
 #: js/dist/externals/replacementVariableEditor.js:71
 #: js/dist/externals/searchMetadataPreviews.js:102 js/dist/new-settings.js:18
 #: js/dist/new-settings.js:24 js/dist/new-settings.js:28
@@ -3333,16 +3750,6 @@ msgstr "Особине"
 #: js/dist/new-settings.js:352 js/dist/new-settings.js:410
 msgid "SEO title"
 msgstr "SEO Наслов"
-
-#: admin/metabox/class-metabox.php:183 admin/metabox/class-metabox.php:188
-#: js/dist/block-editor.js:623 js/dist/classic-editor.js:313
-msgid "No"
-msgstr "Не"
-
-#: admin/metabox/class-metabox.php:182 admin/metabox/class-metabox.php:187
-#: js/dist/block-editor.js:623 js/dist/classic-editor.js:313
-msgid "Yes"
-msgstr "Да"
 
 #: inc/options/class-wpseo-option-titles.php:988
 msgid "Greater than sign"
@@ -3400,14 +3807,14 @@ msgstr "Средња тачка"
 msgid "Premium"
 msgstr "Премијум"
 
-#: admin/class-admin.php:266
+#: admin/class-admin.php:254
 msgid "Get Premium"
 msgstr "Користите премијум издање"
 
 #. translators: Hidden accessibility text; %s: post title.
 #: admin/class-bulk-editor-list-table.php:848
 msgid "Edit &#8220;%s&#8221;"
-msgstr "Уреди &#0132;%s&#0147;"
+msgstr "Уреди „%s“"
 
 #: admin/views/partial-notifications-warnings.php:20
 #: inc/class-wpseo-admin-bar-menu.php:396 js/dist/general-page.js:29
@@ -3452,9 +3859,9 @@ msgstr "Читљивост"
 #: inc/class-wpseo-rank.php:208 inc/class-wpseo-rank.php:240
 #: src/task-list/application/tasks/child-tasks/improve-content-readability-child.php:52
 #: src/task-list/application/tasks/child-tasks/improve-content-seo-child.php:52
-#: js/dist/block-editor.js:696 js/dist/bulk-editor-page.js:8
+#: js/dist/block-editor.js:666 js/dist/bulk-editor-page.js:8
 #: js/dist/editor-modules.js:194 js/dist/editor-modules.js:477
-#: js/dist/externals-components.js:163 js/dist/externals/analysis.js:410
+#: js/dist/externals-components.js:163 js/dist/externals/analysis.js:481
 #: js/dist/externals/dashboardFrontend.js:4
 #: js/dist/frontend-inspector-resources.js:1
 msgid "Needs improvement"
@@ -3490,7 +3897,7 @@ msgstr "Филтрирај по SEO рејтингу"
 
 #: inc/class-wpseo-rank.php:138
 #: src/abilities/application/score-retriever.php:140
-#: js/dist/block-editor.js:696 js/dist/editor-modules.js:194
+#: js/dist/block-editor.js:666 js/dist/editor-modules.js:194
 #: js/dist/editor-modules.js:477 js/dist/externals-components.js:163
 #: js/dist/frontend-inspector-resources.js:1
 msgid "Not available"
@@ -3535,7 +3942,7 @@ msgstr "Redirects"
 
 #: inc/sitemaps/class-sitemaps-cache-validator.php:111
 msgid "Trying to build the sitemap cache key, but the postfix and prefix combination leaves too little room to do this. You are probably requesting a page that is way out of the expected range."
-msgstr "Покушава се прављење кључа оставе мапе сајта, али комбинација суфикса и префикса оставља премало простора за то. Вероватно захтевате страницу која је далеко изван очекиваног опсега."
+msgstr "Покушава се прављење кључа кеша мапе сајта, али комбинација суфикса и префикса оставља премало простора за то. Вероватно захтевате страницу која је далеко изван очекиваног опсега."
 
 #: src/integrations/admin/crawl-settings-integration.php:241
 msgid "Keep"
@@ -3627,26 +4034,21 @@ msgstr "Тражили сте %s"
 
 #. Plugin Name of the plugin
 #: wp-seo.php admin/capabilities/class-capability-manager-integration.php:74
-#: src/presenters/meta-description-presenter.php:36 js/dist/block-editor.js:745
+#: src/presenters/meta-description-presenter.php:36 js/dist/block-editor.js:743
 msgid "Yoast SEO"
 msgstr "Yoast SEO"
-
-#. translators: 1: link to post; 2: link to blog.
-#: inc/options/class-wpseo-option-titles.php:277
-msgid "The post %1$s appeared first on %2$s."
-msgstr "Чланак %s се појављује прво на %s."
 
 #. Author of the plugin
 #: wp-seo.php
 msgid "Team Yoast"
 msgstr "Yoast Тим"
 
-#: wp-seo-main.php:502
+#: wp-seo-main.php:501
 msgid "The Standard PHP Library (SPL) extension seem to be unavailable. Please ask your web host to enable it."
 msgstr "Надоградња Standard PHP Library (SPL) није доступна. Замолите вашу хостинг компанију да је активира."
 
 #. translators: %s expands to the name of a post type (plural).
-#: inc/class-upgrade.php:1555 inc/options/class-wpseo-option-titles.php:309
+#: inc/class-upgrade.php:1574 inc/options/class-wpseo-option-titles.php:309
 msgid "%s Archive"
 msgstr "%s Архива"
 
@@ -3680,7 +4082,7 @@ msgstr "Прво право свеобухватно SEO решење за Во�
 #. translators: %1$s expands to Yoast SEO, %2$s / %3$s: links to the
 #. installation manual in the Readme for the Yoast SEO code repository on
 #. GitHub
-#: wp-seo-main.php:526
+#: wp-seo-main.php:525
 msgid "The %1$s plugin installation is incomplete. Please refer to %2$sinstallation instructions%3$s."
 msgstr "Постављање додатка %1$s није потпуно. Погледајте %2$sупутства за постављање%3$s."
 
@@ -3708,12 +4110,17 @@ msgstr "Почетак"
 #: inc/class-wpseo-rank.php:218 inc/class-wpseo-rank.php:250
 #: src/task-list/application/tasks/child-tasks/improve-content-readability-child.php:50
 #: src/task-list/application/tasks/child-tasks/improve-content-seo-child.php:50
-#: js/dist/block-editor.js:696 js/dist/editor-modules.js:194
+#: js/dist/block-editor.js:666 js/dist/editor-modules.js:194
 #: js/dist/editor-modules.js:477 js/dist/externals-components.js:163
-#: js/dist/externals/analysis.js:410 js/dist/externals/dashboardFrontend.js:4
+#: js/dist/externals/analysis.js:481 js/dist/externals/dashboardFrontend.js:4
 #: js/dist/frontend-inspector-resources.js:1
 msgid "Good"
 msgstr "Добро"
+
+#. translators: 1: link to post; 2: link to blog.
+#: inc/options/class-wpseo-option-titles.php:277
+msgid "The post %1$s appeared first on %2$s."
+msgstr "Чланак %1$s се први пут појавио на %2$s."
 
 #: inc/class-wpseo-replace-vars.php:1516
 msgid "Replaced with the post/page modified time"
@@ -3810,11 +4217,6 @@ msgstr ""
 "Заменска променљива може садржати само слова и бројеве, доњу црту или црту.\n"
 "Покушајте да преименујете вашу променљиву."
 
-#: admin/views/tabs/tool/import-seo.php:88
-#: admin/views/tool-import-export.php:24
-msgid "Import"
-msgstr "Увоз"
-
 #: inc/class-wpseo-replace-vars.php:1488
 msgid "Replaced with the current date"
 msgstr "Заменити тренутним датумом"
@@ -3865,8 +4267,8 @@ msgid "This tool allows you to quickly change titles and descriptions of your po
 msgstr "Овај алат вам омогућава да брзо измените наслове и описе у вашим чланцима и страницама без потребе да уређујете сваку страницу посебно."
 
 #: admin/pages/tools.php:42
-#: src/bulk-editor/user-interface/bulk-editor-integration.php:228
-#: js/dist/bulk-editor-page.js:22
+#: src/bulk-editor/user-interface/bulk-editor-integration.php:269
+#: js/dist/bulk-editor-page.js:25
 msgid "Bulk editor"
 msgstr "Групни уређивач"
 
@@ -3980,10 +4382,15 @@ msgstr ""
 "Покушајте изабрати заменску променљиву са мање сличним називом."
 
 #. translators: %s expands to the variable used for term title.
-#: inc/class-upgrade.php:1558 inc/options/class-wpseo-option-titles.php:345
+#: inc/class-upgrade.php:1577 inc/options/class-wpseo-option-titles.php:345
 #: src/editors/framework/seo/terms/title-data-provider.php:27
 msgid "%s Archives"
 msgstr "Архиве: %s"
+
+#: admin/views/tabs/tool/import-seo.php:88
+#: admin/views/tool-import-export.php:24
+msgid "Import"
+msgstr "Увези"
 
 #: admin/class-yoast-network-admin.php:77
 msgid "public"
@@ -4041,9 +4448,8 @@ msgstr "Особа"
 msgid "Are you in Google News? Increase your traffic from Google News by optimizing for it!"
 msgstr "Да ли сте на Google News? Повећајте ваш саобраћај са Google News оптимизацијом."
 
-#: inc/class-wpseo-replace-vars.php:1471 js/dist/ai-content-planner.js:276
-#: js/dist/ai-content-planner.js:277 js/dist/block-editor.js:245
-#: js/dist/block-editor.js:246 js/dist/bulk-editor-page.js:20
+#: inc/class-wpseo-replace-vars.php:1471 js/dist/block-editor.js:723
+#: js/dist/block-editor.js:724 js/dist/bulk-editor-page.js:20
 #: js/dist/externals-redux.js:1
 msgid "Title"
 msgstr "Наслов"
@@ -4096,17 +4502,6 @@ msgstr "Нови сајтови у мрежи наслеђују SEO подеш�
 msgid "The premium version of %1$s with more features & support."
 msgstr "Премијум издање %1$s са више могућности и подршком."
 
-#. Translators: %1$s: expands to 'Yoast SEO Premium', %2$s: links to Yoast SEO
-#. Premium plugin page.
-#: admin/google_search_console/views/gsc-redirect-nopremium.php:22
-msgid "To be able to create a redirect and fix this issue, you need %1$s. You can buy the plugin, including one year of support and updates, on %2$s."
-msgstr "Да бисте могли да направите преусмерење и решите овај проблем, потребан вам је %1$s. Додатак, укључујући годину дана подршке и ажурирања, можете купити на %2$s."
-
-#. Translators: %s: expands to Yoast SEO Premium
-#: admin/google_search_console/views/gsc-redirect-nopremium.php:15
-msgid "Creating redirects is a %s feature"
-msgstr "Прављење преусмерења је могућност %s"
-
 #: admin/class-meta-columns.php:129
 msgid "Meta Desc."
 msgstr "Мета опис."
@@ -4131,43 +4526,12 @@ msgstr "Искључи %s"
 msgid "All SEO Scores"
 msgstr "Сви SEO резултати"
 
-#: admin/google_search_console/views/gsc-redirect-nopremium.php:27
-#: js/dist/ai-consent.js:6 js/dist/ai-content-planner.js:4
-#: js/dist/ai-content-planner.js:133 js/dist/ai-content-planner.js:268
-#: js/dist/ai-content-planner.js:275 js/dist/ai-content-planner.js:278
-#: js/dist/ai-content-planner.js:280 js/dist/ai-content-planner.js:288
-#: js/dist/ai-content-planner.js:292 js/dist/ai-content-planner.js:293
-#: js/dist/ai-generator.js:6 js/dist/ai-generator.js:48
-#: js/dist/ai-generator.js:53 js/dist/ai-generator.js:61
-#: js/dist/ai-generator.js:67 js/dist/ai-generator.js:278
-#: js/dist/ai-generator.js:280 js/dist/ai-generator.js:282
-#: js/dist/block-editor.js:4 js/dist/block-editor.js:133
-#: js/dist/block-editor.js:244 js/dist/block-editor.js:247
-#: js/dist/block-editor.js:249 js/dist/block-editor.js:257
-#: js/dist/block-editor.js:261 js/dist/block-editor.js:262
-#: js/dist/block-editor.js:296 js/dist/bulk-editor-page.js:3
-#: js/dist/bulk-editor-page.js:5 js/dist/editor-modules.js:195
-#: js/dist/editor-modules.js:211 js/dist/editor-modules.js:238
-#: js/dist/editor-modules.js:243 js/dist/editor-modules.js:248
-#: js/dist/editor-modules.js:254 js/dist/editor-modules.js:260
-#: js/dist/editor-modules.js:471 js/dist/editor-modules.js:473
-#: js/dist/editor-modules.js:475 js/dist/externals-components.js:104
-#: js/dist/externals-components.js:148 js/dist/externals-components.js:153
-#: js/dist/externals-components.js:158 js/dist/externals-components.js:199
-#: js/dist/externals-components.js:203 js/dist/externals-components.js:414
-#: js/dist/externals-components.js:416 js/dist/externals-components.js:418
-#: js/dist/externals/aiFrontend.js:190 js/dist/externals/aiFrontend.js:195
-#: js/dist/externals/componentsNew.js:626
-#: js/dist/externals/dashboardFrontend.js:6 js/dist/general-page.js:8
-#: js/dist/general-page.js:29 js/dist/integrations-page.js:58
-#: js/dist/introductions.js:5 js/dist/introductions.js:9
-#: js/dist/introductions.js:10 js/dist/new-settings.js:8
-#: js/dist/new-settings.js:38
-msgid "Close"
-msgstr "Затвори"
-
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:150
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:151
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:97
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:98
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:157
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:151
+#: src/abilities/user-interface/seo-data-output-schema.php:76
+#: src/abilities/user-interface/seo-data-output-schema.php:77
 #: js/dist/externals/socialMetadataForms.js:23
 msgid "X description"
 msgstr "X опис"
@@ -4194,18 +4558,18 @@ msgstr "И %1$s и %2$s праве Open Graph излаз, што може дов
 #: inc/class-wpseo-rank.php:213
 #: src/task-list/application/tasks/child-tasks/improve-content-readability-child.php:51
 #: src/task-list/application/tasks/child-tasks/improve-content-seo-child.php:51
-#: js/dist/block-editor.js:696 js/dist/editor-modules.js:194
+#: js/dist/block-editor.js:666 js/dist/editor-modules.js:194
 #: js/dist/editor-modules.js:477 js/dist/externals-components.js:163
-#: js/dist/externals/analysis.js:410 js/dist/externals/dashboardFrontend.js:4
+#: js/dist/externals/analysis.js:481 js/dist/externals/dashboardFrontend.js:4
 #: js/dist/frontend-inspector-resources.js:1
 msgid "OK"
 msgstr "У реду"
 
-#: admin/class-admin.php:229 js/dist/externals-components.js:465
+#: admin/class-admin.php:217 js/dist/externals-components.js:465
 msgid "FAQ"
 msgstr "FAQ"
 
-#: admin/metabox/class-metabox.php:422
+#: admin/metabox/class-metabox.php:366
 #: admin/taxonomy/class-taxonomy-metabox.php:141
 #: inc/class-wpseo-admin-bar-menu.php:790
 #: src/services/health-check/report-builder.php:168
@@ -4215,12 +4579,6 @@ msgstr "SEO"
 #: admin/menu/class-admin-menu.php:92
 msgid "Search Console"
 msgstr "Конзола за претрагу"
-
-#. translators: %1$s expands to Yoast SEO, %2$s expands to the installed
-#. version, %3$s expands to Gutenberg
-#: admin/class-admin-gutenberg-compatibility-notification.php:88
-msgid "%1$s detected you are using version %2$s of %3$s, please update to the latest version to prevent compatibility issues."
-msgstr "%1$s је пронашао да користите верзију %2$s од %3$s, молим вас ажурирајте на најновију верзију да би избегли проблеме са компатибилношћу."
 
 #. translators: %s expands to the name of a post type (plural).
 #: admin/ajax.php:211
@@ -4246,28 +4604,9 @@ msgstr "Огроман SEO проблем: Блокирате приступ р�
 msgid "General"
 msgstr "Опште"
 
-#: admin/metabox/class-metabox.php:209
-msgid "The URL that this page should redirect to."
-msgstr "URL на који би ова страница требала да преусмерава."
-
-#: admin/metabox/class-metabox.php:199 js/dist/block-editor.js:629
-#: js/dist/classic-editor.js:319
-msgid "Canonical URL"
-msgstr "Канонски URL"
-
 #: admin/class-bulk-editor-list-table.php:1043
 msgid "Post Status"
 msgstr "Статус чланка"
-
-#: admin/metabox/class-metabox.php:194 js/dist/block-editor.js:627
-#: js/dist/classic-editor.js:317
-msgid "No Snippet"
-msgstr "Без исечка"
-
-#: admin/metabox/class-metabox.php:193 js/dist/block-editor.js:627
-#: js/dist/classic-editor.js:317
-msgid "No Archive"
-msgstr "Без архиве"
 
 #: admin/class-bulk-editor-list-table.php:443
 msgid "Filter"
@@ -4290,25 +4629,6 @@ msgstr "Нови Yoast мета опис"
 msgid "Existing Yoast Meta Description"
 msgstr "Постојећи Yoast мета опис"
 
-#: admin/metabox/class-metabox.php:192 js/dist/block-editor.js:627
-#: js/dist/classic-editor.js:317
-msgid "No Image Index"
-msgstr "Без индекса слика"
-
-#: admin/metabox/class-metabox.php:173 js/dist/ai-content-planner.js:276
-#: js/dist/ai-content-planner.js:277 js/dist/block-editor.js:245
-#: js/dist/block-editor.js:246 js/dist/bulk-editor-page.js:21
-#: js/dist/externals/replacementVariableEditor.js:71
-#: js/dist/externals/searchMetadataPreviews.js:102 js/dist/new-settings.js:18
-#: js/dist/new-settings.js:24 js/dist/new-settings.js:31
-#: js/dist/new-settings.js:35 js/dist/new-settings.js:88
-#: js/dist/new-settings.js:108 js/dist/new-settings.js:157
-#: js/dist/new-settings.js:204 js/dist/new-settings.js:310
-#: js/dist/new-settings.js:337 js/dist/new-settings.js:352
-#: js/dist/new-settings.js:410
-msgid "Meta description"
-msgstr "Мета опис"
-
 #: admin/class-meta-columns.php:128
 msgid "SEO Title"
 msgstr "SEO наслов"
@@ -4316,11 +4636,6 @@ msgstr "SEO наслов"
 #: admin/import/class-import-settings.php:121
 msgid "Settings successfully imported."
 msgstr "Подешавања успешно увезена."
-
-#: admin/metabox/class-metabox.php:190 js/dist/block-editor.js:627
-#: js/dist/classic-editor.js:317
-msgid "Meta robots advanced"
-msgstr "Напредни мета роботи"
 
 #: admin/import/class-import-settings.php:85
 msgid "Settings could not be imported:"
@@ -4334,18 +4649,17 @@ msgstr "Употребили сте HTML као вредност променљ�
 msgid "Post doesn't exist."
 msgstr "Чланак не постоји."
 
-#: admin/class-admin.php:182
+#: admin/class-admin.php:170
 msgid "Posts"
 msgstr "Чланци"
 
-#: admin/class-admin.php:308
 #: src/user-meta/framework/additional-contactmethods/facebook.php:28
 msgid "Facebook profile URL"
 msgstr "URL Facebook профила"
 
 #: admin/class-bulk-editor-list-table.php:849 js/dist/bulk-editor-page.js:20
-#: js/dist/externals/dashboardFrontend.js:4 js/dist/general-page.js:44
-#: js/dist/general-page.js:59
+#: js/dist/bulk-editor-page.js:22 js/dist/externals/dashboardFrontend.js:4
+#: js/dist/general-page.js:44 js/dist/general-page.js:59
 msgid "Edit"
 msgstr "Уреди"
 
@@ -4361,23 +4675,10 @@ msgstr "WP наслов странице"
 msgid "Focus keyword"
 msgstr "Фокусна кључна реч"
 
-#: admin/metabox/class-metabox.php:208
-msgid "301 Redirect"
-msgstr "301 преусмеравање"
-
 #. translators: %s expands to post type.
 #: admin/ajax.php:187
 msgid "Post has an invalid Content Type: %s."
 msgstr "Чланак има неважећи тип садржаја:%s."
-
-#. translators: 1: link open tag; 2: link close tag.
-#: admin/metabox/class-metabox.php:203
-msgid "The canonical URL that this page should point to. Leave empty to default to permalink. %1$sCross domain canonical%2$s supported too."
-msgstr "Канонски URL на који би ова страна требала да води. Остави празно за подразумевану сталну везу.%1$sCross domain канонски URL%2$s је такође подржан."
-
-#: admin/metabox/class-metabox.php:178
-msgid "Warning: even though you can set the meta robots setting here, the entire site is set to noindex in the sitewide privacy settings, so these settings won't have an effect."
-msgstr "Упозорење: иако овде можете поставити мета robots, цео сајт је постављен на noindex у подешавањима приватности на нивоу сајта, па ова подешавања неће имати дејства."
 
 #: admin/class-bulk-editor-list-table.php:1044
 msgid "Publication date"
@@ -4388,56 +4689,32 @@ msgstr "Датум објављивања"
 msgid "XML sitemaps"
 msgstr "XML мапе сајта"
 
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:124
-#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:125
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:71
+#: src/abilities/user-interface/abilities/abstract-post-seo-data-ability.php:72
+#: src/abilities/user-interface/abilities/update-post-seo-data-ability.php:125
+#: src/abilities/user-interface/abilities/update-term-seo-data-ability.php:135
+#: src/abilities/user-interface/seo-data-output-schema.php:66
+#: src/abilities/user-interface/seo-data-output-schema.php:67
 #: js/dist/new-settings.js:28
 msgid "meta description"
 msgstr "мета опис"
-
-#: src/services/health-check/default-tagline-runner.php:32
-msgid "Just another WordPress site"
-msgstr "Само још једно Вордпресово веб место"
-
-#. translators: Hidden accessibility text; %s: post title.
-#: admin/class-bulk-editor-list-table.php:870
-msgid "View &#8220;%s&#8221;"
-msgstr "Види &#0132;%s&#0147;"
 
 #: admin/class-meta-columns.php:828
 msgid "Post is set to noindex."
 msgstr "Чланак је подешен на „noindex“."
 
-#: admin/metabox/class-metabox.php:447
-#: admin/taxonomy/class-taxonomy-metabox.php:159 js/dist/new-settings.js:35
-msgid "Social"
-msgstr "Друштвене мреже"
-
-#: admin/class-bulk-editor-list-table.php:861
-msgid "Preview"
-msgstr "Предпреглед"
-
-#. translators: Hidden accessibility text; %s: post title.
-#: admin/class-bulk-editor-list-table.php:860
-msgid "Preview &#8220;%s&#8221;"
-msgstr "Преглед &#0132;%s&#0147;"
-
 #: admin/class-bulk-editor-list-table.php:1050
 msgid "Action"
 msgstr "Радња"
 
-#: admin/class-admin.php:224 src/integrations/settings-integration.php:380
-#: src/presenters/meta-description-presenter.php:37 js/dist/how-to-block.js:7
-msgid "Settings"
-msgstr "Podešavanja"
-
-#: admin/class-bulk-editor-list-table.php:871 js/dist/block-editor.js:378
+#: admin/class-bulk-editor-list-table.php:871 js/dist/block-editor.js:137
 #: js/dist/classic-editor.js:68 js/dist/externals/dashboardFrontend.js:5
 #: js/dist/wincher-dashboard-widget.js:125
 msgid "View"
 msgstr "Погледај"
 
 #: admin/class-yoast-network-admin.php:43 src/config/schema-types.php:163
-#: src/integrations/settings-integration.php:645 js/dist/new-settings.js:9
+#: src/integrations/settings-integration.php:647 js/dist/new-settings.js:9
 #: js/dist/new-settings.js:592
 msgid "None"
 msgstr "Ниједан"
@@ -4455,11 +4732,36 @@ msgstr[2] "Сви <span class=\"count\">(%s)</span>"
 msgid "Tools"
 msgstr "Алатке"
 
-#: admin/metabox/class-metabox.php:196 js/dist/block-editor.js:628
-#: js/dist/classic-editor.js:318
-msgid "Breadcrumbs Title"
-msgstr "Наслов мрвица"
+#: admin/class-bulk-editor-list-table.php:861
+msgid "Preview"
+msgstr "Преглед"
 
-#: admin/metabox/class-metabox.php:197
-msgid "Title to use for this page in breadcrumb paths"
-msgstr "Наслов који ће се користити за ову страницу у путањама мрвица"
+#: admin/class-admin.php:212 src/integrations/settings-integration.php:382
+#: src/presenters/meta-description-presenter.php:37 js/dist/how-to-block.js:7
+msgid "Settings"
+msgstr "Подешавања"
+
+#: admin/metabox/class-metabox.php:391
+#: admin/taxonomy/class-taxonomy-metabox.php:159 js/dist/new-settings.js:35
+msgid "Social"
+msgstr "Друштвено"
+
+#. translators: %1$s expands to Yoast SEO, %2$s expands to the installed
+#. version, %3$s expands to Gutenberg
+#: admin/class-admin-gutenberg-compatibility-notification.php:88
+msgid "%1$s detected you are using version %2$s of %3$s, please update to the latest version to prevent compatibility issues."
+msgstr "%1$s је пронашао да користите издање %2$s од %3$s, ажурирајте на најновије издање да би избегли проблеме са компатибилношћу."
+
+#: src/services/health-check/default-tagline-runner.php:32
+msgid "Just another WordPress site"
+msgstr "Само још једно Вордпресово сајт"
+
+#. translators: Hidden accessibility text; %s: post title.
+#: admin/class-bulk-editor-list-table.php:870
+msgid "View &#8220;%s&#8221;"
+msgstr "Види „%s“"
+
+#. translators: Hidden accessibility text; %s: post title.
+#: admin/class-bulk-editor-list-table.php:860
+msgid "Preview &#8220;%s&#8221;"
+msgstr "Прегледај „%s“"

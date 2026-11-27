@@ -184,10 +184,12 @@ abstract class PLL_Translatable_Object {
 	/**
 	 * Tells if a serialized value contains a disallowed PHP type.
 	 *
-	 * The regex does not parse string payloads: a string value containing `{O:` or `";O:`
-	 * is treated as a disallowed type.
+	 * Leading and trailing whitespace is trimmed first, matching `is_serialized()` and `maybe_unserialize()`.
 	 *
-	 * Allowed serialized types: array, string, int, and bool.
+	 * The regex scans the whole blob for disallowed PHP serialization type tokens (`O:`, `C:`, `E:`, `r:`, `R:`),
+	 * including inside serialized string payloads. It does not parse `s:"…"` boundaries.
+	 *
+	 * Allowed serialized types: array, string, int, float, null and bool.
 	 *
 	 * @since 3.8.10
 	 *
@@ -195,7 +197,13 @@ abstract class PLL_Translatable_Object {
 	 * @return bool
 	 */
 	private function has_disallowed_type( string $description ): bool {
-		return 0 !== preg_match( '#(?:^|[;{])(?:[OCEdrR]:|N;)#', $description );
+		$description = trim( $description );
+
+		if ( '' === $description ) {
+			return false;
+		}
+
+		return 0 !== preg_match( '#[OCErR]:\d+[:;]#', $description );
 	}
 
 	/**
@@ -246,7 +254,7 @@ abstract class PLL_Translatable_Object {
 	 *              the object).
 	 */
 	public function set_language( $id, $lang ) {
-		$id = $this->sanitize_int_id( $id );
+		$id = pll_sanitize_id( $id );
 
 		if ( empty( $id ) ) {
 			return false;
@@ -280,7 +288,7 @@ abstract class PLL_Translatable_Object {
 	 *                            ID is invalid.
 	 */
 	public function get_language( $id ) {
-		$id = $this->sanitize_int_id( $id );
+		$id = pll_sanitize_id( $id );
 
 		if ( empty( $id ) ) {
 			return false;
@@ -305,7 +313,7 @@ abstract class PLL_Translatable_Object {
 	 * @return void
 	 */
 	public function delete_language( $id ) {
-		$id = $this->sanitize_int_id( $id );
+		$id = pll_sanitize_id( $id );
 
 		if ( empty( $id ) ) {
 			return;
@@ -324,7 +332,7 @@ abstract class PLL_Translatable_Object {
 	 * @return array<int,WP_Term> Array of terms with object ID as key.
 	 */
 	protected function get_object_terms( array $object_ids, string $taxonomy ) {
-		$object_ids = $this->sanitize_int_ids_list( $object_ids );
+		$object_ids = pll_sanitize_ids( $object_ids );
 		if ( empty( $object_ids ) ) {
 			return array();
 		}
@@ -535,7 +543,7 @@ abstract class PLL_Translatable_Object {
 
 		$object_ids = $this->query_objects_with_no_lang( $language_ids, $limit, $args );
 
-		return array_values( $this->sanitize_int_ids_list( $object_ids ) );
+		return array_values( pll_sanitize_ids( $object_ids ) );
 	}
 
 	/**
@@ -567,42 +575,6 @@ abstract class PLL_Translatable_Object {
 		$this->set_to_cache( $key, $object_ids );
 
 		return $object_ids;
-	}
-
-	/**
-	 * Sanitizes an ID as positive integer.
-	 * Kind of similar to `absint()`, but rejects negative integers instead of making them positive.
-	 *
-	 * @since 3.2
-	 *
-	 * @param mixed $id A supposedly numeric ID.
-	 * @return int A positive integer. `0` for non numeric values and negative integers.
-	 *
-	 * @phpstan-return int<0,max>
-	 */
-	public function sanitize_int_id( $id ) {
-		return is_numeric( $id ) && $id >= 1 ? abs( (int) $id ) : 0;
-	}
-
-	/**
-	 * Sanitizes an array of IDs as positive integers.
-	 * `0` values are removed.
-	 *
-	 * @since 3.2
-	 *
-	 * @param mixed $ids An array of numeric IDs.
-	 * @return int[]
-	 *
-	 * @phpstan-return array<positive-int>
-	 */
-	public function sanitize_int_ids_list( $ids ) {
-		if ( empty( $ids ) || ! is_array( $ids ) ) {
-			return array();
-		}
-
-		$ids = array_map( array( $this, 'sanitize_int_id' ), $ids );
-
-		return array_filter( $ids );
 	}
 
 	/**

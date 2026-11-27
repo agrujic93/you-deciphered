@@ -397,7 +397,7 @@ class WC_Order extends WC_Abstract_Order {
 	 * @param string $new_status    Status to change the order to. No internal wc- prefix is required.
 	 * @param string $note          Optional note to add.
 	 * @param bool   $manual        Is this a manual order status change?.
-	 * @return bool
+	 * @return bool Whether the order was saved with the new status.
 	 */
 	public function update_status( $new_status, $note = '', $manual = false ) {
 		if ( ! $this->get_id() ) { // Order must exist.
@@ -422,7 +422,9 @@ class WC_Order extends WC_Abstract_Order {
 			$this->add_order_note( __( 'Update status event failed.', 'woocommerce' ) . ' ' . $e->getMessage(), false, false, array( 'note_group' => OrderNoteGroup::ERROR ) );
 			return false;
 		}
-		return true;
+
+		// save() swallows its own exceptions, so check whether it could persist the order.
+		return null === $this->get_last_save_error();
 	}
 
 	/**
@@ -2089,7 +2091,7 @@ class WC_Order extends WC_Abstract_Order {
 		} else {
 			$comment_author        = __( 'WooCommerce', 'woocommerce' );
 			$comment_author_email  = strtolower( __( 'WooCommerce', 'woocommerce' ) ) . '@';
-			$comment_author_email .= isset( $_SERVER['HTTP_HOST'] ) ? str_replace( 'www.', '', sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) ) : 'noreply.com'; // WPCS: input var ok.
+			$comment_author_email .= isset( $_SERVER['HTTP_HOST'] ) ? str_replace( 'www.', '', sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) ) : 'noreply.com';
 			$comment_author_email  = sanitize_email( $comment_author_email );
 		}
 		$commentdata = apply_filters(

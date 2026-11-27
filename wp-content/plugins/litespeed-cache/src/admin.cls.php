@@ -83,11 +83,6 @@ class Admin extends Root {
 		$this->cls( 'Media' )->after_admin_init();
 
 		do_action( 'litespeed_after_admin_init' );
-
-		if ( $this->cls( 'Router' )->esi_enabled() ) {
-			add_action( 'in_widget_form', [ $this->cls( 'Admin_Display' ), 'show_widget_edit' ], 100, 3 );
-			add_filter( 'widget_update_callback', __NAMESPACE__ . '\Admin_Settings::validate_widget_save', 10, 4 );
-		}
 	}
 
 	/**
@@ -156,7 +151,7 @@ class Admin extends Root {
 	}
 
 	/**
-	 * Clean up the input (array or scalar) of any extra slashes/spaces.
+	 * Trim already-unslashed input, including nested values.
 	 *
 	 * @since 1.0.4
 	 *
@@ -168,7 +163,7 @@ class Admin extends Root {
 			return array_map( __CLASS__ . '::cleanup_text', $input );
 		}
 
-		return stripslashes(trim($input));
+		return trim($input);
 	}
 
 	/**

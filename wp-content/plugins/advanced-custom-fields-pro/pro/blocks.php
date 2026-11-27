@@ -26,6 +26,11 @@ add_filter( 'block_type_metadata', 'acf_add_block_namespace' );
 add_filter( 'block_type_metadata_settings', 'acf_handle_json_block_registration', 99, 2 );
 add_action( 'acf_block_render_template', 'acf_block_render_template', 10, 6 );
 
+// Track synced patterns and REST requests while blocks render, to choose who their relational fields are checked against.
+add_filter( 'register_block_type_args', '_acf_track_synced_pattern', 10, 2 );
+add_filter( 'rest_request_before_callbacks', '_acf_start_rest_block_render', 10, 1 );
+add_filter( 'rest_request_after_callbacks', '_acf_end_rest_block_render', 10, 1 );
+
 // Warn when legacy (V2 or earlier) blocks are registered on WordPress 7.1+.
 add_action( 'admin_notices', 'acf_maybe_show_legacy_block_version_notice' );
 add_action( 'admin_init', 'acf_dismiss_legacy_block_version_notice' );
@@ -129,19 +134,23 @@ function acf_handle_json_block_registration( $settings, $metadata ) {
 
 	// Map custom ACF properties from the ACF key, with localization.
 	$property_mappings = array(
-		'renderCallback'           => 'render_callback',
-		'renderTemplate'           => 'render_template',
-		'mode'                     => 'mode',
-		'blockVersion'             => 'acf_block_version',
-		'postTypes'                => 'post_types',
-		'validate'                 => 'validate',
-		'validateOnLoad'           => 'validate_on_load',
-		'usePostMeta'              => 'use_post_meta',
-		'hideFieldsInSidebar'      => 'hide_fields_in_sidebar',
-		'expandedEditorButtons'    => 'expanded_editor_buttons',
-		'autoInlineEditing'        => 'auto_inline_editing',
-		'expandedEditorButtonText' => 'expanded_editor_button_text',
-		'renderPreview'            => 'render_preview',
+		'renderCallback'               => 'render_callback',
+		'renderTemplate'               => 'render_template',
+		'mode'                         => 'mode',
+		'blockVersion'                 => 'acf_block_version',
+		'postTypes'                    => 'post_types',
+		'validate'                     => 'validate',
+		'validateOnLoad'               => 'validate_on_load',
+		'usePostMeta'                  => 'use_post_meta',
+		'hideFieldsInSidebar'          => 'hide_fields_in_sidebar',
+		'expandedEditorButtons'        => 'expanded_editor_buttons',
+		'autoInlineEditing'            => 'auto_inline_editing',
+		'expandedEditorButtonText'     => 'expanded_editor_button_text',
+		'placeholderButtonText'        => 'placeholder_button_text',
+		'renderPreview'                => 'render_preview',
+		'defaultBlock'                 => 'default_block',
+		'directInsert'                 => 'direct_insert',
+		'allowDangerousPreviewScripts' => 'allow_dangerous_preview_scripts',
 	);
 	$textdomain        = ! empty( $metadata['textdomain'] ) ? $metadata['textdomain'] : 'acf';
 	$i18n_schema       = get_block_metadata_i18n_schema();
@@ -475,6 +484,34 @@ function acf_get_block_type( $name ) {
 }
 
 /**
+ * Returns true if inline `<script>` tags in block preview HTML may run in the block editor for all ACF blocks.
+ *
+ * Preview HTML can contain field values entered by other, possibly lower-privileged, users, so inline scripts are
+ * disabled by default. Individual block types can opt in with `allow_dangerous_preview_scripts` in
+ * acf_register_block_type(), or `allowDangerousPreviewScripts` under the `acf` key in block.json. Enqueueing scripts
+ * with the block and using the `render_block_preview` JS action is the recommended alternative.
+ *
+ * @since 6.8.12
+ *
+ * @return boolean
+ */
+function acf_blocks_allow_dangerous_preview_scripts() {
+	/**
+	 * Filters whether inline `<script>` tags in block preview HTML may run in the block editor, for all ACF blocks.
+	 * Block types that set `allow_dangerous_preview_scripts` run their preview scripts regardless.
+	 *
+	 * Only enable this if no block template prints unescaped field values inside `<script>` tags, as anyone who can
+	 * edit a block's fields could otherwise run JavaScript in the browser of other users who view the block in the
+	 * editor.
+	 *
+	 * @since 6.8.12
+	 *
+	 * @param boolean $allowed Whether inline preview scripts may run. Default false.
+	 */
+	return (bool) apply_filters( 'acf/blocks/allow_dangerous_preview_scripts', false );
+}
+
+/**
  * Removes a block type for the given name.
  *
  * @since   5.7.12
@@ -776,6 +813,8 @@ function acf_validate_block_type( $block ) {
 			'enqueue_style'   => false,
 			'enqueue_script'  => false,
 			'enqueue_assets'  => false,
+			'default_block'   => array(),
+			'direct_insert'   => false,
 		)
 	);
 
@@ -816,6 +855,11 @@ function acf_validate_block_type( $block ) {
 		} elseif ( is_string( $block['parent'] ) ) {
 			$block['parent'] = array( $block['parent'] );
 		}
+	}
+
+	// Allow 'default_block' to be passed as a block name string.
+	if ( is_string( $block['default_block'] ) && $block['default_block'] !== '' ) {
+		$block['default_block'] = array( 'name' => $block['default_block'] );
 	}
 
 	// Return block.
@@ -929,8 +973,8 @@ function acf_render_block_callback( $attributes, $content = '', $wp_block = null
 		$is_preview = true;
 	}
 
-	// If ACF's block save method hasn't been called yet, try to initialize a default block.
-	if ( empty( $attributes['name'] ) && ! empty( $wp_block->name ) ) {
+	// The block's own name is authoritative; the "name" attribute is stored in post content and may differ.
+	if ( ! empty( $wp_block->name ) ) {
 		$attributes['name'] = $wp_block->name;
 	}
 
@@ -1271,6 +1315,10 @@ function acf_render_block( $attributes, $content = '', $is_preview = false, $pos
 	$previous_version = acf_get_data( 'acf_current_block_version' );
 	acf_set_data( 'acf_current_block_version', $block['acf_block_version'] ?? null );
 
+	// Track the user relational field values are checked against, for acf_remove_unreadable_formatted_post_ids().
+	$previous_reader = acf_get_data( 'acf_block_reader' );
+	acf_set_data( 'acf_block_reader', _acf_get_block_reader( $is_preview ) );
+
 	// Find post_id if not defined.
 	if ( ! $post_id ) {
 		$post_id = get_the_ID();
@@ -1304,8 +1352,120 @@ function acf_render_block( $attributes, $content = '', $is_preview = false, $pos
 	// Reset postdata.
 	acf_reset_meta( $block['id'] );
 
-	// Restore the previous block version for the parent block's context.
+	// Restore the previous block version and reader for the parent block's context.
 	acf_set_data( 'acf_current_block_version', $previous_version );
+	acf_set_data( 'acf_block_reader', $previous_reader );
+}
+
+/**
+ * The internal ACF function to return the user whose read access is checked for an ACF Block's
+ * relational field values while it renders.
+ *
+ * Editing previews and previews of posts can show data the current user has just entered, so they're
+ * checked against the current user.
+ *
+ * Otherwise, blocks saved in a post or synced pattern were saved by someone who can edit it, so they're
+ * checked against its author, wherever its content is shown, such as on the front end or in the REST API.
+ * Posts the author picked show to every visitor, and posts they couldn't have picked are left out, even if
+ * an editor published the post without noticing them. Posts that an editor picked for another user's post,
+ * and that the author can't read, are left out too.
+ *
+ * Blocks rendered by a synced pattern are saved in the pattern, and other blocks rendered by `the_content`
+ * are saved in the current post. Posts whose content is shown inside a synced pattern, such as by a Query
+ * Loop in the pattern, are treated as part of the pattern.
+ *
+ * Blocks that aren't saved in a post or synced pattern are checked against the current user if they're
+ * rendered in the admin, by AJAX or by a REST API endpoint, such as the block renderer, which can render
+ * any data. On the front end, they're in places like template parts and widgets, which only users who can
+ * edit the theme can change, so they aren't checked.
+ *
+ * @since 6.8.11
+ *
+ * @param boolean $is_preview Whether the block is being rendered for an editing preview.
+ * @return WP_User|false The user, or false if the block's values aren't checked.
+ */
+function _acf_get_block_reader( $is_preview ) {
+	if ( $is_preview || is_preview() ) {
+		return wp_get_current_user();
+	}
+
+	$source = acf_get_data( 'acf_synced_pattern' );
+
+	if ( ! $source && doing_filter( 'the_content' ) ) {
+		$source = get_post();
+	}
+
+	if ( $source ) {
+		return new WP_User( (int) $source->post_author );
+	}
+
+	if ( is_admin() || wp_doing_ajax() || acf_get_data( 'acf_rest_block_render_depth' ) ) {
+		return wp_get_current_user();
+	}
+
+	return false;
+}
+
+/**
+ * The internal ACF function to record that a REST API endpoint has started handling a request, so blocks
+ * it renders that aren't saved in a post are checked against the current user.
+ *
+ * @since 6.8.11
+ *
+ * @param mixed $response The response, or an error.
+ * @return mixed The unchanged response.
+ */
+function _acf_start_rest_block_render( $response ) {
+	acf_set_data( 'acf_rest_block_render_depth', (int) acf_get_data( 'acf_rest_block_render_depth' ) + 1 );
+
+	return $response;
+}
+
+/**
+ * The internal ACF function to record that a REST API endpoint has finished handling a request.
+ *
+ * @since 6.8.11
+ *
+ * @param mixed $response The response, or an error.
+ * @return mixed The unchanged response.
+ */
+function _acf_end_rest_block_render( $response ) {
+	acf_set_data( 'acf_rest_block_render_depth', max( 0, (int) acf_get_data( 'acf_rest_block_render_depth' ) - 1 ) );
+
+	return $response;
+}
+
+/**
+ * The internal ACF function to record that blocks rendered by a synced pattern are saved in the pattern,
+ * by wrapping the render callback of the `core/block` block type.
+ *
+ * A synced pattern renders its blocks by rendering its own block instance again, so the `render_block`
+ * filter runs twice for it and can't be used to find where the pattern ends.
+ *
+ * @since 6.8.11
+ *
+ * @param array  $args       The block type's arguments.
+ * @param string $block_type The block type's name.
+ * @return array The block type's arguments.
+ */
+function _acf_track_synced_pattern( $args, $block_type ) {
+	if ( 'core/block' !== $block_type || empty( $args['render_callback'] ) || ! is_callable( $args['render_callback'] ) ) {
+		return $args;
+	}
+
+	$render_callback         = $args['render_callback'];
+	$args['render_callback'] = function ( $attributes, $content = '', $block = null ) use ( $render_callback ) {
+		$previous_pattern = acf_get_data( 'acf_synced_pattern' );
+		acf_set_data( 'acf_synced_pattern', empty( $attributes['ref'] ) ? null : get_post( (int) $attributes['ref'] ) );
+
+		try {
+			return call_user_func( $render_callback, $attributes, $content, $block );
+		} finally {
+			acf_set_data( 'acf_synced_pattern', $previous_pattern );
+		}
+	};
+
+	return $args;
 }
 
 /**
@@ -1456,8 +1616,35 @@ function acf_enqueue_block_assets() {
 			// Block.json setting takes precedence over the filter default.
 			$button_text = $block_json_text ? $block_json_text : $default_text;
 
-			// Sanitize the button text to prevent XSS.
-			$block['expanded_editor_button_text'] = is_string( $button_text ) ? acf_esc_html( $button_text ) : '';
+			// Button labels are rendered as plain text, so strip tags rather than allowing any HTML.
+			$block['expanded_editor_button_text'] = is_string( $button_text ) ? esc_html( wp_strip_all_tags( $button_text ) ) : '';
+
+			// Cast so PHP-falsy values such as '0' don't enable preview scripts in JS.
+			$block['allow_dangerous_preview_scripts'] = ! empty( $block['allow_dangerous_preview_scripts'] );
+
+			// Get the placeholder button text from block.json (if set).
+			$block_json_placeholder_text = ! empty( $block['placeholder_button_text'] ) ? $block['placeholder_button_text'] : '';
+
+			/**
+			 * Filters the default placeholder button text for blocks.
+			 *
+			 * This filter provides a global default for the "Edit Block" button shown in the
+			 * placeholder of blocks that don't render a preview.
+			 * The block.json `placeholderButtonText` setting takes precedence over this filter.
+			 *
+			 * @since 6.8.12
+			 *
+			 * @param string $button_text The default button text. Empty string uses "Edit Block" translation.
+			 * @param array  $block       The block configuration array.
+			 * @return string The filtered default button text.
+			 */
+			$default_placeholder_text = apply_filters( 'acf/blocks/default_placeholder_button_text', '', $block );
+
+			// Block.json setting takes precedence over the filter default.
+			$placeholder_text = $block_json_placeholder_text ? $block_json_placeholder_text : $default_placeholder_text;
+
+			// Button labels are rendered as plain text, so strip tags rather than allowing any HTML.
+			$block['placeholder_button_text'] = is_string( $placeholder_text ) ? esc_html( wp_strip_all_tags( $placeholder_text ) ) : '';
 
 			return $block;
 		},
@@ -1467,8 +1654,9 @@ function acf_enqueue_block_assets() {
 	// Localize data.
 	acf_localize_data(
 		array(
-			'blockTypes' => array_values( $block_types ),
-			'postType'   => get_post_type(),
+			'blockTypes'                           => array_values( $block_types ),
+			'postType'                             => get_post_type(),
+			'allowDangerousPreviewScriptsInBlocks' => acf_blocks_allow_dangerous_preview_scripts(),
 		)
 	);
 
@@ -1477,7 +1665,7 @@ function acf_enqueue_block_assets() {
 
 	$blocks_js_path = acf_get_url( "assets/build/js/pro/acf-pro-blocks{$min}.js" );
 
-	wp_enqueue_script( 'acf-blocks', $blocks_js_path, array( 'acf-input', 'wp-blocks' ), ACF_VERSION, true );
+	wp_enqueue_script( 'acf-blocks', $blocks_js_path, array( 'acf-input', 'wp-blocks', 'wp-element', 'react' ), ACF_VERSION, true );
 
 	// Enqueue block assets.
 	array_map( 'acf_enqueue_block_type_assets', $block_types );
@@ -1785,6 +1973,9 @@ function acf_parse_save_blocks_callback( $matches ) {
 		return $matches[0];
 	}
 
+	// The block comment's name is authoritative; the "name" attribute is user input and may name another block type.
+	$attrs['name'] = $name;
+
 	// Check if we need to generate a block ID.
 	$block_id = acf_ensure_block_id_prefix( acf_get_block_id( $attrs ) );
 
@@ -2061,11 +2252,10 @@ add_filter( 'rest_request_after_callbacks', 'acf_reset_media_enqueue_after_rest'
  * @return boolean
  */
 function acf_block_uses_post_meta( $block ): bool {
-	if ( ! empty( $block['name'] ) && ! isset( $block['use_post_meta'] ) ) {
-		$block = acf_get_block_type( $block['name'] );
-	}
+	// Use the registered block type, so block attributes saved in post content can't enable post meta storage.
+	$block_type = empty( $block['name'] ) ? null : acf_get_block_type( $block['name'] );
 
-	return ! empty( $block['use_post_meta'] );
+	return ! empty( $block_type['use_post_meta'] );
 }
 
 /**
@@ -2134,11 +2324,14 @@ function acf_add_block_meta_values( $block, $post_id ) {
  * @return void
  */
 function acf_save_block_meta_values( $post_id, $post ) {
-	$meta_values = acf_get_block_meta_values_to_save( $post->post_content );
+	$meta_values = acf_get_block_meta_values_to_save( $post->post_content, $post_id );
 
 	if ( empty( $meta_values ) ) {
 		return;
 	}
+
+	// Block meta values come from post_content, never from uploads.
+	acf_discard_uploaded_field_values();
 
 	// Save values for any post meta blocks.
 	acf_save_post( $post_id, $meta_values );
@@ -2150,11 +2343,13 @@ add_action( 'save_post', 'acf_save_block_meta_values', 10, 2 );
  * that need to be saved to post meta.
  *
  * @since 6.3
+ * @since 6.8.11 Restricts each block's values to its own fields, keyed by field key.
  *
- * @param string $content The content saved for the post.
+ * @param string         $content The content saved for the post.
+ * @param integer|string $post_id The post being saved.
  * @return array An array containing the field values that need to be saved.
  */
-function acf_get_block_meta_values_to_save( $content = '' ) {
+function acf_get_block_meta_values_to_save( $content = '', $post_id = 0 ) {
 	$meta_values = array();
 
 	// Bail early if not in a format we expect or if it has no blocks.
@@ -2170,8 +2365,10 @@ function acf_get_block_meta_values_to_save( $content = '' ) {
 	}
 
 	foreach ( $blocks as $block ) {
+		$block_name = $block['blockName'] ?? '';
+
 		// Verify this is an ACF block that should save to meta.
-		if ( ! acf_block_uses_post_meta( $block['attrs'] ) ) {
+		if ( ! acf_block_uses_post_meta( array( 'name' => $block_name ) ) ) {
 			continue;
 		}
 
@@ -2191,10 +2388,148 @@ function acf_get_block_meta_values_to_save( $content = '' ) {
 		$block_values = $store->get( $block_id );
 		$store->remove( $block_id );
 
-		$meta_values = array_merge( $meta_values, $block_values );
+		$meta_values = array_merge( $meta_values, acf_filter_block_meta_values( $block_name, $block_values, $post_id ) );
 	}
 
 	return $meta_values;
+}
+
+/**
+ * Restricts a post meta block's values to the fields of the field groups located on the block.
+ *
+ * Block meta values come from post content, which anyone who can edit the post controls, rather
+ * than from a rendered form, so they are matched by location only. Values arrive keyed by field
+ * key or, as loaded by acf_add_block_meta_values(), by field name with `_{name}` key references.
+ * Names are mapped to the block's own fields so they can't resolve to a field with the same name
+ * elsewhere. Values for seamless clone sub fields are nested under the clone's key, as the clone
+ * field saves them (as in $_POST['acf']).
+ *
+ * @since 6.8.11
+ *
+ * @param string         $block_name The block type name.
+ * @param mixed          $values     The block's values.
+ * @param integer|string $post_id    The post being saved.
+ * @return array The allowed values, keyed by top-level field key.
+ */
+function acf_filter_block_meta_values( $block_name, $values, $post_id ) {
+	if ( ! is_array( $values ) ) {
+		return array();
+	}
+
+	$fields_by_key  = array();
+	$fields_by_name = array();
+	foreach ( acf_get_block_fields( array( 'name' => $block_name ) ) as $field ) {
+		$fields_by_key[ $field['key'] ] = $field;
+
+		if ( ! empty( $field['name'] ) ) {
+			$fields_by_name[ $field['name'] ] = $field;
+		}
+	}
+
+	$keyed_values = array();
+	foreach ( $values as $key => $value ) {
+		$key   = (string) $key;
+		$field = $fields_by_key[ $key ] ?? $fields_by_name[ $key ] ?? null;
+
+		// A `_{name}` key reference for a named value, which is now keyed by field key.
+		$is_reference = '_' === substr( $key, 0, 1 ) && isset( $fields_by_name[ substr( $key, 1 ) ] );
+
+		if ( $field ) {
+			_acf_set_block_meta_value( $keyed_values, $field, $value );
+		} elseif ( ! $is_reference && ! isset( $keyed_values[ $key ] ) ) {
+			// Other keys are passed on, to be dropped and logged.
+			$keyed_values[ $key ] = $value;
+		}
+	}
+
+	return acf_filter_save_values(
+		$keyed_values,
+		array(
+			'context' => 'block_meta',
+			'post_id' => $post_id,
+			// There is no rendered form to sign (so no render IDs), so location matching is the only check.
+			'screen'  => array( 'block' => $block_name ),
+		)
+	);
+}
+
+/**
+ * Adds a block field's value to the values to save, under the field's top-level key.
+ *
+ * Seamless clone sub field values are nested under the clone's key, as the clone field saves them.
+ *
+ * @since 6.8.11
+ * @access private
+ *
+ * @param array $keyed_values The values to save, keyed by top-level field key.
+ * @param array $field        The field array.
+ * @param mixed $value        The field's value.
+ * @return void
+ */
+function _acf_set_block_meta_value( array &$keyed_values, $field, $value ) {
+	$root_key = acf_get_field_root_key( $field );
+
+	if ( $root_key === $field['key'] ) {
+		$keyed_values[ $root_key ] = $value;
+		return;
+	}
+
+	if ( $root_key === '' ) {
+		return;
+	}
+
+	// A seamless clone of a seamless clone passes each level its own value, so build every level down to the field.
+	$root_field = acf_get_field( $root_key );
+	$path       = $root_field ? _acf_get_seamless_clone_path( $root_field, $field['key'] ) : array();
+	$path       = $path ? $path : array( $field['key'] );
+	$leaf_key   = array_pop( $path );
+
+	if ( ! isset( $keyed_values[ $root_key ] ) || ! is_array( $keyed_values[ $root_key ] ) ) {
+		$keyed_values[ $root_key ] = array();
+	}
+
+	$level = &$keyed_values[ $root_key ];
+
+	foreach ( $path as $key ) {
+		if ( ! isset( $level[ $key ] ) || ! is_array( $level[ $key ] ) ) {
+			$level[ $key ] = array();
+		}
+
+		$level = &$level[ $key ];
+	}
+
+	$level[ $leaf_key ] = $value;
+}
+
+/**
+ * Returns the sub field keys from a seamless clone down to one of its (possibly nested) sub fields.
+ *
+ * acf_get_fields() flattens seamless clones of seamless clones to their innermost fields; this finds the
+ * intermediate clones between the outer clone and such a field.
+ *
+ * @since 6.8.11
+ * @access private
+ *
+ * @param array  $clone_field The clone field.
+ * @param string $key         The sub field's key.
+ * @return array The keys from the clone's direct sub field to the field, or an empty array if not found.
+ */
+function _acf_get_seamless_clone_path( $clone_field, $key ) {
+	foreach ( (array) ( $clone_field['sub_fields'] ?? array() ) as $sub_field ) {
+		if ( ( $sub_field['key'] ?? '' ) === $key ) {
+			return array( $key );
+		}
+
+		if ( 'clone' === ( $sub_field['type'] ?? '' ) && 'seamless' === ( $sub_field['display'] ?? '' ) ) {
+			$path = _acf_get_seamless_clone_path( $sub_field, $key );
+
+			if ( $path ) {
+				return array_merge( array( $sub_field['key'] ), $path );
+			}
+		}
+	}
+
+	return array();
 }
 
 /**

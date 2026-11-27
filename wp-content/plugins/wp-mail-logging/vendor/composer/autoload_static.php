@@ -9,8 +9,6 @@ class ComposerStaticInit31f994310b2c7d6f9759f25f664a2dcc
     public static $prefixLengthsPsr4 = array (
         'N' =>
         array (
-            'No3x\\WPML\\Tests\\Helper\\' => 23,
-            'No3x\\WPML\\Tests\\' => 16,
             'No3x\\WPML\\Migration\\' => 20,
             'No3x\\WPML\\Helpers\\' => 18,
             'No3x\\WPML\\Admin\\' => 16,
@@ -18,14 +16,6 @@ class ComposerStaticInit31f994310b2c7d6f9759f25f664a2dcc
     );
 
     public static $prefixDirsPsr4 = array (
-        'No3x\\WPML\\Tests\\Helper\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/tests/helper',
-        ),
-        'No3x\\WPML\\Tests\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/tests/phpunit/tests',
-        ),
         'No3x\\WPML\\Migration\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src/inc/Migration',
@@ -49,8 +39,6 @@ class ComposerStaticInit31f994310b2c7d6f9759f25f664a2dcc
         'No3x\\WPML\\Helpers\\PluginSilentUpgrader' => __DIR__ . '/../..' . '/src/inc/Helpers/PluginSilentUpgrader.php',
         'No3x\\WPML\\Helpers\\PluginSilentUpgraderSkin' => __DIR__ . '/../..' . '/src/inc/Helpers/PluginSilentUpgraderSkin.php',
         'No3x\\WPML\\Migration\\Migration' => __DIR__ . '/../..' . '/src/inc/Migration/Migration.php',
-        'No3x\\WPML\\Tests\\Helper\\WPML_IntegrationTestCase' => __DIR__ . '/../..' . '/tests/helper/WPML_IntegrationTestCase.php',
-        'No3x\\WPML\\Tests\\Helper\\WPMailArrayBuilder' => __DIR__ . '/../..' . '/tests/helper/WPMailArrayBuilder.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

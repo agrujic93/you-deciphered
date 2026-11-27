@@ -110,6 +110,13 @@ class Placeholder extends Base {
 	private $_ph_queue = [];
 
 	/**
+	 * Whether the summary has been read in this request (see _load_summary()).
+	 *
+	 * @var bool
+	 */
+	private $_summary_loaded = false;
+
+	/**
 	 * Init
 	 *
 	 * @since 3.0
@@ -124,8 +131,24 @@ class Placeholder extends Base {
 		$this->_conf_placeholder_resp_async = $this->conf( self::O_MEDIA_PLACEHOLDER_RESP_ASYNC );
 		$this->_conf_placeholder_resp_color = $this->conf( self::O_MEDIA_PLACEHOLDER_RESP_COLOR );
 		$this->_conf_ph_default             = $this->conf(self::O_MEDIA_LAZY_PLACEHOLDER) ? $this->conf(self::O_MEDIA_LAZY_PLACEHOLDER) : LITESPEED_PLACEHOLDER;
+	}
 
-		$this->_summary = self::get_summary();
+	/**
+	 * Read the summary on first use.
+	 *
+	 * Core::init() builds this class on every request, but only placeholder generation needs the summary.
+	 * Until a placeholder has been generated once, the option does not exist and is not autoloaded, so
+	 * reading it in the constructor cost one query on every uncached page view.
+	 *
+	 * @since 7.9.4
+	 * @return void
+	 */
+	private function _load_summary() {
+		if ( $this->_summary_loaded ) {
+			return;
+		}
+		$this->_summary        = self::get_summary();
+		$this->_summary_loaded = true;
 	}
 
 	/**
@@ -190,7 +213,7 @@ class Placeholder extends Base {
 	public function media_row_con( $post_id ) {
 		$meta_value = wp_get_attachment_metadata( $post_id );
 
-		if ( empty( $meta_value['file'] ) ) {
+		if ( empty( $meta_value['file'] ) || ! is_string( $meta_value['file'] ) ) {
 			return;
 		}
 
@@ -198,17 +221,23 @@ class Placeholder extends Base {
 
 		// List all sizes.
 		$all_sizes = [ $meta_value['file'] ];
-		$size_path = pathinfo( $meta_value['file'], PATHINFO_DIRNAME ) . '/';
+		$size_path = pathinfo( $meta_value['file'], PATHINFO_DIRNAME );
+		$size_path = '.' === $size_path || '' === $size_path ? '' : trailingslashit( $size_path );
 		if ( ! empty( $meta_value['sizes'] ) && is_array( $meta_value['sizes'] ) ) {
 			foreach ( $meta_value['sizes'] as $v ) {
-				if ( ! empty( $v['file'] ) ) {
+				if ( ! empty( $v['file'] ) && is_string( $v['file'] ) ) {
 					$all_sizes[] = $size_path . $v['file'];
 				}
 			}
 		}
 
+		$uploads = wp_upload_dir();
 		foreach ( $all_sizes as $short_path ) {
-			$lqip_folder = LITESPEED_STATIC_DIR . '/lqip/' . $short_path;
+			$short_path = Utility::att_short_path( trailingslashit( $uploads['baseurl'] ) . $short_path );
+			if ( false === $short_path ) {
+				continue;
+			}
+			$lqip_folder = LITESPEED_STATIC_DIR . $this->_build_filepath_prefix( 'lqip' ) . $short_path;
 
 			if ( is_dir( $lqip_folder ) ) {
 				Debug2::debug( '[LQIP] Found folder: ' . $short_path );
@@ -219,8 +248,8 @@ class Placeholder extends Base {
 						continue;
 					}
 
+					$file = Str::trim_quotes( File::read( $lqip_folder . '/' . $v ) );
 					if ( 0 === $total_files ) {
-						$file = Str::trim_quotes( File::read( $lqip_folder . '/' . $v ) );
 						echo '<div class="litespeed-media-lqip"><img src="' . 
 							esc_attr( $file ) .
 							'" alt="' .
@@ -260,28 +289,23 @@ class Placeholder extends Base {
 			$additional_attr = ' data-placeholder-resp="' . esc_attr( Str::trim_quotes( $size ) ) . '"';
 		}
 
-		$snippet = ( defined( 'LITESPEED_GUEST_OPTM' ) || $this->conf( self::O_OPTM_NOSCRIPT_RM ) ) ? '' : '<noscript>' . $html . '</noscript>';
+		$snippet = ( defined( 'LITESPEED_GUEST_OPTM' ) || $this->conf( self::O_OPTM_NOSCRIPT_RM ) || false !== stripos( $html, '</noscript' ) ) ? '' : '<noscript>' . $html . '</noscript>';
 
-		$html = preg_replace(
-			[
-				'/\s+src=/i',
-				'/\s+srcset=/i',
-				'/\s+sizes=/i',
-			],
-			[
-				' data-src=',
-				' data-srcset=',
-				' data-sizes=',
-			],
-			$html
-		);
-		$html = preg_replace(
-			'/<img\s+/i',
-			'<img data-lazyloaded="1"' . $additional_attr . ' src="' . Str::trim_quotes($this_placeholder) . '" ',
-			$html
-		);
+		$lazy = $html;
+		foreach ( [ 'src', 'srcset', 'sizes' ] as $attr ) {
+			$lazy = preg_replace( '/\A(<img\b' . Utility::HTML_ATTR_PREFIX . ')[' . Utility::HTML_WS . ']+' . $attr . '[' . Utility::HTML_WS . ']*=/i', '$1 data-' . $attr . '=', $lazy, 1, $renamed );
+			// Only a real src rename may receive the placeholder src; otherwise keep the tag untouched to avoid a duplicate src.
+			if ( null === $lazy || ( 'src' === $attr && 1 !== $renamed ) ) {
+				return $html;
+			}
+		}
+		// Concatenate instead of using a regex replacement string, and escape the placeholder for its attribute.
+		if ( ! preg_match( '/\A<img[' . Utility::HTML_WS . ']+/i', $lazy, $opening ) ) {
+			return $html;
+		}
+		$lazy = '<img data-lazyloaded="1"' . $additional_attr . ' src="' . esc_attr( Str::trim_quotes( $this_placeholder ) ) . '" ' . substr( $lazy, strlen( $opening[0] ) );
 
-		$snippet = $html . $snippet;
+		$snippet = $lazy . $snippet;
 
 		return $snippet;
 	}
@@ -347,6 +371,7 @@ class Placeholder extends Base {
 
 		// Send request to generate placeholder.
 		if ( ! $this->_conf_placeholder_resp_async ) {
+			$this->_load_summary();
 			// If requested recently, bypass.
 			if ( $this->_summary && ! empty( $this->_summary['curr_request'] ) && ( time() - (int) $this->_summary['curr_request'] ) < 300 ) {
 				Debug2::debug2( '[LQIP] file bypass generating due to interval limit' );
@@ -410,6 +435,12 @@ class Placeholder extends Base {
 
 		// Drop domain.
 		$short_path = Utility::att_short_path( $src );
+		if ( false === $short_path ) {
+			// Internal URLs outside uploads use a digest path so they never share one placeholder file.
+			$md5 = md5( $src );
+
+			return LITESPEED_STATIC_DIR . $filepath_prefix . 'remote/' . substr( $md5, 0, 1 ) . '/' . substr( $md5, 1, 1 ) . '/' . $md5 . '.' . $size;
+		}
 
 		return LITESPEED_STATIC_DIR . $filepath_prefix . $short_path . '/' . $size;
 	}
@@ -429,6 +460,8 @@ class Placeholder extends Base {
 		if ( empty( $queue ) ) {
 			return;
 		}
+
+		$_instance->_load_summary();
 
 		// For cron, need to check request interval too.
 		if ( ! $do_continue ) {
@@ -488,6 +521,8 @@ class Placeholder extends Base {
 	 * @return string Data URL placeholder.
 	 */
 	private function _generate_placeholder( $raw_size_and_src, $from_cron = false ) {
+		$this->_load_summary();
+
 		// Parse containing size and src info.
 		$size_and_src = explode( ' ', $raw_size_and_src, 2 );
 		$size         = $size_and_src[0];
@@ -503,7 +538,8 @@ class Placeholder extends Base {
 		$file = $this->_placeholder_realpath( $src, $size );
 
 		// Local generate SVG to serve (repeated here to clear queue if settings changed).
-		if ( ! $this->_conf_lqip || ! $this->_lqip_size_check( $size ) ) {
+		$use_lqip = $this->_conf_lqip && $this->_lqip_size_check( $size );
+		if ( ! $use_lqip ) {
 			$data = $this->_generate_placeholder_locally( $size );
 		} else {
 			$err       = false;
@@ -562,11 +598,13 @@ class Placeholder extends Base {
 		// Write to file.
 		File::save( $file, $data, true );
 
-		// Save summary data.
-		$this->_summary['last_spent']   = time() - (int) $this->_summary['curr_request'];
-		$this->_summary['last_request'] = $this->_summary['curr_request'];
-		$this->_summary['curr_request'] = 0;
-		self::save_summary();
+		// Local SVG generation has no cloud request timestamp or timing statistics to update.
+		if ( $use_lqip ) {
+			$this->_summary['last_spent']   = time() - (int) $this->_summary['curr_request'];
+			$this->_summary['last_request'] = $this->_summary['curr_request'];
+			$this->_summary['curr_request'] = 0;
+			self::save_summary();
+		}
 		$this->_popup_and_save( $raw_size_and_src );
 
 		Debug2::debug( '[LQIP] saved LQIP ' . $file );

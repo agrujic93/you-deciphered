@@ -37,6 +37,13 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 	use CogsAwareTrait;
 
 	/**
+	 * The exception that stopped the last save(), or null when the last save() wrote the order.
+	 *
+	 * @var Exception|null
+	 */
+	private $last_save_error = null;
+
+	/**
 	 * Order Data array. This is the core order data exposed in APIs since 3.0.0.
 	 *
 	 * Notes: cart_tax = cart_tax is the new name for the legacy 'order_tax'
@@ -46,20 +53,19 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 	 * @var array
 	 */
 	protected $data = array(
-		'parent_id'          => 0,
-		'status'             => '',
-		'currency'           => '',
-		'version'            => '',
-		'prices_include_tax' => false,
-		'date_created'       => null,
-		'date_modified'      => null,
-		'discount_total'     => 0,
-		'discount_tax'       => 0,
-		'shipping_total'     => 0,
-		'shipping_tax'       => 0,
-		'cart_tax'           => 0,
-		'total'              => 0,
-		'total_tax'          => 0,
+		'parent_id'      => 0,
+		'status'         => '',
+		'currency'       => '',
+		'version'        => '',
+		'date_created'   => null,
+		'date_modified'  => null,
+		'discount_total' => 0,
+		'discount_tax'   => 0,
+		'shipping_total' => 0,
+		'shipping_tax'   => 0,
+		'cart_tax'       => 0,
+		'total'          => 0,
+		'total_tax'      => 0,
 	);
 
 	/**
@@ -188,6 +194,8 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 			$this->data['cogs_total_value'] = 0;
 		}
 
+		$this->data['prices_include_tax'] = 'yes' === get_option( 'woocommerce_prices_include_tax' );
+
 		parent::__construct( $order );
 
 		if ( is_numeric( $order ) && $order > 0 ) {
@@ -275,6 +283,9 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 			return $this->get_id();
 		}
 
+		$persisted             = false;
+		$this->last_save_error = null;
+
 		try {
 			/**
 			 * Trigger action before saving to the DB. Allows you to adjust object props before save.
@@ -292,6 +303,8 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 
 			$this->save_items();
 
+			$persisted = true;
+
 			/**
 			 * Trigger action after saving to the DB.
 			 *
@@ -301,6 +314,11 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 			do_action( 'woocommerce_after_' . $this->object_type . '_object_save', $this, $this->data_store );
 
 		} catch ( Exception $e ) {
+			// A callback on the after-save action throwing doesn't mean the order wasn't saved.
+			if ( ! $persisted ) {
+				$this->last_save_error = $e;
+			}
+
 			$message_id = $this->get_id() ? $this->get_id() : __( '(no ID)', 'woocommerce' );
 			$this->handle_exception(
 				$e,
@@ -315,6 +333,17 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 		}
 
 		return $this->get_id();
+	}
+
+	/**
+	 * Get the exception that stopped the last save(). save() logs that exception and does not throw it.
+	 *
+	 * @internal
+	 * @since 11.2.2
+	 * @return Exception|null The exception, or null when the last save() wrote the order.
+	 */
+	public function get_last_save_error(): ?Exception {
+		return $this->last_save_error;
 	}
 
 	/**
@@ -813,6 +842,18 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 	 */
 	protected function get_valid_statuses() {
 		return array_keys( wc_get_order_statuses() );
+	}
+
+	/**
+	 * Whether the order can have a status.
+	 *
+	 * @since 11.3.0
+	 *
+	 * @param string $status Status slug, with or without the `wc-` prefix.
+	 * @return bool
+	 */
+	public function is_valid_status( string $status ): bool {
+		return in_array( 'wc-' . OrderUtil::remove_status_prefix( $status ), $this->get_valid_statuses(), true );
 	}
 
 	/**
@@ -1572,7 +1613,13 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 						$user_ids_and_emails = $this->get_billing_and_current_user_ids_and_aliases( $billing_email );
 					}
 
-					$held_key_for_user = $this->hold_coupon_for_users( $coupon, $user_ids_and_emails, $user_alias );
+					$coupon_data_store = $coupon->get_data_store();
+					$coupon_aliases    = $user_ids_and_emails;
+					if ( $coupon_data_store instanceof WC_Data_Store && $coupon_data_store->has_callable( 'add_recorded_user_ids_to_aliases' ) ) {
+						// @phpstan-ignore-next-line method.notFound (Guarded by has_callable() and called via __call() on the coupon data store instance.)
+						$coupon_aliases = $coupon_data_store->add_recorded_user_ids_to_aliases( $coupon, $user_ids_and_emails );
+					}
+					$held_key_for_user = $this->hold_coupon_for_users( $coupon, $coupon_aliases, $user_alias );
 
 					if ( $held_key_for_user ) {
 						$held_keys_for_user[ $coupon->get_id() ] = $held_key_for_user;
@@ -1639,19 +1686,32 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 	/**
 	 * Helper method to get all aliases and IDs for current user and provided billing email.
 	 *
+	 * A logged in customer's uses and holds are recorded under their user ID, so the list includes the current
+	 * user's ID and the ID of the account that owns each email.
+	 *
 	 * @param string $billing_email Billing email to look up for.
 	 *
 	 * @return array     Array of all aliases and IDs.
 	 * @throws Exception When validation fails.
 	 */
 	private function get_billing_and_current_user_ids_and_aliases( $billing_email ): array {
-		$emails = array( $billing_email );
+		$emails   = array( $billing_email );
+		$user_ids = array();
 		if ( get_current_user_id() ) {
-			$emails[] = wp_get_current_user()->user_email;
+			$emails[]   = wp_get_current_user()->user_email;
+			$user_ids[] = get_current_user_id();
 		}
 		$emails   = array_unique( array_map( 'strtolower', array_map( 'sanitize_email', $emails ) ) );
-		$user_ids = wc_get_container()->get( CustomersSearchService::class )->find_user_ids_by_billing_email_for_coupons_usage_lookup( $emails );
-		return array_merge( $user_ids, $emails );
+		$user_ids = array_merge( $user_ids, wc_get_container()->get( CustomersSearchService::class )->find_user_ids_by_billing_email_for_coupons_usage_lookup( $emails ) );
+
+		foreach ( array_filter( $emails ) as $email ) {
+			$user = get_user_by( 'email', $email );
+			if ( $user ) {
+				$user_ids[] = $user->ID;
+			}
+		}
+
+		return array_merge( array_unique( array_map( 'intval', $user_ids ) ), $emails );
 	}
 
 	/**
@@ -1700,7 +1760,9 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 		$data_store = $coupon->get_data_store();
 
 		// Check specific for guest checkouts here as well since WC_Cart handles that separately in check_customer_coupons.
-		if ( $data_store && 0 === $this->get_customer_id() ) {
+		// Order types without a customer ID are treated as guests.
+		$customer_id = is_callable( array( $this, 'get_customer_id' ) ) ? $this->get_customer_id() : 0;
+		if ( $data_store && 0 === $customer_id && is_callable( array( $this, 'get_billing_email' ) ) ) {
 			$usage_count = $data_store->get_usage_by_email( $coupon, $this->get_billing_email() );
 			if ( 0 < $coupon->get_usage_limit_per_user() && $usage_count >= $coupon->get_usage_limit_per_user() ) {
 				return new WP_Error(
@@ -1732,18 +1794,124 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 		// Record usage so counts and validation is correct.
 		$used_by = $this->get_user_id();
 
-		if ( ! $used_by ) {
+		if ( ! $used_by && is_callable( array( $this, 'get_billing_email' ) ) ) {
 			$used_by = $this->get_billing_email();
 		}
 
+		/**
+		 * Data store wrapper.
+		 *
+		 * @var WC_Data_Store $order_data_store
+		 */
 		$order_data_store = $this->get_data_store();
-		if ( $order_data_store->get_recorded_coupon_usage_counts( $this ) ) {
-			$coupon->increase_usage_count( $used_by );
+		// @phpstan-ignore-next-line method.notFound (Guarded by has_callable() and called via __call() on the underlying order data store instance.)
+		if ( $order_data_store->has_callable( 'get_recorded_coupon_usage_counts' ) && $order_data_store->get_recorded_coupon_usage_counts( $this ) ) {
+			$coupon->increase_usage_count( $used_by, $this instanceof WC_Order ? $this : null );
 		}
 
 		wc_update_coupon_usage_counts( $this->get_id() );
 
 		return true;
+	}
+
+	/**
+	 * Apply a coupon treating manually edited line item totals as the pre-discount price.
+	 *
+	 * When the order has no coupons yet, line items whose total differs from their subtotal
+	 * adopt that total as the new subtotal, so the discount is calculated from the edited
+	 * price and recalculations keep the manual adjustment. On failure the original subtotals
+	 * are restored. Call this only where a subtotal/total difference is meant to be treated
+	 * as a manual edit, such as the admin order editor; otherwise use apply_coupon().
+	 *
+	 * @since 11.2.0
+	 * @param string|WC_Coupon $raw_coupon Coupon code or object.
+	 * @return true|WP_Error True if applied, error if not.
+	 */
+	public function apply_coupon_using_edited_totals( $raw_coupon ) {
+		// With coupons already applied the subtotal/total difference also contains their
+		// discounts and the manual portion cannot be separated out, so it is left alone.
+		$original_subtotals = empty( $this->get_items( 'coupon' ) ) ? $this->sync_subtotals_with_manually_edited_totals() : array();
+
+		$applied = $this->apply_coupon( $raw_coupon );
+
+		if ( is_wp_error( $applied ) ) {
+			$this->restore_item_subtotals( $original_subtotals );
+		}
+
+		return $applied;
+	}
+
+	/**
+	 * Sync the subtotal of line items whose total was manually edited, adopting the edited
+	 * total as the new pre-discount price that discounts are calculated from.
+	 *
+	 * Only called when the order has no coupons applied, since applied coupons make the
+	 * subtotal/total difference ambiguous (coupon discount vs manual adjustment).
+	 *
+	 * @return array Original tax and subtotal values of the changed items, keyed by item ID.
+	 */
+	private function sync_subtotals_with_manually_edited_totals() {
+		$original_subtotals = array();
+
+		foreach ( $this->get_items() as $item_id => $item ) {
+			if ( ! $item instanceof WC_Order_Item_Product ) {
+				continue;
+			}
+
+			if ( (float) $item->get_subtotal( 'edit' ) === (float) $item->get_total( 'edit' ) && (float) $item->get_subtotal_tax( 'edit' ) === (float) $item->get_total_tax( 'edit' ) ) {
+				continue;
+			}
+
+			$taxes = $item->get_taxes( 'edit' );
+
+			$original_subtotals[ $item_id ] = array(
+				'subtotal'     => $item->get_subtotal( 'edit' ),
+				'subtotal_tax' => $item->get_subtotal_tax( 'edit' ),
+				'total_tax'    => $item->get_total_tax( 'edit' ),
+				'taxes'        => $taxes,
+			);
+
+			$item->set_subtotal( $item->get_total( 'edit' ) );
+
+			// set_taxes() keeps the per-rate tax array and the subtotal_tax/total_tax totals in
+			// sync, so consumers see the same value whichever one they read. It is skipped when
+			// there is no per-rate data, since it would then zero out the stored tax totals.
+			if ( ! empty( $taxes['total'] ) ) {
+				$taxes['subtotal'] = $taxes['total'];
+				$item->set_taxes( $taxes );
+			} else {
+				$item->set_subtotal_tax( $item->get_total_tax( 'edit' ) );
+			}
+		}
+
+		return $original_subtotals;
+	}
+
+	/**
+	 * Restore item subtotals changed by sync_subtotals_with_manually_edited_totals(), so
+	 * that a failed coupon application leaves the in-memory order unchanged.
+	 *
+	 * @param array $original_subtotals Original tax and subtotal values, keyed by item ID.
+	 * @return void
+	 */
+	private function restore_item_subtotals( array $original_subtotals ) {
+		foreach ( $original_subtotals as $item_id => $original ) {
+			$item = $this->get_item( $item_id, false );
+
+			if ( ! $item instanceof WC_Order_Item_Product ) {
+				continue;
+			}
+
+			// Restoring the per-rate taxes recomputes both tax totals, so it runs before the
+			// stored totals are put back.
+			if ( ! empty( $original['taxes']['total'] ) ) {
+				$item->set_taxes( $original['taxes'] );
+			}
+
+			$item->set_subtotal( $original['subtotal'] );
+			$item->set_subtotal_tax( $original['subtotal_tax'] );
+			$item->set_total_tax( $original['total_tax'] );
+		}
 	}
 
 	/**
@@ -1769,16 +1937,95 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 		// Remove the coupon line.
 		foreach ( $coupons as $item_id => $coupon ) {
 			if ( wc_is_same_coupon( $coupon->get_code(), $code ) ) {
+				$stored_item = $this->get_item( $item_id, false );
 				$this->remove_item( $item_id );
 				$coupon_object = new WC_Coupon( $code );
-				$coupon_object->decrease_usage_count( $this->get_user_id() );
+				if ( $this->has_recorded_coupon_usage() && $this->delete_counted_coupon_line( $stored_item ) ) {
+					$coupon_object->decrease_usage_count( $this->get_user_id() );
+				}
 				$this->recalculate_coupons();
+
+				/**
+				 * Action hook fired when a coupon is removed from an order.
+				 *
+				 * @param  WC_Coupon $coupon_object The removed coupon object.
+				 * @param  WC_Order  $order         The current order object.
+				 *
+				 * @since 10.8.0
+				 */
+				do_action( 'woocommerce_order_removed_coupon', $coupon_object, $this );
 
 				return true;
 			}
 		}
 
 		return false;
+	}
+
+	/**
+	 * Delete the coupon line of an order that counted its use, and tell whether this call should give the use back.
+	 *
+	 * Only the call that deleted the line gives the use back, and only while the stored order is still counted, so
+	 * parallel removals and a parallel cancellation give it back at most once.
+	 * If a cancellation runs at the same moment, both can skip it and the count stays one too high.
+	 *
+	 * @param WC_Order_Item|false $stored_item Removed coupon line, as stored in this order.
+	 * @return bool|null True if this call should give the coupon's use back, false if not, null if another call deleted the line or the delete failed.
+	 */
+	private function delete_counted_coupon_line( $stored_item ): ?bool {
+		if ( ! $stored_item instanceof WC_Order_Item_Coupon || ! $stored_item->get_id() ) {
+			return true;
+		}
+
+		/**
+		 * Data store wrapper.
+		 *
+		 * @var WC_Data_Store $item_data_store
+		 */
+		$item_data_store = $stored_item->get_data_store();
+		$deleted         = $item_data_store->delete( $stored_item );
+		if ( false === $deleted ) {
+			// A database error. The delete that remove_item() queued runs again on save.
+			return null;
+		}
+
+		// The row is gone, so the delete that remove_item() queued for save() must not run again.
+		$stored_item->set_id( 0 );
+
+		// No row deleted: another call deleted the line first. Item data stores that return nothing (custom or
+		// overridden) cannot report it, so only the counted check below applies to them.
+		if ( null !== $deleted && ! $deleted ) {
+			return null;
+		}
+
+		/**
+		 * Data store wrapper.
+		 *
+		 * @var WC_Data_Store $order_data_store
+		 */
+		$order_data_store = $this->get_data_store();
+		if ( ! $order_data_store->has_callable( 'get_stored_recorded_coupon_usage_counts' ) ) {
+			return true;
+		}
+
+		// @phpstan-ignore-next-line method.notFound (Guarded by has_callable() and called via __call() on the underlying order data store instance.)
+		return $order_data_store->get_stored_recorded_coupon_usage_counts( $this );
+	}
+
+	/**
+	 * Whether the stored order has its coupon usage recorded.
+	 *
+	 * @return bool
+	 */
+	private function has_recorded_coupon_usage(): bool {
+		/**
+		 * Data store wrapper.
+		 *
+		 * @var WC_Data_Store $order_data_store
+		 */
+		$order_data_store = $this->get_data_store();
+		// @phpstan-ignore-next-line method.notFound (Guarded by has_callable() and called via __call() on the underlying order data store instance.)
+		return $order_data_store->has_callable( 'get_recorded_coupon_usage_counts' ) && $order_data_store->get_recorded_coupon_usage_counts( $this );
 	}
 
 	/**
@@ -1882,15 +2129,17 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 	 */
 	protected function set_item_discount_amounts( $discounts ) {
 		$item_discounts = $discounts->get_discounts_by_item();
-		$tax_location   = $this->get_tax_location();
-		$tax_location   = array( $tax_location['country'], $tax_location['state'], $tax_location['postcode'], $tax_location['city'] );
+		$is_vat_exempt  = $this->is_vat_exempt();
+
+		$tax_location = $this->get_tax_location();
+		$tax_location = array( $tax_location['country'], $tax_location['state'], $tax_location['postcode'], $tax_location['city'] );
 
 		if ( $item_discounts ) {
 			foreach ( $item_discounts as $item_id => $amount ) {
 				$item = $this->get_item( $item_id, false );
 
 				// If the prices include tax, discounts should be taken off the tax inclusive prices like in the cart.
-				if ( $this->get_prices_include_tax() && wc_tax_enabled() && ProductTaxStatus::TAXABLE === $item->get_tax_status() ) {
+				if ( ! $is_vat_exempt && $this->get_prices_include_tax() && wc_tax_enabled() && ProductTaxStatus::TAXABLE === $item->get_tax_status() ) {
 					$taxes = WC_Tax::calc_tax( $amount, $this->get_tax_rates( $item->get_tax_class(), $tax_location ), true );
 
 					// Use unrounded taxes so totals will be re-calculated accurately, like in cart.
@@ -1914,8 +2163,10 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 		$coupon_code_to_id = wc_list_pluck( $coupons, 'get_id', 'get_code' );
 		$all_discounts     = $discounts->get_discounts();
 		$coupon_discounts  = $discounts->get_discounts_by_coupon();
-		$tax_location      = $this->get_tax_location();
-		$tax_location      = array(
+		$is_vat_exempt     = $this->is_vat_exempt();
+
+		$tax_location = $this->get_tax_location();
+		$tax_location = array(
 			$tax_location['country'],
 			$tax_location['state'],
 			$tax_location['postcode'],
@@ -1946,7 +2197,7 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 				foreach ( $all_discounts[ $coupon_code ] as $item_id => $item_discount_amount ) {
 					$item = $this->get_item( $item_id, false );
 
-					if ( ProductTaxStatus::TAXABLE !== $item->get_tax_status() || ! wc_tax_enabled() ) {
+					if ( $is_vat_exempt || ProductTaxStatus::TAXABLE !== $item->get_tax_status() || ! wc_tax_enabled() ) {
 						continue;
 					}
 
@@ -1976,7 +2227,7 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 	 *
 	 * @param  WC_Product $product Product object.
 	 * @param  int        $qty Quantity to add.
-	 * @param  array      $args Args for the added product.
+	 * @param  array      $args Args for the added product, including an optional tax location for its price.
 	 * @return int
 	 */
 	public function add_product( $product, $qty = 1, $args = array() ) {
@@ -1985,8 +2236,9 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 			$total = wc_get_price_excluding_tax(
 				$product,
 				array(
-					'qty'   => $qty,
-					'order' => $order,
+					'qty'          => $qty,
+					'order'        => $order,
+					'tax_location' => ArrayUtil::get_value_or_default( $args, 'tax_location' ),
 				)
 			);
 
@@ -2202,6 +2454,24 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 	}
 
 	/**
+	 * Get the filtered VAT exemption for this order.
+	 *
+	 * @return bool Whether the order is exempt from VAT.
+	 */
+	private function is_vat_exempt(): bool {
+		/**
+		 * Filters whether the order is exempt from VAT.
+		 *
+		 * @since 3.3.0
+		 * @since 11.3.0 Also applied to discounts.
+		 *
+		 * @param bool              $is_vat_exempt Whether the order is exempt from VAT.
+		 * @param WC_Abstract_Order $order         Order instance.
+		 */
+		return (bool) apply_filters( 'woocommerce_order_is_vat_exempt', 'yes' === $this->get_meta( 'is_vat_exempt' ), $this );
+	}
+
+	/**
 	 * Calculate taxes for all line items and shipping, and store the totals and tax rows.
 	 *
 	 * If by default the taxes are based on the shipping address and the current order doesn't
@@ -2228,7 +2498,7 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 			}
 		}
 
-		$is_vat_exempt = apply_filters( 'woocommerce_order_is_vat_exempt', 'yes' === $this->get_meta( 'is_vat_exempt' ), $this );
+		$is_vat_exempt = $this->is_vat_exempt();
 
 		// Trigger tax recalculation for all items.
 		foreach ( $this->get_items( array( 'line_item', 'fee' ) ) as $item_id => $item ) {
@@ -3063,7 +3333,7 @@ abstract class WC_Abstract_Order extends WC_Abstract_Legacy_Order {
 		 *
 		 * @param string   $total_html The formatted total COGS HTML.
 		 * @param float    $total      The total COGS value.
-		 * @param WC_Order $order      The order object.
+		 * @param WC_Abstract_Order $order The order object.
 		 */
 		return apply_filters(
 			'woocommerce_order_cogs_total_value_html',

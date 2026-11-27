@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Twenty-Five package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-09-27 22:10:53+0000\n"
+"PO-Revision-Date: 2026-11-01 03:56:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,18 +11,18 @@ msgstr ""
 "Language: sr_RS\n"
 "Project-Id-Version: Themes - Twenty Twenty-Five\n"
 
-#. Description of the theme
-#: style.css
-#, gp-priority: high
-msgid "Twenty Twenty-Five emphasizes simplicity and adaptability. It offers flexible design options, supported by a variety of patterns for different page types, such as services and landing pages, making it ideal for building personal blogs, professional portfolios, online magazines, or business websites. Its templates cater to various blog styles, from text-focused to image-heavy layouts. Additionally, it supports international typography and diverse color palettes, ensuring accessibility and customization for users worldwide."
-msgstr "Twenty Twenty-Five наглашава једноставност и прилагодљивост. Нуди прилагодљиве могућности дизајна, уз подршку разних шаблона за различите врсте страница, као што су услуге и одредишне странице, што је чини идеалном за изградњу личних блогова, професионалних портфолија, часописа на мрежи или пословних веб сајтова. Њени шаблони одговарају разним стиловима блогова, од распореда усредсређених на текст до оних богатих сликама. Поред тога, подржава међународну типографију и разноврсне палете боја, обезбеђујући приступачност и прилагођавање корисницима широм света."
-
 #. Theme Name of the theme
 #: style.css patterns/footer-columns.php:66 patterns/footer-newsletter.php:42
 #: patterns/footer.php:75 patterns/page-portfolio-home.php:226
 #, gp-priority: high
 msgid "Twenty Twenty-Five"
 msgstr "Twenty Twenty-Five"
+
+#. Description of the theme
+#: style.css
+#, gp-priority: high
+msgid "Twenty Twenty-Five emphasizes simplicity and adaptability. It offers flexible design options, supported by a variety of patterns for different page types, such as services and landing pages, making it ideal for building personal blogs, professional portfolios, online magazines, or business websites. Its templates cater to various blog styles, from text-focused to image-heavy layouts. Additionally, it supports international typography and diverse color palettes, ensuring accessibility and customization for users worldwide."
+msgstr "Twenty Twenty-Five наглашава једноставност и прилагодљивост. Нуди прилагодљиве могућности дизајна, уз подршку разних шаблона за различите врсте страница, као што су услуге и одредишне странице, што је чини идеалном за изградњу личних блогова, професионалних портфолија, часописа на мрежи или пословних сајтова. Њени шаблони одговарају разним стиловима блогова, од распореда усредсређених на текст до оних богатих сликама. Поред тога, подржава међународну типографију и разноврсне палете боја, обезбеђујући приступачност и прилагођавање корисницима широм света."
 
 #: patterns/template-home-vertical-header-blog.php
 msgctxt "Pattern title"
@@ -212,10 +212,6 @@ msgstr "Месец"
 msgid "Free"
 msgstr "Бесплатно"
 
-#: patterns/pricing-2-col.php:18 patterns/pricing-3-col.php:23
-msgid "Pricing"
-msgstr "Цене"
-
 #: patterns/post-navigation.php:17 patterns/post-navigation.php:18
 #: patterns/template-single-left-aligned-content.php:78
 #: patterns/template-single-left-aligned-content.php:79
@@ -245,19 +241,11 @@ msgstr "Кретање кроз чланке"
 msgid "Event"
 msgstr "Догађај"
 
-#: patterns/hidden-written-by.php:20
-msgid "in"
-msgstr "у"
-
 #: patterns/hidden-sidebar.php:37
 #: patterns/template-home-posts-grid-news-blog.php:34
 #: patterns/template-home-with-sidebar-news-blog.php:61
 msgid "Add text or blocks that will display when a query returns no results."
 msgstr "Додај текст или блокове који ће се приказати када упит не избаци резултате"
-
-#: patterns/footer-columns.php:51 patterns/footer.php:59
-msgid "Patterns"
-msgstr "Мустре"
 
 #: patterns/header.php
 msgctxt "Pattern title"
@@ -285,10 +273,6 @@ msgstr "Теме"
 #: patterns/footer-columns.php:50 patterns/footer.php:57
 msgid "Shop"
 msgstr "Продавница"
-
-#: patterns/footer-columns.php:48
-msgid "Featured"
-msgstr "Истакнуто"
 
 #: patterns/footer-columns.php:39 patterns/footer.php:51
 msgid "Authors"
@@ -533,11 +517,6 @@ msgstr "Белешка"
 msgctxt "Style variation name"
 msgid "Subtitle"
 msgstr "Поднаслов"
-
-#: styles/blocks/01-display.json
-msgctxt "Style variation name"
-msgid "Display"
-msgstr "Истакнуто"
 
 #: styles/08-midnight.json styles/colors/08-midnight.json
 msgctxt "Duotone name"
@@ -827,11 +806,6 @@ msgctxt "Pattern title"
 msgid "News blog single post with sidebar"
 msgstr "Појединачни чланак блога вести са бочном траком"
 
-#: patterns/template-single-left-aligned-content.php:31
-msgctxt "Prefix before the author name. The post author name is displayed in a separate block."
-msgid "by"
-msgstr "од"
-
 #: patterns/template-search-vertical-header-blog.php
 msgctxt "Pattern title"
 msgid "Right-aligned blog, search"
@@ -1059,11 +1033,6 @@ msgctxt "Pattern title"
 msgid "Pricing, 3 columns"
 msgstr "Цене, 3 колоне"
 
-#: patterns/pricing-2-col.php:78 patterns/pricing-3-col.php:73
-msgctxt "Name of membership package."
-msgid "Single"
-msgstr "Појединачно"
-
 #: patterns/pricing-2-col.php:82
 msgid "20€/month"
 msgstr "20€/месечно"
@@ -1256,24 +1225,20 @@ msgctxt "Pattern description"
 msgid "A landing page for the book with a hero section, pre-order links, locations, FAQs and newsletter signup."
 msgstr "Одредишна страница за књигу са уводним одељком, везама за претпродају, локацијама, честим питањима и пријавом на билтен."
 
+#: patterns/page-cv-bio.php:31
+msgctxt "Pattern placeholder text."
+msgid "My name is Nora Winslow Keene, and I’m a committed public interest attorney. Living in Denver, Colorado, I’ve spent years championing the rights of underrepresented workers. A graduate of Stanford University, I played a key role in securing critical protections for agricultural laborers, ensuring better wages and access to healthcare. My work has focused on advocating for environmental justice and improving the quality of life for rural communities. Every case I take on is driven by the belief that everyone deserves dignity and fair treatment in the workplace."
+msgstr "Моје име је Nora Winslow Keene и ја сам посвећена адвокатица за јавни интерес. Живећи у Денверу, у Колораду, годинама сам се залагала за права недовољно заступљених радника. Као дипломац Универзитета Стенфорд, имала сам кључну улогу у обезбеђивању важне заштите за пољопривредне раднике, уз боље плате и приступ здравственој заштити. Мој рад је усредсређен на залагање за правду у погледу животне средине и побољшање квалитета живота у сеоским заједницама. Сваки случај који преузмем покреће уверење да свако заслужује достојанство и праведно поступање на радном месту."
+
 #: patterns/page-cv-bio.php:28
 msgctxt "Example heading in pattern."
 msgid "Hey,"
 msgstr "Здраво,"
 
-#: patterns/page-coming-soon.php:33
-msgid "Subscribe to get notified when our website is ready."
-msgstr "Претплатите се да бисте добили обавештење када наш веб сајт буде спреман."
-
 #: patterns/page-cv-bio.php
 msgctxt "Pattern description"
 msgid "A pattern for a CV/Bio landing page."
 msgstr "Шаблон за одредишну страницу са биографијом."
-
-#: patterns/page-cv-bio.php:31
-msgctxt "Pattern placeholder text."
-msgid "My name is Nora Winslow Keene, and I’m a committed public interest attorney. Living in Denver, Colorado, I’ve spent years championing the rights of underrepresented workers. A graduate of Stanford University, I played a key role in securing critical protections for agricultural laborers, ensuring better wages and access to healthcare. My work has focused on advocating for environmental justice and improving the quality of life for rural communities. Every case I take on is driven by the belief that everyone deserves dignity and fair treatment in the workplace."
-msgstr "Моје име је Nora Winslow Keene и ја сам посвећена адвокатица за јавни интерес. Живећи у Денверу, у Колораду, годинама сам се залагала за права недовољно заступљених радника. Као дипломац Универзитета Стенфорд, имала сам кључну улогу у обезбеђивању важне заштите за пољопривредне раднике, уз боље плате и приступ здравственој заштити. Мој рад је усредсређен на залагање за правду у погледу животне средине и побољшање квалитета живота у сеоским заједницама. Сваки случај који преузмем покреће уверење да свако заслужује достојанство и праведно поступање на радном месту."
 
 #: patterns/page-cv-bio.php
 msgctxt "Pattern title"
@@ -1378,10 +1343,6 @@ msgstr "Аутор"
 msgid "Written by "
 msgstr "Аутор "
 
-#: patterns/hidden-sidebar.php:14
-msgid "Other Posts"
-msgstr "Остали чланци"
-
 #: patterns/hidden-sidebar.php:38 patterns/page-portfolio-home.php:65
 #: patterns/page-portfolio-home.php:87 patterns/page-portfolio-home.php:121
 #: patterns/page-portfolio-home.php:154 patterns/page-portfolio-home.php:176
@@ -1400,6 +1361,10 @@ msgstr "Остали чланци"
 msgctxt "Message explaining that there are no results returned from a search."
 msgid "Sorry, but nothing was found. Please try a search with different keywords."
 msgstr "Нажалост, ништа није пронађено. Покушајте да претражите другим кључним речима."
+
+#: patterns/hidden-sidebar.php:14
+msgid "Other Posts"
+msgstr "Остали чланци"
 
 #: patterns/hidden-404.php:32
 msgctxt "404 error message"
@@ -1572,11 +1537,6 @@ msgctxt "Alt text for Overview picture."
 msgid "Cliff Palace, Colorado"
 msgstr "Cliff Palace, Колорадо"
 
-#: patterns/heading-and-paragraph-with-image.php:27
-msgctxt "Event Overview Text."
-msgid "Held over a weekend, the event is structured around a series of exhibitions, workshops, and panel discussions. The exhibitions showcase a curated selection of photographs that tell compelling stories from various corners of the globe, each image accompanied by detailed narratives that provide context and deeper insight into the historical significance of the scenes depicted. These photographs are drawn from the archives of renowned photographers, as well as emerging talents, ensuring a blend of both classical and contemporary perspectives."
-msgstr "Одржава се током викенда, а догађај је организован око низа изложби, радионица и панел дискусија. Изложбе приказују пажљиво одабране фотографије које причају упечатљиве приче из разних крајева света, а свака слика је праћена детаљним описом који пружа контекст и дубљи увид у историјски значај приказаних призора. Ове фотографије потичу из архива познатих фотографа, као и нових талената, чиме се обезбеђује спој класичних и савремених погледа."
-
 #: patterns/heading-and-paragraph-with-image.php:23
 msgid "About the event"
 msgstr "О догађају"
@@ -1595,6 +1555,11 @@ msgstr "Наслов и пасус са сликом десно"
 msgctxt "Pattern description"
 msgid "Site header with site title and navigation."
 msgstr "Заглавље сајта са насловом сајта и кретањем."
+
+#: patterns/heading-and-paragraph-with-image.php:27
+msgctxt "Event Overview Text."
+msgid "Held over a weekend, the event is structured around a series of exhibitions, workshops, and panel discussions. The exhibitions showcase a curated selection of photographs that tell compelling stories from various corners of the globe, each image accompanied by detailed narratives that provide context and deeper insight into the historical significance of the scenes depicted. These photographs are drawn from the archives of renowned photographers, as well as emerging talents, ensuring a blend of both classical and contemporary perspectives."
+msgstr "Одржава се током викенда, а догађај је организован око низа изложби, радионица и панел дискусија. Изложбе приказују пажљиво одабране фотографије које причају упечатљиве приче из разних крајева света, а свака слика је праћена детаљним описом који пружа контекст и дубљи увид у историјски значај приказаних призора. Ове фотографије потичу из архива познатих фотографа, као и нових талената, чиме се обезбеђује спој класичних и савремених погледа."
 
 #: patterns/header-large-title.php
 msgctxt "Pattern description"
@@ -2129,11 +2094,6 @@ msgctxt "Example brand name."
 msgid "Amazon"
 msgstr "Amazon"
 
-#: patterns/cta-book-links.php
-msgctxt "Pattern description"
-msgid "A call to action section with links to get the book in different websites."
-msgstr "Одељак позива на радњу са везама за набавку књиге на различитим веб сајтовима."
-
 #: patterns/cta-book-links.php:17
 msgid "Buy your copy of The Stories Book"
 msgstr "Купите свој примерак књиге The Stories Book"
@@ -2260,6 +2220,12 @@ msgctxt "Pattern description"
 msgid "A banner with a short paragraph, and two images displayed in a grid layout."
 msgstr "Банер са кратким пасусом и две слике приказане у распореду мреже."
 
+#. translators: %s is the brand name, e.g., 'Fleurs'.
+#: patterns/banner-with-description-and-images-grid.php:31
+#: patterns/overlapped-images.php:47
+msgid "%s is a flower delivery and subscription business. Based in the EU, our mission is not only to deliver stunning flower arrangements across but also foster knowledge and enthusiasm on the beautiful gift of nature: flowers."
+msgstr "%s је предузеће за доставу цвећа и претплате. Са седиштем у ЕУ, наша мисија није само да испоручујемо задивљујуће цветне аранжмане, већ и да негујемо знање и одушевљење за леп дар природе: цвеће."
+
 #: patterns/banner-with-description-and-images-grid.php
 msgctxt "Pattern title"
 msgid "Banner with description and images grid"
@@ -2276,20 +2242,6 @@ msgstr "#stories"
 #: patterns/banner-poster.php:39
 msgid "Fuego Bar, Mexico City"
 msgstr "Fuego Bar, Мексико Сити"
-
-#. translators: This string contains the word "Stories" in four different
-#. languages with the first item in the locale's language.
-#: patterns/banner-poster.php:28 patterns/cta-events-list.php:68
-#: patterns/cta-events-list.php:137 patterns/event-rsvp.php:30
-msgctxt "Placeholder heading in four languages."
-msgid "“Stories, <span lang=\"es\">historias</span>, <span lang=\"uk\">iсторії</span>, <span lang=\"el\">iστορίες</span>”"
-msgstr "„Приче, <span lang=\"es\">historias</span>, <span lang=\"uk\">iсторії</span>, <span lang=\"el\">iστορίες</span>“"
-
-#. translators: %s is the brand name, e.g., 'Fleurs'.
-#: patterns/banner-with-description-and-images-grid.php:31
-#: patterns/overlapped-images.php:47
-msgid "%s is a flower delivery and subscription business. Based in the EU, our mission is not only to deliver stunning flower arrangements across but also foster knowledge and enthusiasm on the beautiful gift of nature: flowers."
-msgstr "%s је предузеће за доставу цвећа и претплате. Са седиштем у ЕУ, наша мисија није само да испоручујемо задивљујуће цветне аранжмане, већ и да негујемо знање и одушевљење за леп дар природе: цвеће."
 
 #: patterns/banner-poster.php:39
 msgctxt "Example event date in pattern."
@@ -2383,6 +2335,11 @@ msgctxt "Pattern title"
 msgid "Cover with big heading"
 msgstr "Корица са великим насловом"
 
+#: patterns/banner-about-book.php:26
+msgctxt "Pattern placeholder text."
+msgid "This exquisite compilation showcases a diverse array of photographs that capture the essence of different eras and cultures, reflecting the unique styles and perspectives of each artist. Fleckenstein’s evocative imagery, Strand’s groundbreaking modernist approach, and Kōno’s meticulous documentation of Japanese life come together in a harmonious blend that celebrates the art of photography. Each image in “The Stories Book” is accompanied by insightful commentary, providing historical context and revealing the stories behind the photographs. This collection is not only a visual feast but also a tribute to the power of photography to preserve and narrate the multifaceted experiences of humanity."
+msgstr "Ова изузетна збирка приказује разноврстан низ фотографија које дочаравају суштину различитих епоха и култура, одражавајући јединствене стилове и погледе сваког уметника. Флекенштајнове упечатљиве слике, Страндов револуционарни модернистички приступ и Коноова минуциозна документација јапанског живота спајају се у складну целину која слави уметност фотографије. Свака слика у „The Stories Book“ праћена је проницљивим коментаром, пружајући историјски контекст и откривајући приче иза фотографија. Ова збирка није само визуелна гозба, већ и омаж моћи фотографије да сачува и исприча многоструко искуство човечанства."
+
 #: patterns/banner-about-book.php
 msgctxt "Pattern description"
 msgid "Banner with book description and accompanying image for promotion."
@@ -2402,11 +2359,6 @@ msgstr "Назив облика чланка"
 msgid "A collection of post format patterns."
 msgstr "Збирка шаблона облика чланака."
 
-#: patterns/banner-about-book.php:26
-msgctxt "Pattern placeholder text."
-msgid "This exquisite compilation showcases a diverse array of photographs that capture the essence of different eras and cultures, reflecting the unique styles and perspectives of each artist. Fleckenstein’s evocative imagery, Strand’s groundbreaking modernist approach, and Kōno’s meticulous documentation of Japanese life come together in a harmonious blend that celebrates the art of photography. Each image in “The Stories Book” is accompanied by insightful commentary, providing historical context and revealing the stories behind the photographs. This collection is not only a visual feast but also a tribute to the power of photography to preserve and narrate the multifaceted experiences of humanity."
-msgstr "Ова изузетна збирка приказује разноврстан низ фотографија које дочаравају суштину различитих епоха и култура, одражавајући јединствене стилове и погледе сваког уметника. Флекенштајнове упечатљиве слике, Страндов револуционарни модернистички приступ и Коноова минуциозна документација јапанског живота спајају се у складну целину која слави уметност фотографије. Свака слика у „The Stories Book“ праћена је проницљивим коментаром, пружајући историјски контекст и откривајући приче иза фотографија. Ова збирка није само визуелна гозба, већ и омаж моћи фотографије да сачува и исприча многоструко искуство човечанства."
-
 #: functions.php:109
 msgid "A collection of full page layouts."
 msgstr "Збирка распореда пуних страница."
@@ -2419,6 +2371,54 @@ msgstr "Квачица"
 msgctxt "Prefix before the author name. The post author name is displayed in a separate block on the next line."
 msgid "Posted by"
 msgstr "Аутор:"
+
+#: patterns/footer-columns.php:48
+msgid "Featured"
+msgstr "Издвојено"
+
+#: patterns/pricing-2-col.php:18 patterns/pricing-3-col.php:23
+msgid "Pricing"
+msgstr "Ценовник"
+
+#: patterns/pricing-2-col.php:78 patterns/pricing-3-col.php:73
+msgctxt "Name of membership package."
+msgid "Single"
+msgstr "Појединачни"
+
+#: styles/blocks/01-display.json
+msgctxt "Style variation name"
+msgid "Display"
+msgstr "Приказ"
+
+#: patterns/template-single-left-aligned-content.php:31
+msgctxt "Prefix before the author name. The post author name is displayed in a separate block."
+msgid "by"
+msgstr "Од"
+
+#: patterns/page-coming-soon.php:33
+msgid "Subscribe to get notified when our website is ready."
+msgstr "Претплатите се да бисте добили обавештење када наш сајт буде спреман."
+
+#: patterns/hidden-written-by.php:20
+msgid "in"
+msgstr "У"
+
+#: patterns/cta-book-links.php
+msgctxt "Pattern description"
+msgid "A call to action section with links to get the book in different websites."
+msgstr "Одељак позива на радњу са везама за набавку књиге на различитим сајтовима."
+
+#: patterns/footer-columns.php:51 patterns/footer.php:59
+msgid "Patterns"
+msgstr "Обрасци"
+
+#. translators: This string contains the word "Stories" in four different
+#. languages with the first item in the locale's language.
+#: patterns/banner-poster.php:28 patterns/cta-events-list.php:68
+#: patterns/cta-events-list.php:137 patterns/event-rsvp.php:30
+msgctxt "Placeholder heading in four languages."
+msgid "“Stories, <span lang=\"es\">historias</span>, <span lang=\"uk\">iсторії</span>, <span lang=\"el\">iστορίες</span>”"
+msgstr "„Приче, <span lang=\"es\">historias</span>, <span lang=\"uk\">історії</span>, <span lang=\"el\">ιστορίες</span>“"
 
 #. Author of the theme
 #: style.css

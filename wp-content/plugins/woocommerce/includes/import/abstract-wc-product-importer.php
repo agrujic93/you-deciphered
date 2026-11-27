@@ -184,7 +184,23 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 			try {
 				// Prevent getting "variation_invalid_id" error message from Variation Data Store.
 				if ( ProductType::VARIATION === $data['type'] ) {
-					$was_variation = $id && 'product_variation' === get_post_type( $id );
+					$post_type = $id ? get_post_type( $id ) : false;
+
+					// The wp_update_post() below rewrites the post type, so refuse an ID that is
+					// not already a product or variation to avoid converting an arbitrary post.
+					if ( $post_type && ! in_array( $post_type, array( 'product', 'product_variation' ), true ) ) {
+						return new WP_Error(
+							'woocommerce_product_csv_importer_invalid_id',
+							/* translators: %d: product ID */
+							sprintf( __( 'Invalid product ID %d.', 'woocommerce' ), $id ),
+							array(
+								'id'     => $id,
+								'status' => 401,
+							)
+						);
+					}
+
+					$was_variation = 'product_variation' === $post_type;
 
 					$id = wp_update_post(
 						array(
@@ -232,6 +248,61 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 	}
 
 	/**
+	 * Reduce a Global Unique ID to the form it is stored in.
+	 *
+	 * Keep this in step with the stripping in WC_Product::set_global_unique_id(), so a row is
+	 * matched and judged usable on the same value the product would be saved with.
+	 *
+	 * @param string $global_unique_id Global Unique ID as entered in the row.
+	 * @return string Stored form of the Global Unique ID, or an empty string when nothing is left of it.
+	 *
+	 * @since 11.2.0
+	 */
+	protected function normalize_global_unique_id( $global_unique_id ) {
+		return (string) preg_replace( '/[^0-9Xx\-]/', '', (string) $global_unique_id );
+	}
+
+	/**
+	 * Find the product a row refers to by its Global Unique ID.
+	 *
+	 * A match whose product type disagrees with the row type is refused, because
+	 * get_product_object() would otherwise convert the matched product to that type.
+	 *
+	 * @param string $global_unique_id Global Unique ID as entered in the row.
+	 * @param string $type             Row product type, or an empty string when the row has none.
+	 * @return int|WP_Error Product ID, 0 when nothing matches, or WP_Error for a type mismatch.
+	 *
+	 * @since 11.2.0
+	 */
+	protected function match_product_id_by_global_unique_id( $global_unique_id, $type ) {
+		$global_unique_id = $this->normalize_global_unique_id( $global_unique_id );
+
+		if ( '' === $global_unique_id ) {
+			return 0;
+		}
+
+		$product_id = (int) wc_get_product_id_by_global_unique_id( $global_unique_id );
+
+		if ( ! $product_id || '' === $type ) {
+			return $product_id;
+		}
+
+		if ( WC_Product_Factory::get_product_type( $product_id ) !== $type ) {
+			return new WP_Error(
+				'woocommerce_product_importer_global_unique_id_type_mismatch',
+				esc_html__( 'The Global Unique ID matches a product of a different type.', 'woocommerce' ),
+				array(
+					'id'               => $product_id,
+					'global_unique_id' => esc_attr( $global_unique_id ),
+					'status'           => 401,
+				)
+			);
+		}
+
+		return $product_id;
+	}
+
+	/**
 	 * Process a single item and save.
 	 *
 	 * @throws Exception If item cannot be processed.
@@ -271,6 +342,9 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 				if ( isset( $data['status'] ) && -1 === $data['status'] ) {
 					$data['status'] = 0; // Variations cannot be drafts - set to private.
 				}
+				if ( isset( $data['description'] ) ) {
+					$data['description'] = wp_kses_post( $data['description'] );
+				}
 				$is_variation = true;
 			}
 
@@ -286,7 +360,7 @@ abstract class WC_Product_Importer implements WC_Importer_Interface {
 				unset( $data['cogs_value'] );
 			}
 
-			$result = $object->set_props( array_diff_key( $data, array_flip( array( 'meta_data', 'raw_image_id', 'raw_gallery_image_ids', 'raw_attributes' ) ) ) );
+			$result = $object->set_props( array_intersect_key( $data, array_flip( $object->get_data_keys() ) ) );
 
 			if ( is_wp_error( $result ) ) {
 				throw new Exception( $result->get_error_message() );

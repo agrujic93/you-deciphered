@@ -20,7 +20,23 @@ require_once dirname( __DIR__ ) . '/autoload.php';
  * @since 1.8
  */
 class Object_Cache extends Root {
-	const LOG_TAG = '[Object_Cache]';
+	const LOG_TAG       = '[Object_Cache]';
+	const REDIS_TIMEOUT = 1.0;
+
+	/**
+	 * Local marker left by a request that could not update the backend; the next connection flushes.
+	 *
+	 * @since 7.9.4
+	 */
+	const STALE_MARKER_FILE = '.litespeed_oc_stale';
+
+	/**
+	 * Whether this request already left the stale marker.
+	 *
+	 * @since 7.9.4
+	 * @var bool
+	 */
+	private $_stale_marked = false;
 
 	/**
 	 * Debug option key.
@@ -135,6 +151,20 @@ class Object_Cache extends Root {
 	private $_cfg_enabled;
 
 	/**
+	 * Whether a backend is configured, kept even after a connection or command failure.
+	 *
+	 * @var bool
+	 */
+	private $_cfg_configured = false;
+
+	/**
+	 * Whether the most recent get() reached the backend and it confirmed the key is absent.
+	 *
+	 * @var bool
+	 */
+	private $_last_get_missed = false;
+
+	/**
 	 * True => Redis, false => Memcached.
 	 *
 	 * @var bool
@@ -243,7 +273,8 @@ class Object_Cache extends Root {
 			if ( $this->_cfg_method ) {
 				$this->_oc_driver = 'Redis';
 			}
-			$this->_cfg_enabled = $cfg[ Base::O_OBJECT ] && class_exists( $this->_oc_driver ) && $this->_cfg_host;
+			$this->_cfg_configured = $cfg[ Base::O_OBJECT ] && $this->_cfg_host;
+			$this->_cfg_enabled    = $this->_cfg_configured && class_exists( $this->_oc_driver );
 		} elseif ( defined( 'LITESPEED_CONF_LOADED' ) ) { // If OC is OFF, will hit here to init OC after conf initialized
 			$this->_cfg_debug             = $this->conf( Base::O_DEBUG ) ? $this->conf( Base::O_DEBUG ) : false;
 			$this->_cfg_method            = $this->conf( Base::O_OBJECT_KIND ) ? true : false;
@@ -260,11 +291,11 @@ class Object_Cache extends Root {
 			if ( $this->_cfg_method ) {
 				$this->_oc_driver = 'Redis';
 			}
-			$this->_cfg_enabled = $this->conf( Base::O_OBJECT ) && class_exists( $this->_oc_driver ) && $this->_cfg_host;
-		} elseif ( defined( 'self::CONF_FILE' ) && file_exists( WP_CONTENT_DIR . '/' . self::CONF_FILE ) ) {
-			// Get cfg from _data_file.
-			// Use self::const to avoid loading more classes.
-			$cfg = \json_decode( file_get_contents( WP_CONTENT_DIR . '/' . self::CONF_FILE ), true );
+			$this->_cfg_configured = $this->conf( Base::O_OBJECT ) && $this->_cfg_host;
+			$this->_cfg_enabled    = $this->_cfg_configured && class_exists( $this->_oc_driver );
+		} else {
+			// Loaded by the drop-in before the options exist: read the runtime configuration file.
+			$cfg = self::read_conf_file( WP_CONTENT_DIR );
 			if ( ! empty( $cfg[ self::O_OBJECT_HOST ] ) ) {
 				$this->_cfg_debug             = ! empty( $cfg[ Base::O_DEBUG ] ) ? $cfg[ Base::O_DEBUG ] : false;
 				$this->_cfg_method            = ! empty( $cfg[ self::O_OBJECT_KIND ] ) ? $cfg[ self::O_OBJECT_KIND ] : false;
@@ -281,12 +312,11 @@ class Object_Cache extends Root {
 				if ( $this->_cfg_method ) {
 					$this->_oc_driver = 'Redis';
 				}
-				$this->_cfg_enabled = class_exists( $this->_oc_driver ) && $this->_cfg_host;
+				$this->_cfg_configured = (bool) $this->_cfg_host;
+				$this->_cfg_enabled    = $this->_cfg_configured && class_exists( $this->_oc_driver );
 			} else {
 				$this->_cfg_enabled = false;
 			}
-		} else {
-			$this->_cfg_enabled = false;
 		}
 
 		// If OC not available, mark failure so OC methods return false early.
@@ -317,11 +347,20 @@ class Object_Cache extends Root {
 			return;
 		}
 
+		// Without a real AUTH_KEY the log name falls back to the options API, which re-enters this drop-in before the connection exists.
+		if ( '' === Debug2::auth_key_secret() ) {
+			return;
+		}
+
 		$litespeed_data_folder = defined( 'LITESPEED_DATA_FOLDER' ) ? LITESPEED_DATA_FOLDER : 'litespeed';
 		$lscwp_content_dir     = defined( 'LSCWP_CONTENT_DIR' ) ? LSCWP_CONTENT_DIR : WP_CONTENT_DIR;
 		$litespeed_static_dir  = $lscwp_content_dir . '/' . $litespeed_data_folder;
 		$log_path_prefix       = $litespeed_static_dir . '/debug/';
-		$log_file              = $log_path_prefix . Debug2::FilePath( 'debug' );
+		$log_name              = Debug2::FilePath( 'debug' );
+		if ( ! $log_name ) {
+			return;
+		}
+		$log_file = $log_path_prefix . $log_name;
 
 		if ( file_exists( $log_path_prefix . 'index.php' ) && file_exists( $log_file ) ) {
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
@@ -361,7 +400,10 @@ class Object_Cache extends Root {
 		// Update cls file.
 		if ( ! file_exists( $_oc_wp_file ) || md5_file( $_oc_wp_file ) !== md5_file( $_oc_ori_file ) ) {
 			$this->debug_oc( 'copying object-cache.php file to ' . $_oc_wp_file );
-			copy( $_oc_ori_file, $_oc_wp_file );
+			if ( ! copy( $_oc_ori_file, $_oc_wp_file ) ) {
+				Admin_Display::error( __( 'Could not write the object cache drop-in.', 'litespeed-cache' ) );
+				return;
+			}
 			$changed = true;
 		}
 
@@ -374,6 +416,25 @@ class Object_Cache extends Root {
 	}
 
 	/**
+	 * Classify wp-content/object-cache.php: `absent`, `current` (identical to lib/object-cache.php), `stale` (an older copy of this plugin's drop-in) or `foreign`.
+	 *
+	 * @since 7.9.2
+	 */
+	public function dropin_state() {
+		$file = WP_CONTENT_DIR . '/object-cache.php';
+		if ( ! file_exists( $file ) ) {
+			return 'absent';
+		}
+		$digest = md5_file( $file );
+		if ( false !== $digest && md5_file( LSCWP_DIR . 'lib/object-cache.php' ) === $digest ) {
+			return 'current';
+		}
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$head = (string) file_get_contents( $file, false, null, 0, 2048 );
+		return false !== strpos( $head, 'LiteSpeed Object Cache' ) && false !== strpos( $head, "'LSCWP_OBJECT_CACHE'" ) ? 'stale' : 'foreign';
+	}
+
+	/**
 	 * Remove object cache file.
 	 *
 	 * @since  1.8.2
@@ -383,10 +444,10 @@ class Object_Cache extends Root {
 	 */
 	public function del_file() {
 		// NOTE: When included in oc.php, `LSCWP_DIR` will show undefined, so this must be assigned/generated when used.
-		$_oc_ori_file = LSCWP_DIR . 'lib/object-cache.php';
-		$_oc_wp_file  = WP_CONTENT_DIR . '/object-cache.php';
+		$_oc_wp_file = WP_CONTENT_DIR . '/object-cache.php';
 
-		if ( file_exists( $_oc_wp_file ) && md5_file( $_oc_wp_file ) === md5_file( $_oc_ori_file ) ) {
+		$state = $this->dropin_state();
+		if ( 'current' === $state || 'stale' === $state ) {
 			$this->debug_oc( 'removing ' . $_oc_wp_file );
 			wp_delete_file( $_oc_wp_file );
 		}
@@ -402,6 +463,34 @@ class Object_Cache extends Root {
 	 */
 	public function test_connection() {
 		return $this->_connect();
+	}
+
+	/**
+	 * Whether conditional writes can reach the backend, independently of admin read bypass.
+	 *
+	 * @return bool
+	 */
+	public function usable() {
+		return $this->_cfg_enabled && $this->_connect();
+	}
+
+	/**
+	 * Whether a backend is configured for this request, even if it later failed to connect or respond.
+	 *
+	 * @return bool
+	 */
+	public function configured() {
+		return $this->_cfg_configured;
+	}
+
+	/**
+	 * Whether reads of a group may reach the backend (false when Cache WP-Admin bypasses it).
+	 *
+	 * @param string $group Cache group name.
+	 * @return bool
+	 */
+	public function can_read( $group = '' ) {
+		return $this->_can_cache( $group );
 	}
 
 	/**
@@ -471,17 +560,12 @@ class Object_Cache extends Root {
 				$this->_conn = new \Redis();
 				// error_log( 'Object: _connect Redis' );
 
-				if ( $this->_cfg_persistent ) {
-					if ( $this->_cfg_port ) {
-						$this->_conn->pconnect( $this->_cfg_host, $this->_cfg_port );
-					} else {
-						$this->_conn->pconnect( $this->_cfg_host );
-					}
-				} elseif ( $this->_cfg_port ) {
-					$this->_conn->connect( $this->_cfg_host, $this->_cfg_port );
-				} else {
-					$this->_conn->connect( $this->_cfg_host );
-				}
+				$method = $this->_cfg_persistent ? 'pconnect' : 'connect';
+				// Port 0 means the driver default: -1 matches v7.9.1 omitting the argument, so a `/path.sock` host stays a UNIX socket.
+				$port = $this->_cfg_port ? (int) $this->_cfg_port : -1;
+				// Bound both opening and reads, including reused persistent sockets; a failed connect is caught by the PING check below.
+				$this->_conn->$method( $this->_cfg_host, $port, self::REDIS_TIMEOUT );
+				$this->_conn->setOption( \Redis::OPT_READ_TIMEOUT, self::REDIS_TIMEOUT );
 
 				if ( $this->_cfg_pswd ) {
 					if ( $this->_cfg_user ) {
@@ -502,11 +586,10 @@ class Object_Cache extends Root {
 					$this->_conn->setOption( \Redis::OPT_COMPRESSION, \Redis::COMPRESSION_ZSTD );
 				}
 
-				if ( $this->_cfg_db ) {
-					if ( ! $this->_conn->select( $this->_cfg_db ) ) {
-						$this->debug_oc( 'Database ID is invalid' );
-						$failed = true;
-					}
+				// A persistent socket may have been left on another database, including when our ID is zero.
+				if ( ( $this->_cfg_db || $this->_cfg_persistent ) && ! $this->_conn->select( (int) $this->_cfg_db ) ) {
+					$this->debug_oc( 'Database ID is invalid' );
+					$failed = true;
 				}
 
 				$res = $this->_conn->rawCommand('PING');
@@ -515,33 +598,41 @@ class Object_Cache extends Root {
 					$this->debug_oc( 'Redis resp is wrong: ' . $res );
 					$failed = true;
 				}
-			} catch ( \Exception $e ) {
-				$this->debug_oc( 'Redis connect exception: ' . $e->getMessage() );
-				$failed = true;
-			} catch ( \ErrorException $e ) {
+			} catch ( \Throwable $e ) {
+				// A driver TypeError/ValueError is a backend failure too; fall back instead of a fatal.
 				$this->debug_oc( 'Redis connect error: ' . $e->getMessage() );
 				$failed = true;
+			} finally {
+				restore_error_handler();
 			}
-			restore_error_handler();
 		} else {
 			// Connect to Memcached.
 			if ( $this->_cfg_persistent ) {
 				$this->_conn = new \Memcached( $this->_get_mem_id() );
+				$this->_set_mem_timeouts();
+				$servers = $this->_conn->getServerList();
+				$matches = 1 === count( $servers ) && $servers[0]['host'] === $this->_cfg_host && (int) $servers[0]['port'] === (int) $this->_cfg_port;
+				if ( $servers && ! $matches ) {
+					$this->_conn->resetServerList();
+				}
 
 				// Check memcached persistent connection.
-				if ( $this->_validate_mem_server() ) {
+				if ( $matches && $this->_validate_mem_server() ) {
 					// error_log( 'Object: _validate_mem_server' );
 					$this->debug_oc( 'Got persistent ' . $this->_oc_driver . ' connection' );
-					return true;
+					return $this->_flush_if_stale();
 				}
 
 				$this->debug_oc( 'No persistent ' . $this->_oc_driver . ' server list!' );
 			} else {
 				// error_log( 'Object: new memcached!' );
 				$this->_conn = new \Memcached();
+				$this->_set_mem_timeouts();
 			}
 
-			$this->_conn->addServer( $this->_cfg_host, (int) $this->_cfg_port );
+			if ( ! $this->_conn->getServerList() ) {
+				$this->_conn->addServer( $this->_cfg_host, (int) $this->_cfg_port );
+			}
 
 			/**
 			 * Add SASL auth.
@@ -588,7 +679,7 @@ class Object_Cache extends Root {
 
 		$this->debug_oc( '✅ Connected to ' . $this->_oc_driver . ' server.' );
 
-		return true;
+		return $this->_flush_if_stale();
 	}
 
 	/**
@@ -645,6 +736,8 @@ class Object_Cache extends Root {
 	 * @return mixed|false
 	 */
 	public function get( $key, $group = '' ) {
+		$this->_last_get_missed = false;
+
 		if ( ! $this->_cfg_enabled ) {
 			return false;
 		}
@@ -664,11 +757,26 @@ class Object_Cache extends Root {
 				$this->_redis_error( $ex );
 				return false;
 			}
+			// phpredis returns false only for an absent key once no exception was raised.
+			$this->_last_get_missed = false === $res;
 		} else {
 			$res = $this->_conn->get( $key );
+			// Memcached returns false for both a miss and a failure; only RES_NOTFOUND confirms absence.
+			$this->_last_get_missed = false === $res && \Memcached::RES_NOTFOUND === $this->_conn->getResultCode();
 		}
 
 		return $res;
+	}
+
+	/**
+	 * Whether the most recent get() reached the backend and it confirmed the key is absent.
+	 *
+	 * False after a hit and after any non-confirmed outcome: disabled, read bypass, no connection, Redis exception or a Memcached failure code.
+	 *
+	 * @return bool
+	 */
+	public function last_get_missed() {
+		return $this->_last_get_missed;
 	}
 
 	/**
@@ -683,7 +791,45 @@ class Object_Cache extends Root {
 	 * @return bool
 	 */
 	public function set( $key, $data, $expire ) {
-		if ( ! $this->_cfg_enabled ) {
+		return $this->_store( $key, $data, $expire, 'set' );
+	}
+
+	/**
+	 * Store only if the shared key does not exist, without a separate read.
+	 *
+	 * @param string $key    Cache key.
+	 * @param mixed  $data   Serialized payload.
+	 * @param int    $expire TTL seconds.
+	 * @return bool
+	 */
+	public function add( $key, $data, $expire ) {
+		return (bool) $this->_store( $key, $data, $expire, 'add' );
+	}
+
+	/**
+	 * Replace only an existing shared key, without a separate read.
+	 *
+	 * @param string $key    Cache key.
+	 * @param mixed  $data   Serialized payload.
+	 * @param int    $expire TTL seconds.
+	 * @return bool
+	 */
+	public function replace( $key, $data, $expire ) {
+		return (bool) $this->_store( $key, $data, $expire, 'replace' );
+	}
+
+	/**
+	 * Share serialization-independent backend storage and expiration handling.
+	 *
+	 * @param string $key    Cache key.
+	 * @param mixed  $data   Serialized payload.
+	 * @param int    $expire TTL seconds.
+	 * @param string $method Internal set, add or replace operation.
+	 * @return bool|string Backend acknowledgement or false.
+	 */
+	private function _store( $key, $data, $expire, $method ) {
+		if ( ! $this->_cfg_enabled || ! $this->_connect() ) {
+			$this->_mark_stale();
 			return false;
 		}
 
@@ -695,10 +841,6 @@ class Object_Cache extends Root {
 		// return false;
 		// }
 
-		if ( ! $this->_connect() ) {
-			return false;
-		}
-
 		// Per WP Object Cache API, expire=0 means "no expiration".
 		// Key eviction is handled by the cache backend (Redis maxmemory / Memcached LRU).
 		$ttl = (int) $expire;
@@ -706,16 +848,37 @@ class Object_Cache extends Root {
 		if ( 'Redis' === $this->_oc_driver ) {
 			try {
 				$options = ( $ttl > 0 ) ? [ 'ex' => $ttl ] : [];
-				$res     = $this->_conn->set( $key, $data, $options );
+				if ( 'set' !== $method ) {
+					$options[] = 'add' === $method ? 'nx' : 'xx';
+				}
+				$res = $this->_conn->set( $key, $data, $options );
 			} catch ( \RedisException $ex ) {
 				$res = false;
 				$this->_redis_error( $ex );
+				$this->_mark_stale();
 			}
 		} else {
-			$res = $this->_conn->set( $key, $data, $ttl );
+			// Memcached treats expirations above 30 days as Unix timestamps.
+			$res = $this->_conn->$method( $key, $data, $ttl > 30 * DAY_IN_SECONDS ? time() + $ttl : $ttl );
+			// Only an unreachable server leaves skipped writes; a refused item (e.g. too large) must not flush the backend.
+			if ( false === $res && $this->_mem_unreachable() ) {
+				$this->_mark_stale();
+			}
 		}
 
 		return $res;
+	}
+
+	/**
+	 * Bound Memcached connection, polling and socket I/O without persistent backoff.
+	 *
+	 * @return void
+	 */
+	private function _set_mem_timeouts() {
+		$this->_conn->setOption( \Memcached::OPT_CONNECT_TIMEOUT, (int) ( self::REDIS_TIMEOUT * 1000 ) );
+		$this->_conn->setOption( \Memcached::OPT_POLL_TIMEOUT, (int) ( self::REDIS_TIMEOUT * 1000 ) );
+		$this->_conn->setOption( \Memcached::OPT_SEND_TIMEOUT, (int) ( self::REDIS_TIMEOUT * 1000000 ) );
+		$this->_conn->setOption( \Memcached::OPT_RECV_TIMEOUT, (int) ( self::REDIS_TIMEOUT * 1000000 ) );
 	}
 
 	/**
@@ -748,11 +911,8 @@ class Object_Cache extends Root {
 	 * @return bool
 	 */
 	public function delete( $key ) {
-		if ( ! $this->_cfg_enabled ) {
-			return false;
-		}
-
-		if ( ! $this->_connect() ) {
+		if ( ! $this->_cfg_enabled || ! $this->_connect() ) {
+			$this->_mark_stale();
 			return false;
 		}
 
@@ -761,10 +921,14 @@ class Object_Cache extends Root {
 				$res = $this->_conn->del( $key );
 			} catch ( \RedisException $ex ) {
 				$this->_redis_error( $ex );
+				$this->_mark_stale();
 				return false;
 			}
 		} else {
 			$res = $this->_conn->delete( $key );
+			if ( ! $res && $this->_mem_unreachable() ) {
+				$this->_mark_stale();
+			}
 		}
 
 		return (bool) $res;
@@ -779,27 +943,35 @@ class Object_Cache extends Root {
 	 * @return bool
 	 */
 	public function flush() {
-		if ( ! $this->_cfg_enabled ) {
+		if ( ! $this->_cfg_enabled || ! $this->_connect() ) {
 			$this->debug_oc( 'bypass flushing' );
-			return false;
-		}
-
-		if ( ! $this->_connect() ) {
+			$this->_mark_stale();
 			return false;
 		}
 
 		$this->debug_oc( 'flush!' );
 
 		if ( 'Redis' === $this->_oc_driver ) {
+			// A synchronous flush may take longer than an ordinary read; restore the request timeout afterwards.
+			$read_timeout = $this->_conn->getOption( \Redis::OPT_READ_TIMEOUT );
 			try {
+				$this->_conn->setOption( \Redis::OPT_READ_TIMEOUT, max( self::REDIS_TIMEOUT, (float) ini_get( 'default_socket_timeout' ) ) );
 				$res = $this->_conn->flushDb();
 			} catch ( \RedisException $ex ) {
 				$this->_redis_error( $ex );
+				$this->_mark_stale();
 				return false;
+			} finally {
+				$this->_conn->setOption( \Redis::OPT_READ_TIMEOUT, $read_timeout );
 			}
 		} else {
 			$res = $this->_conn->flush();
+			if ( ! $res && $this->_mem_unreachable() ) {
+				$this->_mark_stale();
+			}
 			$this->_conn->resetServerList();
+			// The cleared server list cannot serve another operation until _connect() runs again.
+			$this->_conn = null;
 		}
 
 		return $res;
@@ -822,6 +994,126 @@ class Object_Cache extends Root {
 		if ( did_action( 'plugins_loaded' ) ) {
 			Admin_Display::error( 'LiteSpeed Object Cache: Redis is unavailable. Check Redis server status (memory, connectivity) and the plugin debug log for details.' );
 		}
+	}
+
+	/**
+	 * Note that this request changed data the backend did not get.
+	 *
+	 * After a failed connection or a Redis error, writes and deletes are skipped for the rest of the
+	 * request while the database still changes, and most WordPress groups are cached with no expiry,
+	 * so the backend would serve the old values for good (a stale `session_tokens` logs users out).
+	 * A local file marks it; the marker cannot live in the backend that was unreachable.
+	 *
+	 * @since 7.9.4
+	 * @access private
+	 *
+	 * @return void
+	 */
+	private function _mark_stale() {
+		// Only a configured backend that could not be reached holds stale copies.
+		if ( $this->_stale_marked || ! $this->_cfg_configured || ! class_exists( $this->_oc_driver ) ) {
+			return;
+		}
+		$this->_stale_marked = true;
+
+		$marker = $this->_stale_marker();
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_touch
+		if ( ! @touch( $marker ) ) {
+			$this->debug_oc( 'Cannot write the stale marker ' . $marker );
+		}
+	}
+
+	/**
+	 * Whether the last Memcached call failed because the server could not be reached, not because it refused the item.
+	 *
+	 * RES_CONNECTION_SOCKET_CREATE_FAILURE is left out: libmemcached aliases it to MEMCACHED_ERROR, a server `ERROR` reply.
+	 *
+	 * @since 7.9.4
+	 * @access private
+	 *
+	 * @return bool
+	 */
+	private function _mem_unreachable() {
+		return in_array(
+			$this->_conn->getResultCode(),
+			[
+				\Memcached::RES_HOST_LOOKUP_FAILURE,
+				\Memcached::RES_CONNECTION_FAILURE,
+				\Memcached::RES_CONNECTION_BIND_FAILURE,
+				\Memcached::RES_WRITE_FAILURE,
+				\Memcached::RES_READ_FAILURE,
+				\Memcached::RES_UNKNOWN_READ_FAILURE,
+				\Memcached::RES_NO_SERVERS,
+				\Memcached::RES_ERRNO,
+				\Memcached::RES_FAIL_UNIX_SOCKET,
+				\Memcached::RES_TIMEOUT,
+				\Memcached::RES_SERVER_MARKED_DEAD,
+				\Memcached::RES_SERVER_TEMPORARILY_DISABLED,
+			],
+			true
+		);
+	}
+
+	/**
+	 * Stale marker path: the plugin's data folder, or wp-content before that folder exists.
+	 *
+	 * @since 7.9.4
+	 * @access private
+	 *
+	 * @return string
+	 */
+	private function _stale_marker() {
+		$content_dir = defined( 'LSCWP_CONTENT_DIR' ) ? LSCWP_CONTENT_DIR : WP_CONTENT_DIR;
+		$data_dir    = $content_dir . '/' . ( defined( 'LITESPEED_DATA_FOLDER' ) ? LITESPEED_DATA_FOLDER : 'litespeed' );
+		return ( is_dir( $data_dir ) ? $data_dir : $content_dir ) . '/' . self::STALE_MARKER_FILE;
+	}
+
+	/**
+	 * After requests that could not update the backend, flush it once on a working connection.
+	 *
+	 * Keys stay as they are; the flush removes the values that missed their update, on Redis and Memcached alike.
+	 * On multisite the marker is network-wide: a write skipped on any subsite can leave stale global groups
+	 * (users, site options), so the whole network starts over, as with Purge All.
+	 * Removing the marker first lets concurrent requests flush only once.
+	 *
+	 * @since 7.9.4
+	 * @access private
+	 *
+	 * @return bool False when the flush failed; the connection is then dropped for this request.
+	 */
+	private function _flush_if_stale() {
+		$marker = $this->_stale_marker();
+		if ( ! file_exists( $marker ) ) {
+			return true;
+		}
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.unlink_unlink
+		if ( ! @unlink( $marker ) ) {
+			// The pending invalidation still applies when filesystem permissions prevent claiming it.
+			$this->debug_oc( 'Cannot remove the stale marker ' . $marker );
+			$this->_conn        = null;
+			$this->_cfg_enabled = false;
+			return false;
+		}
+
+		$this->debug_oc( 'Flush after writes skipped while the backend was unreachable' );
+		try {
+			// Reuse the Redis flush timeout; Memcached must keep the server list this request still needs.
+			$ok = 'Redis' === $this->_oc_driver ? $this->flush() : $this->_conn->flush();
+		} catch ( \RedisException $ex ) {
+			$this->debug_oc( 'Stale flush failed: ' . $ex->getMessage() );
+			$ok = false;
+		}
+
+		if ( $ok ) {
+			return true;
+		}
+
+		// Keep the old values out of this request and retry on the next one.
+		$this->_conn         = null;
+		$this->_cfg_enabled  = false;
+		$this->_stale_marked = false;
+		$this->_mark_stale();
+		return false;
 	}
 
 	/**

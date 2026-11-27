@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Tribe Common 6.12.4.1\n"
+"Project-Id-Version: Tribe Common 6.14.1.1\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-23T17:35:21+00:00\n"
+"POT-Creation-Date: 2026-11-24T20:20:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: tribe-common\n"
@@ -28,7 +28,7 @@ msgstr ""
 #: tribe-common.php
 #: src/admin-views/help-calendar.php:107
 #: src/Common/REST/TEC/V1/Documentation.php:121
-#: src/Common/TrustedLogin/Trusted_Login_Config.php:319
+#: src/Common/TrustedLogin/Trusted_Login_Config.php:331
 #: src/Tribe/Admin/Help_Page.php:171
 #: src/Tribe/Customizer.php:666
 #: src/Tribe/Plugins_API.php:25
@@ -236,16 +236,14 @@ msgctxt "Actions header label for the settings listing of the integration endpoi
 msgid "Actions"
 msgstr ""
 
-#: src/admin-views/dashboard/table.php:26
+#: src/admin-views/dashboard/table.php:27
 msgctxt "The legend for the integration endpoint dashboard."
 msgid "Endpoint Dashboard"
 msgstr ""
 
-#. Translators: 1: Opening anchor tag, 2: Closing anchor tag.
-#: src/admin-views/dashboard/table.php:32
-#, php-format
+#: src/admin-views/dashboard/table.php:31
 msgctxt "The Zapier endpoint dashboard description."
-msgid "The Zapier queue is currently limited to 15 items for each endpoint on your site. To increase that limit, check out the %1$sIncreasing the Zapier Queue Limit knowledgebase article%2$s."
+msgid "The Zapier queue is currently limited to 15 items for each endpoint on your site."
 msgstr ""
 
 #: src/admin-views/event-log.php:24
@@ -494,14 +492,14 @@ msgid "Close settings navigation"
 msgstr ""
 
 #: src/admin-views/help-hub/navigation.php:21
-#: src/Tribe/Settings.php:901
-#: src/Tribe/Settings.php:939
+#: src/Tribe/Settings.php:977
+#: src/Tribe/Settings.php:1015
 msgid "Close"
 msgstr ""
 
 #: src/admin-views/help-hub/navigation.php:33
 #: src/admin-views/help-hub/navigation.php:39
-#: src/Tribe/Settings.php:1097
+#: src/Tribe/Settings.php:1173
 msgid "Open settings navigation"
 msgstr ""
 
@@ -775,7 +773,7 @@ msgid "(Event Tickets Plus)"
 msgstr ""
 
 #: src/admin-views/help.php:40
-#: src/Tribe/Settings.php:828
+#: src/Tribe/Settings.php:904
 msgid "Help"
 msgstr ""
 
@@ -1161,6 +1159,7 @@ msgid "warning-icon"
 msgstr ""
 
 #: src/admin-views/troubleshooting/detected-issues.php:48
+#: src/Common/Banners/Software_Packages_Banner.php:95
 msgid "Learn more"
 msgstr ""
 
@@ -1255,8 +1254,8 @@ msgid "License & Usage"
 msgstr ""
 
 #: src/admin-views/troubleshooting/ea-status/license-key.php:45
-#: src/Tribe/PUE/Checker.php:830
 #: src/Tribe/PUE/Checker.php:841
+#: src/Tribe/PUE/Checker.php:852
 msgid "License Key"
 msgstr ""
 
@@ -1444,13 +1443,13 @@ msgctxt "Removes a zapier page from the list of Zapier live pages."
 msgid "Revoke"
 msgstr ""
 
-#: src/admin-views/zapier/api/intro-text.php:26
+#: src/admin-views/zapier/api/intro-text.php:27
 msgctxt "API connection header"
 msgid "Zapier"
 msgstr ""
 
 #. Translators: %1$s: URL to the Zapier API documentation
-#: src/admin-views/zapier/api/intro-text.php:32
+#: src/admin-views/zapier/api/intro-text.php:33
 #, php-format
 msgctxt "Settings help text and link for Zapier API."
 msgid "Please generate a consumer id and secret for each of our applications you are using with Zapier to enable its integrations. i.e.: one consumer id and secret for The Events Calendar and one consumer id and secret for Event Tickets. <a href=\"%1$s\" target=\"_blank\">Read more about adding and managing access.</a>"
@@ -1836,6 +1835,18 @@ msgstr ""
 
 #: src/Common/Admin/Onboarding/Abstract_API.php:240
 msgid "Failed to update wizard settings."
+msgstr ""
+
+#: src/Common/Banners/Software_Packages_Banner.php:93
+msgid "Changes are coming to your plan at your next renewal."
+msgstr ""
+
+#: src/Common/Banners/Software_Packages_Banner.php:94
+msgid "Watch your inbox for details."
+msgstr ""
+
+#: src/Common/Banners/Software_Packages_Banner.php:97
+msgid "Dismiss this banner"
 msgstr ""
 
 #: src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:171
@@ -2721,12 +2732,22 @@ msgstr ""
 msgid "Licensed via <a href=\"%s\" target=\"_blank\">Unified License Manager</a>"
 msgstr ""
 
+#. Translators: %1$s is a list of table names, %2$d the maximum table name length, %3$s the wp-config.php variable holding the prefix, %4$s the wp-config.php file name, %5$s an option name and %6$s a user meta key, both starting with the current prefix.
+#: src/Common/Libraries/Migrations.php:115
+#, php-format
+msgid "The database table %1$s could not be created because its name is longer than the %2$d characters MySQL allows. Shorten the database table prefix (%3$s in %4$s), then rename the existing database tables to use the new prefix, along with the option and user meta keys that start with the old one, such as %5$s and %6$s."
+msgstr ""
+
+#: src/Common/Libraries/Migrations.php:124
+msgid "The migrations tables could not be created/updated. Migrations will not run until they are. Reach out to support if you need help."
+msgstr ""
+
 #: src/Common/Libraries/Shepherd.php:81
 msgid "Shepherd tables could not be created/updated. This is a critical issue since important functionality might be affected. Reach out to support if you need help."
 msgstr ""
 
 #. Translators: %s is the query error message.
-#: src/Common/Libraries/Shepherd.php:83
+#: src/Common/Libraries/Tables_Error_Notice.php:47
 #, php-format
 msgid "The below query failed with the message(s): %s"
 msgstr ""
@@ -3321,9 +3342,9 @@ msgstr ""
 
 #: src/Common/REST/TEC/V1/Traits/Read_Custom_Entity_Response.php:41
 #: src/Common/REST/TEC/V1/Traits/Read_Custom_Entity_Response.php:52
-#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:43
-#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:52
-#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:79
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:45
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:54
+#: src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:95
 msgid "The entity could not be read."
 msgstr ""
 
@@ -5755,7 +5776,7 @@ msgstr ""
 msgid "Shortcodes and blocks"
 msgstr ""
 
-#: src/Tribe/Process/Queue.php:1025
+#: src/Tribe/Process/Queue.php:1037
 #, php-format
 msgid "Every %d Minutes"
 msgstr ""
@@ -5764,116 +5785,116 @@ msgstr ""
 msgid "Promoter Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:806
+#: src/Tribe/PUE/Checker.php:817
 msgid "A valid license key is required for support and updates"
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:811
+#: src/Tribe/PUE/Checker.php:822
 #, php-format
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:818
+#: src/Tribe/PUE/Checker.php:829
 #, php-format
 msgid "%1$sBuy a license%2$s for the Promoter service to access additional marketing features."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:850
-#: src/Tribe/PUE/Checker.php:884
+#: src/Tribe/PUE/Checker.php:861
+#: src/Tribe/PUE/Checker.php:895
 msgid "License Key Status:"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:859
+#: src/Tribe/PUE/Checker.php:870
 msgid "Override network license key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:860
+#: src/Tribe/PUE/Checker.php:871
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:871
+#: src/Tribe/PUE/Checker.php:882
 msgid "Site License Key"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:986
+#: src/Tribe/PUE/Checker.php:997
 msgid "License key(s) updated."
 msgstr ""
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1267
+#: src/Tribe/PUE/Checker.php:1278
 #, php-format
 msgid "Hmmm... something's wrong with this validator. Please contact %1$ssupport%2$s."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1287
+#: src/Tribe/PUE/Checker.php:1298
 msgid "unknown date"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1293
+#: src/Tribe/PUE/Checker.php:1304
 msgid "Sorry, key validation server is not available."
-msgstr ""
-
-#. Translators: %s is the expiration date.
-#: src/Tribe/PUE/Checker.php:1322
-#, php-format
-msgid "Valid Key! Expires on %s"
 msgstr ""
 
 #. Translators: %s is the expiration date.
 #: src/Tribe/PUE/Checker.php:1333
 #, php-format
+msgid "Valid Key! Expires on %s"
+msgstr ""
+
+#. Translators: %s is the expiration date.
+#: src/Tribe/PUE/Checker.php:1344
+#, php-format
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1371
+#: src/Tribe/PUE/Checker.php:1382
 #: src/Tribe/PUE/Notices.php:496
 msgid "Renew Your License Now"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1373
+#: src/Tribe/PUE/Checker.php:1384
 #: src/Tribe/PUE/Notices.php:498
 msgid " (opens in a new window)"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:1390
+#: src/Tribe/PUE/Checker.php:1401
 msgid "Please refresh the page and try your request again."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1412
+#: src/Tribe/PUE/Checker.php:1423
 #, php-format
 msgid "There is an update for %1$s. You'll need to %2$scheck your license%3$s to have access to updates, downloads, and support."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing <a> tags, respectively.
-#: src/Tribe/PUE/Checker.php:1476
+#: src/Tribe/PUE/Checker.php:1487
 #, php-format
 msgid "There is an update for %1$s. %2$sRenew your license%3$s to get access to bug fixes, security updates, and new features."
 msgstr ""
 
 #. Translators: %s is the plugin version number.
-#: src/Tribe/PUE/Checker.php:1508
+#: src/Tribe/PUE/Checker.php:1519
 #, php-format
 msgid "Update now to version %s."
 msgstr ""
 
 #. Translators: %1$s is the plugin name. %2$s is the update now link.
-#: src/Tribe/PUE/Checker.php:1523
+#: src/Tribe/PUE/Checker.php:1534
 #, php-format
 msgid "There is a new version of %1$s available. %2$s"
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:2214
+#: src/Tribe/PUE/Checker.php:2250
 msgid "A valid license has been entered by your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:2215
+#: src/Tribe/PUE/Checker.php:2251
 msgid "No license entered. Consult your network administrator."
 msgstr ""
 
-#: src/Tribe/PUE/Checker.php:2216
+#: src/Tribe/PUE/Checker.php:2252
 msgid "Expired license. Consult your network administrator."
 msgstr ""
 
@@ -5923,55 +5944,55 @@ msgstr ""
 msgid "Got it"
 msgstr ""
 
-#: src/Tribe/Settings.php:277
+#: src/Tribe/Settings.php:278
 msgid "Events"
 msgstr ""
 
 #. Translators: %s is the name of the menu item.
-#: src/Tribe/Settings.php:616
+#: src/Tribe/Settings.php:689
 #, php-format
 msgid "%s Settings"
 msgstr ""
 
-#: src/Tribe/Settings.php:752
+#: src/Tribe/Settings.php:818
 msgid "You've requested a non-existent tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:815
+#: src/Tribe/Settings.php:891
 msgid "Save Changes"
 msgstr ""
 
-#: src/Tribe/Settings.php:864
+#: src/Tribe/Settings.php:940
 msgid "Skip to tab content"
 msgstr ""
 
-#: src/Tribe/Settings.php:1120
+#: src/Tribe/Settings.php:1196
 msgid "For you, Jack!"
 msgstr ""
 
-#: src/Tribe/Settings.php:1194
+#: src/Tribe/Settings.php:1270
 msgid "You don't have permission to do that."
 msgstr ""
 
-#: src/Tribe/Settings.php:1200
+#: src/Tribe/Settings.php:1276
 msgid "The request was sent insecurely."
 msgstr ""
 
-#: src/Tribe/Settings.php:1206
+#: src/Tribe/Settings.php:1282
 msgid "The request wasn't sent from this tab."
 msgstr ""
 
-#: src/Tribe/Settings.php:1416
+#: src/Tribe/Settings.php:1492
 msgid "Your form had the following errors:"
 msgstr ""
 
-#: src/Tribe/Settings.php:1427
+#: src/Tribe/Settings.php:1503
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Settings.php:1448
+#: src/Tribe/Settings.php:1524
 msgid "Settings saved."
 msgstr ""
 

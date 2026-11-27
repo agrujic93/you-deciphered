@@ -326,7 +326,8 @@ function acf_duplicate_internal_post_type( $id = 0, $new_post_id = 0, $post_type
 	$instance = acf_get_internal_post_type_instance( $post_type );
 
 	if ( $instance ) {
-		return $instance->duplicate_post( $id, $new_post_id );
+		// The settings are copied from the database, so skip sanitization.
+		return acf_skip_internal_post_sanitization( array( $instance, 'duplicate_post' ), $id, $new_post_id );
 	}
 
 	return false;
@@ -344,7 +345,8 @@ function acf_update_internal_post_type_active_status( $id, $activate = true, $po
 	$instance = acf_get_internal_post_type_instance( $post_type );
 
 	if ( $instance ) {
-		return $instance->update_post_active_status( $id, $activate );
+		// Only the status changes and the settings come from the database, so skip sanitization.
+		return acf_skip_internal_post_sanitization( array( $instance, 'update_post_active_status' ), $id, $activate );
 	}
 
 	return false;
@@ -700,4 +702,37 @@ function acf_get_ui_options_page_from_request_args( $action = '' ) {
 	}
 
 	return acf_get_internal_post_type( $acf_use_options_page, 'acf-ui-options-page' );
+}
+
+/**
+ * Keeps the stored Abilities settings when an edit screen submission doesn't include them.
+ *
+ * The ACF AI tab isn't rendered while the global "enable_abilities" setting is off, so saving
+ * would otherwise reset these settings to their defaults and re-enable abilities that had been
+ * switched off for this object.
+ *
+ * @since 6.8.12
+ *
+ * @param array   $submitted The submitted field group, post type or taxonomy settings.
+ * @param WP_Post $post      The post being saved.
+ * @return array
+ */
+function acf_preserve_unsubmitted_abilities_settings( $submitted, $post ) {
+	if ( ! is_array( $submitted ) || ! $post instanceof WP_Post ) {
+		return $submitted;
+	}
+
+	$existing_post = acf_maybe_unserialize( $post->post_content );
+	if ( ! is_array( $existing_post ) ) {
+		return $submitted;
+	}
+
+	foreach ( array( 'enable_acf_abilities', 'ai_description' ) as $setting ) {
+		if ( ! isset( $submitted[ $setting ] ) && isset( $existing_post[ $setting ] ) ) {
+			// Submitted values are slashed and get unslashed on save, so slash the stored value to match.
+			$submitted[ $setting ] = wp_slash( $existing_post[ $setting ] );
+		}
+	}
+
+	return $submitted;
 }

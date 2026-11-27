@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce PayPal Payments - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-09-28 23:46:04+0000\n"
+"PO-Revision-Date: 2026-11-16 12:25:43+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,72 @@ msgstr ""
 "X-Generator: GlotPress/4.1.0\n"
 "Language: sr_RS\n"
 "Project-Id-Version: Plugins - WooCommerce PayPal Payments - Stable (latest release)\n"
+
+#. translators: %1$s is the PayPal capture ID, %2$s the captured amount with
+#. its currency.
+#: modules/ppcp-webhooks/src/Handler/PaymentCaptureCompleted.php:127
+msgid "PayPal capture %1$s of %2$s does not cover the order total. The order was not marked as paid."
+msgstr "PayPal наплата %1$s у износу од %2$s не покрива укупан износ поруџбине. Поруџбина није означена као плаћена."
+
+#. translators: %s is the PayPal order ID.
+#: modules/ppcp-webhooks/src/Handler/CheckoutOrderCompleted.php:124
+msgid "PayPal order %s has no completed capture of the order total. The order was not marked as paid."
+msgstr "PayPal поруџбина %s нема довршену наплату укупног износа поруџбине. Поруџбина није означена као плаћена."
+
+#: modules/ppcp-blocks/resources/js/ProductSmartButtonsBlock/block.json
+msgctxt "block description"
+msgid "PayPal Smart Buttons shown on the single product page so eligible customers can check out directly."
+msgstr "Паметна PayPal дугмад приказана на страници појединачног производа како би купци који испуњавају услове могли директно да обаве куповину."
+
+#: modules/ppcp-blocks/resources/js/ProductSmartButtonsBlock/block.json
+msgctxt "block title"
+msgid "Single Product - PayPal buttons"
+msgstr "Појединачни производ – PayPal дугмад"
+
+#: modules/ppcp-blocks/resources/js/ProductPayLaterMessagesBlock/block.json
+msgctxt "block description"
+msgid "PayPal Pay Later messaging shown on the single product page. Customers automatically see the most relevant Pay Later offering."
+msgstr "Поруке за PayPal одложено плаћање (Pay Later) приказане на страници појединачног производа. Купцима се аутоматски приказује најповољнија понуда за одложено плаћање."
+
+#: modules/ppcp-blocks/resources/js/ProductPayLaterMessagesBlock/block.json
+msgctxt "block title"
+msgid "Single Product - PayPal Pay Later messaging"
+msgstr "Појединачни производ – PayPal Pay Later поруке"
+
+#: modules/ppcp-blocks/resources/js/MiniCartSmartButtonsBlock/block.json
+msgctxt "block description"
+msgid "PayPal Smart Buttons shown in the Mini-Cart so eligible customers can check out directly."
+msgstr "Паметна PayPal дугмад приказана у мини-корпи како би купци који испуњавају услове могли директно да обаве куповину."
+
+#: modules/ppcp-blocks/resources/js/MiniCartSmartButtonsBlock/block.json
+msgctxt "block title"
+msgid "Mini-Cart - PayPal buttons"
+msgstr "Мини-корпа – PayPal дугмад"
+
+#: modules/ppcp-wc-gateway/src/Gateway/ProcessPaymentTrait.php:60
+msgid "We could not complete the payment. Try again or choose a different payment method."
+msgstr "Нисмо успели да довршимо плаћање. Покушајте поново или изаберите други начин плаћања."
+
+#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:124
+msgid "We could not confirm this payment session. Please try again."
+msgstr "Нисмо успели да потврдимо ову сесију плаћања. Покушајте поново."
+
+#: modules/ppcp-save-payment-methods/src/Endpoint/FreeTrialVaultReturnEndpoint.php:86
+msgid "Could not save the PayPal account. Please try again."
+msgstr "Чување PayPal налога није успело. Покушајте поново."
+
+#: modules/ppcp-save-payment-methods/src/Endpoint/FreeTrialVaultReturnEndpoint.php:67
+msgid "Payment information is missing. Please try placing your order again."
+msgstr "Недостају подаци о плаћању. Покушајте поново да пошаљете поруџбину."
+
+#. translators: %s: ability name.
+#: modules/ppcp-abilities/src/AbilityHandlers.php:75
+msgid "The %s ability is not wired yet."
+msgstr "Могућност %s још није повезана."
+
+#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:40
+msgid "When true, returns the payer block (email, name, address, phone) and per-purchase-unit shipping addresses. Defaults to false; only opt in when the calling context legitimately needs payer identity. Sites can deny payer PII outright via the woocommerce_paypal_payments_abilities_allow_payer_pii filter, in which case this flag has no effect."
+msgstr "Када је постављено на true, враћа блок платиоца (е-пошта, име, адреса, телефон) и адресе за доставу по јединици куповине. Подразумевана вредност је false; укључите је само када контекст позива оправдано захтева идентитет платиоца. Сајтови могу потпуно забранити личне податке платиоца преко филтера woocommerce_paypal_payments_abilities_allow_payer_pii, у ком случају ова ознака нема дејство."
 
 #. translators: 1: host(s) and path(s) receiving the webhooks, 2: this site's
 #. own webhook host and path.
@@ -53,32 +119,32 @@ msgstr "Доступност Fastlane не може да се утврди пр�
 msgid "Apple Pay availability cannot be determined before the wp_loaded action has run."
 msgstr "Доступност Apple Pay не може да се утврди пре покретања радње wp_loaded."
 
-#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:954
+#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:1121
 msgid "Tax"
 msgstr "Порез"
 
 #. translators: 1: country the tax was recalculated for, 2: the corrected total
-#: modules/ppcp-sdk-v6/src/Endpoint/CartQuoteEndpoint.php:123
+#: modules/ppcp-sdk-v6/src/Endpoint/CartQuoteEndpoint.php:124
 msgid "Nothing has been charged yet. Tax for %1$s differs from our estimate, so your total is now %2$s. Please try again."
 msgstr "Још ништа није наплаћено. Порез за %1$s разликује се од наше процене, па је ваш укупни износ сада %2$s. Покушајте поново."
 
-#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:952
+#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:1119
 msgid "Subtotal"
 msgstr "Укупно"
 
-#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:953
+#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:1120
 msgid "Shipping"
 msgstr "Достава"
 
-#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:950
+#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:1115
 msgid "Cannot ship to the selected address."
 msgstr "Није могуће испоручити на изабрану адресу."
 
-#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:949
+#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:1114
 msgid "The card could not be charged. Please check the details or try a different card."
 msgstr "Картица није могла да се задужи. Проверите податке или покушајте другом картицом."
 
-#: modules/ppcp-order-endpoints/src/Endpoint/CreateOrderEndpoint.php:276
+#: modules/ppcp-order-endpoints/src/Endpoint/CreateOrderEndpoint.php:277
 msgid "The order total has changed. Please reload the page and try again."
 msgstr "Укупан износ поруџбине се променио. Поново учитајте страницу и покушајте поново."
 
@@ -94,21 +160,21 @@ msgstr "Извози PayPal Payments подешавања заједно са п
 msgid "PayPal Settings (including connection details)"
 msgstr "PayPal подешавања (укључујући детаље повезивања)"
 
-#: modules/ppcp-card-fields/src/CardFieldsModule.php:170
+#: modules/ppcp-card-fields/src/CardFieldsModule.php:168
 msgid "This payment could not be processed. Please try a different payment method."
 msgstr "Ово плаћање није могло да се обради. Покушајте другим начином плаћања."
 
-#: modules/ppcp-card-fields/src/CardFieldsModule.php:166
+#: modules/ppcp-card-fields/src/CardFieldsModule.php:164
 #: assets/ppcp-sdk-v6-js-boot-add-payment-method.js:1
 #: assets/ppcp-sdk-v6-js-boot.js:1 assets/ppcp-sdk-v6-js-checkout-block.js:1
 msgid "This card could not be authorized. Please try a different payment method."
 msgstr "Ова картица није могла да се одобри. Покушајте другим начином плаћања."
 
-#: modules/ppcp-card-fields/src/CardFieldsModule.php:168
+#: modules/ppcp-card-fields/src/CardFieldsModule.php:166
 msgid "The 3D Secure validation could not be completed. Please try again or use another card."
 msgstr "3D Secure провера није могла да се доврши. Покушајте поново или користите другу картицу."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "A PayPal-powered checkout option letting customers pay with cryptocurrency. You receive funds in USD, settled directly to your PayPal balance — no crypto exposure, no chargeback risk."
 msgstr "Могућност плаћања коју покреће PayPal и која купцима омогућава плаћање криптовалутом. Средства примате у USD, поравната директно на ваше PayPal стање — без изложености криптовалутама и без ризика од повраћаја средстава."
 
@@ -194,7 +260,7 @@ msgstr "Немате дозволу да мењате ову претплату.
 msgid "%1$s ending in %2$s"
 msgstr "%1$s се завршава %2$s"
 
-#: modules/ppcp-wc-gateway/src/Gateway/CreditCardGateway.php:500
+#: modules/ppcp-wc-gateway/src/Gateway/CreditCardGateway.php:509
 msgid "This saved card could not be charged. Please try another payment method."
 msgstr "Ова сачувана картица није могла да се задужи. Покушајте другим начином плаћања."
 
@@ -214,27 +280,27 @@ msgstr "Нисмо могли да проверимо вашу PayPal везу. 
 msgid "Could not start the PayPal connection. Please try again or check logs."
 msgstr "Није могуће покренути PayPal везу. Покушајте поново или проверите дневнике."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:156
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:169
 msgid "Show logos of supported cards"
 msgstr "Прикажи логотипе подржаних картица"
 
 #. translators: 1: number of subscriptions, 2: URL to subscription list
-#: modules/ppcp-compat/src/CompatModule.php:563
+#: modules/ppcp-compat/src/CompatModule.php:606
 msgid "PayPal Payments is now your active checkout gateway, but <a href=\"%2$s\">%1$d subscription</a> is still billed through the legacy PayPal Standard gateway. Migrate or cancel these subscriptions before disabling PayPal Standard to avoid missed renewals."
 msgid_plural "PayPal Payments is now your active checkout gateway, but <a href=\"%2$s\">%1$d subscriptions</a> are still billed through the legacy PayPal Standard gateway. Migrate or cancel these subscriptions before disabling PayPal Standard to avoid missed renewals."
 msgstr[0] "PayPal Payments је сада ваш активни платни пролаз, али се <a href=\"%2$s\">%1$d претплата</a> и даље наплаћује преко застарелог PayPal Standard платног пролаза. Преселите или откажите ове претплате пре искључивања PayPal Standard да бисте избегли пропуштене обнове."
 msgstr[1] "PayPal Payments је сада ваш активни платни пролаз, али се <a href=\"%2$s\">%1$d претплате</a> и даље наплаћују преко застарелог PayPal Standard платног пролаза. Преселите или откажите ове претплате пре искључивања PayPal Standard да бисте избегли пропуштене обнове."
 msgstr[2] "PayPal Payments је сада ваш активни платни пролаз, али се <a href=\"%2$s\">%1$d претплата</a> и даље наплаћује преко застарелог PayPal Standard платног пролаза. Преселите или откажите ове претплате пре искључивања PayPal Standard да бисте избегли пропуштене обнове."
 
-#: modules/ppcp-button/src/Endpoint/ApproveSubscriptionEndpoint.php:209
-#: modules/ppcp-button/src/Endpoint/ApproveSubscriptionEndpoint.php:236
-#: modules/ppcp-order-endpoints/src/Endpoint/ApproveOrderEndpoint.php:170
+#: modules/ppcp-button/src/Endpoint/ApproveSubscriptionEndpoint.php:178
+#: modules/ppcp-button/src/Endpoint/ApproveSubscriptionEndpoint.php:205
+#: modules/ppcp-order-endpoints/src/Endpoint/ApproveOrderEndpoint.php:127
 #: modules/ppcp-order-endpoints/src/Endpoint/UpdateShippingEndpoint.php:59
 msgid "Order validation failed."
 msgstr "Провера поруџбине није успела."
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:241
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:253
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:270
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:282
 msgid "Payment validation failed. Please try again."
 msgstr "Провера плаћања није успела. Покушајте поново."
 
@@ -242,120 +308,99 @@ msgstr "Провера плаћања није успела. Покушајте 
 msgid "No shipping methods are available for your address."
 msgstr "За вашу адресу нема доступних начина доставе."
 
-#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:141
+#: modules/ppcp-abilities/src/Handler/GetPaypalOrderHandler.php:118
 msgid "Either paypal_order_id or wc_order_id is required."
 msgstr "Потребан је paypal_order_id или wc_order_id."
 
-#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:136
+#: modules/ppcp-abilities/src/Handler/GetPaypalOrderHandler.php:113
 msgid "paypal_order_id must be an alphanumeric uppercase PayPal order ID (1-64 chars)."
 msgstr "paypal_order_id мора бити алфанумерички PayPal ИБ поруџбине великим словима (1-64 знака)."
 
-#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:85
-msgid "PayPal order lookup returned an unexpected response shape."
-msgstr "Претрага PayPal поруџбине вратила је неочекиван облик одговора."
-
-#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:82
+#: modules/ppcp-abilities/src/Handler/GetPaypalOrderHandler.php:63
 msgid "PayPal order lookup failed; see server log for details."
 msgstr "Претрага PayPal поруџбине није успела; погледајте дневник сервера за детаље."
 
-#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:56
-msgid "When true, returns the payer block (email, name, address, phone) and per-purchase-unit shipping addresses. Defaults to false; only opt in when the calling context legitimately needs payer identity."
-msgstr "Када је true, враћа блок платиоца (е-адреса, име, адреса, телефон) и адресе за доставу по јединици куповине. Подразумевано false; укључите само када контекст позива заиста захтева идентитет платиоца."
-
-#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:56
+#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:40
 msgid "WooCommerce order ID; the PayPal order ID is resolved from order meta. Either this or paypal_order_id is required."
 msgstr "ИБ WooCommerce поруџбине; PayPal ИБ поруџбине утврђује се из мета података поруџбине. Потребан је овај или paypal_order_id."
 
-#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:56
+#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:40
 msgid "PayPal v2 order ID (alphanumeric uppercase, up to 64 chars). Either this or wc_order_id is required."
 msgstr "ИБ PayPal v2 поруџбине (алфанумерички великим словима, до 64 знака). Потребан је овај или wc_order_id."
 
-#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:56
+#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:40
 msgid "Returns the PayPal order (id, intent, status, purchase units with embedded captures / authorizations / refunds, create/update timestamps, links) for a given PayPal order ID or WooCommerce order ID. Payer PII (email, name, address, phone) and per-purchase-unit shipping addresses are stripped by default; pass include_payer_pii: true to opt in when the calling context legitimately needs them."
 msgstr "Враћа PayPal поруџбину (id, intent, status, јединице куповине са уграђеним наплатама / одобрењима / рефундацијама, временске ознаке прављења/ажурирања, везе) за дати PayPal ИБ поруџбине или ИБ WooCommerce поруџбине. Лични подаци платиоца (е-адреса, име, адреса, телефон) и адресе за доставу по јединици куповине подразумевано се уклањају; проследите include_payer_pii: true да бисте их укључили када их контекст позива заиста захтева."
 
-#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:56
+#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:40
 msgid "Get PayPal order"
 msgstr "Преузми PayPal поруџбину"
 
-#: modules/ppcp-abilities/src/Domain/GetPaymentMethods.php:36
+#: modules/ppcp-abilities/src/Domain/GetPaymentMethods.php:35
 msgid "Returns every PayPal payment gateway (PayPal, Pay Later, Card Fields/ACDC, Apple Pay, Google Pay, Venmo, Fastlane, APMs) with its enabled state, dependency edges, and any warning messages currently surfaced in the admin UI."
 msgstr "Враћа сваки PayPal платни пролаз (PayPal, Pay Later, Card Fields/ACDC, Apple Pay, Google Pay, Venmo, Fastlane, APM-ови) са стањем укључености, зависностима и свим порукама упозорења које се тренутно приказују у администраторском интерфејсу."
 
-#: modules/ppcp-abilities/src/Domain/GetPaymentMethods.php:35
+#: modules/ppcp-abilities/src/Domain/GetPaymentMethods.php:34
 msgid "Get PayPal Payments payment methods"
 msgstr "Преузми начине плаћања PayPal Payments"
 
-#: modules/ppcp-abilities/src/Domain/GetOrderTracking.php:75
+#: modules/ppcp-abilities/src/Handler/GetOrderTrackingHandler.php:58
 msgid "PayPal tracking lookup failed; see server log for details."
 msgstr "Претрага PayPal праћења није успела; погледајте дневник сервера за детаље."
 
-#: modules/ppcp-abilities/src/Domain/GetOrderTracking.php:63
-#: modules/ppcp-abilities/src/Domain/GetPaypalOrder.php:145
+#: modules/ppcp-abilities/src/Handler/GetOrderTrackingHandler.php:50
+#: modules/ppcp-abilities/src/Handler/GetPaypalOrderHandler.php:122
 msgid "WooCommerce order not found."
 msgstr "WooCommerce поруџбина није пронађена."
 
-#: modules/ppcp-abilities/src/Domain/GetOrderTracking.php:57
+#: modules/ppcp-abilities/src/Handler/GetOrderTrackingHandler.php:44
 msgid "wc_order_id must be a positive integer."
 msgstr "wc_order_id мора бити позитиван цео број."
 
-#: modules/ppcp-abilities/src/Domain/GetOrderTracking.php:41
+#: modules/ppcp-abilities/src/Domain/GetOrderTracking.php:32
 msgid "The WooCommerce order ID whose tracking entries should be returned."
 msgstr "ИБ WooCommerce поруџбине чије уносе праћења треба вратити."
 
-#: modules/ppcp-abilities/src/Domain/GetOrderTracking.php:41
+#: modules/ppcp-abilities/src/Domain/GetOrderTracking.php:32
 msgid "Returns the shipment tracking entries (carrier, tracking number, status) registered with PayPal for a WooCommerce order. Issues two synchronous PayPal API calls."
 msgstr "Враћа уносе праћења пошиљке (превозник, број за праћење, стање) регистроване код PayPal-а за WooCommerce поруџбину. Шаље два синхрона PayPal API позива."
 
-#: modules/ppcp-abilities/src/Domain/GetOrderTracking.php:53
+#: modules/ppcp-abilities/src/Handler/GetOrderTrackingHandler.php:40
 msgid "wc_order_id is required."
 msgstr "wc_order_id је обавезан."
 
-#: modules/ppcp-abilities/src/Domain/GetOrderTracking.php:41
+#: modules/ppcp-abilities/src/Domain/GetOrderTracking.php:32
 msgid "Get PayPal order tracking"
 msgstr "Преузми праћење PayPal поруџбине"
 
-#: modules/ppcp-abilities/src/Domain/GetConnectionStatus.php:74
+#: modules/ppcp-abilities/src/Handler/GetConnectionStatusHandler.php:57
 msgid "Unexpected response shape from the merchant endpoint."
 msgstr "Неочекиван облик одговора крајње тачке трговца."
 
-#: modules/ppcp-abilities/src/Domain/GetConnectionStatus.php:49
+#: modules/ppcp-abilities/src/Domain/GetConnectionStatus.php:35
 msgid "Returns the merchant PayPal connection state (connected, sandbox, merchant ID, email, seller type) for the current store. API credentials are intentionally redacted."
 msgstr "Враћа стање PayPal везе трговца (повезано, sandbox, ИБ трговца, е-адреса, врста продавца) за тренутну продавницу. API подаци за пријаву намерно су скривени."
 
-#. translators: %s: container service id.
-#: modules/ppcp-abilities/src/Domain/AbstractPpcpAbility.php:205
+#. translators: %s: ability name.
+#: modules/ppcp-abilities/src/AbilityHandlers.php:68
 msgid "Service %s could not be resolved."
 msgstr "Услуга %s није могла да се утврди."
 
-#: modules/ppcp-abilities/src/Domain/GetConnectionStatus.php:48
+#: modules/ppcp-abilities/src/Domain/GetConnectionStatus.php:34
 msgid "Get PayPal Payments connection status"
 msgstr "Преузми стање везе PayPal Payments"
 
-#. translators: %s: container service id.
-#: modules/ppcp-abilities/src/Domain/AbstractPpcpAbility.php:213
-msgid "Service %s returned an unexpected type."
-msgstr "Услуга %s вратила је неочекивану врсту."
-
-#. translators: %s: container service id.
-#: modules/ppcp-abilities/src/Domain/AbstractPpcpAbility.php:195
-msgid "WooCommerce PayPal Payments is not initialized; service %s is unavailable."
-msgstr "WooCommerce PayPal Payments није покренут; услуга %s није доступна."
-
-#: modules/ppcp-abilities/src/Domain/AbstractPpcpAbility.php:168
+#: modules/ppcp-abilities/src/Helper/EnvelopeParser.php:75
 msgid "PayPal Payments endpoint returned an error."
 msgstr "Крајња тачка PayPal Payments вратила је грешку."
 
-#: modules/ppcp-abilities/src/Domain/AbstractPpcpAbility.php:166
+#: modules/ppcp-abilities/src/Handler/GetConnectionStatusHandler.php:50
+#: modules/ppcp-abilities/src/Handler/GetPaymentMethodsHandler.php:43
+#: modules/ppcp-abilities/src/Helper/EnvelopeParser.php:73
 msgid "PayPal Payments endpoint returned an error; see server log for details."
 msgstr "Крајња тачка PayPal Payments вратила је грешку; погледајте дневник сервера за детаље."
 
-#. translators: %s: fully-qualified class name of the missing REST controller.
-#: modules/ppcp-abilities/src/Domain/AbstractPpcpAbility.php:88
-msgid "REST controller %s is not loaded."
-msgstr "REST контролер %s није учитан."
-
-#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:153
+#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:157
 msgid "Processor Response"
 msgstr "Одговор обрађивача"
 
@@ -370,28 +415,28 @@ msgid "Response Code: %s"
 msgstr "Код одговора: %s"
 
 #. translators: %s: PayPal transaction ID
-#: modules/ppcp-store-sync/src/Helper/AgenticCheckoutProcessor.php:246
+#: modules/ppcp-store-sync/src/Helper/AgenticCheckoutProcessor.php:249
 msgid "PayPal payment captured. Transaction ID: %s"
 msgstr "PayPal плаћање је наплаћено. ИБ трансакције: %s"
 
-#: modules/ppcp-settings/src/SettingsModule.php:123
+#: modules/ppcp-settings/src/SettingsModule.php:122
 msgid "PayPal Payments: Settings migration could not be completed because the PayPal API is temporarily unavailable. It will retry automatically on the next page load."
 msgstr "PayPal Payments: сеоба подешавања није могла да се доврши јер је PayPal API привремено недоступан. Самостално ће се поново покушати при следећем учитавању странице."
 
 #. translators: %s: comma-separated list of missing field names.
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:202
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:217
 msgid "Pay upon Invoice requires %s to be configured. Click the settings icon to configure."
 msgstr "Pay upon Invoice захтева да %s буде подешен. Притисните иконицу подешавања да бисте подесили."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "Pay with top wallets and coins."
 msgstr "Плаћајте најпопуларнијим новчаницима и криптовалутама."
 
-#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:469
+#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:495
 msgid "Payment session expired. Please try again."
 msgstr "Сесија плаћања је истекла. Покушајте поново."
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:137
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
 msgid "Offer Pay upon Invoice (Rechnungskauf) for customers in Germany. Buyers receive goods first and pay within 30 days — no PayPal account needed. Powered by Ratepay."
 msgstr "Понудите Pay upon Invoice (Rechnungskauf) купцима у Немачкој. Купци прво добијају робу и плаћају у року од 30 дана — није потребан PayPal налог. Покреће Ratepay."
 
@@ -403,7 +448,7 @@ msgstr "Не можете да платите ову поруџбину. Обр�
 msgid "Could not connect to PayPal. Please verify your credentials and try again."
 msgstr "Није могуће повезати се са PayPal-ом. Проверите податке за пријаву и покушајте поново."
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 msgid "Help grow sales with Pay Later messaging. Let customers know they have flexible payment options as they browse, shop, and check out."
 msgstr "Помозите раст продаје уз Pay Later поруке. Обавестите купце да имају прилагодљиве могућности плаћања док прегледају, купују и плаћају."
 
@@ -414,11 +459,11 @@ msgstr "Неисправан или истекао приступ поруџби
 
 #: modules/ppcp-applepay/src/Assets/ApplePayButton.php:383
 #: modules/ppcp-applepay/src/Assets/ResponsesToApple.php:129
-#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:955
+#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:1122
 msgid "Discount"
 msgstr "Попуст"
 
-#: modules/ppcp-fraud-protection/services.php:32
+#: modules/ppcp-fraud-protection/services.php:54
 msgid "Help protect your store and maintain compliance."
 msgstr "Помозите у заштити своје продавнице и одржавању усклађености."
 
@@ -426,7 +471,7 @@ msgstr "Помозите у заштити своје продавнице и о
 msgid "Help protect your store and maintain compliance. Enable reCAPTCHA →"
 msgstr "Помозите у заштити своје продавнице и одржавању усклађености. Укључите reCAPTCHA →"
 
-#: modules/ppcp-fraud-protection/services.php:32
+#: modules/ppcp-fraud-protection/services.php:54
 #: modules/ppcp-settings/src/Data/Definition/TodosDefinition.php:57
 msgid "Enable required fraud protection for PayPal Payments"
 msgstr "Укључите обавезну заштиту од превара за PayPal Payments"
@@ -447,11 +492,11 @@ msgstr "Заштита од превара сада је обавезна — у
 msgid "All reCAPTCHA keys (v3 and v2) must be configured to enable this feature."
 msgstr "За укључивање ове функције морају бити подешени сви reCAPTCHA кључеви (v3 и v2)."
 
-#: modules/ppcp-wc-gateway/services.php:649
+#: modules/ppcp-wc-gateway/services.php:645
 msgid "Fuel your business growth with a PayPal Working Capital loan. Check eligibility"
 msgstr "Подстакните раст свог пословања уз PayPal Working Capital зајам. Проверите услове"
 
-#: modules/ppcp-wc-gateway/services.php:721
+#: modules/ppcp-wc-gateway/services.php:717
 msgid "Business loans from $1k to $230k for first-time borrowers. Looking to fuel your business growth? With a PayPal Working Capital loan, approved loans are funded in minutes and repaid as a share of your sales. Minimum payment required every 90 days. The lender for PayPal Working Capital is WebBank."
 msgstr "Пословни зајмови од $1k до $230k за оне који први пут позајмљују. Желите да подстакнете раст свог пословања? Уз PayPal Working Capital зајам, одобрени зајмови исплаћују се за неколико минута и отплаћују се као удео у вашој продаји. Најмања уплата потребна је сваких 90 дана. Зајмодавац за PayPal Working Capital је WebBank."
 
@@ -471,7 +516,7 @@ msgstr "Одобрени зајмови брзо се уплаћују, тако
 msgid "Discover how PayPal Working Capital can fuel your business growth"
 msgstr "Откријте како PayPal Working Capital може да подстакне раст вашег пословања"
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 #: modules/ppcp-settings/src/Data/Definition/TodosDefinition.php:57
 msgid "Enable customers to pay with cryptocurrency, and receive payments in USD in your PayPal balance."
 msgstr "Омогућите купцима да плаћају криптовалутом, а плаћања примајте у USD на своје PayPal стање."
@@ -497,8 +542,8 @@ msgid "Crypto payments are only available for USD orders."
 msgstr "Плаћања криптовалутом доступна су само за поруџбине у USD."
 
 #: modules/ppcp-local-alternative-payment-methods/src/PWCGateway.php:88
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 #: assets/ppcp-settings-js-index.js:5
 msgid "Pay with Crypto"
 msgstr "Pay with Crypto"
@@ -511,23 +556,23 @@ msgstr "Плаћање је отказано или није успело ток
 msgid "Pay with Crypto payment was cancelled or failed."
 msgstr "Pay with Crypto плаћање је отказано или није успело."
 
-#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:305
+#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:345
 msgid "No reCAPTCHA data"
 msgstr "Нема reCAPTCHA података"
 
-#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:284
+#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:324
 msgid "reCAPTCHA Status"
 msgstr "reCAPTCHA стање"
 
-#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:184
-#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:212
-#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:256
+#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:235
+#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:263
+#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:298
 msgid "CAPTCHA verification failed. Please try again."
 msgstr "CAPTCHA провера није успела. Покушајте поново."
 
-#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:172
-#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:203
-#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:243
+#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:223
+#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:254
+#: modules/ppcp-fraud-protection/src/Recaptcha/Recaptcha.php:287
 msgid "Please complete the CAPTCHA verification."
 msgstr "Довршите CAPTCHA проверу."
 
@@ -535,7 +580,7 @@ msgstr "Довршите CAPTCHA проверу."
 msgid "Whether the plugin is in Branded only mode or not."
 msgstr "Да ли је додатак у режиму Branded only."
 
-#: modules/ppcp-wc-gateway/services.php:721
+#: modules/ppcp-wc-gateway/services.php:717
 msgid "PayPal Working Capital"
 msgstr "PayPal Working Capital"
 
@@ -551,44 +596,50 @@ msgstr "Довршите ставке испод да бисте обезбед�
 msgid "You're now using the new PayPal Payments interface!"
 msgstr "Сада користите нови PayPal Payments интерфејс!"
 
-#: woocommerce-paypal-payments.php:76
+#: woocommerce-paypal-payments.php:77
 msgid "You can download WooCommerce here."
 msgstr "WooCommerce можете преузети овде."
 
-#: woocommerce-paypal-payments.php:73 woocommerce-paypal-payments.php:81
+#: woocommerce-paypal-payments.php:74 woocommerce-paypal-payments.php:82
 msgid "The plugin WooCommerce PayPal Payments has been deactivated"
 msgstr "Додатак WooCommerce PayPal Payments је искључен"
 
 #. translators: %s is a link to install WooCommerce.
-#: woocommerce-paypal-payments.php:75
+#: woocommerce-paypal-payments.php:76
 msgid "WooCommerce PayPal Payments requires WooCommerce to be installed and active. %s"
 msgstr "WooCommerce PayPal Payments захтева да WooCommerce буде постављен и активан. %s"
 
-#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:238
+#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:337
 msgid "Payment was declined by the payment provider. Please try a different payment method."
 msgstr "Добављач плаћања одбио је плаћање. Покушајте другим начином плаћања."
 
-#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:143
+#: modules/ppcp-save-payment-methods/src/Endpoint/FreeTrialVaultReturnEndpoint.php:102
+#: modules/ppcp-save-payment-methods/src/Endpoint/FreeTrialVaultReturnEndpoint.php:115
+#: modules/ppcp-save-payment-methods/src/Endpoint/FreeTrialVaultReturnEndpoint.php:122
+#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:186
 msgid "Payment processing failed. Please try again or contact support."
 msgstr "Обрада плаћања није успела. Покушајте поново или се обратите подршци."
 
-#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:118
+#: modules/ppcp-save-payment-methods/src/Endpoint/FreeTrialVaultReturnEndpoint.php:53
+#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:133
 msgid "Order not found. Please try placing your order again."
 msgstr "Поруџбина није пронађена. Покушајте поново да направите поруџбину."
 
-#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:129
+#: modules/ppcp-save-payment-methods/src/Endpoint/FreeTrialVaultReturnEndpoint.php:108
+#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:170
 msgid "Payment gateway is unavailable. Please try again or contact support."
 msgstr "Платни пролаз није доступан. Покушајте поново или се обратите подршци."
 
-#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:111
+#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:159
 msgid "Order information is missing. Please try placing your order again."
 msgstr "Недостају подаци о поруџбини. Покушајте поново да направите поруџбину."
 
-#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:84
+#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:109
 msgid "Could not retrieve payment information. Please try again."
 msgstr "Није могуће преузети податке о плаћању. Покушајте поново."
 
-#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:74
+#: modules/ppcp-save-payment-methods/src/Endpoint/FreeTrialVaultReturnEndpoint.php:62
+#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:95
 msgid "Payment session expired. Please try placing your order again."
 msgstr "Сесија плаћања је истекла. Покушајте поново да направите поруџбину."
 
@@ -596,67 +647,67 @@ msgstr "Сесија плаћања је истекла. Покушајте по
 msgid "Order ID is required"
 msgstr "ID поруџбине је обавезан"
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:292
-#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:264
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:321
+#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:363
 msgid "There was an error processing your payment. Please try again or contact support."
 msgstr "Дошло је до грешке при обради вашег плаћања. Покушајте поново или се обратите подршци."
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:357
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:386
 msgid "Card verification hold"
 msgstr "Задржавање ради провере картице"
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:290
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:319
 msgid "Payment session expired. Please try your payment again."
 msgstr "Сесија плаћања је истекла. Покушајте поново да платите."
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:287
-#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:244
-#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:262
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:316
+#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:343
+#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:361
 msgid "Your payment was declined after 3D Secure verification. Please try a different payment method or contact your bank."
 msgstr "Ваше плаћање је одбијено после 3D Secure провере. Покушајте другим начином плаћања или се обратите својој банци."
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:283
-#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:241
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:312
+#: modules/ppcp-wc-gateway/src/Endpoint/ReturnUrlEndpoint.php:340
 msgid "3D Secure authentication was unavailable or failed. Please try a different payment method or contact your bank."
 msgstr "3D Secure провера идентитета није била доступна или није успела. Покушајте другим начином плаћања или се обратите својој банци."
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:235
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:264
 msgid "3D Secure authentication was not completed successfully. Please try again."
 msgstr "3D Secure провера идентитета није успешно довршена. Покушајте поново."
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:191
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:216
 msgid "No payment token provided. Please try again."
 msgstr "Није наведен жетон плаћања. Покушајте поново."
 
-#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:755
+#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:813
 msgid "The customer entered these contact details during checkout, but provided different details in the PayPal popup. These details are kept for reference only."
 msgstr "Купац је унео ове податке за контакт током плаћања, али је навео другачије податке у PayPal искачућем прозору. Ови подаци се чувају само ради увида."
 
-#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:750
+#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:808
 msgid "Other"
 msgstr "Друго"
 
-#: modules/ppcp-wc-gateway/services.php:631
+#: modules/ppcp-wc-gateway/services.php:627
 msgid "PayPal Payments is almost ready. To get started, connect your account with the Activate PayPal Payments button."
 msgstr "PayPal Payments је скоро спреман. Да бисте почели, повежите свој налог дугметом Activate PayPal Payments."
 
-#: modules/ppcp-wc-gateway/services.php:631
+#: modules/ppcp-wc-gateway/services.php:627
 msgid "Connect PayPal to complete setup"
 msgstr "Повежите PayPal да бисте довршили подешавање"
 
-#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:80
+#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:87
 msgid "Always authenticate transactions with 3D Secure when available."
 msgstr "Увек проверавај идентитет у трансакцијама помоћу 3D Secure када је доступно."
 
-#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:80
+#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:87
 msgid "Use 3D Secure when required by the card issuer or payment processor."
 msgstr "Користи 3D Secure када то захтева издавалац картице или обрађивач плаћања."
 
-#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:80
+#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:87
 msgid "Do not use 3D Secure authentication for any transactions."
 msgstr "Не користи 3D Secure проверу идентитета ни за једну трансакцију."
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:136
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:132
 msgid "terms and conditions"
 msgstr "услови коришћења"
 
@@ -665,21 +716,26 @@ msgid "Allow your customers to pay in installments without interest while you re
 msgstr "Омогућите купцима да плаћају на рате без камате, док ви примате пун износ у једној трансакцији"
 
 #. translators: %s: Link to terms and conditions
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:135
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:131
 msgid "*You will receive the full payment minus the applicable PayPal fee. See %s."
 msgstr "*Добићете пун износ умањен за важећу PayPal накнаду. Погледајте %s."
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 msgid "Activate your Installments without interest with PayPal."
 msgstr "Укључите рате без камате уз PayPal."
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 msgid "Allow your customers to pay in installments without interest while you receive the full payment.*"
 msgstr "Омогућите купцима да плаћају на рате без камате, док ви примате пун износ.*"
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 msgid "Installments"
 msgstr "Рате"
+
+#: modules/ppcp-admin-notices/src/Notes/MexicoInstallmentsNote.php:76
+#: modules/ppcp-settings/src/Data/Definition/TodosDefinition.php:57
+msgid "Enable Installments"
+msgstr "Укључи рате"
 
 #. translators: %1$s and %2$s are the opening and closing of HTML <a> tag. %3$s
 #. and %4$s are the opening and closing of HTML <p> tag.
@@ -693,17 +749,12 @@ msgstr ""
 "\t\t\t\t\t%3$sУкључите рате без камате уз PayPal.%4$s\n"
 "\t\t\t\t\t%3$sДобићете пун износ умањен за важећу PayPal накнаду. Погледајте %1$sуслове и одредбе%2$s.%4$s"
 
-#: modules/ppcp-admin-notices/src/Notes/MexicoInstallmentsNote.php:76
-#: modules/ppcp-settings/src/Data/Definition/TodosDefinition.php:57
-msgid "Enable Installments"
-msgstr "Укључи рате"
-
 #: modules/ppcp-admin-notices/src/Notes/MexicoInstallmentsNote.php:65
 msgid "Enable Installments with PayPal"
 msgstr "Укључи рате уз PayPal"
 
 #. translators: %s PayPal Subscription id.
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:491
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:483
 msgid "PayPal subscription %s added."
 msgstr "PayPal претплата %s је додата."
 
@@ -712,11 +763,11 @@ msgstr "PayPal претплата %s је додата."
 msgid "Usage of this action is deprecated. Please use the filter woocommerce_paypal_payments_before_order_process instead."
 msgstr "Коришћење ове радње је застарело. Уместо тога користите филтер woocommerce_paypal_payments_before_order_process."
 
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:391
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:390
 msgid "Not allowed period interval combination for PayPal Subscriptions!"
 msgstr "Комбинација периода и интервала није дозвољена за PayPal претплате!"
 
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:391
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:390
 msgid "Prices must be above zero for PayPal Subscriptions!"
 msgstr "Цене морају бити веће од нуле за PayPal претплате!"
 
@@ -845,7 +896,7 @@ msgstr "Приказујте Pay Later поруке да бисте повећа
 msgid "Accelerate your guest checkout with Fastlane by PayPal"
 msgstr "Убрзајте плаћање за госте уз Fastlane by PayPal"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:141
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:149
 msgid "Get paid in full at checkout while giving your customers the flexibility to pay in installments over time with no late fees."
 msgstr "Примите пун износ при плаћању, док купцима пружате прилагодљивост да плаћају на рате током времена без казни за кашњење."
 
@@ -853,12 +904,12 @@ msgstr "Примите пун износ при плаћању, док купц�
 msgid "Enable Fastlane"
 msgstr "Укључи Fastlane"
 
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 #: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:137
 msgid "Sign up"
 msgstr "Отвори налог"
 
-#: modules/ppcp-save-payment-methods/services.php:38
+#: modules/ppcp-save-payment-methods/services.php:40
 msgid "Please use the new Hook to filter countries for saved payments in PayPal Payments."
 msgstr "Користите нови кук за филтрирање држава за сачувана плаћања у PayPal Payments."
 
@@ -867,7 +918,7 @@ msgstr "Користите нови кук за филтрирање држав�
 msgid "https://paypal.com/"
 msgstr "https://paypal.com/"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "OXXO is a Mexican chain of convenience stores. *Get PayPal account permission to use OXXO payment functionality by contacting us at (+52) 800–925–0304"
 msgstr "OXXO је мексички ланац продавница. *Добијте дозволу PayPal налога за коришћење OXXO функционалности плаћања тако што ћете нам се обратити на (+52) 800–925–0304"
 
@@ -890,116 +941,116 @@ msgid "Feature status refreshed successfully."
 msgstr "Стање функције успешно је освежено."
 
 #: modules/ppcp-compat/src/WooCommerceBlueprint/PayPalSettingsExporter.php:110
-#: assets/ppcp-settings-js-index.js:18
+#: assets/ppcp-settings-js-index.js:17
 msgid "PayPal Settings"
 msgstr "PayPal подешавања"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:159
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:174
 msgid "Allow customers to pay via their Google Pay digital wallet."
 msgstr "Омогућите купцима да плаћају преко свог Google Pay дигиталног новчаника."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:158
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:173
 msgid "Allow customers to pay via their Apple Pay digital wallet."
 msgstr "Омогућите купцима да плаћају преко свог Apple Pay дигиталног новчаника."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:157
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:172
 msgid "Display Fastlane Watermark"
 msgstr "Прикажи Fastlane водени жиг"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:156
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:167
 msgid "Display cardholder name"
 msgstr "Прикажи име власника картице"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:157
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:172
 msgid "Tap into the scale and trust of PayPal's customer network to recognize shoppers and make guest checkout more seamless than ever."
 msgstr "Искористите обим и поверење PayPal мреже купаца да бисте препознали купце и учинили плаћање за госте неометанијим него икад."
 
-#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:80
+#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:87
 msgid "Always require 3D Secure"
 msgstr "Увек захтевај 3D Secure"
 
-#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:80
+#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:87
 msgid "Only when required"
 msgstr "Само када је потребно"
 
-#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:80
+#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:87
 msgid "No 3D Secure"
 msgstr "Без 3D Secure"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:156
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
 msgid "Present custom credit and debit card fields to your payers so they can pay with credit and debit cards using your site's branding."
 msgstr "Прикажите платиоцима произвољна поља кредитних и дебитних картица да би могли да плаћају кредитним и дебитним картицама уз бренд вашег сајта."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:141
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:149
 msgid "Offer Venmo at checkout to millions of active users."
 msgstr "Понудите Venmo при плаћању милионима активних корисника."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:143
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:151
 msgid "Accept all major credit and debit cards - even if your customer doesn't have a PayPal account . "
 msgstr "Примајте све главне кредитне и дебитне картице - чак и ако ваш купац нема PayPal налог . "
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:143
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:151
 msgid "Credit and debit card payments"
 msgstr "Плаћања кредитним и дебитним картицама"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:141
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:149
 msgid "Show logo"
 msgstr "Прикажи логотип"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:127
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:135
 msgid "Checkout page description"
 msgstr "Опис на страници плаћања"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:125
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:133
 msgid "Checkout page title"
 msgstr "Наслов на страници плаћања"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:141
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:149
 msgid "Our all-in-one checkout solution lets you offer PayPal, Venmo, Pay Later options, and more to help maximize conversion."
 msgstr "Наше свеобухватно решење за плаћање омогућава вам да понудите PayPal, Venmo, Pay Later могућности и друго ради највеће конверзије."
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 msgid "Domain registration"
 msgstr "Регистрација домена"
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 msgid "Let customers pay using their Google Pay wallet."
 msgstr "Омогућите купцима да плаћају помоћу свог Google Pay новчаника."
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 msgid "Offer global, country-specific payment options for your customers."
 msgstr "Понудите купцима глобалне могућности плаћања посебне за државе."
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 msgid "Let customers pay using their Apple Pay wallet."
 msgstr "Омогућите купцима да плаћају помоћу свог Apple Pay новчаника."
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 msgid "Advanced Credit and Debit Cards"
 msgstr "Напредне кредитне и дебитне картице"
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 msgid "Process major credit and debit cards including Visa, Mastercard, American Express and Discover."
 msgstr "Обрађујте главне кредитне и дебитне картице, укључујући Visa, Mastercard, American Express и Discover."
 
 #: modules/ppcp-fraud-protection/extensions.php:21
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 #: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:137
 #: assets/ppcp-settings-js-index.js:1
 msgid "Learn more"
 msgstr "Сазнај више"
 
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 #: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:137
 msgid "Configure"
 msgstr "Подеси"
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 msgid "Securely save PayPal and Venmo payment methods for subscriptions or return buyers."
 msgstr "Безбедно чувајте PayPal и Venmo начине плаћања за претплате или купце који се враћају."
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
-#: assets/ppcp-settings-js-index.js:18
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
+#: assets/ppcp-settings-js-index.js:17
 msgid "Save PayPal and Venmo"
 msgstr "Чувај PayPal и Venmo"
 
@@ -1011,12 +1062,12 @@ msgstr "Додајте PayPal дугмад на страницу корпе"
 msgid "Enable Pay Later messaging"
 msgstr "Укључи Pay Later поруке"
 
-#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:765
+#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:823
 #: assets/ppcp-settings-js-index.js:17
 msgid "Email address"
 msgstr "Адреса е-поште"
 
-#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:290
+#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:289
 msgid "Enable the PayPal gateway and more features for your store."
 msgstr "Укључите PayPal платни пролаз и више функција за своју продавницу."
 
@@ -1037,20 +1088,20 @@ msgid "Void authorization"
 msgstr "Поништи одобрење"
 
 #. translators: %1$s: URL to the Checkout edit page.
-#: modules/ppcp-wc-gateway/services.php:568
+#: modules/ppcp-wc-gateway/services.php:564
 msgid "<span class=\"highlight\">Important:</span> The <code>Cart</code> & <code>Express Checkout</code> <strong>Smart Button Stylings</strong> may be controlled by the %1$s configuration."
 msgstr "<span class=\"highlight\">Важно:</span> <strong>Обликовањем паметне дугмади</strong> за <code>Cart</code> и <code>Express Checkout</code> може управљати подешавање %1$s."
 
-#: modules/ppcp-wc-gateway/services.php:562
-#: modules/ppcp-wc-gateway/services.php:564
+#: modules/ppcp-wc-gateway/services.php:558
+#: modules/ppcp-wc-gateway/services.php:560
 msgid "Checkout block"
 msgstr "Блок плаћања"
 
-#: modules/ppcp-wc-gateway/services.php:200
+#: modules/ppcp-wc-gateway/services.php:202
 msgid "<strong>Important</strong>: Your current WooCommerce store location is in a \"send-only\" country, according to PayPal's policies. Sellers in these countries are unable to receive payments via PayPal. Since receiving payments is essential for using the PayPal Payments extension, you will not be able to connect your PayPal account while operating from a \"send-only\" country. To activate PayPal, please update your WooCommerce store location to a supported region and connect a PayPal account eligible for receiving payments."
 msgstr "<strong>Важно</strong>: Тренутна локација ваше WooCommerce продавнице је у држави „само за слање“, према PayPal политикама. Продавци у тим државама не могу да примају плаћања преко PayPal-а. Пошто је примање плаћања неопходно за коришћење проширења PayPal Payments, нећете моћи да повежете свој PayPal налог док пословате из државе „само за слање“. Да бисте укључили PayPal, ажурирајте локацију своје WooCommerce продавнице на подржани регион и повежите PayPal налог који испуњава услове за примање плаћања."
 
-#: modules/ppcp-settings/src/SettingsModule.php:777
+#: modules/ppcp-settings/src/SettingsModule.php:768
 msgid "Return to payments"
 msgstr "Повратак на плаћање"
 
@@ -1062,11 +1113,11 @@ msgstr "https://woocommerce.com/document/woocommerce-store-editing/customizing-c
 msgid "Fastlane checkout block initialization failed, possibly old WooCommerce version or disabled WooCommerce Blocks plugin."
 msgstr "Покретање Fastlane блока плаћања није успело, можда због старог издања WooCommerce-а или искљученог додатка WooCommerce Blocks."
 
-#: modules/ppcp-wc-gateway/services.php:623
+#: modules/ppcp-wc-gateway/services.php:619
 msgid "Configure PayPal Pay Later messaging"
 msgstr "Подесите PayPal Pay Later поруке"
 
-#: modules/ppcp-wc-gateway/services.php:623
+#: modules/ppcp-wc-gateway/services.php:619
 msgid "Decide where you want dynamic Pay Later messaging to show up and how you want it to look on your site."
 msgstr "Одредите где желите да се приказују динамичке Pay Later поруке и како желите да изгледају на вашем сајту."
 
@@ -1099,15 +1150,15 @@ msgid "Enable/Disable Trustly payment gateway."
 msgstr "Укључи/искључи платни пролаз Trustly."
 
 #: modules/ppcp-local-alternative-payment-methods/src/TrustlyGateway.php:85
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "Trustly"
 msgstr "Trustly"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "A European payment method that allows buyers to make payments directly from their bank accounts, suitable for customers across multiple European countries. Supported currencies include EUR, DKK, SEK, GBP, and NOK."
 msgstr "Европски начин плаћања који купцима омогућава да плаћају директно са својих банковних рачуна, погодан за купце у више европских држава. Подржане валуте су EUR, DKK, SEK, GBP и NOK."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "Trustly (via PayPal)"
 msgstr "Trustly (преко PayPal-а)"
 
@@ -1120,15 +1171,15 @@ msgid "Awaiting Przelewy24 to confirm the payment."
 msgstr "Чека се да Przelewy24 потврди плаћање."
 
 #: modules/ppcp-local-alternative-payment-methods/src/P24Gateway.php:85
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "Przelewy24"
 msgstr "Przelewy24"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "A popular online payment gateway in Poland, offering various payment options for Polish customers. Transactions can be processed in PLN or EUR."
 msgstr "Популаран онлајн платни пролаз у Пољској, који нуди разне могућности плаћања пољским купцима. Трансакције се могу обрађивати у PLN или EUR."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "Przelewy24 (via PayPal)"
 msgstr "Przelewy24 (преко PayPal-а)"
 
@@ -1141,15 +1192,15 @@ msgid "Enable/Disable MyBank payment gateway."
 msgstr "Укључи/искључи платни пролаз MyBank."
 
 #: modules/ppcp-local-alternative-payment-methods/src/MyBankGateway.php:85
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "MyBank"
 msgstr "MyBank"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "A European online banking payment solution primarily used in Italy, enabling customers to make secure bank transfers during checkout. Transactions are processed in EUR."
 msgstr "Европско решење за плаћање онлајн банкарством које се углавном користи у Италији и омогућава купцима безбедне банковне преносе при плаћању. Трансакције се обрађују у EUR."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "MyBank (via PayPal)"
 msgstr "MyBank (преко PayPal-а)"
 
@@ -1163,15 +1214,15 @@ msgid "Enable/Disable Multibanco payment gateway."
 msgstr "Укључи/искључи платни пролаз Multibanco."
 
 #: modules/ppcp-local-alternative-payment-methods/src/MultibancoGateway.php:85
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "Multibanco"
 msgstr "Multibanco"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "An online payment method in Portugal, enabling Portuguese buyers to make secure payments directly through their bank accounts. Transactions are processed in EUR."
 msgstr "Онлајн начин плаћања у Португалији који португалским купцима омогућава безбедна плаћања директно преко банковних рачуна. Трансакције се обрађују у EUR."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "Multibanco (via PayPal)"
 msgstr "Multibanco (преко PayPal-а)"
 
@@ -1184,7 +1235,7 @@ msgid "Awaiting iDeal to confirm the payment."
 msgstr "Чека се да iDeal потврди плаћање."
 
 #: modules/ppcp-local-alternative-payment-methods/src/IDealGateway.php:85
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "iDeal"
 msgstr "iDeal"
 
@@ -1192,11 +1243,11 @@ msgstr "iDeal"
 msgid "Enable/Disable iDeal payment gateway."
 msgstr "Укључи/искључи платни пролаз iDeal."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "The most common payment method in the Netherlands, allowing Dutch buyers to pay directly through their preferred bank. Transactions are processed in EUR."
 msgstr "Најчешћи начин плаћања у Холандији, који холандским купцима омогућава да плаћају директно преко своје банке. Трансакције се обрађују у EUR."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "iDeal (via PayPal)"
 msgstr "iDeal (преко PayPal-а)"
 
@@ -1209,15 +1260,15 @@ msgid "Enable/Disable EPS payment gateway."
 msgstr "Укључи/искључи платни пролаз EPS."
 
 #: modules/ppcp-local-alternative-payment-methods/src/EPSGateway.php:85
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "EPS"
 msgstr "EPS"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "An online payment method in Austria, enabling Austrian buyers to make secure payments directly through their bank accounts. Transactions are processed in EUR."
 msgstr "Онлајн начин плаћања у Аустрији који аустријским купцима омогућава безбедна плаћања директно преко банковних рачуна. Трансакције се обрађују у EUR."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "EPS (via PayPal)"
 msgstr "EPS (преко PayPal-а)"
 
@@ -1230,15 +1281,15 @@ msgid "Enable/Disable Blik payment gateway."
 msgstr "Укључи/искључи платни пролаз Blik."
 
 #: modules/ppcp-local-alternative-payment-methods/src/BlikGateway.php:85
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "Blik"
 msgstr "Blik"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "A widely used mobile payment method in Poland, allowing Polish customers to pay directly via their banking apps. Transactions are processed in PLN."
 msgstr "Широко коришћен начин мобилног плаћања у Пољској, који пољским купцима омогућава да плаћају директно преко банковних апликација. Трансакције се обрађују у PLN."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "Blik (via PayPal)"
 msgstr "Blik (преко PayPal-а)"
 
@@ -1247,7 +1298,7 @@ msgid "Awaiting Bancontact to confirm the payment."
 msgstr "Чека се да Bancontact потврди плаћање."
 
 #: modules/ppcp-local-alternative-payment-methods/src/BancontactGateway.php:85
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "Bancontact"
 msgstr "Bancontact"
 
@@ -1255,11 +1306,11 @@ msgstr "Bancontact"
 msgid "Enable/Disable Bancontact payment gateway."
 msgstr "Укључи/искључи платни пролаз Bancontact."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "A popular and trusted electronic payment method in Belgium, used by Belgian customers with Bancontact cards issued by local banks. Transactions are processed in EUR."
 msgstr "Популаран и поуздан начин електронског плаћања у Белгији, који белгијски купци користе уз Bancontact картице које издају локалне банке. Трансакције се обрађују у EUR."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "Bancontact (via PayPal)"
 msgstr "Bancontact (преко PayPal-а)"
 
@@ -1303,32 +1354,32 @@ msgstr "Засебан платни пролаз са Google Pay дугмето�
 msgid "Google Pay (via PayPal) "
 msgstr "Google Pay (преко PayPal-а) "
 
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:140
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:139
 msgid "Cannot add this product to cart (invalid product)."
 msgstr "Није могуће додати овај производ у корпу (неисправан производ)."
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:143
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:163
 msgid "Enter your email address above to continue."
 msgstr "Унесите своју е-адресу изнад да бисте наставили."
 
-#: modules/ppcp-wc-gateway/src/Processor/OrderProcessor.php:111
+#: modules/ppcp-wc-gateway/src/Processor/OrderProcessor.php:114
 msgid "There was an error processing your order. Please check for any charges in your payment method and review your order history before placing the order again."
 msgstr "Дошло је до грешке при обради ваше поруџбине. Проверите да ли постоје задужења на вашем начину плаћања и прегледајте историју поруџбина пре него што поново направите поруџбину."
 
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:158
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:157
 msgid "You can only have one PayPal Subscription product in your cart."
 msgstr "У корпи можете имати само један производ PayPal претплате."
 
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:152
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:151
 msgid "You cannot add a PayPal Subscription product to a cart with other items."
 msgstr "Не можете додати производ PayPal претплате у корпу са другим ставкама."
 
-#: modules/ppcp-order-endpoints/src/Helper/WooCommerceOrderCreator.php:250
+#: modules/ppcp-order-endpoints/src/Helper/WooCommerceOrderCreator.php:302
 msgid "Items"
 msgstr "Артикли"
 
 #. translators: %1$s: URL to the Checkout edit page.
-#: modules/ppcp-axo/services.php:137
+#: modules/ppcp-axo/services.php:139
 msgid "<span class=\"highlight\">Important:</span> The <code>Cart</code> & <code>Classic Cart</code> <strong>Smart Button Locations</strong> cannot be disabled while <a href=\"%1$s\">Fastlane</a> is active."
 msgstr "<span class=\"highlight\">Важно:</span> <strong>Локације паметне дугмади</strong> за <code>Cart</code> и <code>Classic Cart</code> не могу се искључити док је <a href=\"%1$s\">Fastlane</a> активан."
 
@@ -1337,7 +1388,7 @@ msgstr "<span class=\"highlight\">Важно:</span> <strong>Локације п
 msgid "Your PayPal account must be eligible to %1$ssave PayPal and Venmo payment methods%2$s to enable PayPal Vaulting."
 msgstr "Ваш PayPal налог мора испуњавати услове за %1$sчување PayPal и Venmo начина плаћања%2$s да бисте укључили PayPal Vaulting."
 
-#: modules/ppcp-wc-gateway/services.php:527
+#: modules/ppcp-wc-gateway/services.php:523
 msgid "Enable saving PayPal & Venmo"
 msgstr "Укључи чување PayPal и Venmo"
 
@@ -1345,11 +1396,11 @@ msgstr "Укључи чување PayPal и Venmo"
 msgid "Capture ID"
 msgstr "ИБ наплате"
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:185
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:210
 msgid "Debit & Credit Cards (via Fastlane by PayPal)"
 msgstr "Дебитне и кредитне картице (преко Fastlane by PayPal)"
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:138
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:158
 msgid "Fastlane accelerates the checkout experience for guest shoppers and autofills their details so they can pay in seconds. When enabled, Fastlane is presented as the default payment method for guests."
 msgstr "Fastlane убрзава плаћање за купце-госте и самостално попуњава њихове податке тако да могу платити за неколико секунди. Када је укључен, Fastlane се приказује као подразумевани начин плаћања за госте."
 
@@ -1375,37 +1426,37 @@ msgctxt "block title"
 msgid "Cart - PayPal Pay Later messaging"
 msgstr "Корпа - PayPal Pay Later поруке"
 
-#: modules/ppcp-wc-gateway/services.php:277
+#: modules/ppcp-wc-gateway/services.php:279
 msgctxt "Name of payment method"
 msgid "PayPal Pay Later"
 msgstr "PayPal Pay Later"
 
-#: modules/ppcp-paylater-wc-blocks/src/PayLaterWCBlocksModule.php:150
+#: modules/ppcp-paylater-wc-blocks/src/PayLaterWCBlocksModule.php:179
 msgid "PayPal Blocks"
 msgstr "PayPal блокови"
 
 #: modules/ppcp-googlepay/src/GooglePayGateway.php:85
 #: modules/ppcp-googlepay/src/GooglePayGateway.php:103
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:159
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:174
 #: modules/ppcp-status-report/src/StatusReportModule.php:79
 #: assets/ppcp-settings-js-index.js:1
 msgid "Google Pay"
 msgstr "Google Pay"
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:161
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:186
 msgid "AXO"
 msgstr "AXO"
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:161
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:186
 msgid "Enable/Disable AXO payment gateway."
 msgstr "Укључи/искључи платни пролаз AXO."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:157
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:172
 msgid "Fastlane by PayPal"
 msgstr "Fastlane by PayPal"
 
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:137
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:157
 msgid "Fastlane Debit & Credit Cards"
 msgstr "Fastlane дебитне и кредитне картице"
 
@@ -1433,7 +1484,7 @@ msgstr "Обрађивач плаћања одбио је трансакцију
 msgid "PayPal rejected the payment. Please reach out to the PayPal support for more information."
 msgstr "PayPal је одбио плаћање. Обратите се PayPal подршци за више података."
 
-#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:719
+#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:777
 msgid "PayPal email address"
 msgstr "PayPal адреса е-поште"
 
@@ -1441,11 +1492,11 @@ msgstr "PayPal адреса е-поште"
 msgid "Merchant name displayed in Ratepay's payment instructions. Should not exceed 127 characters."
 msgstr "Име трговца приказано у Ratepay упутствима за плаћање. Не сме премашити 127 знакова."
 
-#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:464
+#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:473
 msgid "Payment reauthorized."
 msgstr "Плаћање је поново одобрено."
 
-#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:460
+#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:469
 msgid "Reauthorization with PayPal failed: "
 msgstr "Поновно одобрење са PayPal-ом није успело: "
 
@@ -1489,10 +1540,10 @@ msgctxt "block title"
 msgid "PayPal Pay Later messaging"
 msgstr "PayPal Pay Later поруке"
 
-#: modules/ppcp-wc-gateway/src/Gateway/CreditCardGateway.php:647
-#: modules/ppcp-wc-gateway/src/Gateway/CreditCardGateway.php:648
-#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:552
-#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:553
+#: modules/ppcp-wc-gateway/src/Gateway/CreditCardGateway.php:656
+#: modules/ppcp-wc-gateway/src/Gateway/CreditCardGateway.php:657
+#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:579
+#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:580
 msgid "Could not change payment."
 msgstr "Није могуће променити плаћање."
 
@@ -1504,7 +1555,7 @@ msgstr "Стање функције је освежено."
 msgid "Checking features..."
 msgstr "Провера функција..."
 
-#: modules/ppcp-card-fields/src/CardFieldsModule.php:96
+#: modules/ppcp-card-fields/src/CardFieldsModule.php:102
 #: assets/ppcp-blocks-js-advanced-card-checkout-block.js:1
 #: assets/ppcp-sdk-v6-js-checkout-block.js:1
 msgid "Card number"
@@ -1527,7 +1578,7 @@ msgstr "Сачекајте %1$s секунди пре поновног поку�
 msgid "Expired request."
 msgstr "Захтев је истекао."
 
-#: modules/ppcp-save-payment-methods/src/SavePaymentMethodsModule.php:226
+#: modules/ppcp-save-payment-methods/src/SavePaymentMethodsModule.php:230
 msgid "Could not save payment method."
 msgstr "Није могуће сачувати начин плаћања."
 
@@ -1537,20 +1588,12 @@ msgstr "Није могуће сачувати начин плаћања."
 msgid "N/A"
 msgstr "-"
 
-#: modules/ppcp-wc-gateway/services.php:396
-msgid "Clicking \"Proceed to PayPal\" will redirect you to PayPal to complete your purchase."
-msgstr "Притиском на „Proceed to PayPal“ бићете преусмерени на PayPal да бисте довршили куповину."
-
-#: modules/ppcp-wc-gateway/services.php:390
-msgid "Proceed to PayPal"
-msgstr "Извршење путем PayPal-а"
-
-#: modules/ppcp-card-fields/src/CardFieldsModule.php:86
+#: modules/ppcp-card-fields/src/CardFieldsModule.php:92
 #: assets/ppcp-blocks-js-advanced-card-checkout-block.js:1
 msgid "Cardholder Name (optional)"
 msgstr "Име власника картице (необавезно)"
 
-#: modules/ppcp-card-fields/src/CardFieldsModule.php:85
+#: modules/ppcp-card-fields/src/CardFieldsModule.php:91
 msgid "Cardholder Name"
 msgstr "Име власника картице"
 
@@ -1562,56 +1605,56 @@ msgstr "Не користи податке WC обрасца за плаћање
 msgid "Use WC checkout form data (do not show shipping address fields)"
 msgstr "Користи податке WC обрасца за плаћање (не приказуј поља адресе за доставу)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "German (Luxembourg)"
 msgstr "Немачки (Луксембург)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "German (Switzerland)"
 msgstr "Немачки (Швајцарска)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "German (Austria)"
 msgstr "Немачки (Аустрија)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "German (Germany)"
 msgstr "Немачки (Немачка)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Arabic (Saudi Arabia)"
 msgstr "Арапски (Саудијска Арабија)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Arabic (Morocco)"
 msgstr "Арапски (Мароко)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Arabic (Kuwait)"
 msgstr "Арапски (Кувајт)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Arabic (Jordan)"
 msgstr "Арапски (Јордан)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Arabic (Egypt)"
 msgstr "Арапски (Египат)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Arabic (Bahrain)"
 msgstr "Арапски (Бахреин)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Arabic (Algeria)"
 msgstr "Арапски (Алжир)"
 
-#: modules/ppcp-wc-gateway/services.php:576
+#: modules/ppcp-wc-gateway/services.php:572
 #: assets/ppcp-paylater-block-js-paylater-block.js:1
 msgid "Home"
 msgstr "Почетак"
 
-#: modules/ppcp-wc-gateway/services.php:576
+#: modules/ppcp-wc-gateway/services.php:572
 #: assets/ppcp-paylater-block-js-paylater-block.js:1
 msgid "Shop"
 msgstr "Продавница"
@@ -1677,17 +1720,17 @@ msgstr "Накнада коју PayPal наплаћује за трансакц�
 msgid "PayPal Refund Fee:"
 msgstr "PayPal накнада за рефундацију:"
 
-#: modules/ppcp-wc-gateway/services.php:280
+#: modules/ppcp-wc-gateway/services.php:282
 msgctxt "Name of payment method"
 msgid "Apple Pay"
 msgstr "Apple Pay"
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
 #: assets/ppcp-settings-js-index.js:5 assets/ppcp-settings-js-index.js:17
 msgid "Alternative Payment Methods"
 msgstr "Алтернативни начини плаћања"
 
-#: modules/ppcp-wc-gateway/services.php:280
+#: modules/ppcp-wc-gateway/services.php:282
 msgctxt "Name of payment method"
 msgid "Google Pay"
 msgstr "Google Pay"
@@ -1756,123 +1799,123 @@ msgstr "Подели податке о праћењу пакета са PayPal-�
 msgid "Missing required information: "
 msgstr "Недостају обавезни подаци: "
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Chinese (Traditional)"
 msgstr "Кинески (традиционални)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Chinese (Hong Kong)"
 msgstr "Кинески (Хонгконг)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Chinese (Simplified)"
 msgstr "Кинески (упрошћен)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Thai"
 msgstr "Тајландски"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Slovak"
 msgstr "Словачки"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Russian"
 msgstr "Руски"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Portuguese (Portugal)"
 msgstr "Португалски (Португалија)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Swedish"
 msgstr "Шведски"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Portuguese (Brazil)"
 msgstr "Португалски (Бразил)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Polish"
 msgstr "Пољски"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Dutch"
 msgstr "Холандски"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Korean"
 msgstr "Корејски"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Norwegian"
 msgstr "Норвешки"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Italian"
 msgstr "Италијански"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Japanese"
 msgstr "Јапански"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Indonesian"
 msgstr "Индонежански"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Hebrew"
 msgstr "Хебрејски"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Hungarian"
 msgstr "Мађарски"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "French (France)"
 msgstr "Француски (Француска)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Finnish"
 msgstr "Фински"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Spanish (Mexico)"
 msgstr "Шпански (Мексико)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "French (Canada)"
 msgstr "Француски (Канада)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Spanish (Spain)"
 msgstr "Шпански (Шпанија)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "English (United States)"
 msgstr "Енглески (Сједињене Државе)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "English (United Kingdom)"
 msgstr "Енглески (Уједињено Краљевство)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Greek"
 msgstr "Грчки"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "English (Australia)"
 msgstr "Енглески (Аустралија)"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Czech"
 msgstr "Чешки"
 
-#: modules/ppcp-wc-gateway/services.php:606
+#: modules/ppcp-wc-gateway/services.php:602
 msgid "Danish"
 msgstr "Дански"
 
-#: modules/ppcp-wc-gateway/services.php:606 assets/ppcp-settings-js-index.js:18
+#: modules/ppcp-wc-gateway/services.php:602 assets/ppcp-settings-js-index.js:17
 msgid "Browser language"
 msgstr "Језик прегледача"
 
@@ -1888,8 +1931,8 @@ msgstr "Грешка при обради корпе"
 
 #: modules/ppcp-applepay/src/ApplePayGateway.php:86
 #: modules/ppcp-applepay/src/Assets/ApplePayButton.php:48
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:158
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:173
 #: modules/ppcp-status-report/src/StatusReportModule.php:79
 #: assets/ppcp-settings-js-index.js:1
 msgid "Apple Pay"
@@ -1916,61 +1959,55 @@ msgid "Ditch items breakdown filter. Items and breakdown ditched."
 msgstr "Филтер одбацивања расподеле ставки. Ставке и расподела су одбачене."
 
 #. translators: %1$s and %2$s are wrapper html tags.
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:630
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:622
 msgid "%1$sPlan Name%2$s"
 msgstr "%1$sИме плана%2$s"
 
 #. translators: %1$s and %2$s are wrapper html tags.
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:618
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:610
 msgid "%1$sPlan%2$s"
 msgstr "%1$sПлан%2$s"
 
 #. translators: %1$s and %2$s are wrapper html tags.
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:610
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:602
 msgid "%1$sProduct%2$s"
 msgstr "%1$sПроизвод%2$s"
 
 #. translators: %1$s and %2$s is open and closing paragraph tag.
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:602
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:594
 msgid "%1$sPlan unlinked successfully ✔️%2$s"
 msgstr "%1$sВеза са планом је успешно уклоњена ✔️%2$s"
 
 #. translators: %1$s and %2$s are button and wrapper html tags.
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:596
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:588
 msgid "%1$sUnlink PayPal Subscription Plan%2$s"
 msgstr "%1$sУклони везу са планом PayPal претплате%2$s"
 
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:587
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:579
 msgid "Create a subscription product and plan to bill customers at regular intervals. Be aware that certain subscription settings cannot be modified once the PayPal Subscription is linked to this product. Unlink the product to edit disabled fields."
 msgstr "Направите производ претплате и план за наплату купцима у редовним интервалима. Имајте у виду да се нека подешавања претплате не могу мењати када се PayPal претплата повеже са овим производом. Уклоните везу са производом да бисте уредили искључена поља."
 
 #. translators: %1$s and %2$s are label open and close tags.
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:575
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:567
 msgid "%1$sConnect to PayPal%2$s"
 msgstr "%1$sПовежи се са PayPal-ом%2$s"
 
 #. translators: %1$s and %2$s are label open and close tags.
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:583
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:575
 msgid "%1$sConnect Product to PayPal Subscriptions Plan%2$s"
 msgstr "%1$sПовежи производ са планом PayPal претплата%2$s"
 
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:426
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:418
 msgid "Subscription:"
 msgstr "Претплата:"
 
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:425
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:417
 msgid "This subscription is linked to a PayPal Subscription, Cancel it to unlink."
 msgstr "Ова претплата је повезана са PayPal претплатом, откажите је да бисте уклонили везу."
 
 #: modules/ppcp-status-report/src/StatusReportModule.php:79
 msgid "Whether subscriptions are active and their mode."
 msgstr "Да ли су претплате активне и њихов режим."
-
-#. translators: %1$s the shop currency, %2$s the PayPal currency support page
-#. link opening HTML tag, %3$s the link ending HTML tag.
-#: modules/ppcp-wc-gateway/src/Notice/UnsupportedCurrencyAdminNotice.php:78
-msgid "Attention: Your current WooCommerce store currency (%1$s) is not supported by PayPal. Please update your store currency to one that is supported by PayPal to ensure smooth transactions. Visit the %2$sPayPal currency support page%3$s for more information on supported currencies."
-msgstr "Пажња: тренутну валуту ваше WooCommerce продавнице (%1$s) PayPal не подржава. Ажурирајте валуту продавнице на неку коју PayPal подржава ради несметаних трансакција. Посетите %2$sстраницу PayPal подршке за валуте%3$s за више података о подржаним валутама."
 
 #. translators: %1$s the gateway name, %2$s URL.
 #: modules/ppcp-wc-gateway/src/Notice/GatewayWithoutPayPalAdminNotice.php:90
@@ -1989,6 +2026,12 @@ msgstr "ACDC Vault укључен"
 msgid "Whether vaulting option is enabled on Standard Payments settings or not."
 msgstr "Да ли је могућност чувања укључена у подешавањима Standard Payments."
 
+#. translators: %1$s the shop currency, %2$s the PayPal currency support page
+#. link opening HTML tag, %3$s the link ending HTML tag.
+#: modules/ppcp-wc-gateway/src/Notice/UnsupportedCurrencyAdminNotice.php:78
+msgid "Attention: Your current WooCommerce store currency (%1$s) is not supported by PayPal. Please update your store currency to one that is supported by PayPal to ensure smooth transactions. Visit the %2$sPayPal currency support page%3$s for more information on supported currencies."
+msgstr "Пажња: тренутну валуту ваше WooCommerce продавнице (%1$s) PayPal не подржава. Ажурирајте валуту продавнице на неку коју PayPal подржава ради несметаних трансакција. Посетите %2$sстраницу PayPal подршке за валуте%3$s за више података о подржаним валутама."
+
 #: modules/ppcp-status-report/src/StatusReportModule.php:79
 msgid "PayPal Vault enabled"
 msgstr "PayPal Vault укључен"
@@ -1999,37 +2042,38 @@ msgstr "PayPal Vault укључен"
 msgid "You are currently paying with %3$s. %4$s%1$sChoose another payment method%2$s."
 msgstr "Тренутно плаћате помоћу %3$s. %4$s%1$sИзаберите други начин плаћања%2$s."
 
-#: modules/ppcp-button/src/Assets/SmartButton.php:744
+#: modules/ppcp-button/src/Assets/SmartButton.php:745
+#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:1116
 msgid "Card payment details are missing. Please fill in all required fields."
 msgstr "Недостају подаци о плаћању картицом. Попуните сва обавезна поља."
 
-#: modules/ppcp-wc-gateway/services.php:265
+#: modules/ppcp-wc-gateway/services.php:267
 msgid "Disable PayPal for subscriptions"
 msgstr "Искључи PayPal за претплате"
 
-#: modules/ppcp-wc-gateway/services.php:265
+#: modules/ppcp-wc-gateway/services.php:267
 msgid "PayPal Subscriptions"
 msgstr "PayPal претплате"
 
-#: modules/ppcp-wc-gateway/services.php:274
+#: modules/ppcp-wc-gateway/services.php:276
 msgid "Utilize PayPal Vaulting for flexible subscription processing with saved payment methods, create “PayPal Subscriptions” to bill customers at regular intervals, or disable PayPal for subscription-type products."
 msgstr "Користите PayPal Vaulting за прилагодљиву обраду претплата са сачуваним начинима плаћања, направите „PayPal претплате“ за наплату купцима у редовним интервалима или искључите PayPal за производе врсте претплате."
 
 #: modules/ppcp-status-report/src/StatusReportModule.php:79
-#: modules/ppcp-wc-gateway/services.php:274
+#: modules/ppcp-wc-gateway/services.php:276
 msgid "Subscriptions Mode"
 msgstr "Режим претплата"
 
-#: modules/ppcp-wc-payment-tokens/src/WcPaymentTokensModule.php:178
+#: modules/ppcp-wc-payment-tokens/src/WcPaymentTokensModule.php:217
 msgid "Could not delete payment token. "
 msgstr "Није могуће избрисати жетон плаћања. "
 
-#: modules/ppcp-wc-payment-tokens/src/WcPaymentTokensModule.php:169
+#: modules/ppcp-wc-payment-tokens/src/WcPaymentTokensModule.php:208
 msgid "Invalid payment method."
 msgstr "Неважећи начин плаћања."
 
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:242
-#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:423
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:241
+#: modules/ppcp-paypal-subscriptions/src/PayPalSubscriptionsModule.php:415
 msgid "PayPal Subscription"
 msgstr "PayPal претплата"
 
@@ -2038,7 +2082,7 @@ msgctxt "Name of Buttons Location"
 msgid "Cart"
 msgstr "Корпа"
 
-#: modules/ppcp-blocks/src/BlocksModule.php:46
+#: modules/ppcp-blocks/src/BlocksModule.php:54
 msgid "PayPal checkout block initialization failed, possibly old WooCommerce version or disabled WooCommerce Blocks plugin."
 msgstr "Покретање PayPal блока плаћања није успело, можда због старог издања WooCommerce-а или искљученог додатка WooCommerce Blocks."
 
@@ -2058,14 +2102,14 @@ msgid "%s (via PayPal)"
 msgstr "%s (преко PayPal-а)"
 
 #: modules/ppcp-applepay/services.php:322
-#: modules/ppcp-wc-gateway/services.php:512
-#: modules/ppcp-wc-gateway/services.php:525
-#: modules/ppcp-wc-gateway/services.php:542
+#: modules/ppcp-wc-gateway/services.php:508
+#: modules/ppcp-wc-gateway/services.php:521
+#: modules/ppcp-wc-gateway/services.php:538
 msgid "Status: Available"
 msgstr "Стање: доступно"
 
 #. translators: %1$s and %2$s are the opening and closing of HTML <a> tag.
-#: modules/ppcp-wc-gateway/services.php:477
+#: modules/ppcp-wc-gateway/services.php:473
 msgid "Required when %1$sPay upon Invoice%2$s is used."
 msgstr "Потребно када се користи %1$sPay upon Invoice%2$s."
 
@@ -2073,7 +2117,7 @@ msgstr "Потребно када се користи %1$sPay upon Invoice%2$s."
 msgid "Please enter a valid account username."
 msgstr "Унесите исправно корисничко име."
 
-#: modules/ppcp-wc-gateway/services.php:277
+#: modules/ppcp-wc-gateway/services.php:279
 msgctxt "Name of payment method"
 msgid "Trustly"
 msgstr "Trustly"
@@ -2083,70 +2127,70 @@ msgid "An account is already registered with your email address. <a href=\"#\" c
 msgstr "Налог је већ регистрован са вашом адресом е-поште. <a href=\"#\" class=\"showlogin\">Пријавите се.</a>"
 
 #. translators: %1$s and %2$s are the opening and closing of HTML <a> tag.
-#: modules/ppcp-wc-gateway/services.php:470
+#: modules/ppcp-wc-gateway/services.php:466
 msgid "Manage online risk with %1$sFraudNet%2$s."
 msgstr "Управљајте онлајн ризиком уз %1$sFraudNet%2$s."
 
-#: modules/ppcp-wc-gateway/src/Processor/OrderProcessor.php:103
+#: modules/ppcp-wc-gateway/src/Processor/OrderProcessor.php:106
 msgid "Could not retrieve PayPal order."
 msgstr "Није могуће преузети PayPal поруџбину."
 
-#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:144
+#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:143
 msgid "Enable Standard Card Button gateway"
 msgstr "Укључи платни пролаз Standard Card Button"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:141
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:149
 #: assets/ppcp-sdk-v6-js-checkout-block.js:1 assets/ppcp-settings-js-index.js:1
 #: assets/ppcp-settings-js-index.js:5
 msgid "Pay Later"
 msgstr "Pay Later"
 
-#: modules/ppcp-settings/src/SettingsModule.php:408
+#: modules/ppcp-settings/src/SettingsModule.php:407
 msgid "Enable Advanced Card Processing"
 msgstr "Укључи Advanced Card Processing"
 
-#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:122
+#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:121
 msgid "Standard Card Button"
 msgstr "Standard Card Button"
 
-#: modules/ppcp-wc-gateway/services.php:546
+#: modules/ppcp-wc-gateway/services.php:542
 msgid "Enable Pay upon Invoice"
 msgstr "Укључи Pay upon Invoice"
 
 #: modules/ppcp-applepay/services.php:323
-#: modules/ppcp-wc-gateway/services.php:513
-#: modules/ppcp-wc-gateway/services.php:526
-#: modules/ppcp-wc-gateway/services.php:543
+#: modules/ppcp-wc-gateway/services.php:509
+#: modules/ppcp-wc-gateway/services.php:522
+#: modules/ppcp-wc-gateway/services.php:539
 msgid "Status: Not yet enabled"
 msgstr "Стање: још није укључено"
 
-#: modules/ppcp-wc-gateway/services.php:514
+#: modules/ppcp-wc-gateway/services.php:510
 msgid "Enable Advanced Card Payments"
 msgstr "Укључи Advanced Card Payments"
 
 #. translators: %1$s, %2$s, %3$s and %4$s are the opening and closing of HTML
 #. <a> tag.
-#: modules/ppcp-wc-gateway/services.php:422
+#: modules/ppcp-wc-gateway/services.php:418
 msgid "This will disable all %1$sPay Later%2$s features and %3$sAlternative Payment Methods%4$s on your site."
 msgstr "Ово ће искључити све %1$sPay Later%2$s функције и %3$sалтернативне начине плаћања%4$s на вашем сајту."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:156
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
 msgid "Advanced Credit and Debit Card Payments"
 msgstr "Напредна плаћања кредитним и дебитним картицама"
 
-#: woocommerce-paypal-payments.php:172
+#: woocommerce-paypal-payments.php:168
 msgid "Get help"
 msgstr "Потражи помоћ"
 
-#: woocommerce-paypal-payments.php:172
+#: woocommerce-paypal-payments.php:168
 msgid "Submit a bug"
 msgstr "Пријави грешку"
 
-#: woocommerce-paypal-payments.php:172
+#: woocommerce-paypal-payments.php:168
 msgid "Request a feature"
 msgstr "Затражи функцију"
 
-#: woocommerce-paypal-payments.php:172 assets/ppcp-settings-js-index.js:2
+#: woocommerce-paypal-payments.php:168 assets/ppcp-settings-js-index.js:2
 msgid "Documentation"
 msgstr "Документација"
 
@@ -2155,7 +2199,7 @@ msgid "Phone field cannot be empty."
 msgstr "Поље телефона не може бити празно."
 
 #: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceIntegration.php:163
-#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:783
+#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:841
 msgid "Phone"
 msgstr "Телефон"
 
@@ -2182,7 +2226,7 @@ msgctxt "Name of carrier"
 msgid "Other"
 msgstr "Друго"
 
-#: modules/ppcp-webhooks/src/Handler/PaymentCapturePending.php:80
+#: modules/ppcp-webhooks/src/Handler/PaymentCapturePending.php:79
 msgid "Payment initiation was successful, and is waiting for the buyer to complete the payment."
 msgstr "Покретање плаћања је успело и чека се да купац доврши плаћање."
 
@@ -2191,7 +2235,7 @@ msgstr "Покретање плаћања је успело и чека се д�
 msgid "%1$s cannot be used without the PayPal gateway. <a href=\"%2$s\">Enable the PayPal gateway</a>."
 msgstr "%1$s не може да се користи без PayPal платног пролаза. <a href=\"%2$s\">Укључите PayPal платни пролаз</a>."
 
-#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:454
+#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:480
 msgid "Payer action required, possibly overcharge."
 msgstr "Потребна је радња платиоца, могућа прекомерна наплата."
 
@@ -2203,7 +2247,7 @@ msgstr "Укључи/искључи платни пролаз OXXO."
 msgid "OXXO Voucher/Ticket"
 msgstr "OXXO ваучер/тикет"
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "OXXO allows you to pay bills and online purchases in-store with cash."
 msgstr "OXXO вам омогућава да рачуне и онлајн куповине платите у продавници готовином."
 
@@ -2211,7 +2255,7 @@ msgstr "OXXO вам омогућава да рачуне и онлајн куп�
 msgid "OXXO voucher has expired or the buyer didn't complete the payment successfully."
 msgstr "OXXO ваучер је истекао или купац није успешно довршио плаћање."
 
-#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:144
+#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:143
 msgid "Enable/Disable the separate payment gateway with the card button."
 msgstr "Укључи/искључи засебан платни пролаз са дугметом картице."
 
@@ -2226,38 +2270,38 @@ msgstr "Обрада плаћања није успела. Покушајте п
 msgid "See OXXO voucher"
 msgstr "Погледај OXXO ваучер"
 
-#: modules/ppcp-settings/src/Data/SettingsProvider.php:711
-#: modules/ppcp-wc-gateway/services.php:181
-#: modules/ppcp-wc-gateway/services.php:438
-#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:124
+#: modules/ppcp-settings/src/Data/SettingsProvider.php:670
+#: modules/ppcp-wc-gateway/services.php:183
+#: modules/ppcp-wc-gateway/services.php:434
+#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:123
 #: modules/ppcp-wc-gateway/src/Gateway/CreditCardGateway.php:223
 #: modules/ppcp-wc-gateway/src/Helper/CardPaymentsConfiguration.php:290
 msgid "Debit & Credit Cards"
 msgstr "Дебитне и кредитне картице"
 
 #: modules/ppcp-local-alternative-payment-methods/src/OXXOGateway.php:43
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "OXXO"
 msgstr "OXXO"
 
-#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:123
+#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:122
 msgid "The separate payment gateway with the card button. If disabled, the button is included in the PayPal gateway."
 msgstr "Засебан платни пролаз са дугметом картице. Ако је искључен, дугме је укључено у PayPal платни пролаз."
 
-#: modules/ppcp-button/src/Assets/SmartButton.php:761
+#: modules/ppcp-button/src/Assets/SmartButton.php:762
 msgctxt "checkout-validation"
 msgid "Shipping %s"
 msgstr "Достава %s"
 
-#: modules/ppcp-button/src/Assets/SmartButton.php:748
+#: modules/ppcp-button/src/Assets/SmartButton.php:749
 msgid "%s is a required field."
 msgstr "%s је обавезно поље."
 
-#: modules/ppcp-button/src/Assets/SmartButton.php:746
+#: modules/ppcp-button/src/Assets/SmartButton.php:747
 msgid "Required form fields are not filled."
 msgstr "Обавезна поља обрасца нису попуњена."
 
-#: modules/ppcp-button/src/Assets/SmartButton.php:759
+#: modules/ppcp-button/src/Assets/SmartButton.php:760
 msgctxt "checkout-validation"
 msgid "Billing %s"
 msgstr "%s за наплату"
@@ -2266,7 +2310,7 @@ msgstr "%s за наплату"
 msgid "Could not process WC order because PAYMENT.CAPTURE.COMPLETED webhook not received."
 msgstr "Није могуће обрадити WC поруџбину јер webhook PAYMENT.CAPTURE.COMPLETED није примљен."
 
-#: modules/ppcp-wc-gateway/src/Processor/OrderProcessor.php:122
+#: modules/ppcp-wc-gateway/src/Processor/OrderProcessor.php:125
 msgid "The payment is not ready for processing yet."
 msgstr "Плаћање још није спремно за обраду."
 
@@ -2275,8 +2319,8 @@ msgid "Awaiting Pay upon Invoice payment."
 msgstr "Чека се Pay upon Invoice плаћање."
 
 #: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceGateway.php:70
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:183
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:203
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:198
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:218
 msgid "Customer service instructions"
 msgstr "Упутства за корисничку службу"
 
@@ -2285,8 +2329,8 @@ msgid "Customer service instructions to be presented on Ratepay's payment instru
 msgstr "Упутства за корисничку службу која ће се приказати у Ratepay упутствима за плаћање."
 
 #: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceGateway.php:70
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:183
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:203
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:198
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:218
 msgid "Logo URL"
 msgstr "Адреса логотипа"
 
@@ -2295,9 +2339,9 @@ msgid "Logo to be presented on Ratepay's payment instructions."
 msgstr "Логотип који ће се приказати у Ratepay упутствима за плаћање."
 
 #: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceGateway.php:70
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:183
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:203
-#: assets/ppcp-settings-js-index.js:18
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:198
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:218
+#: assets/ppcp-settings-js-index.js:17
 msgid "Brand name"
 msgstr "Назив бренда"
 
@@ -2314,14 +2358,18 @@ msgid "Experience Context"
 msgstr "Контекст искуства"
 
 #: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceGateway.php:70
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:137
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
 msgid "Pay upon Invoice"
 msgstr "Pay upon Invoice"
 
 #: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceGateway.php:50
 msgid "Once you place an order, pay within 30 days. Our payment partner Ratepay will send you payment instructions."
 msgstr "Када направите поруџбину, платите у року од 30 дана. Наш партнер за плаћања Ratepay послаће вам упутства за плаћање."
+
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:186
+msgid "Pay upon Invoice is an invoice payment method in Germany. It is a local buy now, pay later payment method that allows the buyer to place an order, receive the goods, try them, verify they are in good order, and then pay the invoice within 30 days."
+msgstr "Pay upon Invoice је начин плаћања по рачуну у Немачкој. То је локални начин „купи сада, плати касније“ који купцу омогућава да направи поруџбину, прими робу, испроба је, провери да ли је исправна и затим плати рачун у року од 30 дана."
 
 #: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceIntegration.php:266
 msgid "RatePay payment instructions"
@@ -2335,16 +2383,12 @@ msgstr "Дужина броја телефона мора бити између 
 msgid "Invalid birth date."
 msgstr "Неисправан датум рођења."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:171
-msgid "Pay upon Invoice is an invoice payment method in Germany. It is a local buy now, pay later payment method that allows the buyer to place an order, receive the goods, try them, verify they are in good order, and then pay the invoice within 30 days."
-msgstr "Pay upon Invoice је начин плаћања по рачуну у Немачкој. То је локални начин „купи сада, плати касније“ који купцу омогућава да направи поруџбину, прими робу, испроба је, провери да ли је исправна и затим плати рачун у року од 30 дана."
-
 #: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceIntegration.php:204
 msgid "Billing country not available."
 msgstr "Држава за наплату није доступна."
 
 #. translators: %s is the id of the order.
-#: modules/ppcp-order-endpoints/src/Endpoint/ApproveOrderEndpoint.php:199
+#: modules/ppcp-order-endpoints/src/Endpoint/ApproveOrderEndpoint.php:156
 msgid "Order %s is not ready for processing yet."
 msgstr "Поруџбина %s још није спремна за обраду."
 
@@ -2371,7 +2415,7 @@ msgid "AVS: %s"
 msgstr "AVS: %s"
 
 #. translators: %s is the PayPal transaction ID
-#: modules/ppcp-wc-gateway/src/Processor/TransactionIdHandlingTrait.php:36
+#: modules/ppcp-wc-gateway/src/Processor/TransactionIdHandlingTrait.php:40
 msgid "PayPal transaction ID: %s"
 msgstr "ИБ PayPal трансакције: %s"
 
@@ -2391,12 +2435,12 @@ msgstr "PayPal накнада:"
 msgid "The fee PayPal collects for the transaction."
 msgstr "Накнада коју PayPal наплаћује за трансакцију."
 
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:141
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:149
 #: assets/ppcp-settings-js-index.js:1 assets/ppcp-settings-js-index.js:5
 msgid "Venmo"
 msgstr "Venmo"
 
-#: modules/ppcp-wc-gateway/services.php:277
+#: modules/ppcp-wc-gateway/services.php:279
 msgctxt "Name of payment method"
 msgid "BLIK"
 msgstr "BLIK"
@@ -2433,7 +2477,7 @@ msgstr "Да ли смо успешно примили webhook-ове."
 msgid "Webhook status"
 msgstr "Стање webhook-ова"
 
-#: modules/ppcp-button/src/Assets/SmartButton.php:744
+#: modules/ppcp-button/src/Assets/SmartButton.php:745
 msgid "Cardholder's first and last name are required, please fill the checkout form required fields."
 msgstr "Име и презиме власника картице су обавезни, попуните обавезна поља обрасца за плаћање."
 
@@ -2456,7 +2500,7 @@ msgid "Could not get the payment authorization."
 msgstr "Није могуће добити одобрење плаћања."
 
 #: modules/ppcp-wc-gateway/src/Processor/PaymentsStatusHandlingTrait.php:82
-#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:296
+#: modules/ppcp-wc-gateway/src/WCGatewayModule.php:305
 msgid "Could not capture the payment."
 msgstr "Није могуће наплатити плаћање."
 
@@ -2489,10 +2533,6 @@ msgstr "Наплаћена средства су рефундирана."
 msgid "The payer must send the funds for this captured payment. This code generally appears for manual EFTs."
 msgstr "Платилац мора послати средства за ово наплаћено плаћање. Овај код се углавном појављује за ручне EFT преносе."
 
-#: modules/ppcp-api-client/src/Entity/CaptureStatusDetails.php:86
-msgid "The payee has not yet set up appropriate receiving preferences for their account. For more information about how to accept or deny this payment, visit your account online. This reason is typically offered in scenarios such as when the currency of the captured payment is different from the primary holding currency of the payee."
-msgstr "Прималац још није подесио одговарајуће поставке примања за свој налог. За више података о томе како да прихватите или одбијете ово плаћање, посетите свој налог на мрежи. Овај разлог се обично наводи у ситуацијама као што је када се валута наплаћеног плаћања разликује од главне валуте примаоца."
-
 #: modules/ppcp-api-client/src/Entity/CaptureStatusDetails.php:84
 msgid "The captured payment is pending manual review."
 msgstr "Наплаћено плаћање чека ручни преглед."
@@ -2509,6 +2549,10 @@ msgstr "Посетите свој налог на мрежи. У преглед�
 msgid "The captured funds were reversed in response to the payer disputing this captured payment with the issuer of the financial instrument used to pay for this captured payment."
 msgstr "Наплаћена средства су враћена као одговор на то што је платилац оспорио ово наплаћено плаћање код издаваоца финансијског инструмента коришћеног за плаћање."
 
+#: modules/ppcp-api-client/src/Entity/CaptureStatusDetails.php:86
+msgid "The payee has not yet set up appropriate receiving preferences for their account. For more information about how to accept or deny this payment, visit your account online. This reason is typically offered in scenarios such as when the currency of the captured payment is different from the primary holding currency of the payee."
+msgstr "Прималац још није подесио одговарајуће поставке примања за свој налог. За више података о томе како да прихватите или одбијете ово плаћање, посетите свој налог на мрежи. Овај разлог се обично наводи у ситуацијама као што је када се валута наплаћеног плаћања разликује од главне валуте примаоца."
+
 #: modules/ppcp-api-client/src/Entity/CaptureStatusDetails.php:78
 #: modules/ppcp-api-client/src/Entity/RefundStatusDetails.php:64
 msgid "The payer paid by an eCheck that has not yet cleared."
@@ -2522,23 +2566,23 @@ msgstr "Платилац је покренуо спор око овог напл
 msgid "Authorization is pending manual review."
 msgstr "Одобрење чека ручни преглед."
 
-#: modules/ppcp-webhooks/services.php:95
+#: modules/ppcp-webhooks/services.php:94
 msgid "Tracked events"
 msgstr "Праћени догађаји"
 
-#: modules/ppcp-webhooks/services.php:95
-msgid "URL"
-msgstr "URL"
-
-#: modules/ppcp-webhooks/services.php:93
+#: modules/ppcp-webhooks/services.php:92
 msgid "Failed to load webhooks."
 msgstr "Учитавање webhook-ова није успело."
 
-#: modules/ppcp-webhooks/services.php:88
+#: modules/ppcp-webhooks/services.php:87
 msgid "No webhooks found."
 msgstr "Веб копче нису пронађене."
 
-#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:454
+#: modules/ppcp-webhooks/services.php:94
+msgid "URL"
+msgstr "УРЛ"
+
+#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:480
 msgid "Instrument declined."
 msgstr "Инструмент је одбијен."
 
@@ -2582,7 +2626,7 @@ msgstr "Да ли је PayPal налог исправно подешен."
 msgid "Onboarded"
 msgstr "Почетно подешавање завршено"
 
-#: modules/ppcp-wc-gateway/services.php:721
+#: modules/ppcp-wc-gateway/services.php:717
 msgid "Learn More"
 msgstr "Сазнајте више"
 
@@ -2591,44 +2635,44 @@ msgstr "Сазнајте више"
 msgid "%s (Legacy)"
 msgstr "%s (застарело)"
 
-#: modules/ppcp-button/src/Assets/SmartButton.php:744
+#: modules/ppcp-button/src/Assets/SmartButton.php:745
 msgid "MM/YY"
 msgstr "ММ/ГГ"
 
 #. translators: %1$s and %2$s are the opening and closing of HTML <a> tag.
-#: modules/ppcp-wc-gateway/services.php:411
+#: modules/ppcp-wc-gateway/services.php:407
 msgid " To use vaulting features, you must %1$senable vaulting on your account%2$s."
 msgstr " Да бисте користили функције чувања, морате %1$sукључити чување на свом налогу%2$s."
 
-#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:133
-#: assets/ppcp-settings-js-index.js:18
+#: modules/ppcp-settings/src/Data/Definition/FeaturesDefinition.php:129
+#: assets/ppcp-settings-js-index.js:17
 msgid "Pay Later Messaging"
 msgstr "Pay Later поруке"
 
-#: modules/ppcp-wc-gateway/services.php:277
+#: modules/ppcp-wc-gateway/services.php:279
 msgctxt "Name of payment method"
 msgid "Venmo"
 msgstr "Venmo"
 
-#: modules/ppcp-wc-gateway/services.php:265
+#: modules/ppcp-wc-gateway/services.php:267
 msgid "PayPal Vaulting"
 msgstr "PayPal Vaulting"
 
-#: modules/ppcp-button/src/Assets/SmartButton.php:259
+#: modules/ppcp-button/src/Assets/SmartButton.php:260
 msgid "Save your Credit Card"
 msgstr "Сачувај своју кредитну картицу"
 
-#: woocommerce-paypal-payments.php:81
+#: woocommerce-paypal-payments.php:82
 msgid "WooCommerce PayPal Payments requires PHP 7.4 or above."
 msgstr "WooCommerce PayPal Payments захтева PHP 7.4 или новији."
 
-#: modules/ppcp-wc-gateway/services.php:277
+#: modules/ppcp-wc-gateway/services.php:279
 msgctxt "Name of payment method"
 msgid "PayPal"
 msgstr "PayPal"
 
-#: modules/ppcp-api-client/src/Endpoint/OrderEndpoint.php:244
-#: modules/ppcp-api-client/src/Endpoint/OrderEndpoint.php:284
+#: modules/ppcp-api-client/src/Endpoint/OrderEndpoint.php:247
+#: modules/ppcp-api-client/src/Endpoint/OrderEndpoint.php:287
 #: modules/ppcp-api-client/src/Entity/FraudProcessorResponse.php:185
 #: modules/ppcp-wc-gateway/src/Processor/PaymentsStatusHandlingTrait.php:84
 #: modules/ppcp-wc-gateway/src/Processor/PaymentsStatusHandlingTrait.php:118
@@ -2673,26 +2717,26 @@ msgstr "Није наплаћено"
 msgid "Capture authorized PayPal payment"
 msgstr "Наплати одобрено PayPal плаћање"
 
-#: modules/ppcp-settings/src/Data/SettingsProvider.php:715
+#: modules/ppcp-settings/src/Data/SettingsProvider.php:674
 #: modules/ppcp-wc-gateway/src/Settings/Settings.php:151
 msgid "Pay with your credit card."
 msgstr "Платите кредитном картицом."
 
-#: modules/ppcp-settings/src/Data/SettingsProvider.php:707
-#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:311
+#: modules/ppcp-settings/src/Data/SettingsProvider.php:666
+#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:310
 #: modules/ppcp-wc-gateway/src/Settings/Settings.php:151
 msgid "Pay via PayPal."
 msgstr "Платите преко PayPal-а."
 
-#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:309
+#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:308
 msgid "Accept PayPal, Pay Later and alternative payment types."
 msgstr "Примајте PayPal, Pay Later и алтернативне врсте плаћања."
 
-#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:290
+#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:289
 msgid "In order to use PayPal or Advanced Card Processing, you need to enable the Gateway."
 msgstr "Да бисте користили PayPal или Advanced Card Processing, морате укључити платни пролаз."
 
-#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:464
+#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:490
 msgid "Please use a different payment method."
 msgstr "Користите други начин плаћања."
 
@@ -2701,84 +2745,101 @@ msgstr "Користите други начин плаћања."
 msgid "Accept debit and credit cards, and local payment methods with PayPal’s latest solution."
 msgstr "Примајте дебитне и кредитне картице и локалне начине плаћања уз најновије PayPal решење."
 
-#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:79
-#: modules/ppcp-wc-gateway/services.php:107
+#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:86
+#: modules/ppcp-wc-gateway/services.php:109
 msgctxt "Name of credit card"
 msgid "Hiper"
 msgstr "Hiper"
 
-#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:79
-#: modules/ppcp-wc-gateway/services.php:107
+#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:86
+#: modules/ppcp-wc-gateway/services.php:109
 msgctxt "Name of credit card"
 msgid "JCB"
 msgstr "JCB"
 
-#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:79
-#: modules/ppcp-wc-gateway/services.php:107
+#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:86
+#: modules/ppcp-wc-gateway/services.php:109
 msgctxt "Name of credit card"
 msgid "Elo"
 msgstr "Elo"
 
-#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:79
-#: modules/ppcp-wc-gateway/services.php:107
+#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:86
+#: modules/ppcp-wc-gateway/services.php:109
 msgctxt "Name of credit card"
 msgid "Discover"
 msgstr "Discover"
 
-#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:79
-#: modules/ppcp-wc-gateway/services.php:107
+#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:86
+#: modules/ppcp-wc-gateway/services.php:109
 msgctxt "Name of credit card"
 msgid "American Express"
 msgstr "American Express"
 
-#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:79
-#: modules/ppcp-wc-gateway/services.php:107
+#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:86
+#: modules/ppcp-wc-gateway/services.php:109
 msgctxt "Name of credit card"
 msgid "Mastercard"
 msgstr "Mastercard"
 
-#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:79
-#: modules/ppcp-wc-gateway/services.php:107
+#: modules/ppcp-settings/src/Service/ScriptDataHandler.php:86
+#: modules/ppcp-wc-gateway/services.php:109
 msgctxt "Name of credit card"
 msgid "Visa"
 msgstr "Visa"
 
-#: modules/ppcp-wc-gateway/services.php:277
+#: modules/ppcp-wc-gateway/services.php:279
 msgctxt "Name of payment method"
 msgid "Przelewy24"
 msgstr "Przelewy24"
 
-#: modules/ppcp-wc-gateway/services.php:277
+#: modules/ppcp-wc-gateway/services.php:279
 msgctxt "Name of payment method"
 msgid "MyBank"
 msgstr "MyBank"
 
-#: modules/ppcp-wc-gateway/services.php:277
+#: modules/ppcp-wc-gateway/services.php:279
 msgctxt "Name of payment method"
 msgid "iDEAL"
 msgstr "iDEAL"
 
-#: modules/ppcp-wc-gateway/services.php:277
+#: modules/ppcp-wc-gateway/services.php:279
 msgctxt "Name of payment method"
 msgid "eps"
 msgstr "eps"
 
-#: modules/ppcp-wc-gateway/services.php:277
+#: modules/ppcp-wc-gateway/services.php:279
 msgctxt "Name of payment method"
 msgid "Bancontact"
 msgstr "Bancontact"
 
-#: modules/ppcp-wc-gateway/services.php:277
+#: modules/ppcp-wc-gateway/services.php:279
 msgctxt "Name of payment method"
 msgid "SEPA-Lastschrift"
 msgstr "SEPA-Lastschrift"
 
-#: modules/ppcp-wc-gateway/services.php:277
+#: modules/ppcp-wc-gateway/services.php:279
 msgctxt "Name of payment method"
 msgid "Credit or debit cards"
 msgstr "Кредитне или дебитне картице"
 
-#: modules/ppcp-settings/src/SettingsModule.php:408
+#: modules/ppcp-applepay/src/ApplePayGateway.php:104
+#: modules/ppcp-googlepay/src/GooglePayGateway.php:103
+#: modules/ppcp-local-alternative-payment-methods/src/BancontactGateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/BlikGateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/EPSGateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/IDealGateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/MultibancoGateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/MyBankGateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/OXXOGateway.php:43
+#: modules/ppcp-local-alternative-payment-methods/src/P24Gateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceGateway.php:70
+#: modules/ppcp-local-alternative-payment-methods/src/PWCGateway.php:88
+#: modules/ppcp-local-alternative-payment-methods/src/TrustlyGateway.php:85
+#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:143
+msgid "This controls the description which the user sees during checkout."
+msgstr "Овиме се контролише опис који корисник види приликом потврде куповине."
+
+#: modules/ppcp-settings/src/SettingsModule.php:407
 msgid "Once enabled, the Credit Card option will show up in the checkout."
 msgstr "Када се укључи, могућност кредитне картице појавиће се при плаћању."
 
@@ -2795,29 +2856,12 @@ msgstr "Када се укључи, могућност кредитне карт
 #: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceGateway.php:70
 #: modules/ppcp-local-alternative-payment-methods/src/PWCGateway.php:88
 #: modules/ppcp-local-alternative-payment-methods/src/TrustlyGateway.php:85
-#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:144
-msgid "This controls the description which the user sees during checkout."
-msgstr "Овиме се контролише опис који корисник види приликом потврде куповине."
-
-#: modules/ppcp-applepay/src/ApplePayGateway.php:104
-#: modules/ppcp-googlepay/src/GooglePayGateway.php:103
-#: modules/ppcp-local-alternative-payment-methods/src/BancontactGateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/BlikGateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/EPSGateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/IDealGateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/MultibancoGateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/MyBankGateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/OXXOGateway.php:43
-#: modules/ppcp-local-alternative-payment-methods/src/P24Gateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceGateway.php:70
-#: modules/ppcp-local-alternative-payment-methods/src/PWCGateway.php:88
-#: modules/ppcp-local-alternative-payment-methods/src/TrustlyGateway.php:85
-#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:144
+#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:143
 msgid "Description"
 msgstr "Опис"
 
 #: modules/ppcp-applepay/src/ApplePayGateway.php:104
-#: modules/ppcp-axo/src/Gateway/AxoGateway.php:161
+#: modules/ppcp-axo/src/Gateway/AxoGateway.php:186
 #: modules/ppcp-googlepay/src/GooglePayGateway.php:103
 #: modules/ppcp-local-alternative-payment-methods/src/BancontactGateway.php:85
 #: modules/ppcp-local-alternative-payment-methods/src/BlikGateway.php:85
@@ -2830,53 +2874,40 @@ msgstr "Опис"
 #: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceGateway.php:70
 #: modules/ppcp-local-alternative-payment-methods/src/PWCGateway.php:88
 #: modules/ppcp-local-alternative-payment-methods/src/TrustlyGateway.php:85
-#: modules/ppcp-settings/src/SettingsModule.php:408
-#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:144
-#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:290
+#: modules/ppcp-settings/src/SettingsModule.php:407
+#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:143
+#: modules/ppcp-wc-gateway/src/Gateway/PayPalGateway.php:289
 msgid "Enable/Disable"
 msgstr "Укључи/искључи"
 
 #. Author of the plugin
 #: woocommerce-paypal-payments.php
-#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:141
-#: modules/ppcp-settings/src/SettingsModule.php:776
+#: modules/ppcp-settings/src/Data/Definition/PaymentMethodsDefinition.php:149
+#: modules/ppcp-settings/src/SettingsModule.php:767
 #: modules/ppcp-wc-gateway/src/Settings/Settings.php:151
 #: assets/ppcp-settings-js-index.js:1
 msgid "PayPal"
 msgstr "PayPal"
 
-#: modules/ppcp-applepay/src/ApplePayGateway.php:104
-#: modules/ppcp-googlepay/src/GooglePayGateway.php:103
-#: modules/ppcp-local-alternative-payment-methods/src/BancontactGateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/BlikGateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/EPSGateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/IDealGateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/MultibancoGateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/MyBankGateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/OXXOGateway.php:43
-#: modules/ppcp-local-alternative-payment-methods/src/P24Gateway.php:85
-#: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceGateway.php:70
-#: modules/ppcp-local-alternative-payment-methods/src/PWCGateway.php:88
-#: modules/ppcp-local-alternative-payment-methods/src/TrustlyGateway.php:85
-#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:144
-msgid "This controls the title which the user sees during checkout."
-msgstr "Овиме се контролише наслов који корисник види приликом потврде куповине."
-
 #: modules/ppcp-order-endpoints/src/Endpoint/CreateOrderEndpoint.php:248
 msgid "Order not found"
 msgstr "Поруџбина није пронађена"
 
-#: modules/ppcp-button/src/Assets/SmartButton.php:751
-#: modules/ppcp-order-endpoints/src/Endpoint/CreateOrderEndpoint.php:520
+#: modules/ppcp-button/src/Assets/SmartButton.php:752
+#: modules/ppcp-order-endpoints/src/Endpoint/CreateOrderEndpoint.php:521
 msgid "Please read and accept the terms and conditions to proceed with your order."
 msgstr "Прочитајте и прихватите услове коришћења да бисте наставили са поруџбином."
 
 #: modules/ppcp-wc-gateway/src/Notice/AuthorizeOrderActionNotice.php:49
 #: modules/ppcp-wc-gateway/src/Processor/AuthorizedPaymentsProcessor.php:174
 #: modules/ppcp-wc-gateway/src/Processor/AuthorizedPaymentsProcessor.php:191
-#: modules/ppcp-webhooks/src/Handler/PaymentCaptureCompleted.php:102
+#: modules/ppcp-webhooks/src/Handler/PaymentCaptureCompleted.php:98
 msgid "Payment successfully captured."
 msgstr "Плаћање је успешно наплаћено."
+
+#: modules/ppcp-order-endpoints/src/Endpoint/ApproveOrderEndpoint.php:244
+msgid "Unfortunately, we can't accept your card. Please choose a different payment method."
+msgstr "Нажалост, не можемо да прихватимо вашу картицу. Изаберите други начин плаћања."
 
 #: modules/ppcp-applepay/src/ApplePayGateway.php:104
 #: modules/ppcp-googlepay/src/GooglePayGateway.php:103
@@ -2891,19 +2922,32 @@ msgstr "Плаћање је успешно наплаћено."
 #: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceGateway.php:70
 #: modules/ppcp-local-alternative-payment-methods/src/PWCGateway.php:88
 #: modules/ppcp-local-alternative-payment-methods/src/TrustlyGateway.php:85
-#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:144
+#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:143
+msgid "This controls the title which the user sees during checkout."
+msgstr "Овиме се контролише наслов који корисник види приликом потврде куповине."
+
+#: modules/ppcp-applepay/src/ApplePayGateway.php:104
+#: modules/ppcp-googlepay/src/GooglePayGateway.php:103
+#: modules/ppcp-local-alternative-payment-methods/src/BancontactGateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/BlikGateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/EPSGateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/IDealGateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/MultibancoGateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/MyBankGateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/OXXOGateway.php:43
+#: modules/ppcp-local-alternative-payment-methods/src/P24Gateway.php:85
+#: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceGateway.php:70
+#: modules/ppcp-local-alternative-payment-methods/src/PWCGateway.php:88
+#: modules/ppcp-local-alternative-payment-methods/src/TrustlyGateway.php:85
+#: modules/ppcp-wc-gateway/src/Gateway/CardButtonGateway.php:143
 msgid "Title"
 msgstr "Наслов"
 
-#: modules/ppcp-order-endpoints/src/Endpoint/ApproveOrderEndpoint.php:290
-msgid "Unfortunately, we can't accept your card. Please choose a different payment method."
-msgstr "Нажалост, не можемо да прихватимо вашу картицу. Изаберите други начин плаћања."
-
-#: modules/ppcp-order-endpoints/src/Endpoint/ApproveOrderEndpoint.php:184
+#: modules/ppcp-order-endpoints/src/Endpoint/ApproveOrderEndpoint.php:141
 msgid "Unfortunately, we do not accept this card."
 msgstr "Нажалост, не прихватамо ову картицу."
 
-#: modules/ppcp-order-endpoints/src/Endpoint/ApproveOrderEndpoint.php:287
+#: modules/ppcp-order-endpoints/src/Endpoint/ApproveOrderEndpoint.php:241
 msgid "Something went wrong. Please try again."
 msgstr "Догодила се грешка. Покушајте поново."
 
@@ -2919,18 +2963,18 @@ msgstr "Нешто није у реду. Радња је прекинута"
 msgid "Necessary fields not defined. Action aborted."
 msgstr "Потребна поља нису дефинисана. Радња је прекинута."
 
-#: modules/ppcp-button/src/Assets/SmartButton.php:745
-#: modules/ppcp-save-payment-methods/src/SavePaymentMethodsModule.php:226
-#: modules/ppcp-sdk-v6/src/Assets/AddPaymentMethodManager.php:98
-#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:946
+#: modules/ppcp-button/src/Assets/SmartButton.php:746
+#: modules/ppcp-save-payment-methods/src/SavePaymentMethodsModule.php:230
+#: modules/ppcp-sdk-v6/src/Assets/AddPaymentMethodManager.php:141
+#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:1111
 msgid "Something went wrong. Please try again or choose another payment source."
 msgstr "Нешто није у реду. Покушајте поново или изаберите други извор плаћања."
 
-#: modules/ppcp-button/src/Assets/SmartButton.php:744
+#: modules/ppcp-button/src/Assets/SmartButton.php:745
 msgid "Unfortunately, we do not support your credit card."
 msgstr "Нажалост, не подржавамо вашу кредитну картицу."
 
-#: modules/ppcp-button/src/Assets/SmartButton.php:623
+#: modules/ppcp-button/src/Assets/SmartButton.php:624
 msgid "Pay for order"
 msgstr "Плати поруџбину"
 
@@ -2941,15 +2985,15 @@ msgstr "Плати поруџбину"
 msgid "CVV"
 msgstr "CVV"
 
-#: modules/ppcp-button/src/Assets/SmartButton.php:744
+#: modules/ppcp-button/src/Assets/SmartButton.php:745
+#: modules/ppcp-sdk-v6/src/Assets/SdkV6Manager.php:1117
 msgid "Unfortunately, your credit card details are not valid."
 msgstr "Нажалост, подаци ваше кредитне картице нису исправни."
 
 #: modules/ppcp-axo/src/Assets/AxoManager.php:133
-#: modules/ppcp-button/src/Assets/SmartButton.php:623
+#: modules/ppcp-button/src/Assets/SmartButton.php:624
 #: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PayUponInvoiceIntegration.php:173
 #: modules/ppcp-local-alternative-payment-methods/src/PayUponInvoice/PUIPaymentMethod.php:48
-#: assets/ppcp-sdk-v6-js-checkout-block.js:7
 msgid "Place order"
 msgstr "Наручите"
 
@@ -2972,11 +3016,11 @@ msgstr "Грешка"
 msgid "Return to your shop."
 msgstr "Вратите се у своју продавницу."
 
-#: modules/ppcp-api-client/src/Endpoint/OrderEndpoint.php:267
+#: modules/ppcp-api-client/src/Endpoint/OrderEndpoint.php:270
 msgid "Could not authorize order."
 msgstr "Није могуће одобрити поруџбину."
 
-#: modules/ppcp-api-client/src/Endpoint/OrderEndpoint.php:224
+#: modules/ppcp-api-client/src/Endpoint/OrderEndpoint.php:227
 msgid "Could not capture order."
 msgstr "Није могуће наплатити поруџбину."
 
@@ -3013,11 +3057,11 @@ msgid "Credentials not found."
 msgstr "Подаци за пријаву нису пронађени."
 
 #: modules/ppcp-applepay/services.php:324
-#: modules/ppcp-wc-gateway/services.php:514
-#: modules/ppcp-wc-gateway/services.php:527
-#: modules/ppcp-wc-gateway/services.php:546 woocommerce-paypal-payments.php:155
+#: modules/ppcp-wc-gateway/services.php:510
+#: modules/ppcp-wc-gateway/services.php:523
+#: modules/ppcp-wc-gateway/services.php:542 woocommerce-paypal-payments.php:151
 #: assets/ppcp-paylater-block-js-paylater-block.js:1
-#: assets/ppcp-settings-js-index.js:18
+#: assets/ppcp-settings-js-index.js:17
 msgid "Settings"
 msgstr "Подешавања"
 

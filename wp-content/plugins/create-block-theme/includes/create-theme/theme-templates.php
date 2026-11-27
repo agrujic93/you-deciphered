@@ -1,7 +1,7 @@
 <?php
 
-require_once( __DIR__ . '/theme-media.php' );
-require_once( __DIR__ . '/theme-patterns.php' );
+require_once __DIR__ . '/theme-media.php';
+require_once __DIR__ . '/theme-patterns.php';
 
 class CBT_Theme_Templates {
 
@@ -49,7 +49,6 @@ class CBT_Theme_Templates {
 			'templates' => $exported_templates,
 			'parts'     => $exported_parts,
 		);
-
 	}
 
 	/**
@@ -60,7 +59,7 @@ class CBT_Theme_Templates {
 	 * @param string $path The path to the templates folder.
 	 * @return object|bool The template if it should be included, or false if it should be excluded.
 	 */
-	static function should_include_template( $template, $export_type, $path ) {
+	public static function should_include_template( $template, $export_type, $path ) {
 		if ( 'theme' === $template->source && 'user' === $export_type ) {
 			return false;
 		}
@@ -337,14 +336,22 @@ class CBT_Theme_Templates {
 		if ( in_array( $block['blockName'], array( 'core/image', 'core/cover' ), true ) ) {
 			// remove id attribute from image and cover blocks
 			if ( isset( $block['attrs']['id'] ) ) {
-				$image_id = $block['attrs']['id'];
+				$image_class = 'wp-image-' . $block['attrs']['id'];
 				unset( $block['attrs']['id'] );
-				// remove wp-image-[id] class from inner content
+				// Remove the matching class token without changing similar text elsewhere.
 				foreach ( $block['innerContent'] as $inner_key => $inner_content ) {
-					if ( is_null( $inner_content ) ) {
+					if ( is_null( $inner_content ) || false === strpos( $inner_content, $image_class ) ) {
 						continue;
 					}
-					$block['innerContent'][ $inner_key ] = str_replace( 'wp-image-' . $image_id, '', $inner_content );
+
+					// Covers with fixed or repeated backgrounds put the class on a div, not an img.
+					$processor = new WP_HTML_Tag_Processor( $inner_content );
+					while ( $processor->next_tag() ) {
+						if ( $processor->has_class( $image_class ) ) {
+							$processor->remove_class( $image_class );
+						}
+					}
+					$block['innerContent'][ $inner_key ] = $processor->__toString();
 				}
 			}
 		}

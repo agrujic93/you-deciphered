@@ -3,7 +3,7 @@
         'name' => 'awesomemotive/wp-mail-logging',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '45c48be14baa89368174b44865ab57e3fb78ef37',
+        'reference' => '921ba555c8b13ce825e77dc8c9ce9943fcab42a6',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'awesomemotive/wp-mail-logging' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '45c48be14baa89368174b44865ab57e3fb78ef37',
+            'reference' => '921ba555c8b13ce825e77dc8c9ce9943fcab42a6',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

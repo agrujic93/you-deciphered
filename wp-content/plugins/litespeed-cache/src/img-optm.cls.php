@@ -29,6 +29,7 @@ class Img_Optm extends Base {
 	const CLOUD_ACTION_CLEAN           = 'clean';
 
 	const TYPE_NEW_REQ           = 'new_req';
+	const TYPE_NEW_REQ_ROW       = 'new_req_row';
 	const TYPE_RESCAN            = 'rescan';
 	const TYPE_DESTROY           = 'destroy';
 	const TYPE_RESET_COUNTER     = 'reset_counter';
@@ -57,6 +58,10 @@ class Img_Optm extends Base {
 	const DB_SET            = 'litespeed-optimize-set';
 
 	const DB_NEED_PULL = 'need_pull';
+
+	// `_summary` keys carrying failed-attachment counts across batch_switch / destroy redirects.
+	const SUMMARY_SWITCH_FAILED  = 'switch_failed';
+	const SUMMARY_DESTROY_FAILED = 'destroy_failed';
 
 	/**
 	 * WordPress upload directory info.
@@ -217,6 +222,17 @@ class Img_Optm extends Base {
 
 			case self::TYPE_NEW_REQ:
 				$this->new_req();
+				break;
+
+			case self::TYPE_NEW_REQ_ROW:
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$id = isset( $_GET['id'] ) && is_string( $_GET['id'] ) ? sanitize_text_field( wp_unslash( $_GET['id'] ) ) : '';
+				$id = ctype_digit( $id ) ? absint( $id ) : 0;
+				if ( $id ) {
+					$this->new_req( $id );
+				} else {
+					Admin_Display::error( __( 'No valid image found in the current request.', 'litespeed-cache' ) );
+				}
 				break;
 
 			case self::TYPE_RESCAN:

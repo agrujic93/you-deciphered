@@ -19,7 +19,8 @@ class Media extends Root {
 
 	const LOG_TAG = '📺';
 
-	const LIB_FILE_IMG_LAZYLOAD = 'assets/js/lazyload.min.js';
+	const LIB_FILE_IMG_LAZYLOAD     = 'assets/js/lazyload.min.js';
+	const DIMENSION_PROBE_MAX_BYTES = 262144;
 
 	const TYPE_BATCH_RESCALE_ORI = 'batch_rescale_ori';
 
@@ -38,9 +39,9 @@ class Media extends Root {
 	private $_wp_upload_dir;
 
 	/**
-	 * List of VPI (viewport images) to preload in <head>.
+	 * List of VPI (viewport images) source descriptors to preload in <head>.
 	 *
-	 * @var array
+	 * @var array<int,array{src:string,srcset:string,sizes:string}>
 	 */
 	private $_vpi_preload_list = [];
 
@@ -149,41 +150,54 @@ class Media extends Root {
 	public function rescale_ori( $metadata, $attachment_id ) {
 		// Test if create and image was resized.
 		if ( $metadata && isset( $metadata['original_image'], $metadata['file'] ) && false !== strpos( $metadata['file'], '-scaled' ) ) {
-			// Get rescaled file name.
-			$path_exploded      = explode( '/', strrev( $metadata['file'] ), 2 );
-			$rescaled_file_name = strrev( $path_exploded[0] );
+			// Use the attachment's own folder (e.g. "2021/04/"), not the current upload month.
+			$subdir = $this->_meta_folder( $metadata['file'] );
 
 			// Create paths for images: resized and original.
-			$base_path     = $this->_wp_upload_dir['basedir'] . $this->_wp_upload_dir['subdir'] . '/';
-			$rescaled_path = $base_path . $rescaled_file_name;
+			$base_path     = trailingslashit( $this->_wp_upload_dir['basedir'] ) . $subdir;
+			$rescaled_path = $base_path . wp_basename( $metadata['file'] );
 			$new_path      = $base_path . $metadata['original_image'];
 
-			// Change array file key.
-			$metadata['file'] = $this->_wp_upload_dir['subdir'] . '/' . $metadata['original_image'];
-			if ( 0 === strpos( $metadata['file'], '/' ) ) {
-				$metadata['file'] = substr( $metadata['file'], 1 );
+			if ( ! file_exists( $new_path ) ) {
+				return $metadata;
 			}
 
-			// Delete array "original_image" key.
-			unset( $metadata['original_image'] );
-
-			if ( file_exists( $rescaled_path ) && file_exists( $new_path ) ) {
+			if ( file_exists( $rescaled_path ) ) {
 				// Move rescaled to original using WP_Filesystem.
 				global $wp_filesystem;
 				if ( ! $wp_filesystem ) {
 					require_once ABSPATH . '/wp-admin/includes/file.php';
 					\WP_Filesystem();
 				}
-				if ( $wp_filesystem ) {
-					$wp_filesystem->move( $rescaled_path, $new_path, true );
+				if ( ! $wp_filesystem || ! $wp_filesystem->move( $rescaled_path, $new_path, true ) ) {
+					return $metadata;
 				}
-
-				// Update meta "_wp_attached_file".
-				update_post_meta( $attachment_id, '_wp_attached_file', $metadata['file'] );
 			}
+			// Otherwise an earlier metadata save of this upload already moved it.
+
+			// Point metadata to the original only once the rescaled file is in its place.
+			$metadata['file'] = $subdir . $metadata['original_image'];
+			unset( $metadata['original_image'] );
+
+			// Update meta "_wp_attached_file".
+			update_post_meta( $attachment_id, '_wp_attached_file', $metadata['file'] );
 		}
 
 		return $metadata;
+	}
+
+	/**
+	 * Get the folder prefix of an attachment from its metadata file path.
+	 *
+	 * @since 7.9.4
+	 *
+	 * @param string $file Metadata file value relative to the uploads folder, e.g. "2024/05/photo.jpg" or "photo.jpg".
+	 * @return string Folder with a trailing slash, or an empty string when the file sits in the uploads root.
+	 */
+	private function _meta_folder( $file ) {
+		$folder = dirname( $file );
+
+		return '.' === $folder ? '' : $folder . '/';
 	}
 
 	/**
@@ -254,27 +268,28 @@ class Media extends Root {
 
 			$attachment_id = $v->ID;
 
-			// Extract subdirectory from metadata file path (e.g. "2024/05/photo-scaled.jpg" → "2024/05").
-			$subdir = pathinfo( $meta_value['file'], PATHINFO_DIRNAME );
+			// Folder prefix from the metadata file path (e.g. "2024/05/photo-scaled.jpg" gives "2024/05/", "photo-scaled.jpg" gives "").
+			$subdir = $this->_meta_folder( $meta_value['file'] );
 
 			// Build relative paths for rename().
-			$scaled_filename = basename( $meta_value['file'] );
-			$scaled_path     = $subdir . '/' . $scaled_filename;
-			$original_path   = $subdir . '/' . $meta_value['original_image'];
+			$scaled_path   = $subdir . wp_basename( $meta_value['file'] );
+			$original_path = $subdir . $meta_value['original_image'];
 
 			// Verify scaled file exists before proceeding
-			// TODO: need to ues isfile func to allow hook from offload plugins
+			// TODO: need to use isfile func to allow hook from offload plugins
 			$basedir = $this->_wp_upload_dir['basedir'] . '/';
 			if ( ! file_exists( $basedir . $scaled_path ) ) {
 				self::debug( 'Skipped: scaled file missing [pid] ' . $attachment_id );
 				continue;
 			}
 
-			// Move scaled file → original file using WP_Filesystem via rename().
-			$this->rename( $scaled_path, $original_path, $attachment_id );
+			// Move scaled file → original file via rename().
+			if ( ! $this->rename( $scaled_path, $original_path, $attachment_id ) ) {
+				continue;
+			}
 
 			// Update metadata: point file to original, remove original_image key.
-			$meta_value['file'] = $subdir . '/' . $meta_value['original_image'];
+			$meta_value['file'] = $original_path;
 			unset( $meta_value['original_image'] );
 
 			wp_update_attachment_metadata( $attachment_id, $meta_value );
@@ -307,7 +322,14 @@ class Media extends Root {
 		// <link rel="preload" as="image" href="xx">
 		if ( $this->_vpi_preload_list ) {
 			foreach ( $this->_vpi_preload_list as $v ) {
-				$content .= '<link rel="preload" fetchpriority="high" as="image" href="' . esc_url( Str::trim_quotes( $v ) ) . '">';
+				$content .= '<link rel="preload" fetchpriority="high" as="image" href="' . esc_url( Str::trim_quotes( $v['src'] ) ) . '"';
+				if ( '' !== $v['srcset'] ) {
+					$content .= ' imagesrcset="' . esc_attr( $v['srcset'] ) . '"';
+					if ( '' !== $v['sizes'] ) {
+						$content .= ' imagesizes="' . esc_attr( $v['sizes'] ) . '"';
+					}
+				}
+				$content .= '>';
 			}
 		}
 		return $content;
@@ -440,25 +462,61 @@ class Media extends Root {
 	 * @param string $short_file_path     Old relative path.
 	 * @param string $short_file_path_new New relative path.
 	 * @param int    $post_id             Post ID.
-	 * @return void
+	 * @return bool
 	 */
 	public function rename( $short_file_path, $short_file_path_new, $post_id ) {
-		$real_file     = $this->_wp_upload_dir['basedir'] . '/' . $short_file_path;
-		$real_file_new = $this->_wp_upload_dir['basedir'] . '/' . $short_file_path_new;
-
-		if ( file_exists( $real_file ) ) {
-			global $wp_filesystem;
-			if ( ! $wp_filesystem ) {
-				require_once ABSPATH . '/wp-admin/includes/file.php';
-				\WP_Filesystem();
-			}
-			if ( $wp_filesystem ) {
-				$wp_filesystem->move( $real_file, $real_file_new, true );
-			}
-			self::debug( 'renamed ' . $real_file . ' to ' . $real_file_new );
+		if ( ! $this->_move_local( $short_file_path, $short_file_path_new ) ) {
+			return false;
 		}
 
 		do_action( 'litespeed_media_rename', $short_file_path, $short_file_path_new, $post_id );
+		return true;
+	}
+
+	/**
+	 * Replace a media file with another one (e.g. restore a backup over an optimized file).
+	 *
+	 * Fires `litespeed_media_del` for the replaced destination and then `litespeed_media_rename`, matching the pre-7.9.2 del+rename event order, but only after the local move succeeded.
+	 *
+	 * @since  7.9.2
+	 * @access public
+	 *
+	 * @param string $short_file_path     Source relative path.
+	 * @param string $short_file_path_new Destination relative path being replaced.
+	 * @param int    $post_id             Post ID.
+	 * @return bool
+	 */
+	public function replace( $short_file_path, $short_file_path_new, $post_id ) {
+		if ( ! $this->_move_local( $short_file_path, $short_file_path_new ) ) {
+			return false;
+		}
+
+		do_action( 'litespeed_media_del', $short_file_path_new, $post_id );
+		do_action( 'litespeed_media_rename', $short_file_path, $short_file_path_new, $post_id );
+		return true;
+	}
+
+	/**
+	 * Move a local media file when it exists.
+	 *
+	 * @since  7.9.2
+	 * @access private
+	 *
+	 * @param string $short_file_path     Source relative path.
+	 * @param string $short_file_path_new Destination relative path.
+	 * @return bool False only when an existing local file could not be moved.
+	 */
+	private function _move_local( $short_file_path, $short_file_path_new ) {
+		$real_file     = $this->_wp_upload_dir['basedir'] . '/' . $short_file_path;
+		$real_file_new = $this->_wp_upload_dir['basedir'] . '/' . $short_file_path_new;
+
+		// Missing local files are left to offload integrations via the action; a failed local move is reported so callers keep their metadata.
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.rename_rename -- Atomic replacement of local image files.
+		if ( is_file( $real_file ) && ! rename( $real_file, $real_file_new ) ) {
+			Admin_Display::error( __( 'Could not move the image file.', 'litespeed-cache' ) );
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -656,6 +714,12 @@ class Media extends Root {
 				esc_html__( 'Restore from backup', 'litespeed-cache' )
 			);
 			echo '</div>';
+		} elseif ( in_array( get_post_mime_type( $post_id ), [ 'image/jpeg', 'image/png', 'image/gif' ], true ) ) {
+			printf(
+				'<div class="row-actions"><span><a href="%1$s">%2$s</a></span></div>',
+				esc_url( Utility::build_url( Router::ACTION_IMG_OPTM, Img_Optm::TYPE_NEW_REQ_ROW, false, null, [ 'id' => $post_id ] ) ),
+				esc_html__( 'Optimize', 'litespeed-cache' )
+			);
 		}
 	}
 
@@ -727,19 +791,19 @@ class Media extends Root {
 			}
 
 			if ( preg_match( '/iPhone OS (\d+)_/i', $ua, $matches ) ) {
-				if ( $matches[1] >= 14 ) {
+				if ( $matches[1] >= ( 'avif' === $this->_sys_format ? 16 : 14 ) ) {
 					return true;
 				}
 			}
 
-			if ( preg_match( '/Macintosh.+Version\/([0-9.]+)/i', $ua, $matches ) ) {
+			if ( 'webp' === $this->_sys_format && preg_match( '/Macintosh.+Version\/([0-9.]+)/i', $ua, $matches ) ) {
 				if ( version_compare( $matches[1], '16.4', '>=' ) ) {
 					return true;
 				}
 			}
 
 			if ( preg_match( '/Firefox\/(\d+)/i', $ua, $matches ) ) {
-				if ( $matches[1] >= 65 ) {
+				if ( $matches[1] >= ( 'avif' === $this->_sys_format ? 93 : 65 ) ) {
 					return true;
 				}
 			}
@@ -801,6 +865,7 @@ class Media extends Root {
 	 * Run lazyload replacement for images in buffer.
 	 *
 	 * @since  1.4
+	 * @since 7.9.2 Remove high fetch priority from images selected for lazy loading.
 	 * @access private
 	 * @return void
 	 */
@@ -821,7 +886,7 @@ class Media extends Root {
 		 */
 		$excludes = $this->conf( Base::O_MEDIA_LAZY_URI_EXC );
 		if ( ! defined( 'LITESPEED_GUEST_OPTM' ) ) {
-			$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+			$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Matching must preserve encoded path characters.
 			$result      = $request_uri ? REST::str_hit_uri( $request_uri, $excludes ) : false;
 			if ( $result ) {
 				self::debug( 'bypass lazyload: hit URI Excludes setting: ' . $result );
@@ -858,12 +923,17 @@ class Media extends Root {
 				$size = $placeholder_list[ $k ];
 				$src  = $src_list[ $k ];
 
-				$html_list[ $k ] = $__placeholder->replace( $v, $src, $size );
+				$v    = Utility::remove_attr( $v, 'fetchpriority', 'high' );
+				$lazy = $__placeholder->replace( $v, $src, $size );
+				// An unchanged tag means src could not be renamed: keep the original markup untouched.
+				if ( $lazy !== $v ) {
+					$html_list[ $k ] = $lazy;
+				}
 			}
 		}
 
 		if ( $cfg_lazy ) {
-			$this->content = str_replace( $html_list_ori, $html_list, $this->content );
+			$this->content = Utility::html_replace( $html_list_ori, $html_list, $this->content );
 		}
 
 		// iframe lazy load.
@@ -872,24 +942,32 @@ class Media extends Root {
 			$html_list_ori = $html_list;
 
 			foreach ( $html_list as $k => $v ) {
-				$snippet = $cfg_trim_noscript ? '' : '<noscript>' . $v . '</noscript>';
-				if ( $cfg_js_delay ) {
-					$v = str_replace( ' src=', ' data-litespeed-src=', $v );
-				} else {
-					$v = str_replace( ' src=', ' data-src=', $v );
+				$snippet     = $cfg_trim_noscript || false !== stripos( $v, '</noscript' ) ? '' : '<noscript>' . $v . '</noscript>';
+				$source_attr = $cfg_js_delay ? 'data-litespeed-src' : 'data-src';
+				$v           = preg_replace_callback( '/\A(<iframe\b' . Utility::HTML_ATTR_PREFIX . ')[' . Utility::HTML_WS . ']+src[' . Utility::HTML_WS . ']*=/i', static function ( $matches ) use ( $source_attr ) {
+					return $matches[1] . ' ' . $source_attr . '=';
+				}, $v, 1, $renamed );
+				// Only a real src rename may receive the about:blank src; otherwise keep the iframe untouched.
+				if ( null === $v || 1 !== $renamed ) {
+					$html_list[ $k ] = $html_list_ori[ $k ];
+					continue;
 				}
-				$v       = str_replace( '<iframe ', '<iframe data-lazyloaded="1" src="about:blank" ', $v );
+				$v       = preg_replace( '/\A<iframe\b/i', '<iframe data-lazyloaded="1" src="about:blank"', $v, 1 );
 				$snippet = $v . $snippet;
 
 				$html_list[ $k ] = $snippet;
 			}
 
-			$this->content = str_replace( $html_list_ori, $html_list, $this->content );
+			// Replace right to left at source offsets; identical iframe text in scripts stays untouched.
+			krsort( $html_list );
+			foreach ( $html_list as $offset => $replacement ) {
+				$this->content = substr_replace( $this->content, $replacement, $offset, strlen( $html_list_ori[ $offset ] ) );
+			}
 		}
 
 		// Include lazyload lib js and init lazyload.
 		if ( $cfg_lazy || $cfg_iframe_lazy ) {
-			$lazy_lib = '<script data-no-optimize="1">window.lazyLoadOptions=Object.assign({},{threshold:' . apply_filters( 'litespeed_lazyload_threshold', 300 ) . '},window.lazyLoadOptions||{});' . File::read( LSCWP_DIR . self::LIB_FILE_IMG_LAZYLOAD ) . '</script>';
+			$lazy_lib = '<script data-no-optimize="1">window.lazyLoadOptions=Object.assign({},{threshold:' . (int) apply_filters( 'litespeed_lazyload_threshold', 300 ) . '},window.lazyLoadOptions||{});' . File::read( LSCWP_DIR . self::LIB_FILE_IMG_LAZYLOAD ) . '</script>';
 			if ( $cfg_js_delay ) {
 				// Load JS delay lib.
 				if ( ! defined( 'LITESPEED_JS_DELAY_LIB_LOADED' ) ) {
@@ -898,12 +976,12 @@ class Media extends Root {
 				}
 			}
 
-			$this->content = str_replace( '</body>', $lazy_lib . '</body>', $this->content );
+			$this->content = Utility::insert_before_last_tag( $this->content, '</body>', $lazy_lib );
 		}
 	}
 
 	/**
-	 * Parse img src for VPI preload only.
+	 * Parse img source and responsive candidates for VPI preload only.
 	 * Note: Didn't reuse the _parse_img() because it contains replacement logic which is not needed for preload.
 	 *
 	 * @since 6.2
@@ -924,62 +1002,75 @@ class Media extends Root {
 			return;
 		}
 
-		$content = preg_replace( [ '#<!--.*-->#sU', '#<noscript([^>]*)>.*</noscript>#isU' ], '', $this->content );
-		if ( ! $content ) {
-			return;
-		}
-
-		$vpi_fp_search  = [];
-		$vpi_fp_replace = [];
-		preg_match_all('#<img\s+([^>]+)/?>#isU', $content, $matches, PREG_SET_ORDER);
-		foreach ($matches as $match) {
-			$attrs = Utility::parse_attr($match[1]);
+		// Walk real img tokens only; identical text in comments, scripts or another tag's attribute value is never a token.
+		$result = Utility::html_tokens( $this->content, function ( $token ) use ( $vpi_files ) {
+			if ( empty( $token['tag'] ) || empty( $token['end'] ) || ! empty( $token['opaque'] ) || 'img' !== strtolower( $token['tag'] ) || ! preg_match( '//u', $token['attrs'] ) ) {
+				return $token[0];
+			}
+			$attrs = Utility::parse_attr( $token['attrs'] );
 
 			if ( empty( $attrs['src'] ) ) {
-				continue;
+				return $token[0];
 			}
 
 			if ( false !== strpos( $attrs['src'], 'base64' ) || 0 === strpos( $attrs['src'], 'data:' ) ) {
 				self::debug2( 'lazyload bypassed base64 img' );
-				continue;
+				return $token[0];
 			}
 
 			if ( false !== strpos( $attrs['src'], '{' ) ) {
 				self::debug2( 'image src has {} ' . $attrs['src'] );
-				continue;
+				return $token[0];
 			}
 
 			// If the src contains VPI filename, then preload it.
 			if ( ! Utility::str_hit_array( $attrs['src'], $vpi_files ) ) {
-				continue;
+				return $token[0];
 			}
 
 			self::debug2( 'VPI preload found and matched: ' . $attrs['src'] );
 
-			$this->_vpi_preload_list[] = $attrs['src'];
-
-			// Add attributes fetchpriority="high" and decode="sync"
-			// after WP 6.3.0 use: wp_img_tag_add_loading_optimization_attrs().
-			$new_html                 = [];
-			$attrs[ 'fetchpriority' ] = 'high';
-			$attrs[ 'decoding' ]      = 'sync';
-			// create html with new attributes.
-			foreach ( $attrs as $k => $attr ) {
-				$new_html[] = $k . '="' . $attr . '"';
+			$preload = [
+				'src'    => $attrs['src'],
+				'srcset' => isset( $attrs['srcset'] ) ? $attrs['srcset'] : '',
+				'sizes'  => isset( $attrs['sizes'] ) ? $attrs['sizes'] : '',
+			];
+			if ( ! in_array( $preload, $this->_vpi_preload_list, true ) ) {
+				$this->_vpi_preload_list[] = $preload;
 			}
 
-			if ( $new_html ) {
-				$vpi_fp_search[]  = $match[1];
-				$vpi_fp_replace[] = implode( ' ', $new_html);
+			// Add fetchpriority="high" and decoding="sync" in front of the original attribute bytes; the tag is never rebuilt from parsed values.
+			$kept = Utility::remove_attr( Utility::remove_attr( $token['attrs'], 'fetchpriority' ), 'decoding' );
+			if ( '' !== $kept && false === strpos( "\t\n\f\r /", $kept[0] ) ) {
+				return $token[0];
+			}
+
+			return '<' . $token['tag'] . ' fetchpriority="high" decoding="sync"' . $kept . '>';
+		} );
+		if ( null !== $result ) {
+			$this->content = $result;
+		}
+	}
+
+	/**
+	 * Mask excluded parent blocks without shifting source offsets.
+	 *
+	 * @param string $tag     Resource element to retain.
+	 * @param array  $classes Excluded parent classes.
+	 * @return string|null Masked content, or null on a PCRE failure.
+	 */
+	private function _mask_lazyload_parents( $tag, $classes ) {
+		$content = $this->content;
+		foreach ( $classes as $class ) {
+			$content = preg_replace_callback( '#<(\w+) [^>]*class=(\'|")[^\'"]*' . preg_quote( $class, '#' ) . '[^\'"]*\2[^>]*>.*</\1>#sU', static function ( $fragment ) {
+				return str_repeat( ' ', strlen( $fragment[0] ) );
+			}, $content );
+			if ( null === $content ) {
+				return null;
 			}
 		}
-
-		// if VPI fetchpriority changes, do the replacement
-		if ( $vpi_fp_search && $vpi_fp_replace ) {
-			$this->content = str_replace( $vpi_fp_search, $vpi_fp_replace, $this->content );
-		}
-		unset( $vpi_fp_search );
-		unset( $vpi_fp_replace );
+		// Callers also check original eligibility: masking must not expose inert text.
+		return Utility::html_mask( $content, [ $tag ] );
 	}
 
 	/**
@@ -1005,15 +1096,11 @@ class Media extends Root {
 		$html_list        = [];
 		$placeholder_list = [];
 
-		$content = preg_replace(
-			[
-				'#<!--.*-->#sU',
-				'#<noscript([^>]*)>.*</noscript>#isU',
-				'#<script([^>]*)>.*</script>#isU', // Remove script to avoid false matches and warnings, when image size detection is turned ON.
-			],
-			'',
-			$this->content
-		);
+		$eligible_content = Utility::html_mask( $this->content, [ 'img' ] );
+		if ( null === $eligible_content ) {
+			return [ $src_list, $html_list, $placeholder_list ];
+		}
+		$content = $eligible_content;
 		/**
 		 * Exclude parent classes.
 		 *
@@ -1022,16 +1109,23 @@ class Media extends Root {
 		$parent_cls_exc = apply_filters( 'litespeed_media_lazy_img_parent_cls_excludes', $this->conf( Base::O_MEDIA_LAZY_PARENT_CLS_EXC ) );
 		if ( $parent_cls_exc ) {
 			self::debug2( 'Lazyload Class excludes', $parent_cls_exc );
-			foreach ( $parent_cls_exc as $v ) {
-				$content = preg_replace('#<(\w+) [^>]*class=(\'|")[^\'"]*' . preg_quote($v, '#') . '[^\'"]*\2[^>]*>.*</\1>#sU', '', $content);
-			}
+			$content = $this->_mask_lazyload_parents( 'img', $parent_cls_exc );
+		}
+		if ( null === $content ) {
+			return [ $src_list, $html_list, $placeholder_list ];
 		}
 
 		$add_missing_sizes = ( defined( 'LITESPEED_GUEST_OPTM' ) || $this->conf( Base::O_MEDIA_ADD_MISSING_SIZES ) )
 			&& apply_filters( 'litespeed_media_add_missing_sizes', true );
+		$replacements      = [];
 
-		preg_match_all( '#<img\s+([^>]+)/?>#isU', $content, $matches, PREG_SET_ORDER );
-		foreach ( $matches as $match ) {
+		preg_match_all( '#<img[' . Utility::HTML_WS . ']+(' . Utility::HTML_ATTR_PATTERN . ')>#is', $content, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE );
+		foreach ( $matches as $source_match ) {
+			$match = [ $source_match[0][0], $source_match[1][0] ];
+			// Exclusion masks may hide tokens, but must never expose previously inert text.
+			if ( substr( $eligible_content, $source_match[0][1], strlen( $match[0] ) ) !== $match[0] ) {
+				continue;
+			}
 			$attrs = Utility::parse_attr( $match[1] );
 
 			if ( empty( $attrs['src'] ) ) {
@@ -1109,14 +1203,19 @@ class Media extends Root {
 						}
 
 						// Remove existing width/height, then append new values
-						$inner    = Utility::remove_attr( $match[1], 'width' );
-						$inner    = Utility::remove_attr( $inner, 'height' );
-						$new_html = '<img ' . $inner . ' width="' . (int) $ori_width . '" height="' . (int) $ori_height . '" />';
-						self::debug( 'Add missing sizes ' . $ori_width . 'x' . $ori_height . ' to ' . $attrs['src'] );
-						$this->content   = str_replace( $match[0], $new_html, $this->content );
-						$match[0]        = $new_html;
-						$attrs['width']  = $ori_width;
-						$attrs['height'] = $ori_height;
+						$inner = Utility::html_self_closing( $match[1] ) ? substr( $match[1], 0, -1 ) : $match[1];
+						$inner = Utility::remove_attr( $inner, 'width' );
+						$inner = Utility::remove_attr( $inner, 'height' );
+						$inner = rtrim( $inner, " \t\n\r\f" );
+						// A trailing `name=` would take the appended attributes as its value, so such a tag keeps its own markup.
+						if ( '=' !== substr( $inner, -1 ) ) {
+							$new_html = '<img ' . $inner . ' width="' . (int) $ori_width . '" height="' . (int) $ori_height . '" />';
+							self::debug( 'Add missing sizes ' . $ori_width . 'x' . $ori_height . ' to ' . $attrs['src'] );
+							$replacements[ $match[0] ] = $new_html;
+							$match[0]                  = $new_html;
+							$attrs['width']            = $ori_width;
+							$attrs['height']           = $ori_height;
+						}
 					}
 				}
 			}
@@ -1131,6 +1230,9 @@ class Media extends Root {
 			$placeholder_list[] = $placeholder;
 		}
 
+		if ( $replacements ) {
+			$this->content = Utility::html_replace( array_keys( $replacements ), array_values( $replacements ), $this->content );
+		}
 		return [ $src_list, $html_list, $placeholder_list ];
 	}
 
@@ -1146,7 +1248,9 @@ class Media extends Root {
 		$pathinfo = Utility::is_internal_file( $src );
 		if ( $pathinfo ) {
 			$src = $pathinfo[0];
-		} elseif ( apply_filters( 'litespeed_media_ignore_remote_missing_sizes', false ) ) {
+		} elseif ( apply_filters( 'litespeed_media_ignore_remote_missing_sizes', true ) ) {
+			// Remote measuring fetches URLs taken from page content (SSRF), so it is opt-in.
+			self::debug2( 'Skipped remote image dimension check for ' . $src );
 			return false;
 		}
 
@@ -1155,7 +1259,17 @@ class Media extends Root {
 		}
 
 		try {
-			$sizes = getimagesize( $src );
+			if ( $pathinfo ) {
+				$sizes = getimagesize( $src );
+			} else {
+				// A bounded prefix is enough for image headers; it need not contain the full image.
+				$response = wp_safe_remote_get( $src, [ 'timeout' => 10, 'limit_response_size' => self::DIMENSION_PROBE_MAX_BYTES ] );
+				$body     = wp_remote_retrieve_body( $response );
+				if ( 200 !== wp_remote_retrieve_response_code( $response ) || '' === $body ) {
+					return false;
+				}
+				$sizes = @getimagesizefromstring( $body ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- A remote response may not be an image.
+			}
 		} catch ( \Exception $e ) {
 			return false;
 		}
@@ -1172,7 +1286,7 @@ class Media extends Root {
 	 *
 	 * @since  1.4
 	 * @access private
-	 * @return array All the related raw html list (full <iframe> tags).
+	 * @return array Full iframe tags keyed by their original byte offsets.
 	 */
 	private function _parse_iframe() {
 		$cls_excludes   = apply_filters( 'litespeed_media_iframe_lazy_cls_excludes', $this->conf( Base::O_MEDIA_IFRAME_LAZY_CLS_EXC ) );
@@ -1180,7 +1294,11 @@ class Media extends Root {
 
 		$html_list = [];
 
-		$content = preg_replace( '#<!--.*-->#sU', '', $this->content );
+		$eligible_content = Utility::html_mask( $this->content, [ 'iframe' ] );
+		if ( null === $eligible_content ) {
+			return $html_list;
+		}
+		$content = $eligible_content;
 
 		/**
 		 * Exclude parent classes.
@@ -1190,13 +1308,31 @@ class Media extends Root {
 		$parent_cls_exc = apply_filters( 'litespeed_media_iframe_lazy_parent_cls_excludes', $this->conf( Base::O_MEDIA_IFRAME_LAZY_PARENT_CLS_EXC ) );
 		if ( $parent_cls_exc ) {
 			self::debug2( 'Iframe Lazyload Class excludes', $parent_cls_exc );
-			foreach ( $parent_cls_exc as $v ) {
-				$content = preg_replace('#<(\w+) [^>]*class=(\'|")[^\'"]*' . preg_quote($v, '#') . '[^\'"]*\2[^>]*>.*</\1>#sU', '', $content);
-			}
+			$content = $this->_mask_lazyload_parents( 'iframe', $parent_cls_exc );
 		}
-
-		preg_match_all( '#<iframe \s*([^>]+)></iframe>#isU', $content, $matches, PREG_SET_ORDER );
-		foreach ( $matches as $match ) {
+		if ( null === $content ) {
+			return $html_list;
+		}
+		// Offsets and lengths of complete iframe elements; a match that is not exactly one of them started inside another token or ran past its end tag.
+		$iframe_tokens = [];
+		Utility::html_tokens( $this->content, static function ( $token ) use ( &$iframe_tokens ) {
+			if ( ! empty( $token['raw'] ) && empty( $token['opaque'] ) && ! empty( $token['close'] ) && 'iframe' === strtolower( $token['raw'] ) ) {
+				$iframe_tokens[ $token['offset'] ] = strlen( $token[0] );
+			}
+			return $token[0];
+		} );
+		preg_match_all( '#<iframe[' . Utility::HTML_WS . ']+(?P<attrs>' . Utility::HTML_ATTR_PATTERN . ')>.*?</iframe[' . Utility::HTML_WS . ']*>#is', $content, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE );
+		foreach ( $matches as $source_match ) {
+			if ( ! isset( $source_match['attrs'] ) || -1 === $source_match['attrs'][1] ) {
+				continue;
+			}
+			$match = [ $source_match[0][0], $source_match['attrs'][0] ];
+			if ( ! isset( $iframe_tokens[ $source_match[0][1] ] ) || strlen( $match[0] ) !== $iframe_tokens[ $source_match[0][1] ] ) {
+				continue;
+			}
+			if ( substr( $eligible_content, $source_match[0][1], strlen( $match[0] ) ) !== $match[0] ) {
+				continue;
+			}
 			$attrs = Utility::parse_attr( $match[1] );
 
 			if ( empty( $attrs['src'] ) ) {
@@ -1221,12 +1357,8 @@ class Media extends Root {
 				continue;
 			}
 
-			// to avoid multiple replacement.
-			if ( in_array( $match[0], $html_list, true ) ) {
-				continue;
-			}
-
-			$html_list[] = $match[0];
+			// The mask locates eligible tags; only original bytes belong in the output.
+			$html_list[ $source_match[0][1] ] = substr( $this->content, $source_match[0][1], strlen( $match[0] ) );
 		}
 
 		return $html_list;
@@ -1290,8 +1422,12 @@ class Media extends Root {
 
 		// parse srcset.
 		// todo: should apply this to cdn too.
-		if ( ( defined( 'LITESPEED_GUEST_OPTM' ) || $this->conf( Base::O_IMG_OPTM_WEBP_REPLACE_SRCSET ) ) && $this->webp_support() ) {
+		$replace_srcset = ( defined( 'LITESPEED_GUEST_OPTM' ) || $this->conf( Base::O_IMG_OPTM_WEBP_REPLACE_SRCSET ) ) && $this->webp_support();
+		if ( $replace_srcset ) {
 			$content = Utility::srcset_replace( $content, [ $this, 'replace_webp' ] );
+		}
+		if ( false !== strpos( $content, 'woocommerce-product-gallery__image' ) ) {
+			$content = $this->_replace_gallery_images( $content, $replace_srcset );
 		}
 
 		// Replace background-image.
@@ -1300,6 +1436,67 @@ class Media extends Root {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Replace image URLs in WooCommerce product gallery slides.
+	 *
+	 * @param string $content        HTML buffer.
+	 * @param bool   $replace_srcset Whether to replace responsive candidates.
+	 * @return string Modified content.
+	 */
+	private function _replace_gallery_images( $content, $replace_srcset ) {
+		$slide_tag   = '';
+		$slide_depth = 0;
+		$result      = Utility::html_tokens( $content, function ( $token ) use ( &$slide_tag, &$slide_depth, $replace_srcset ) {
+			$html = $token[0];
+			if ( $slide_depth && preg_match( '~\A</' . $slide_tag . '(?=[\s/>])~i', $html ) ) {
+				--$slide_depth;
+			}
+
+			$tag        = isset( $token['tag'] ) ? strtolower( $token['tag'] ) : '';
+			$attributes = [];
+			if ( 'div' === $tag || 'figure' === $tag ) {
+				$attrs   = false !== strpos( $token['attrs'], 'woocommerce-product-gallery__image' ) ? Utility::parse_attr( $token['attrs'] ) : [];
+				$classes = isset( $attrs['class'] ) ? preg_split( '/[\x09\x0a\x0c\x0d ]+/', $attrs['class'] ) : [];
+				if ( in_array( 'woocommerce-product-gallery__image', $classes, true ) ) {
+					if ( ! $slide_depth ) {
+						$slide_tag = $tag;
+					}
+					$attributes = [ 'data-thumb' ];
+					if ( $replace_srcset ) {
+						$html = Utility::srcset_replace( $html, [ $this, 'replace_webp' ], 'data-thumb-srcset' );
+					}
+				}
+				if ( $tag === $slide_tag && ( $slide_depth || $attributes ) ) {
+					++$slide_depth;
+				}
+			} elseif ( 1 === $slide_depth && 'a' === $tag ) {
+				$attributes = [ 'href' ];
+			} elseif ( 1 === $slide_depth && 'img' === $tag ) {
+				$attributes = [ 'src', 'data-src', 'data-large_image' ];
+			}
+
+			foreach ( $attributes as $attribute ) {
+				$pattern = '~\A(<[a-z]+' . Utility::HTML_ATTR_PREFIX . '\s+' . $attribute . '\s*=\s*)([\'"])(.*?)\2~is';
+				$updated = preg_replace_callback( $pattern, function ( $matches ) {
+					$url = $this->replace_webp( $matches[3] );
+					return $url ? $matches[1] . $matches[2] . $url . $matches[2] : $matches[0];
+				}, $html );
+				if ( null === $updated ) {
+					self::debug2( 'WooCommerce gallery attribute match failed: ' . $attribute . ' [PCRE ' . preg_last_error() . ']' );
+					continue;
+				}
+				$html = $updated;
+			}
+			return $html;
+		} );
+
+		if ( null === $result ) {
+			self::debug2( 'WooCommerce gallery HTML tokenization failed [PCRE ' . preg_last_error() . ']' );
+			return $content;
+		}
+		return $result;
 	}
 
 	/**
@@ -1356,53 +1553,65 @@ class Media extends Root {
 	 * @return string Modified content with replaced URLs inside JSON attributes.
 	 */
 	public function replace_urls_in_json( $content ) {
-		$pattern      = '/data-settings="(.*?)"/i';
-		$parent_class = $this;
-
-		preg_match_all( $pattern, $content, $matches, PREG_SET_ORDER );
-
-		foreach ( $matches as $match ) {
-			// Decode HTML entities in the JSON string.
-			$json_string = html_entity_decode( $match[1] );
-
-			$json_data = \json_decode( $json_string, true );
-
-			if ( JSON_ERROR_NONE === json_last_error() && is_array( $json_data ) ) {
-				$did_webp_replace = false;
-
-				array_walk_recursive(
-					$json_data,
-                    /**
-                     * Replace URLs in JSON data recursively.
-                     *
-                     * @param mixed  $item Value (modified in place).
-                     * @param string $key  Array key.
-                     */
-					function ( &$item, $key ) use ( &$did_webp_replace, $parent_class ) {
-						if ( 'url' === $key ) {
-							$item_image = $parent_class->replace_webp( $item );
-							if ( $item_image ) {
-								$item             = $item_image;
-								$did_webp_replace = true;
-							}
-						}
-					}
-				);
-
-				if ( $did_webp_replace ) {
-					$new_json_string = wp_json_encode( $json_data );
-
-					// Force double_encode; esc_attr() would leave a literal `&quot;` intact and the browser decodes it back into a quote.
-					$new_json_string = htmlspecialchars( $new_json_string, ENT_QUOTES, 'UTF-8', true );
-
-					// Replace the whole attribute, not the bare value, which may also appear in inline JS. Prefix sliced to keep original casing.
-					$attr_prefix = substr( $match[0], 0, strlen( $match[0] ) - strlen( $match[1] ) - 1 );
-					$content     = str_replace( $match[0], $attr_prefix . $new_json_string . '"', $content );
-				}
-			}
+		if ( false === stripos( $content, 'data-settings' ) ) {
+			return $content;
 		}
 
-		return $content;
+		// Only a real double-quoted data-settings attribute of a complete tag is rewritten, in place; the same bytes in text, comments, scripts or another attribute's value stay untouched.
+		$result = Utility::html_tokens( $content, function ( $token ) {
+			if ( empty( $token['tag'] ) || empty( $token['end'] ) || ! empty( $token['opaque'] ) || false === stripos( $token['attrs'], 'data-settings' ) ) {
+				return $token[0];
+			}
+			$attrs = preg_replace_callback( Utility::HTML_ATTR_WALK, function ( $attr ) {
+				if ( empty( $attr[2] ) || 0 !== strcasecmp( $attr[2], 'data-settings' ) || strlen( $attr[4] ) < 2 || '"' !== $attr[4][0] || '"' !== substr( $attr[4], -1 ) ) {
+					return $attr[0];
+				}
+				$value = $this->_replace_json_urls( substr( $attr[4], 1, -1 ) );
+				return null === $value ? $attr[0] : $attr[1] . $attr[2] . $attr[3] . '"' . $value . '"';
+			}, $token['attrs'] );
+
+			return null === $attrs ? $token[0] : '<' . $token['tag'] . $attrs . '>';
+		} );
+
+		return null === $result ? $content : $result;
+	}
+
+	/**
+	 * Replace image URLs inside one JSON attribute value.
+	 *
+	 * @since 7.9.4
+	 *
+	 * @param string $raw Attribute value as it appears in the HTML source.
+	 * @return string|null New attribute value, or null when nothing was replaced.
+	 */
+	private function _replace_json_urls( $raw ) {
+		// Decode to objects so an empty JSON object is not written back as an array.
+		$json_data = \json_decode( html_entity_decode( $raw ) );
+		if ( JSON_ERROR_NONE !== json_last_error() || ( ! is_array( $json_data ) && ! is_object( $json_data ) ) ) {
+			return null;
+		}
+
+		$did_webp_replace = false;
+		$walk             = function ( &$node ) use ( &$walk, &$did_webp_replace ) {
+			foreach ( $node as $key => &$item ) {
+				if ( is_array( $item ) || is_object( $item ) ) {
+					$walk( $item );
+				} elseif ( 'url' === $key && is_string( $item ) ) {
+					$item_image = $this->replace_webp( $item );
+					if ( $item_image ) {
+						$item             = $item_image;
+						$did_webp_replace = true;
+					}
+				}
+			}
+		};
+		$walk( $json_data );
+		if ( ! $did_webp_replace ) {
+			return null;
+		}
+
+		// Force double_encode; esc_attr() would leave a literal `&quot;` intact and the browser decodes it back into a quote.
+		return htmlspecialchars( wp_json_encode( $json_data ), ENT_QUOTES, 'UTF-8', true );
 	}
 
 	/**
@@ -1443,7 +1652,8 @@ class Media extends Root {
 			// check if has webp/avif file.
 			$has_next = apply_filters( 'litespeed_media_check_webp', Utility::is_internal_file( $url, $this->_sys_format ), $url );
 			if ( $has_next ) {
-				$url .= '.' . $this->_sys_format;
+				$end = strcspn( $url, '?#' );
+				$url = substr( $url, 0, $end ) . '.' . $this->_sys_format . substr( $url, $end );
 			} else {
 				self::debug2( '-no WebP or AVIF file, bypassed' );
 				return false;

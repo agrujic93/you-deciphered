@@ -6,7 +6,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires at least: 5.3
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.17.0
+Stable tag: 1.17.1
 
 Log, view, and resend all emails sent from your WordPress site. Great for resolving email sending issues or keeping a copy for auditing.
 
@@ -108,6 +108,10 @@ Yes, you can contribute on <a href="https://github.com/awesomemotive/wp-mail-log
 3. The Settings - part 2
 
 == Changelog ==
+= 1.17.1 - 2026-10-14 =
+Fixed: PHP warning when settings page is first loaded.
+Fixed: Security updates.
+
 = 1.17.0 - 2026-09-14 =
 Fixed: Security updates.
 Added: Remote images blocked by default; use "Load images" per entry or enable "Always Load Remote Images".

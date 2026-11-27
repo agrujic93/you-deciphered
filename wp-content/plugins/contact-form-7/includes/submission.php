@@ -1,5 +1,7 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 /**
  * Class representing contact form submission.
  */
@@ -9,7 +11,7 @@ class WPCF7_Submission {
 
 	private static $instance;
 
-	private $contact_form;
+	private readonly WPCF7_ContactForm $contact_form;
 	private $status = 'init';
 	private $posted_data = array();
 	private $posted_data_hash = null;
@@ -417,7 +419,7 @@ class WPCF7_Submission {
 	private function sanitize_posted_data( $value ) {
 		return map_deep( $value, static function ( $val ) {
 			$val = (string) $val;
-			$val = wp_check_invalid_utf8( $val );
+			$val = wp_scrub_utf8( $val );
 			$val = wp_kses_no_null( $val );
 			$val = wpcf7_strip_whitespaces( $val );
 			return $val;
@@ -532,20 +534,19 @@ class WPCF7_Submission {
 	 * Retrieves the request URL of this submission.
 	 */
 	private function get_request_url() {
-		$home_url = untrailingslashit( home_url() );
+		$request_url = path_join(
+			preg_replace( '%(?<!:|/)/.*$%', '', home_url() ),
+			ltrim( wpcf7_get_request_uri(), '/' )
+		);
 
 		if ( self::is_restful() ) {
-			$referer = wpcf7_superglobal_server( 'HTTP_REFERER' );
-
-			if ( $referer and str_starts_with( $referer, $home_url ) ) {
-				return sanitize_url( $referer );
-			}
+			return wp_validate_redirect(
+				wpcf7_superglobal_server( 'HTTP_REFERER' ),
+				$request_url
+			);
 		}
 
-		$url = preg_replace( '%(?<!:|/)/.*$%', '', $home_url )
-			. wpcf7_get_request_uri();
-
-		return $url;
+		return $request_url;
 	}
 
 
@@ -564,7 +565,7 @@ class WPCF7_Submission {
 		$this->contact_form->validate_schema(
 			array(
 				'text' => true,
-				'file' => false,
+				'file' => true,
 				'field' => array(),
 			),
 			$result
@@ -831,34 +832,39 @@ class WPCF7_Submission {
 		) );
 
 		foreach ( $tags as $tag ) {
-			if ( empty( $_FILES[$tag->name] ) ) {
+			if (
+				! $result->is_valid( $tag->name ) or
+				empty( $_FILES[$tag->name] )
+			) {
 				continue;
 			}
 
-			$file = $_FILES[$tag->name];
+			$uploaded_files = array();
 
-			$options = array(
-				'tag' => $tag,
-				'name' => $tag->name,
-				'required' => $tag->is_required(),
-				'filetypes' => $tag->get_option( 'filetypes' ),
-				'limit' => $tag->get_limit_option(),
-				'schema' => $this->contact_form->get_schema(),
+			$all_unshipped = wpcf7_unship_uploaded_file(
+				$_FILES[$tag->name],
+				array(
+					'tag' => $tag,
+					'name' => $tag->name,
+					'required' => $tag->is_required(),
+					'filetypes' => $tag->get_option( 'filetypes' ),
+					'limit' => $tag->get_limit_option(),
+				),
+				$uploaded_files
 			);
 
-			$new_files = wpcf7_unship_uploaded_file( $file, $options );
-
-			if ( is_wp_error( $new_files ) ) {
-				$result->invalidate( $tag, $new_files );
-			} else {
-				$this->add_uploaded_file( $tag->name, $new_files );
+			if ( $uploaded_files ) {
+				$this->add_uploaded_file( $tag->name, $uploaded_files );
 			}
 
-			$result = apply_filters(
-				"wpcf7_validate_{$tag->type}",
-				$result, $tag,
+			if ( is_wp_error( $all_unshipped ) ) {
+				$result->invalidate( $tag, $all_unshipped );
+			}
+
+			$result = apply_filters( "wpcf7_validate_{$tag->type}", $result,
+				$tag,
 				array(
-					'uploaded_files' => $new_files,
+					'uploaded_files' => $uploaded_files,
 				)
 			);
 		}

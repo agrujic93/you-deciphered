@@ -31,7 +31,7 @@ class Base extends Root {
 	const _VER           = '_version'; // Not set-able
 	const HASH           = 'hash'; // Not set-able
 	const O_AUTO_UPGRADE = 'auto_upgrade';
-	const O_API_KEY      = 'api_key'; // Deprecated since v6.4. TODO: Will drop after v8 (still need to keep for v7 upgrade conf usage as v6.5.4 has a major user base)
+	const O_API_KEY      = 'api_key'; // Deprecated since v6.4; retained until after v8 to protect stored legacy values, no longer used for cloud authentication.
 	const O_SERVER_IP    = 'server_ip';
 	const O_GUEST        = 'guest';
 	const O_GUEST_OPTM   = 'guest_optm';
@@ -156,7 +156,6 @@ class Base extends Root {
 	const O_OPTM_CCSS_SEP_POSTTYPE       = 'optm-ccss_sep_posttype';
 	const O_OPTM_CCSS_SEP_URI            = 'optm-ccss_sep_uri';
 	const O_OPTM_CCSS_SELECTOR_WHITELIST = 'optm-ccss_whitelist';
-	const O_OPTM_CSS_ASYNC_INLINE        = 'optm-css_async_inline';
 	const O_OPTM_CSS_FONT_DISPLAY        = 'optm-css_font_display';
 	const O_OPTM_JS_DEFER                = 'optm-js_defer';
 	const O_OPTM_LOCALIZE                = 'optm-localize';
@@ -329,6 +328,9 @@ class Base extends Root {
 	 * @var string[]
 	 */
 	protected static $single_site_options = [
+		self::HASH,
+		self::O_CACHE_EXC_CAT,
+		self::O_CACHE_EXC_TAG,
 		self::O_CRAWLER,
 		self::O_CRAWLER_SITEMAP,
 		self::O_CDN,
@@ -462,7 +464,6 @@ class Base extends Root {
 		self::O_OPTM_CCSS_SEP_POSTTYPE => [],
 		self::O_OPTM_CCSS_SEP_URI => [],
 		self::O_OPTM_CCSS_SELECTOR_WHITELIST => [],
-		self::O_OPTM_CSS_ASYNC_INLINE => false,
 		self::O_OPTM_CSS_FONT_DISPLAY => false,
 		self::O_OPTM_JS_DEFER => false,
 		self::O_OPTM_EMOJI_RM => false,
@@ -663,8 +664,8 @@ class Base extends Root {
 			return self::get_option( $id, $default_v );
 		}
 
-		// Preload all options for this blog if not cached.
-		if ( ! isset( self::$_blog_options_cache[ $blog_id ] ) ) {
+		// Reload if a third-party option was registered after this blog's preload.
+		if ( ! isset( self::$_blog_options_cache[ $blog_id ] ) || ! array_key_exists( $id, self::$_blog_options_cache[ $blog_id ] ) ) {
 			self::_preload_blog_options( $blog_id );
 		}
 
@@ -729,6 +730,19 @@ class Base extends Root {
 			// from textarea input
 			if ( ! is_array( $val ) ) {
 				$val = Utility::sanitize_lines( $val, $this->_conf_filter( $id ) );
+			}
+			if ( self::O_CDN_MAPPING === $id ) {
+				foreach ( $val as &$row ) {
+					if ( ! is_array( $row ) ) {
+						continue;
+					}
+					foreach ( [ self::CDN_MAPPING_INC_IMG, self::CDN_MAPPING_INC_CSS, self::CDN_MAPPING_INC_JS ] as $toggle ) {
+						if ( array_key_exists( $toggle, $row ) ) {
+							$row[ $toggle ] = 'false' === $row[ $toggle ] ? false : (bool) $row[ $toggle ];
+						}
+					}
+				}
+				unset( $row );
 			}
 		} elseif ( ! is_string( $default_v ) ) {
 			$val = (int) $val;
@@ -946,8 +960,9 @@ class Base extends Root {
 			self::O_OPTM_CCSS_SEP_URI => 'uri',
 			// self::O_OPTM_JS_DEFER_EXC    => 'uri',
 			self::O_OPTM_DNS_PREFETCH => 'domain',
+			self::O_OPTM_DNS_PRECONNECT => 'domain',
 			self::O_CDN_ORI => 'noprotocol,trailingslash', // `Original URLs`
-			// self::O_OPTM_LOCALIZE_DOMAINS    => 'noprotocol', // `Localize Resources`
+			self::O_OPTM_LOCALIZE_DOMAINS => 'urlchars',
 			// self::   => '',
 			// self::   => '',
 		];
@@ -1007,6 +1022,17 @@ class Base extends Root {
 		$check_ids = [ self::O_CDN_CLOUDFLARE_KEY, self::O_OBJECT_PSWD ];
 
 		return in_array( $id, $check_ids, true );
+	}
+
+	/**
+	 * If the setting is a credential that must never leave the site in a backup.
+	 *
+	 * @since 7.9.2
+	 * @param string $id Option ID.
+	 * @return bool
+	 */
+	protected function _conf_secret( $id ) {
+		return $this->_conf_pswd( $id ) || in_array( $id, [ self::HASH, self::O_API_KEY, self::O_CDN_CLOUDFLARE_EMAIL, self::O_OBJECT_USER, self::O_CRAWLER_COOKIES ], true );
 	}
 
 	/**
@@ -1095,8 +1121,8 @@ class Base extends Root {
 		$css = apply_filters( 'litespeed_' . $type, $css, $queue_k );
 		// Font optimize
 		$css = $this->cls('Optimizer')->optm_font_face( $css );
-		// Sanitize: CSS must not contain HTML tags
-		$css = File::remove_zero_space( wp_strip_all_tags( $css ) );
+		// Preserve CSS syntax; style-element terminators are escaped at inline sinks.
+		$css = File::remove_zero_space( $css );
 		self::debug2( 'con: ', $css );
 
 		if ( '/*' === substr( $css, 0, 2 ) && '*/' === substr( $css, -2 ) ) {

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Polylang - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-09-28 01:34:14+0000\n"
+"PO-Revision-Date: 2026-10-19 08:52:22+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,217 @@ msgstr ""
 "X-Generator: GlotPress/4.1.0\n"
 "Language: sr_RS\n"
 "Project-Id-Version: Plugins - Polylang - Stable (latest release)\n"
+
+#: src/Switcher/Fields/Widget.php:32 js/build/blocks.js:737
+#: js/build/blocks.js:750
+msgctxt "layout"
+msgid "Horizontal"
+msgstr "Хоризонтални"
+
+#: src/Switcher/Fields/Widget.php:33 js/build/blocks.js:740
+#: js/build/blocks.js:753
+msgctxt "layout"
+msgid "Vertical"
+msgstr "Вертикални"
+
+#: src/Switcher/Fields/Widget.php:35 js/build/blocks.js:746
+msgid "Selector"
+msgstr "Изборник"
+
+#: src/Switcher/Fields/Widget.php:40
+msgid "Alignment"
+msgstr "Поравнање"
+
+#: src/Switcher/Fields/Widget.php:42
+msgctxt "alignment"
+msgid "Left"
+msgstr "Лево"
+
+#: src/Switcher/Fields/Widget.php:43
+msgctxt "alignment"
+msgid "Center"
+msgstr "Средина"
+
+#: src/Switcher/Fields/Widget.php:44
+msgctxt "alignment"
+msgid "Right"
+msgstr "Десно"
+
+#: src/Switcher/Fields/Widget.php:45
+msgctxt "alignment"
+msgid "Stretched"
+msgstr "Развучено"
+
+#. translators: accessibility text
+#: src/Switcher/Layout/Dropdown.php:101
+msgid "Open/Close languages submenu"
+msgstr "Отвори/затвори подизборник језика"
+
+#: src/Switcher/Fields/Menu.php:63 src/Switcher/Fields/Widget.php:79
+#: js/build/blocks.js:941
+msgid "Behavior"
+msgstr "Понашање"
+
+#: src/Switcher/Fields/Menu.php:49 src/Switcher/Fields/Widget.php:64
+#: js/build/blocks.js:882
+msgid "Flags Settings"
+msgstr "Подешавања заставица"
+
+#: src/Switcher/Fields/Menu.php:52 src/Switcher/Fields/Widget.php:67
+#: js/build/blocks.js:897
+msgid "Aspect"
+msgstr "Однос ширине и висине"
+
+#: src/Switcher/Fields/Menu.php:54 src/Switcher/Fields/Widget.php:69
+#: js/build/blocks.js:900
+msgid "Landscape (3:2)"
+msgstr "Пејзаж (3:2)"
+
+#: src/Switcher/Fields/Menu.php:55 src/Switcher/Fields/Widget.php:70
+#: js/build/blocks.js:903
+msgid "Square (1:1)"
+msgstr "Квадрат (1:1)"
+
+#: src/settings/flags.php:143
+msgid "Aosta Valley"
+msgstr "Долина Аосте"
+
+#: src/settings/flags.php:144
+msgid "Lombardy"
+msgstr "Ломбардија"
+
+#: src/settings/flags.php:146
+msgid "Friuli-Venezia Giulia"
+msgstr "Фриули - Венеција Ђулија"
+
+#: src/settings/flags.php:147
+msgid "Liguria"
+msgstr "Лигурија"
+
+#: src/settings/flags.php:227
+msgid "Bashkortostan"
+msgstr "Башкортостан"
+
+#: src/settings/flags.php:228
+msgid "Sakha Republic"
+msgstr "Република Саха"
+
+#: src/settings/flags.php:229
+msgid "North Ossetia–Alania"
+msgstr "Северна Осетија - Аланија"
+
+#: src/settings/flags.php:230
+msgid "Tatarstan"
+msgstr "Татарстан"
+
+#: src/settings/flags.php:272
+msgid "Karakalpakstan"
+msgstr "Каракалпакстан"
+
+#: src/Switcher/Fields/Menu.php:32 src/Switcher/Fields/Widget.php:30
+#: js/build/blocks.js:840 js/build/blocks.js:965
+msgid "Layout"
+msgstr "Распоред"
+
+#: src/Switcher/Fields/Menu.php:34
+msgid "Inline"
+msgstr "У равни"
+
+#: src/Switcher/Fields/Menu.php:37 src/Switcher/Fields/Widget.php:37
+#: js/build/blocks.js:838
+msgid "Display"
+msgstr "Приказ"
+
+#: src/Switcher/Fields/Menu.php:40 src/Switcher/Fields/Widget.php:49
+#: js/build/blocks.js:860 js/build/blocks.js:985
+msgid "Labels"
+msgstr "Labels"
+
+#: src/Switcher/Fields/Menu.php:42 src/Switcher/Fields/Widget.php:51
+#: js/build/blocks.js:805 js/build/blocks.js:822
+msgctxt "Labels"
+msgid "None"
+msgstr "Нема"
+
+#: src/Switcher/Fields/Menu.php:43 src/Switcher/Fields/Widget.php:52
+#: js/build/blocks.js:797 js/build/blocks.js:810
+msgid "Language names"
+msgstr "Називи језика"
+
+#: src/Switcher/Fields/Menu.php:44 src/Switcher/Fields/Widget.php:53
+#: js/build/blocks.js:800 js/build/blocks.js:815
+msgid "Language codes"
+msgstr "Кодови језика"
+
+#: polylang.php:56
+msgid "Polylang hasn't been activated: Polylang and Polylang Pro cannot be activated at the same time."
+msgstr "Polylang није активиран: Polylang и Polylang Pro не могу бити активирани истовремено."
+
+#. translators: %s is a native language name
+#: src/admin/admin-filters-post.php:302
+msgid "Untranslated in %s"
+msgstr "Непреведено у %s"
+
+#: src/admin/admin-filters-post.php:309
+msgid "All translation statuses"
+msgstr "Сви статуси превода"
+
+#: src/admin/admin-filters-post.php:323
+msgid "Filter untranslated items"
+msgstr "Филтрирај непреведене ставке"
+
+#: src/settings/flags.php:28
+msgid "Arabic language"
+msgstr "Арапски језик"
+
+#: src/settings/flags.php:72
+msgid "Curaçao"
+msgstr "Курасао"
+
+#: src/settings/flags.php:87
+msgid "Aragon"
+msgstr "Арагон"
+
+#: src/settings/flags.php:88
+msgid "Asturias"
+msgstr "Астурија"
+
+#: src/settings/flags.php:91
+msgid "Balearic Islands"
+msgstr "Балеарска острва"
+
+#: src/settings/flags.php:93
+msgid "Valencian Community"
+msgstr "Валенсијанска заједница"
+
+#: src/settings/flags.php:101
+msgid "Corsica"
+msgstr "Корзика"
+
+#: src/settings/flags.php:102
+msgid "Brittany"
+msgstr "Бретања"
+
+#: src/settings/flags.php:105
+msgid "Cornwall"
+msgstr "Корнвол"
+
+#: src/settings/flags.php:111
+msgid "Guernsey"
+msgstr "Гернси"
+
+#: src/settings/flags.php:125
+msgid "Hazaragi language"
+msgstr "Хазараги језик"
+
+#: src/settings/flags.php:137
+msgid "Ido language"
+msgstr "Идо језик"
+
+#: src/Switcher/Fields/Menu.php:35 src/Switcher/Fields/Widget.php:34
+#: js/build/blocks.js:743 js/build/blocks.js:756
+msgid "Dropdown"
+msgstr "Падајући избор"
 
 #: src/modules/Blocks/Language_Switcher/Standard/block.json
 msgctxt "block description"
@@ -62,43 +273,42 @@ msgstr "Преведене таксономије"
 msgid "Translated post types"
 msgstr "Преведени типови чланака"
 
-#: src/modules/Blocks/Language_Switcher/Navigation/Block.php:179
-#: js/build/blocks.js:673 js/build/blocks.js:938
+#: src/modules/Blocks/Language_Switcher/Navigation/Block.php:168
 msgid "Language switcher settings"
 msgstr "Подешавање промене језика"
 
 #. translators: %s is a taxonomy name
-#: src/Model/Languages.php:1287
+#: src/Model/Languages.php:1289
 msgid "Could not update secondary language term for taxonomy %s."
 msgstr "Није могуће ажурирати термин секундарног језика за таксономију %s."
 
 #. translators: %s is a taxonomy name
-#: src/Model/Languages.php:1273
+#: src/Model/Languages.php:1275
 msgid "Could not add secondary language term for taxonomy %s."
 msgstr "Није могуће додати термин секундарног језика за таксономију %s."
 
-#: src/Model/Languages.php:1220
+#: src/Model/Languages.php:1222
 msgid "Could not update translation groups."
 msgstr "Није могуће ажурирати групе превода."
 
-#: src/Model/Languages.php:1190 src/Model/Languages.php:1203
+#: src/Model/Languages.php:1192 src/Model/Languages.php:1205
 msgid "Could not delete translation groups."
 msgstr "Није могуће избрисати групе превода."
 
 #. translators: 1: argument name, 2: PHP code snippet.
-#: src/Model/Languages.php:602 src/Model/Languages.php:615
+#: src/Model/Languages.php:604 src/Model/Languages.php:617
 msgid "The argument %1$s has been replaced by %2$s."
 msgstr "Аргумент %1$s је замењен кодом %2$s."
 
-#: src/Model/Languages.php:366 src/Model/Languages.php:433
+#: src/Model/Languages.php:368 src/Model/Languages.php:435
 msgid "Could not update the language."
 msgstr "Није могуће ажурирање језика."
 
-#: src/Model/Languages.php:232
+#: src/Model/Languages.php:234
 msgid "Could not set the language order."
 msgstr "Није могуће поставити редослед језика."
 
-#: src/Model/Languages.php:225 src/Model/Languages.php:251
+#: src/Model/Languages.php:227 src/Model/Languages.php:253
 msgid "Could not add the language."
 msgstr "Није могуће додавање језика."
 
@@ -117,18 +327,18 @@ msgstr "Није вам дозвољено да уређујете ову ста
 msgid "You are not allowed to add a translation in %s"
 msgstr "Није вам дозвољено да додајете превод на %s"
 
+#: src/Model/Languages.php:1176
+msgid "Could not delete relationships."
+msgstr "Није могуће обрисати везе."
+
+#: src/modules/site-health/admin-site-health.php:312
+msgid "Network activated"
+msgstr "Мрежа активирана"
+
 #. translators: %s is the name of an option.
 #: src/Options/Options.php:481 src/Options/Options.php:522
 msgid "Option %s is not a list or map."
-msgstr "Могућност %s није листа нити мапа."
-
-#: src/modules/site-health/admin-site-health.php:303
-msgid "Network activated"
-msgstr "Мрежа укључена"
-
-#: src/Model/Languages.php:1174
-msgid "Could not delete relationships."
-msgstr "Није могуће избрисати везе."
+msgstr "Опција %s није листа нити мапа."
 
 #: src/modules/wpml/wpml-legacy-api.php:261
 msgid "Missing post ID"
@@ -151,11 +361,11 @@ msgstr "Уклони %s из сталних веза"
 
 #. translators: %s is the name of the term property (`term_id` or
 #. `term_taxonomy_id`).
-#: src/modules/REST/V1/Languages.php:600 src/modules/REST/V1/Languages.php:606
+#: src/modules/REST/V1/Languages.php:614 src/modules/REST/V1/Languages.php:620
 msgid "The %s of the language term for this translatable entity."
 msgstr "%s језичког термина за ову преводиву јединицу."
 
-#: src/modules/REST/V1/Languages.php:553
+#: src/modules/REST/V1/Languages.php:567
 msgid "Page on front ID in this language."
 msgstr "ID почетне странице на овом језику."
 
@@ -174,124 +384,124 @@ msgstr "Језици %s су непознати и одбачени."
 msgid "Some themes or plugins may not be fully compatible with the language defined by domains."
 msgstr "Неке теме или додаци можда неће бити компатибилни са језиком који је дефинисан путем домена."
 
-#: src/modules/REST/V1/Languages.php:702
+#: src/modules/REST/V1/Languages.php:716
 msgid "Invalid language identifier"
 msgstr "Неисправан идентификатор језика"
 
-#: src/modules/REST/V1/Languages.php:691
+#: src/modules/REST/V1/Languages.php:705
 msgid "Invalid language slug"
 msgstr "Неисправан језички подложак"
 
-#: src/modules/REST/V1/Languages.php:668
+#: src/modules/REST/V1/Languages.php:682
 msgid "Invalid language ID"
 msgstr "Неисправан ID језика"
 
-#: src/modules/REST/V1/Languages.php:611
+#: src/modules/REST/V1/Languages.php:625
 msgid "Number of items of this type of content in this language."
 msgstr "Број ставки овог типа садржаја на овом језику."
 
-#: src/modules/REST/V1/Languages.php:578
+#: src/modules/REST/V1/Languages.php:592
 msgid "Language properties."
 msgstr "Језичке особине."
 
-#: src/modules/REST/V1/Languages.php:560
+#: src/modules/REST/V1/Languages.php:574
 msgid "Identifier of the page for posts in this language."
 msgstr "Идентификатор странице за чланке на овом језику."
 
-#: src/modules/REST/V1/Languages.php:546
+#: src/modules/REST/V1/Languages.php:560
 msgid "Host for this language."
 msgstr "Хост за овај језик."
 
-#: src/modules/REST/V1/Languages.php:539
+#: src/modules/REST/V1/Languages.php:553
 msgid "Search URL in this language."
 msgstr "URL претраге на овом језику."
 
-#: src/modules/REST/V1/Languages.php:532
+#: src/modules/REST/V1/Languages.php:546
 msgid "Home URL in this language."
 msgstr "URL почетне странице на овом језику."
 
-#: src/modules/REST/V1/Languages.php:526
+#: src/modules/REST/V1/Languages.php:540
 msgid "Tells whether the language is active."
 msgstr "Означава да ли је језик активан."
 
-#: src/modules/REST/V1/Languages.php:520
+#: src/modules/REST/V1/Languages.php:534
 msgid "Tells whether the language is the default one."
 msgstr "Означава да ли је језик подразумевани."
 
-#: src/modules/REST/V1/Languages.php:514
+#: src/modules/REST/V1/Languages.php:528
 msgid "HTML tag for the custom flag."
 msgstr "HTML ознака за прилагођену заставу."
 
-#: src/modules/REST/V1/Languages.php:507
+#: src/modules/REST/V1/Languages.php:521
 msgid "Custom flag URL."
 msgstr "Прилагођен URL заставе."
 
-#: src/modules/REST/V1/Languages.php:501
+#: src/modules/REST/V1/Languages.php:515
 msgid "HTML tag for the flag."
 msgstr "HTML ознака за заставу."
 
-#: src/modules/REST/V1/Languages.php:494
+#: src/modules/REST/V1/Languages.php:508
 msgid "Flag URL."
 msgstr "URL заставе."
 
-#: src/modules/REST/V1/Languages.php:489
+#: src/modules/REST/V1/Languages.php:503
 msgid "Flag code corresponding to ISO 3166-1 (for example: us for the United States flag)."
 msgstr "Код заставе који одговара ISO 3166-1 (на пример: us за заставу Сједињених Америчких Држава)."
 
-#: src/modules/REST/V1/Languages.php:484
+#: src/modules/REST/V1/Languages.php:498
 msgid "Position of the language in the language switcher."
 msgstr "Позиција језика у мењачу језика."
 
 #. translators: %s is a value.
-#: src/modules/REST/V1/Languages.php:477
+#: src/modules/REST/V1/Languages.php:491
 msgid "Text direction. %s for right-to-left."
 msgstr "Смер текста. %s за здесна на лево."
 
-#: src/modules/REST/V1/Languages.php:469
+#: src/modules/REST/V1/Languages.php:483
 msgid "Facebook Locale for the language (for example: en_US)."
 msgstr "Facebook локализација за језик (на пример: en_US)."
 
-#: src/modules/REST/V1/Languages.php:463
+#: src/modules/REST/V1/Languages.php:477
 msgid "W3C Locale for the language (for example: en-US)."
 msgstr "W3C локализација за језик (на пример: en-US)."
 
-#: src/modules/REST/V1/Languages.php:457
+#: src/modules/REST/V1/Languages.php:471
 msgid "WordPress Locale for the language (for example: en_US)."
 msgstr "Вордпрес локализација за језик (на пример: en_US)."
 
-#: src/modules/REST/V1/Languages.php:383
+#: src/modules/REST/V1/Languages.php:397
 msgid "Sorry, you are not allowed to delete this language."
 msgstr "Жао нам је, није вам дозвољено да избришете овај језик."
 
-#: src/modules/REST/V1/Languages.php:361
+#: src/modules/REST/V1/Languages.php:375
 msgid "Sorry, you are not allowed to edit this language."
 msgstr "Жао нам је, није вам дозвољено да уређујете овај језик."
 
-#: src/modules/REST/V1/Languages.php:324
+#: src/modules/REST/V1/Languages.php:338
 msgid "Sorry, you are not allowed to create a language."
 msgstr "Жао нам је, није вам дозвољено да направите језик."
 
-#: src/modules/REST/V1/Languages.php:302
+#: src/modules/REST/V1/Languages.php:316
 msgid "Sorry, you are not allowed to edit languages."
 msgstr "Жао нам је, није вам дозвољено да уређујете језике."
 
-#: src/modules/REST/V1/Languages.php:169
+#: src/modules/REST/V1/Languages.php:183
 msgid "Cannot create existing language."
 msgstr "Није могуће направити постојећи језик."
 
-#: src/modules/REST/V1/Languages.php:121 src/modules/REST/V1/Languages.php:451
+#: src/modules/REST/V1/Languages.php:135 src/modules/REST/V1/Languages.php:465
 msgid "Language code - preferably 2-letters ISO 639-1 (for example: en)."
 msgstr "Језички код - препоручено двословна ISO 639-1 (на пример: en)."
 
-#: src/modules/REST/V1/Languages.php:95 src/modules/REST/V1/Languages.php:438
+#: src/modules/REST/V1/Languages.php:109 src/modules/REST/V1/Languages.php:452
 msgid "Unique identifier for the language."
 msgstr "Јединствени идентификатор језика."
 
-#: src/translated-term.php:423
+#: src/translated-term.php:421
 msgid "Empty Term."
 msgstr "Празан члан."
 
-#: src/translated-term.php:326
+#: src/translated-term.php:324
 msgid "Language taxonomy properties for terms."
 msgstr "Особине језичке таксономије за термине."
 
@@ -304,7 +514,7 @@ msgid "Language taxonomy properties for post types."
 msgstr "Особине језичке таксономије за типове чланака."
 
 #. translators: %s is the name of a database table.
-#: src/translatable-object.php:698
+#: src/translatable-object.php:670
 msgid "Language taxonomy properties for table %s."
 msgstr "Особине језичке таксономије за табелу %s."
 
@@ -377,51 +587,51 @@ msgstr "Језик %s је непознат и одбачен."
 msgid "Translations matching the original string are shown as empty in the table. Untranslated content remains unchanged."
 msgstr "Преводи који се поклапају са оригиналном линијом су приказани као празни у табели. Садржај који није преведен остаје непромењен."
 
+#: src/modules/wizard/view-wizard-step-licenses.php:21
+msgid "Please enter your license keys:"
+msgstr "Молимо унесите ваше лиценцне кључеве:"
+
+#. translators: %s is a list of option names.
+#: src/Options/Options.php:312
+msgid "Unknown option keys %s."
+msgstr "Непознати кључеви опција %s."
+
+#. translators: %s is a list of native language names.
+#: src/Options/Business/Domains.php:126
+msgid "Please enter valid URLs for %s."
+msgstr "Молимо вас да унесете исправне URL-ове за %s."
+
 #. translators: %s is a list of URLs.
 #: src/Options/Business/Domains.php:157
 msgid "Polylang was unable to access the %s URLs. Please check that the URLs are valid."
-msgstr "Polylang није могао да приступи %s URL-овима. Да проверите да ли су URL-ови исправни."
+msgstr "Polylang није могао да приступи %s URL-овима. Молимо вас да проверите да ли су URL-ови исправни."
 
-#: src/modules/REST/V1/Languages.php:585
+#: src/modules/REST/V1/Settings.php:174
+msgid "Sorry, you are not allowed to edit options."
+msgstr "Жао нам је, није вам дозвољено да уређујете ову опцију."
+
+#: src/modules/REST/V1/Languages.php:599
 msgid "Tells whether the default category must be created when creating a new language."
-msgstr "Означава да ли се подразумевана категорија мора направити приликом додавања новог језика."
+msgstr "Означава да ли се подразумевана категорија мора креирати приликом додавања новог језика."
 
 #. translators: %s is the name of an option.
 #: src/Options/Options.php:309 src/Options/Options.php:418
 #: src/Options/Options.php:471 src/Options/Options.php:512
 msgid "Unknown option key %s."
-msgstr "Непознати кључ могућности %s."
+msgstr "Непознати кључ опције %s."
 
-#: src/api.php:577 src/api.php:612 src/translated-post.php:555
-#: src/translated-term.php:431
+#: src/modules/REST/V1/Languages.php:581
+msgid "List of language locale fallbacks."
+msgstr "Листа резервних опција за језичку локализацију."
+
+#: src/api.php:657 src/api.php:692 src/translated-post.php:555
+#: src/translated-term.php:429
 msgid "Please provide a valid language."
-msgstr "Да наведете исправан језик."
+msgstr "Молимо вас да наведете исправан језик."
 
 #: src/Options/Options.php:363
 msgid "Polylang options"
-msgstr "Polylang могућности"
-
-#: src/modules/REST/V1/Settings.php:160
-msgid "Sorry, you are not allowed to edit options."
-msgstr "Жао нам је, није вам дозвољено да уређујете ову могућност."
-
-#: src/modules/wizard/view-wizard-step-licenses.php:21
-msgid "Please enter your license keys:"
-msgstr "Унесите ваше лиценцне кључеве:"
-
-#: src/modules/REST/V1/Languages.php:567
-msgid "List of language locale fallbacks."
-msgstr "Листа резервних могућност за језичку локализацију."
-
-#. translators: %s is a list of option names.
-#: src/Options/Options.php:312
-msgid "Unknown option keys %s."
-msgstr "Непознати кључеви могућност %s."
-
-#. translators: %s is a list of native language names.
-#: src/Options/Business/Domains.php:126
-msgid "Please enter valid URLs for %s."
-msgstr "Да унесете исправне URL-ове за %s."
+msgstr "Polylang опције"
 
 #. translators: %1$s placeholder is the language name, %2$s is the language
 #. code
@@ -437,7 +647,7 @@ msgstr "Дозвољава везу до DeepL Translate."
 msgid "Machine Translation"
 msgstr "Машинско превођење"
 
-#: src/Model/Languages.php:319
+#: src/Model/Languages.php:321
 msgid "The language does not seem to exist."
 msgstr "Чини се да језик не постоји."
 
@@ -477,15 +687,15 @@ msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
 
 #. translators: placeholder is the plugin name
-#: src/modules/site-health/admin-site-health.php:312
+#: src/modules/site-health/admin-site-health.php:321
 msgid "%s information"
 msgstr "Информације о %s"
 
-#: src/modules/site-health/admin-site-health.php:291
+#: src/modules/site-health/admin-site-health.php:300
 msgid "Not loaded. Contact your host provider."
 msgstr "Није учитано. Контктирајте вашег хостинг провајдера."
 
-#: src/modules/site-health/admin-site-health.php:290
+#: src/modules/site-health/admin-site-health.php:299
 msgid "PHP SimpleXML extension"
 msgstr "PHP SimpleXML прикључак"
 
@@ -526,31 +736,31 @@ msgstr "Укључите језике и преводе за садржаје с
 msgid "Some themes or plugins may not be fully compatible with the language defined by the content or by domains."
 msgstr "Неке теме или додаци можда неће бити компатибилни са језички дефинисаним садржајем или доменима."
 
-#: src/modules/site-health/admin-site-health.php:272
+#: src/modules/site-health/admin-site-health.php:281
 msgid "Posts without language"
 msgstr "Чланци без језика"
 
-#: src/modules/site-health/admin-site-health.php:279
+#: src/modules/site-health/admin-site-health.php:288
 msgid "Terms without language"
 msgstr "Таксономија без језика"
 
-#: src/widget-calendar.php:319
+#: src/Widgets/Calendar.php:357
 msgid "Previous and next months"
 msgstr "Претходних и следећих месеци"
 
-#: src/modules/site-health/admin-site-health.php:217
+#: src/modules/site-health/admin-site-health.php:226
 msgid "Homepage translated"
 msgstr "Почетна страница је преведена"
 
-#: src/modules/site-health/admin-site-health.php:233
+#: src/modules/site-health/admin-site-health.php:242
 msgid "All languages have a translated homepage"
 msgstr "Сви језици имају преведену почетну страницу"
 
-#: src/modules/site-health/admin-site-health.php:241
+#: src/modules/site-health/admin-site-health.php:250
 msgid "It is mandatory to translate the static front page in all languages."
 msgstr "Обавезно је превести статичну почетну страницу на све језике."
 
-#: src/modules/site-health/admin-site-health.php:251
+#: src/modules/site-health/admin-site-health.php:260
 msgid "The homepage is not translated in all languages"
 msgstr "Почетна страница није преведена на све језике"
 
@@ -566,9 +776,9 @@ msgstr "Недефинисано"
 #. translators: placeholder is the plugin name
 #: src/modules/site-health/admin-site-health.php:109
 msgid "%s options"
-msgstr "%s могућности"
+msgstr "%s опције"
 
-#: src/modules/wizard/wizard.php:493
+#: src/modules/wizard/wizard.php:494
 msgid "You selected a language, however, to be able to continue, you need to add it."
 msgstr "Изабрали сте језик, али га морате додати пре него што будете у могућности да наставите."
 
@@ -608,10 +818,6 @@ msgstr "Када желите да уметнете садржај у члана
 msgid "Help"
 msgstr "Помоћ"
 
-#: src/modules/wizard/wizard.php:145
-msgid "Setup"
-msgstr "Подешавања"
-
 #: src/modules/wizard/wizard.php:203
 msgid "Sorry, you are not allowed to manage options for this site."
 msgstr "Жао нам је, није вам дозвољено да управљате могућностима за ово веб место."
@@ -621,53 +827,53 @@ msgstr "Жао нам је, није вам дозвољено да управљ
 msgid "Licenses"
 msgstr "Лиценце"
 
-#: src/modules/wizard/wizard.php:490
+#: src/modules/wizard/wizard.php:491
 msgid "You need to select a language to be added."
 msgstr "Морате означити језик који желите да додате."
 
-#: src/modules/wizard/wizard.php:491
+#: src/modules/wizard/wizard.php:492
 msgid "You already added this language."
 msgstr "Већ сте додали овај језик."
 
-#: src/modules/wizard/wizard.php:492
+#: src/modules/wizard/wizard.php:493
 msgid "You need to add at least one language."
 msgstr "Морате да додате барем један језик."
 
-#: src/modules/wizard/wizard.php:500
+#: src/modules/wizard/wizard.php:501
 msgid "A language wasn't added."
 msgstr "Језик није додат."
 
-#: src/modules/site-health/admin-site-health.php:298
+#: src/modules/site-health/admin-site-health.php:307
 #: src/modules/wizard/view-wizard-step-languages.php:113
-#: src/modules/wizard/wizard.php:501
+#: src/modules/wizard/wizard.php:502
 msgid "Yes"
 msgstr "Да"
 
-#: src/modules/site-health/admin-site-health.php:300
+#: src/modules/site-health/admin-site-health.php:309
 #: src/modules/wizard/view-wizard-step-languages.php:122
-#: src/modules/wizard/wizard.php:502
+#: src/modules/wizard/wizard.php:503
 msgid "No"
 msgstr "Не"
 
 #: src/modules/wizard/view-wizard-step-languages.php:131
-#: src/modules/wizard/wizard.php:503
+#: src/modules/wizard/wizard.php:504
 msgid "Ignore"
 msgstr "Занемари"
 
-#: src/modules/wizard/wizard.php:504
+#: src/modules/wizard/wizard.php:505
 msgid "Remove this language"
 msgstr "Уклоните овај језик"
 
-#: src/modules/wizard/wizard.php:678
+#: src/modules/wizard/wizard.php:679
 msgid "Content"
 msgstr "Садржај"
 
 #: src/modules/wizard/view-wizard-step-home-page.php:22
-#: src/modules/wizard/wizard.php:742 src/modules/wizard/wizard.php:793
+#: src/modules/wizard/wizard.php:743 src/modules/wizard/wizard.php:799
 msgid "Homepage"
 msgstr "Почетна страница"
 
-#: src/modules/wizard/wizard.php:853
+#: src/modules/wizard/wizard.php:859
 msgid "Ready!"
 msgstr "Ready!"
 
@@ -705,10 +911,6 @@ msgstr "Спремни сте за превођење чланака на ваш
 msgid "Polylang Pro"
 msgstr "Polylang Pro"
 
-#: src/modules/wizard/view-wizard-step-last.php:67
-msgid "Thank you for activating Polylang. If you want more advanced features - duplication, synchronization, REST API support, integration with other plugins, etc. - or further help provided by our Premium support, we recommend you upgrade to Polylang Pro."
-msgstr "Хвала вам што сте активирали Polylang. Уколико желите напредне фукнције - дупликацију, синхронизацију,  REST API подршку, интеграцију са другим додацима или додатну помоћ коју пружа наша премијум подршка, препоручујемо вам надоградњу на Polylang Pro."
-
 #: src/modules/wizard/view-wizard-step-last.php:73
 #: src/modules/wizard/view-wizard-step-last.php:97
 msgid "Buy now"
@@ -738,6 +940,10 @@ msgstr "Чаробњак ће вам помоћи да конфигуришет�
 #: src/modules/wizard/view-wizard-step-languages.php:26
 msgid "First we are going to define the languages that you will use on your website."
 msgstr "Прво ћемо дефинисати језике које ћете користити на вашем веб месту."
+
+#: src/modules/wizard/view-wizard-step-last.php:67
+msgid "Thank you for activating Polylang. If you want more advanced features - duplication, synchronization, REST API support, integration with other plugins, etc. - or further help provided by our Premium support, we recommend you upgrade to Polylang Pro."
+msgstr "Хвала вам што сте активирали Polylang. Уколико желите напредне фукнције - дупликацију, синхронизацију,  REST API подршку, интеграцију са другим додацима или додатну помоћ коју пружа наша премијум подршка, препоручујемо вам надоградњу на Polylang Pro."
 
 #: src/modules/wizard/view-wizard-step-languages.php:63
 msgid "Remove"
@@ -852,25 +1058,29 @@ msgstr "Користите додатак који захтева лиценцн
 msgid "Return to the Dashboard"
 msgstr "Врати се на контролну таблу"
 
-#: src/modules/wizard/view-wizard-step-languages.php:32
-msgid "Select a language to be added"
-msgstr "Изаберите језик који желите да додате"
-
-#: src/modules/wizard/view-wizard-step-untranslated-contents.php:23
-msgid "Choose the language to be assigned"
-msgstr "Изаберите језик који желите да доделите"
+#: src/modules/wizard/wizard.php:145
+msgid "Setup"
+msgstr "Подешавање"
 
 #: src/modules/wizard/view-wizard-step-last.php:36
 msgid "To get your website ready, there are still two steps you need to perform manually: add menus in each language, and add a language switcher to allow your visitors to select their preferred language."
-msgstr "Како бисте припремили своје веб место, остају вам још 2 корака која морате ручно извршити: да додате изборнике на сваком језику и да додате могућност избора језика како бисте омогућили посетиоцима да изаберу жељени језик."
-
-#: src/modules/wizard/view-wizard-step-last.php:56
-msgid "View pages"
-msgstr "Погледај странице"
+msgstr "Како бисте припремили своје веб место, остају вам још 2 корака која морате ручно извршити: да додате изборнике на сваком језику и да додате опцију избора језика како бисте омогућили посетиоцима да одаберу жељени језик."
 
 #: src/modules/wizard/view-wizard-step-licenses.php:19
 msgid "Please enter your license key:"
-msgstr "Унесите ваш лиценцни кључ:"
+msgstr "Молимо унесите ваш лиценцни кључ:"
+
+#: src/modules/wizard/view-wizard-step-last.php:56
+msgid "View pages"
+msgstr "Прегледај странице"
+
+#: src/modules/wizard/view-wizard-step-languages.php:32
+msgid "Select a language to be added"
+msgstr "Одаберите језик који желите да додате"
+
+#: src/modules/wizard/view-wizard-step-untranslated-contents.php:23
+msgid "Choose the language to be assigned"
+msgstr "Одаберите језик који желите да доделите"
 
 #: src/license.php:297
 msgid "Your license key has been disabled."
@@ -881,17 +1091,17 @@ msgid "Privacy Policy Page"
 msgstr "Страна политике приватности"
 
 #. translators: 1: Plugin name 2: Current PHP version 3: Required PHP version
-#: src/install/usable.php:57
+#: src/install/usable.php:53
 msgid "%1$s has deactivated itself because you are using an old version of PHP. You are using using PHP %2$s. %1$s requires PHP %3$s."
 msgstr "%1$s се деактивирао јер користите застарелу верзију PHP-а. Ви користите верзију %2$s а %1$s захтева PHP %3$s."
 
 #. translators: 1: Plugin name 2: Current WordPress version 3: Required
 #. WordPress version
-#: src/install/usable.php:83
+#: src/install/usable.php:76
 msgid "%1$s has deactivated itself because you are using an old version of WordPress. You are using using WordPress %2$s. %1$s requires at least WordPress %3$s."
 msgstr "%1$s се деактивирао јер користите застарелу верзију Вордпреса . Ви користите верзију %2$s а %1$s захтева најмање Вордпрес %3$s."
 
-#: src/admin/admin-classic-editor.php:378
+#: src/admin/admin-classic-editor.php:372
 msgid "If you attempt to modify them anyway, your changes will not be saved."
 msgstr "Уколико пробате да их измените, ваше промене неће бити сачуване."
 
@@ -914,7 +1124,7 @@ msgstr "Ваш лиценцни кључ ускоро истиче! Тачниј
 msgid "To enable this feature, you need Polylang Pro."
 msgstr "Како бисте омогућили ову функционалност, потребан вам је Polylang Pro."
 
-#: src/settings/flags.php:159
+#: src/settings/flags.php:179
 msgid "North Macedonia"
 msgstr "North Macedonia"
 
@@ -923,14 +1133,14 @@ msgstr "North Macedonia"
 msgid "You must translate your static front page in %s."
 msgstr "Морате превести вашу статичку почетну страницу на %s."
 
-#: src/admin/admin-classic-editor.php:376
+#: src/admin/admin-classic-editor.php:370
 msgid "Some taxonomies or metadata may be synchronized with existing translations that you are not allowed to modify."
 msgstr "Неке таксономије или метаподаци могу бити синхронизовани са постојећим преводима које вам није дозвољено да мењате."
 
 #. translators: %1$s and %2$s are Polylang version numbers
-#: src/install/upgrade.php:93
+#: src/install/upgrade.php:77
 msgid "Before upgrading to %2$s, please upgrade to %1$s."
-msgstr "Пре него што надоградите на %2$s да надоградите на %1$s."
+msgstr "Пре него што надоградите на %2$s, молимо вас да надоградите на %1$s."
 
 #. Author of the plugin
 #: polylang.php
@@ -939,8 +1149,8 @@ msgstr "WP SYNTEX"
 
 #. translators: accessibility text
 #: src/admin/admin-notices.php:224 src/modules/wizard/wizard.php:383
-#: src/modules/wizard/wizard.php:484 src/modules/wizard/wizard.php:675
-#: src/settings/settings.php:318
+#: src/modules/wizard/wizard.php:484 src/modules/wizard/wizard.php:676
+#: src/settings/settings.php:312
 msgid "Dismiss this notice."
 msgstr "Занемари ову напомену."
 
@@ -957,7 +1167,7 @@ msgstr "Опис корисника - %s"
 msgid "User"
 msgstr "Корисник"
 
-#: src/settings/flags.php:234
+#: src/settings/flags.php:47
 msgid "Tibet"
 msgstr "Тибет"
 
@@ -1027,43 +1237,43 @@ msgstr "Грешка"
 msgid "https://polylang.pro"
 msgstr "https://polylang.pro"
 
-#. translators: %1$s is link start tag, %2$s is link end tag.
-#: src/license.php:303
-msgid "Invalid license. Please %1$svisit your account page%2$s and verify it."
-msgstr "Неисправна лиценца. Да %1$sпосетите страницу вашег налога%2$s и потврдите је."
-
 #. translators: %1$s is a date, %2$s is link start tag, %3$s is link end tag.
 #: src/license.php:288
 msgid "Your license key expired on %1$s. Please %2$srenew your license key%3$s."
-msgstr "Ваш лиценцни кључ је истекао %1$s. Да %2$sобновите свој лиценцни кључ%3$s."
+msgstr "Ваш лиценцни кључ је истекао %1$s. Молимо вас да %2$sобновите свој лиценцни кључ%3$s."
+
+#. translators: %1$s is link start tag, %2$s is link end tag.
+#: src/license.php:303
+msgid "Invalid license. Please %1$svisit your account page%2$s and verify it."
+msgstr "Неисправна лиценца. Молимо вас да %1$sпосетите страницу вашег налога%2$s и потврдите је."
 
 #. translators: %1$s is a product name, %2$s is link start tag, %3$s is link
 #. end tag.
 #: src/license.php:313
 msgid "Your %1$s license key is not active for this URL. Please %2$svisit your account page%3$s to manage your license key URLs."
-msgstr "Ваш %1$s лиценцни кључ није укључен за овај URL. Да %2$sпосетите страницу вашег налога%3$s како бисте управљали URL адресама вашег лиценцног кључа."
+msgstr "Ваш %1$s лиценцни кључ није укључен за овај URL. Молимо вас да %2$sпосетите страницу вашег налога%3$s како бисте управљали URL адресама вашег лиценцног кључа."
 
 #. translators: Post calendar label. %s: Date.
-#: src/widget-calendar.php:292
+#: src/Widgets/Calendar.php:330
 msgid "Posts published on %s"
 msgstr "Чланак је објављен %s"
 
-#: src/widget-calendar.php:290
+#: src/Widgets/Calendar.php:328
 msgctxt "daily archives date format"
 msgid "F j, Y"
 msgstr "j. F Y."
 
 #. translators: accessibility text
-#: src/settings/table-string.php:362
+#: src/settings/table-string.php:386
 msgid "Filter by group"
 msgstr "Филтер по групи"
 
-#: src/settings/view-tab-lang.php:140
+#: src/settings/view-tab-lang.php:146
 msgid "Choose a flag for the language."
-msgstr "Изаберите заставу за језик."
+msgstr "Одаберите заставу за језик."
 
 #. translators:  accessibility text, %s is a string potentially in any language
-#: src/settings/table-string.php:105
+#: src/settings/table-string.php:129
 msgid "Select %s"
 msgstr "Изаберите %s"
 
@@ -1079,8 +1289,8 @@ msgstr "Modul"
 msgid "Save Changes"
 msgstr "Сачувај измене"
 
-#: src/settings/settings-module.php:169 js/build/block-editor.js:139
-#: js/build/classic-editor.js:79
+#: src/settings/settings-module.php:169 js/build/block-editor.js:134
+#: js/build/classic-editor.js:77
 msgid "Cancel"
 msgstr "Откажи"
 
@@ -1089,40 +1299,40 @@ msgid "Decide how your URLs will look like."
 msgstr "Одредите како ће ваше URL адресе изгледати."
 
 #: src/modules/wizard/view-wizard-step-untranslated-contents.php:18
-#: src/settings/settings.php:334
+#: src/settings/settings.php:328
 msgid "There are posts, pages, categories or tags without language."
 msgstr "Постоје чланци, странице, категорије и ознаке без језика."
 
-#: src/settings/settings.php:336
+#: src/settings/settings.php:330
 msgid "You can set them all to the default language."
 msgstr "Можете поставити све као подразумевани језик."
 
-#: src/settings/table-languages.php:93 src/settings/table-languages.php:205
+#: src/settings/table-languages.php:96 src/settings/table-languages.php:208
 msgid "Edit this language"
 msgstr "Уредите овај језик"
 
-#: src/settings/table-languages.php:211
+#: src/settings/table-languages.php:214
 msgid "Delete this language and all its associated data"
 msgstr "Избришите овај језик и све повезане податке"
-
-#. translators: %s is a URL.
-#: src/Options/Business/Domains.php:154
-msgid "Polylang was unable to access the %s URL. Please check that the URL is valid."
-msgstr "Polylang није могао да приступи URL %s. Проверите да ли је URL исправан."
-
-#: src/settings/table-languages.php:114
-msgid "Select as default language"
-msgstr "Изаберите као подразумевани језик"
-
-#. translators: accessibility text, %s is a native language name
-#: src/settings/table-languages.php:117
-msgid "Choose %s as default language"
-msgstr "Изаберите %s као подразумевани језик"
 
 #. translators: %s is a native language name.
 #: src/Options/Business/Domains.php:123
 msgid "Please enter a valid URL for %s."
-msgstr "Унесите исправан URL за %s."
+msgstr "Молимо вас унесите исправан URL за %s."
+
+#. translators: %s is a URL.
+#: src/Options/Business/Domains.php:154
+msgid "Polylang was unable to access the %s URL. Please check that the URL is valid."
+msgstr "Polylang није могао да приступи URL %s. Молимо вас проверите да ли је URL исправан."
+
+#: src/settings/table-languages.php:117
+msgid "Select as default language"
+msgstr "Одаберите као подразумевани језик"
+
+#. translators: accessibility text, %s is a native language name
+#: src/settings/table-languages.php:120
+msgid "Choose %s as default language"
+msgstr "Одаберите %s као подразумевани језик"
 
 #: src/settings/settings-module.php:160
 msgid "Activate this module"
@@ -1132,11 +1342,11 @@ msgstr "Укључите овај модул"
 msgid "Deactivated"
 msgstr "Искључено"
 
-#: src/settings/flags.php:265
+#: src/settings/flags.php:285
 msgid "Zambia"
 msgstr "Zambia"
 
-#: src/settings/flags.php:266
+#: src/settings/flags.php:286
 msgid "Zimbabwe"
 msgstr "Zimbabve"
 
@@ -1160,765 +1370,765 @@ msgstr "Искључите овај модул"
 msgid "Deactivate"
 msgstr "Искључи"
 
-#: src/settings/flags.php:262
+#: src/settings/flags.php:282
 msgid "Yemen"
 msgstr "Jemen"
 
-#: src/settings/flags.php:263
-msgid "Mayotte"
-msgstr "Majote"
-
-#: src/settings/flags.php:264
+#: src/settings/flags.php:284
 msgid "South Africa"
 msgstr "Južnoafrička Republika"
 
-#: src/settings/flags.php:258
+#: src/settings/flags.php:283
+msgid "Mayotte"
+msgstr "Мајота"
+
+#: src/settings/flags.php:279
 msgid "Vanuatu"
 msgstr "Vanuatu"
 
-#: src/settings/flags.php:260
+#: src/settings/flags.php:280
 msgid "Wallis and Futuna"
 msgstr "Валис и Футуна"
 
-#: src/settings/flags.php:261
+#: src/settings/flags.php:281
 msgid "Western Samoa"
 msgstr "Западна Самоа"
 
-#: src/settings/flags.php:259
+#: src/settings/flags.php:108
 msgid "Wales"
 msgstr "Велс"
 
-#: src/settings/flags.php:252
+#: src/settings/flags.php:274
 msgid "Saint Vincent and the Grenadines"
 msgstr "Сент Винсент и Гренадини"
 
-#: src/settings/flags.php:253
+#: src/settings/flags.php:275
 msgid "Venezuela"
 msgstr "Venecuela"
 
-#: src/settings/flags.php:255
+#: src/settings/flags.php:276
 msgid "British Virgin Islands"
 msgstr "British Virgin Islands"
 
-#: src/settings/flags.php:257
+#: src/settings/flags.php:278
 msgid "Vietnam"
 msgstr "Vijetnam"
 
-#: src/settings/flags.php:254
+#: src/settings/flags.php:145
 msgid "Veneto"
 msgstr "Венето"
 
-#: src/settings/flags.php:256
+#: src/settings/flags.php:277
 msgid "United States Virgin Islands"
 msgstr "Америчка Девичанска Острва"
 
-#: src/settings/flags.php:249
+#: src/settings/flags.php:270
 msgid "Uruguay"
 msgstr "Urugvaj "
 
-#: src/settings/flags.php:250
+#: src/settings/flags.php:271
 msgid "Uzbekistan"
 msgstr "Uzbekistan"
 
-#: src/settings/flags.php:251
+#: src/settings/flags.php:273
 msgid "Vatican"
 msgstr "Ватикан"
 
-#: src/settings/flags.php:246
+#: src/settings/flags.php:267
 msgid "Ukraine"
 msgstr "Ukrajna"
 
-#: src/settings/flags.php:247
+#: src/settings/flags.php:268
 msgid "Uganda"
 msgstr "Uganda"
 
-#: src/settings/flags.php:248
+#: src/settings/flags.php:269
 msgid "United States"
 msgstr "SAD"
 
-#: src/settings/flags.php:242
+#: src/settings/flags.php:263
 msgid "Trinidad and Tobago"
 msgstr "Trinidad i Tobago"
 
-#: src/settings/flags.php:243
+#: src/settings/flags.php:264
 msgid "Tuvalu"
 msgstr "Tuvalu"
 
-#: src/settings/flags.php:244
+#: src/settings/flags.php:265
 msgid "Taiwan"
 msgstr "Tajvan"
 
-#: src/settings/flags.php:245
+#: src/settings/flags.php:266
 msgid "Tanzania"
 msgstr "Tanzanija"
 
-#: src/settings/flags.php:239
+#: src/settings/flags.php:260
 msgid "Tunisia"
 msgstr "Tunis"
 
-#: src/settings/flags.php:240
+#: src/settings/flags.php:261
 msgid "Tonga"
 msgstr "Tonga"
 
-#: src/settings/flags.php:241
+#: src/settings/flags.php:262
 msgid "Turkey"
 msgstr "Turska"
 
-#: src/settings/flags.php:235
+#: src/settings/flags.php:256
 msgid "Tajikistan"
 msgstr "Tadžikistan"
 
-#: src/settings/flags.php:236
+#: src/settings/flags.php:257
 msgid "Tokelau"
 msgstr "Tokelau"
 
-#: src/settings/flags.php:238
+#: src/settings/flags.php:259
 msgid "Turkmenistan"
 msgstr "Туркменистан"
 
-#: src/settings/flags.php:237
+#: src/settings/flags.php:258
 msgid "Timor-Leste"
 msgstr "Источни Тимор"
 
-#: src/settings/flags.php:231
+#: src/settings/flags.php:253
 msgid "French Southern Territories"
 msgstr "Francuske Južne Teritorije"
 
-#: src/settings/flags.php:232
+#: src/settings/flags.php:254
 msgid "Togo"
 msgstr "Togo"
 
-#: src/settings/flags.php:233
+#: src/settings/flags.php:255
 msgid "Thailand"
 msgstr "Tajland"
 
-#: src/settings/flags.php:230
+#: src/settings/flags.php:252
 msgid "Chad"
 msgstr "Чад"
 
-#: src/settings/flags.php:227
+#: src/settings/flags.php:249
 msgid "Syria"
 msgstr "Sirija"
 
-#: src/settings/flags.php:229
+#: src/settings/flags.php:251
 msgid "Turks and Caicos Islands"
 msgstr "Туркс и Кајкос Острва"
 
-#: src/settings/flags.php:228
+#: src/settings/flags.php:250
 msgid "Swaziland"
 msgstr "Svaziland"
 
-#: src/settings/flags.php:223
+#: src/settings/flags.php:245
 msgid "Suriname"
 msgstr "Surinam"
 
-#: src/settings/flags.php:224
+#: src/settings/flags.php:246
 msgid "South Sudan"
 msgstr "Јужни Судан"
 
-#: src/settings/flags.php:225
+#: src/settings/flags.php:247
 msgid "São Tomé and Príncipe"
 msgstr "São Tomé and Príncipe"
 
-#: src/settings/flags.php:226
+#: src/settings/flags.php:248
 msgid "El Salvador"
 msgstr "Салвадор"
 
-#: src/settings/flags.php:221
+#: src/settings/flags.php:243
 msgid "Senegal"
 msgstr "Senegal"
 
-#: src/settings/flags.php:222
+#: src/settings/flags.php:244
 msgid "Somalia"
 msgstr "Somalia"
 
-#: src/settings/flags.php:216
+#: src/settings/flags.php:238
 msgid "Saint Helena"
 msgstr "Света Хелена"
 
-#: src/settings/flags.php:217
+#: src/settings/flags.php:239
 msgid "Slovenia"
 msgstr "Slovenia"
 
-#: src/settings/flags.php:218
+#: src/settings/flags.php:240
 msgid "Slovakia"
 msgstr "Slovačka"
 
-#: src/settings/flags.php:220
+#: src/settings/flags.php:242
 msgid "San Marino"
 msgstr "San Marino"
 
-#: src/settings/flags.php:219
+#: src/settings/flags.php:241
 msgid "Sierra Leone"
 msgstr "Siera Lion"
 
-#: src/settings/flags.php:214
+#: src/settings/flags.php:236
 msgid "Sweden"
 msgstr "Švedska"
 
-#: src/settings/flags.php:215
+#: src/settings/flags.php:237
 msgid "Singapore"
-msgstr "Singapur"
+msgstr "Сингапур"
 
-#: src/settings/flags.php:210
+#: src/settings/flags.php:233
 msgid "Solomon Islands"
 msgstr "Соломонска Острва"
 
-#: src/settings/flags.php:213
+#: src/settings/flags.php:235
 msgid "Sudan"
 msgstr "Sudan"
 
-#: src/settings/flags.php:211
+#: src/settings/flags.php:234
 msgid "Seychelles"
 msgstr "Sejšeli"
 
-#: src/settings/flags.php:212
+#: src/settings/flags.php:107
 msgid "Scotland"
 msgstr "Шкотска"
 
-#: src/settings/flags.php:207
+#: src/settings/flags.php:226
 msgid "Russia"
 msgstr "Rusija"
 
-#: src/settings/flags.php:208
+#: src/settings/flags.php:231
 msgid "Rwanda"
 msgstr "Ruanda"
 
-#: src/settings/flags.php:209
+#: src/settings/flags.php:232
 msgid "Saudi Arabia"
 msgstr "Saudijska Arabija"
 
-#: src/settings/flags.php:204
+#: src/settings/flags.php:55
 msgid "Quebec"
 msgstr "Квебек"
 
-#: src/settings/flags.php:205
+#: src/settings/flags.php:224
 msgid "Romania"
 msgstr "Rumunija"
 
-#: src/settings/flags.php:206
+#: src/settings/flags.php:225
 msgid "Serbia"
 msgstr "Srbija"
 
-#: src/settings/flags.php:201
+#: src/settings/flags.php:221
 msgid "Belau"
 msgstr "Belau"
 
-#: src/settings/flags.php:202
+#: src/settings/flags.php:222
 msgid "Paraguay"
 msgstr "Paragvaj"
 
-#: src/settings/flags.php:203
+#: src/settings/flags.php:223
 msgid "Qatar"
-msgstr "Katar"
+msgstr "Катар"
 
-#: src/settings/flags.php:199
+#: src/settings/flags.php:219
 msgid "Palestinian Territory"
 msgstr "Палестинска територија"
 
-#: src/settings/flags.php:200
+#: src/settings/flags.php:220
 msgid "Portugal"
 msgstr "Portugal"
 
-#: src/settings/flags.php:196
+#: src/settings/flags.php:216
 msgid "Saint Pierre and Miquelon"
 msgstr "Сент Пјер и Микелон"
 
-#: src/settings/flags.php:197
+#: src/settings/flags.php:217
 msgid "Pitcairn"
-msgstr "Ostrva Pitkern"
+msgstr "Питкарн"
 
-#: src/settings/flags.php:198
+#: src/settings/flags.php:218
 msgid "Puerto Rico"
-msgstr "Puerto Riko"
+msgstr "Порторико"
 
-#: src/settings/flags.php:193
+#: src/settings/flags.php:213
 msgid "Philippines"
 msgstr "Filipini"
 
-#: src/settings/flags.php:194
+#: src/settings/flags.php:214
 msgid "Pakistan"
 msgstr "Pakistan"
 
-#: src/settings/flags.php:195
+#: src/settings/flags.php:215
 msgid "Poland"
 msgstr "Poljska"
 
-#: src/settings/flags.php:190
+#: src/settings/flags.php:210
 msgid "Peru"
 msgstr "Peru"
 
-#: src/settings/flags.php:191
+#: src/settings/flags.php:211
 msgid "French Polynesia"
 msgstr "Francuska Polinezija"
 
-#: src/settings/flags.php:192
+#: src/settings/flags.php:212
 msgid "Papua New Guinea"
 msgstr "Папуа Нова Гвинеја"
 
-#: src/settings/flags.php:186
+#: src/settings/flags.php:206
 msgid "New Zealand"
 msgstr "Novi Zeland"
 
-#: src/settings/flags.php:188
+#: src/settings/flags.php:208
 msgid "Oman"
 msgstr "Oman"
 
-#: src/settings/flags.php:189
-msgid "Panama"
-msgstr "Panama"
-
-#: src/settings/flags.php:187
+#: src/settings/flags.php:207
 msgid "Occitania"
 msgstr "Окситанија"
 
-#: src/settings/flags.php:184
+#: src/settings/flags.php:209
+msgid "Panama"
+msgstr "Панама"
+
+#: src/settings/flags.php:204
 msgid "Nauru"
-msgstr "Nauru"
+msgstr "Науру"
 
-#: src/settings/flags.php:185
+#: src/settings/flags.php:205
 msgid "Niue"
-msgstr "Nijue"
+msgstr "Ниује"
 
-#: src/settings/flags.php:181
+#: src/settings/flags.php:201
 msgid "Netherlands"
 msgstr "Holandija"
 
-#: src/settings/flags.php:183
+#: src/settings/flags.php:203
 msgid "Nepal"
 msgstr "Nepal"
 
-#: src/settings/flags.php:182
+#: src/settings/flags.php:202
 msgid "Norway"
 msgstr "Norveška"
 
-#: src/settings/flags.php:177
+#: src/settings/flags.php:197
 msgid "Niger"
 msgstr "Niger"
 
-#: src/settings/flags.php:178
+#: src/settings/flags.php:198
 msgid "Norfolk Island"
 msgstr "Norfolk Ostrva"
 
-#: src/settings/flags.php:180
+#: src/settings/flags.php:200
 msgid "Nicaragua"
 msgstr "Nikaragva"
 
-#: src/settings/flags.php:179
+#: src/settings/flags.php:199
 msgid "Nigeria"
 msgstr "Nigerija"
 
-#: src/settings/flags.php:173
+#: src/settings/flags.php:193
 msgid "Malaysia"
 msgstr "Malasija"
 
-#: src/settings/flags.php:174
+#: src/settings/flags.php:194
 msgid "Mozambique"
 msgstr "Mozambik"
 
-#: src/settings/flags.php:175
+#: src/settings/flags.php:195
 msgid "Namibia"
 msgstr "Namibia"
 
-#: src/settings/flags.php:176
+#: src/settings/flags.php:196
 msgid "New Caledonia"
 msgstr "Nova Kaledonija"
 
-#: src/settings/flags.php:170
-msgid "Maldives"
-msgstr "Maldivi"
-
-#: src/settings/flags.php:171
+#: src/settings/flags.php:191
 msgid "Malawi"
 msgstr "Malavi"
 
-#: src/settings/flags.php:172
+#: src/settings/flags.php:192
 msgid "Mexico"
 msgstr "Meksiko"
 
-#: src/settings/flags.php:169
-msgid "Mauritius"
-msgstr "Mauricijus"
+#: src/settings/flags.php:190
+msgid "Maldives"
+msgstr "Малдиви"
 
-#: src/settings/flags.php:166
+#: src/settings/flags.php:189
+msgid "Mauritius"
+msgstr "Маурицијус"
+
+#: src/settings/flags.php:186
 msgid "Mauritania"
 msgstr "Mauritanija "
 
-#: src/settings/flags.php:167
-msgid "Montserrat"
-msgstr "Monserat"
-
-#: src/settings/flags.php:168
+#: src/settings/flags.php:188
 msgid "Malta"
-msgstr "Malta"
+msgstr "Малта"
 
-#: src/settings/flags.php:164
+#: src/settings/flags.php:187
+msgid "Montserrat"
+msgstr "Монсерат"
+
+#: src/settings/flags.php:184
 msgid "Northern Mariana Islands"
 msgstr "Severno Mariajnska ostrva"
 
-#: src/settings/flags.php:165
+#: src/settings/flags.php:185
 msgid "Martinique"
-msgstr "Martinik"
+msgstr "Мартиник"
 
-#: src/settings/flags.php:161
+#: src/settings/flags.php:181
 msgid "Myanmar"
 msgstr "Mijanmar"
 
-#: src/settings/flags.php:162
+#: src/settings/flags.php:182
 msgid "Mongolia"
 msgstr "Mongolija"
 
-#: src/settings/flags.php:163
+#: src/settings/flags.php:183
 msgid "Macao"
 msgstr "Макао"
 
-#: src/settings/flags.php:158
+#: src/settings/flags.php:178
 msgid "Marshall Islands"
 msgstr "Maršalska Ostrva"
 
-#: src/settings/flags.php:160
+#: src/settings/flags.php:180
 msgid "Mali"
 msgstr "Mali"
 
-#: src/settings/flags.php:155
+#: src/settings/flags.php:175
 msgid "Moldova"
 msgstr "Moldavija"
 
-#: src/settings/flags.php:156
+#: src/settings/flags.php:176
 msgid "Montenegro"
 msgstr "Crna Gora"
 
-#: src/settings/flags.php:157
+#: src/settings/flags.php:177
 msgid "Madagascar"
 msgstr "Madagaskar"
 
-#: src/settings/flags.php:152
+#: src/settings/flags.php:172
 msgid "Libya"
 msgstr "Libija"
 
-#: src/settings/flags.php:153
+#: src/settings/flags.php:173
 msgid "Morocco"
 msgstr "Maroko"
 
-#: src/settings/flags.php:154
+#: src/settings/flags.php:174
 msgid "Monaco"
-msgstr "Monako"
+msgstr "Монако"
 
-#: src/settings/flags.php:151
+#: src/settings/flags.php:171
 msgid "Latvia"
 msgstr "Latvia"
 
-#: src/settings/flags.php:150
+#: src/settings/flags.php:170
 msgid "Luxembourg"
-msgstr "Luksemburg"
+msgstr "Луксембург"
 
-#: src/settings/flags.php:147
+#: src/settings/flags.php:167
 msgid "Liberia"
 msgstr "Liberija"
 
-#: src/settings/flags.php:148
+#: src/settings/flags.php:168
 msgid "Lesotho"
 msgstr "Lesoto"
 
-#: src/settings/flags.php:149
+#: src/settings/flags.php:169
 msgid "Lithuania"
 msgstr "Litvanija"
 
-#: src/settings/flags.php:144
+#: src/settings/flags.php:164
 msgid "Saint Lucia"
 msgstr "Сент Луција"
 
-#: src/settings/flags.php:145
+#: src/settings/flags.php:165
 msgid "Liechtenstein"
 msgstr "Лихтенштајн"
 
-#: src/settings/flags.php:146
+#: src/settings/flags.php:166
 msgid "Sri Lanka"
 msgstr "Šri Lanka"
 
-#: src/settings/flags.php:141
+#: src/settings/flags.php:161
 msgid "Kazakhstan"
 msgstr "Kazakhstan"
 
-#: src/settings/flags.php:142
+#: src/settings/flags.php:162
 msgid "Laos"
 msgstr "Laos"
 
-#: src/settings/flags.php:143
+#: src/settings/flags.php:163
 msgid "Lebanon"
 msgstr "Liban"
 
-#: src/settings/flags.php:140
+#: src/settings/flags.php:160
 msgid "Cayman Islands"
 msgstr "Kajmanska ostrva"
 
 #: src/settings/flags.php:139
-msgid "Kuwait"
-msgstr "Kuvajt"
-
-#: src/settings/flags.php:138
 msgid "Kurdistan"
 msgstr "Курдистан"
 
-#: src/settings/flags.php:135
+#: src/settings/flags.php:159
+msgid "Kuwait"
+msgstr "Кувајт"
+
+#: src/settings/flags.php:156
 msgid "Saint Kitts and Nevis"
 msgstr "Сент Китс и Невис"
 
-#: src/settings/flags.php:136
+#: src/settings/flags.php:157
 msgid "North Korea"
 msgstr "Severna Koreja"
 
-#: src/settings/flags.php:137
+#: src/settings/flags.php:158
 msgid "South Korea"
 msgstr "Južna Koreja"
 
-#: src/settings/flags.php:132
+#: src/settings/flags.php:153
 msgid "Cambodia"
 msgstr "Kambodža"
 
-#: src/settings/flags.php:133
+#: src/settings/flags.php:154
 msgid "Kiribati"
 msgstr "Kiribati"
 
-#: src/settings/flags.php:134
+#: src/settings/flags.php:155
 msgid "Comoros"
 msgstr "Коморска Острва"
 
-#: src/settings/flags.php:128
+#: src/settings/flags.php:149
 msgid "Jordan"
 msgstr "Jordan"
 
-#: src/settings/flags.php:129
+#: src/settings/flags.php:150
 msgid "Japan"
 msgstr "Japan"
 
-#: src/settings/flags.php:130
+#: src/settings/flags.php:151
 msgid "Kenya"
 msgstr "Kenija"
 
-#: src/settings/flags.php:131
+#: src/settings/flags.php:152
 msgid "Kyrgyzstan"
 msgstr "Киргизстан"
 
-#: src/settings/flags.php:127
+#: src/settings/flags.php:148
 msgid "Jamaica"
-msgstr "Jamajka"
+msgstr "Јамајка"
 
-#: src/settings/flags.php:123
+#: src/settings/flags.php:138
 msgid "Iraq"
 msgstr "Irak"
 
-#: src/settings/flags.php:124
+#: src/settings/flags.php:140
 msgid "Iran"
 msgstr "Иран"
 
-#: src/settings/flags.php:125
+#: src/settings/flags.php:141
 msgid "Iceland"
 msgstr "Исланд"
 
-#: src/settings/flags.php:126
+#: src/settings/flags.php:142
 msgid "Italy"
 msgstr "Italija"
 
-#: src/settings/flags.php:121
+#: src/settings/flags.php:135
 msgid "India"
 msgstr "Индија"
 
-#: src/settings/flags.php:122
+#: src/settings/flags.php:136
 msgid "British Indian Ocean Territory"
 msgstr "Britanska Teriritorija Indijskog Okeana"
 
-#: src/settings/flags.php:120
+#: src/settings/flags.php:134
 msgid "Israel"
 msgstr "Izrael"
 
-#: src/settings/flags.php:116
+#: src/settings/flags.php:130
 msgid "Haiti"
 msgstr "Хаити"
 
-#: src/settings/flags.php:117
+#: src/settings/flags.php:131
 msgid "Hungary"
 msgstr "Мађарска"
 
-#: src/settings/flags.php:118
+#: src/settings/flags.php:132
 msgid "Indonesia"
 msgstr "Индонезија"
 
-#: src/settings/flags.php:119
+#: src/settings/flags.php:133
 msgid "Republic of Ireland"
 msgstr "Republika Irska"
 
-#: src/settings/flags.php:113
+#: src/settings/flags.php:127
 msgid "Heard Island and McDonald Islands"
 msgstr "Heard Island and McDonald Islands"
 
-#: src/settings/flags.php:114
+#: src/settings/flags.php:128
 msgid "Honduras"
 msgstr "Хондурас"
 
-#: src/settings/flags.php:115
+#: src/settings/flags.php:129
 msgid "Croatia"
 msgstr "Хрватска"
 
-#: src/settings/flags.php:112
+#: src/settings/flags.php:126
 msgid "Hong Kong"
-msgstr "Хонг Конг С. А. Р. Кина"
+msgstr "Хонгконг"
 
-#: src/settings/flags.php:110
+#: src/settings/flags.php:123
 msgid "Guinea-Bissau"
 msgstr "Гвинеја-Бисао"
 
-#: src/settings/flags.php:111
+#: src/settings/flags.php:124
 msgid "Guyana"
-msgstr "Gvajana"
+msgstr "Гвајана"
 
-#: src/settings/flags.php:109
+#: src/settings/flags.php:122
 msgid "Guam"
-msgstr "Guam"
+msgstr "Гуам"
 
-#: src/settings/flags.php:108
-msgid "Guatemala"
-msgstr "Gvatamala"
-
-#: src/settings/flags.php:107
+#: src/settings/flags.php:120
 msgid "South Georgia and the South Sandwich Islands"
 msgstr "Јужна Џорџија и Јужна Сендвичка Острва"
 
-#: src/settings/flags.php:105
+#: src/settings/flags.php:121
+msgid "Guatemala"
+msgstr "Гватемала"
+
+#: src/settings/flags.php:118
 msgid "Equatorial Guinea"
 msgstr "Ekvatorijalna Gvineja"
 
-#: src/settings/flags.php:106
+#: src/settings/flags.php:119
 msgid "Greece"
 msgstr "Грчка"
 
-#: src/settings/flags.php:102
+#: src/settings/flags.php:115
 msgid "Gambia"
 msgstr "Гамбија"
 
-#: src/settings/flags.php:103
+#: src/settings/flags.php:116
 msgid "Guinea"
 msgstr "Гвинеја"
 
-#: src/settings/flags.php:104
+#: src/settings/flags.php:117
 msgid "Guadeloupe"
-msgstr "Gvadelupe"
+msgstr "Гвадалупе"
 
-#: src/settings/flags.php:100
-msgid "Gibraltar"
-msgstr "Gibraltar"
-
-#: src/settings/flags.php:101
+#: src/settings/flags.php:114
 msgid "Greenland"
 msgstr "Grenland"
 
-#: src/settings/flags.php:99
+#: src/settings/flags.php:113
+msgid "Gibraltar"
+msgstr "Гибралтар"
+
+#: src/settings/flags.php:112
 msgid "Ghana"
 msgstr "Гана"
 
-#: src/settings/flags.php:98
+#: src/settings/flags.php:110
 msgid "Georgia"
 msgstr "Грузија"
 
-#: src/settings/flags.php:96
+#: src/settings/flags.php:104
 msgid "United Kingdom"
 msgstr "Велика Британија"
 
-#: src/settings/flags.php:97
-msgid "Grenada"
-msgstr "Grenada"
-
-#: src/settings/flags.php:95
+#: src/settings/flags.php:90
 msgid "Galicia"
 msgstr "Галиција"
 
-#: src/settings/flags.php:92
+#: src/settings/flags.php:109
+msgid "Grenada"
+msgstr "Гренада"
+
+#: src/settings/flags.php:99
 msgid "Faroe Islands"
 msgstr "Farska ostrva"
 
-#: src/settings/flags.php:93
+#: src/settings/flags.php:100
 msgid "France"
 msgstr "Француска"
 
-#: src/settings/flags.php:94
+#: src/settings/flags.php:103
 msgid "Gabon"
 msgstr "Габон"
 
-#: src/settings/flags.php:90
+#: src/settings/flags.php:97
 msgid "Falkland Islands"
 msgstr "Falkland Islands"
 
-#: src/settings/flags.php:91
+#: src/settings/flags.php:98
 msgid "Micronesia"
 msgstr "Mikronesija"
 
-#: src/settings/flags.php:86
+#: src/settings/flags.php:84
 msgid "Esperanto"
 msgstr "Esperanto"
 
-#: src/settings/flags.php:87
+#: src/settings/flags.php:94
 msgid "Ethiopia"
 msgstr "Етиопија"
 
-#: src/settings/flags.php:88
+#: src/settings/flags.php:95
 msgid "Finland"
 msgstr "Финска"
 
-#: src/settings/flags.php:89
+#: src/settings/flags.php:96
 msgid "Fiji"
-msgstr "Fidži"
+msgstr "Фиџи"
 
-#: src/settings/flags.php:84
+#: src/settings/flags.php:85
 msgid "Eritrea"
 msgstr "Еритреја"
 
-#: src/settings/flags.php:85
+#: src/settings/flags.php:86
 msgid "Spain"
 msgstr "Španija"
 
-#: src/settings/flags.php:83
+#: src/settings/flags.php:106
 msgid "England"
 msgstr "Енглеска"
 
-#: src/settings/flags.php:80
+#: src/settings/flags.php:81
 msgid "Estonia"
 msgstr "Естонија"
 
-#: src/settings/flags.php:81
+#: src/settings/flags.php:82
 msgid "Egypt"
 msgstr "Египат"
 
-#: src/settings/flags.php:82
+#: src/settings/flags.php:83
 msgid "Western Sahara"
 msgstr "Zapadna Sahara"
 
-#: src/settings/flags.php:77
+#: src/settings/flags.php:78
 msgid "Dominican Republic"
 msgstr "Доминиканска Република"
 
-#: src/settings/flags.php:79
+#: src/settings/flags.php:80
 msgid "Ecuador"
 msgstr "Еквадор"
 
-#: src/settings/flags.php:78
+#: src/settings/flags.php:79
 msgid "Algeria"
 msgstr "Alžir"
 
-#: src/settings/flags.php:76
+#: src/settings/flags.php:77
 msgid "Dominica"
-msgstr "Dominika"
+msgstr "Доминика"
 
-#: src/settings/flags.php:75
+#: src/settings/flags.php:76
 msgid "Denmark"
 msgstr "Данска"
 
-#: src/settings/flags.php:73
+#: src/settings/flags.php:74
 msgid "Germany"
 msgstr "Немачка"
 
-#: src/settings/flags.php:74
+#: src/settings/flags.php:75
 msgid "Djibouti"
-msgstr " Džubuti"
+msgstr "Џибути"
 
 #: src/settings/flags.php:70
 msgid "Christmas Island"
@@ -1928,7 +2138,7 @@ msgstr "Božićno ostrvo"
 msgid "Cyprus"
 msgstr "Кипар"
 
-#: src/settings/flags.php:72
+#: src/settings/flags.php:73
 msgid "Czech Republic"
 msgstr "Чешка"
 
@@ -1950,7 +2160,7 @@ msgstr "Колумбија"
 
 #: src/settings/flags.php:67
 msgid "Costa Rica"
-msgstr "Kosta Rika"
+msgstr "Костарика"
 
 #: src/settings/flags.php:63
 msgid "Chile"
@@ -1992,17 +2202,17 @@ msgstr "Канада"
 msgid "Cocos"
 msgstr "Кокос"
 
-#: src/settings/flags.php:55
+#: src/settings/flags.php:89
 msgid "Catalonia"
 msgstr "Каталонија"
-
-#: src/settings/flags.php:53
-msgid "Belize"
-msgstr "Белизе"
 
 #: src/settings/flags.php:52
 msgid "Belarus"
 msgstr "Belorusija"
+
+#: src/settings/flags.php:53
+msgid "Belize"
+msgstr "Белиз"
 
 #: src/settings/flags.php:49
 msgid "Bahamas"
@@ -2016,7 +2226,7 @@ msgstr "Butan"
 msgid "Botswana"
 msgstr "Bocvana"
 
-#: src/settings/flags.php:47
+#: src/settings/flags.php:46
 msgid "Bolivia"
 msgstr "Bolivia"
 
@@ -2024,45 +2234,45 @@ msgstr "Bolivia"
 msgid "Brazil"
 msgstr "Brazil"
 
-#: src/settings/flags.php:46
-msgid "Brunei"
-msgstr "Brunei"
-
 #: src/settings/flags.php:45
-msgid "Bermuda"
-msgstr "Bermude"
+msgid "Brunei"
+msgstr "Брунеј"
 
-#: src/settings/flags.php:43
+#: src/settings/flags.php:44
+msgid "Bermuda"
+msgstr "Бермуда"
+
+#: src/settings/flags.php:42
 msgid "Burundi"
 msgstr "Бурунди"
 
-#: src/settings/flags.php:44
+#: src/settings/flags.php:43
 msgid "Benin"
 msgstr "Benin"
 
-#: src/settings/flags.php:40
+#: src/settings/flags.php:39
 msgid "Burkina Faso"
 msgstr "Буркина Фасо"
 
-#: src/settings/flags.php:41
+#: src/settings/flags.php:40
 msgid "Bulgaria"
 msgstr "Bugarska"
 
-#: src/settings/flags.php:42
+#: src/settings/flags.php:41
 msgid "Bahrain"
-msgstr "Bahrein"
+msgstr "Бахреин"
 
-#: src/settings/flags.php:38
+#: src/settings/flags.php:37
 msgid "Bangladesh"
 msgstr "Bangladeš"
 
-#: src/settings/flags.php:39
+#: src/settings/flags.php:38
 msgid "Belgium"
 msgstr "Belgija"
 
-#: src/settings/flags.php:37
+#: src/settings/flags.php:36
 msgid "Barbados"
-msgstr "Barbados"
+msgstr "Барбадос"
 
 #: src/settings/flags.php:34
 msgid "Azerbaijan"
@@ -2076,17 +2286,17 @@ msgstr "Bosna i Hercegovina"
 msgid "Åland Islands"
 msgstr "Оландска Острва"
 
-#: src/settings/flags.php:36
+#: src/settings/flags.php:92
 msgid "Basque Country"
 msgstr "Баскија"
 
 #: src/settings/flags.php:32
 msgid "Aruba"
-msgstr "Aruba"
+msgstr "Аруба"
 
 #: src/settings/flags.php:31
 msgid "Australia"
-msgstr "Australia"
+msgstr "Аустралија"
 
 #: src/settings/flags.php:29
 msgid "American Samoa"
@@ -2095,10 +2305,6 @@ msgstr "Američka Samoa"
 #: src/settings/flags.php:30
 msgid "Austria"
 msgstr "Austria"
-
-#: src/settings/flags.php:28
-msgid "Arab league"
-msgstr "Арапска лига"
 
 #: src/settings/flags.php:25
 msgid "Netherlands Antilles"
@@ -2110,7 +2316,7 @@ msgstr "Angola"
 
 #: src/settings/flags.php:27
 msgid "Argentina"
-msgstr "Argentina"
+msgstr "Аргентина"
 
 #: src/settings/flags.php:23
 msgid "Albania"
@@ -2130,7 +2336,7 @@ msgstr "Антигве и Барбуда"
 
 #: src/settings/flags.php:22
 msgid "Anguilla"
-msgstr "Anguila"
+msgstr "Ангила"
 
 #: src/settings/flags.php:19
 msgid "United Arab Emirates"
@@ -2138,7 +2344,7 @@ msgstr "Ujedinjeni Arapski Emirati"
 
 #: src/settings/flags.php:18
 msgid "Andorra"
-msgstr "Andora"
+msgstr "Андора"
 
 #. translators: accessibility text
 #: src/admin/view-translations-post.php:67
@@ -2154,7 +2360,7 @@ msgstr "Страница чланака"
 msgid "Front Page"
 msgstr "Главна Страна"
 
-#: src/Model/Languages.php:1083 src/modules/wizard/wizard.php:499
+#: src/Model/Languages.php:1085 src/modules/wizard/wizard.php:500
 msgid "The flag does not exist"
 msgstr "Застава не постоји"
 
@@ -2173,9 +2379,9 @@ msgstr "Уреди превод у %s"
 msgid "Add a translation in %s"
 msgstr "Додај превод у %s"
 
-#: src/admin/admin-nav-menu.php:90
+#: src/admin/admin-nav-menu.php:93
 msgid "Add to Menu"
-msgstr "Додај у изборник"
+msgstr "Додај у мени"
 
 #. Description of the plugin
 #: polylang.php
@@ -2187,45 +2393,29 @@ msgstr "Dodaje višejezičku sposobnost za WordPress"
 msgid "Polylang"
 msgstr "Polylang"
 
+#: src/settings/settings-module.php:164
+msgid "Activated"
+msgstr "Укључена"
+
 #: src/settings/settings-module.php:162
 msgid "Activate"
 msgstr "Укључи"
 
-#: src/settings/settings-module.php:164
-msgid "Activated"
-msgstr "Укључено"
-
-#: src/admin/admin-base.php:147 src/admin/admin-base.php:659
-#: src/admin/admin-classic-editor.php:79 src/admin/admin-nav-menu.php:80
-#: src/admin/admin-nav-menu.php:83 src/admin/admin-nav-menu.php:116
-#: src/modules/Blocks/Language_Switcher/Navigation/Block.php:226
+#: src/admin/admin-base.php:147 src/admin/admin-base.php:708
+#: src/admin/admin-classic-editor.php:79 src/admin/admin-nav-menu.php:83
+#: src/admin/admin-nav-menu.php:86 src/admin/admin-nav-menu.php:126
+#: src/modules/Blocks/Language_Switcher/Navigation/Block.php:215
 #: src/modules/wizard/view-wizard-step-languages.php:28
-#: src/modules/wizard/wizard.php:510 src/nav-menu.php:72
-#: src/settings/settings.php:123
+#: src/modules/wizard/wizard.php:511 src/nav-menu.php:72
+#: src/settings/settings.php:112
 msgid "Languages"
 msgstr "Jezici"
 
-#: src/switcher.php:47
-msgid "Displays language names"
-msgstr "Prikazuje imena jezika"
-
-#: src/switcher.php:48
-msgid "Displays flags"
-msgstr "Prikazuje zastave"
-
-#: src/switcher.php:49
-msgid "Forces link to front page"
-msgstr "Forsira link ka naslovnoj stranici (home page)"
-
-#: src/switcher.php:50
-msgid "Hides the current language"
-msgstr "Skriva trenutni jezik"
-
-#: src/admin/admin-base.php:524 src/admin/admin-base.php:556
+#: src/admin/admin-base.php:523 src/admin/admin-base.php:555
 msgid "Filters content by language"
 msgstr "Filteriše sadržaj prema jeziku"
 
-#: src/admin/admin-base.php:515
+#: src/admin/admin-base.php:514
 msgid "Show all languages"
 msgstr "Prikaži sve jezike"
 
@@ -2241,32 +2431,27 @@ msgstr "Vidžet je prikazan za:"
 msgid "All languages"
 msgstr "Svi jezici"
 
-#: src/admin/admin-base.php:667 src/admin/admin.php:104
-#: src/settings/settings-module.php:150
-msgid "Settings"
-msgstr "Podešavanja"
-
-#: src/settings/settings.php:113
+#: src/settings/settings.php:102
 msgid "About Polylang"
 msgstr "O Polylangu"
 
-#: src/settings/settings.php:143
+#: src/settings/settings.php:132
 msgid "Strings translations"
 msgstr "Prevod veza (Strings translation)"
 
-#: src/Model/Languages.php:1053 src/modules/wizard/wizard.php:495
+#: src/Model/Languages.php:1055 src/modules/wizard/wizard.php:496
 msgid "Enter a valid WordPress locale"
 msgstr "Unesite važeći WordPress lokal (Enter a valid WordPress locale)"
 
-#: src/Model/Languages.php:1064 src/modules/wizard/wizard.php:497
+#: src/Model/Languages.php:1066 src/modules/wizard/wizard.php:498
 msgid "The language code must be unique"
 msgstr "Kod jezika mora biti jedinstven"
 
-#: src/Model/Languages.php:1071 src/modules/wizard/wizard.php:498
+#: src/Model/Languages.php:1073 src/modules/wizard/wizard.php:499
 msgid "The language must have a name"
 msgstr "Jezik (novi) mora imati ime"
 
-#: src/settings/settings.php:190
+#: src/settings/settings.php:179
 msgid "The language was created, but the WordPress language file was not downloaded. Please install it manually."
 msgstr "Jezik je kreiran, ali WordPress jezička datoteka nije preuzeta. Molimo instalirajte je ručno"
 
@@ -2300,12 +2485,13 @@ msgstr "Izmeni jezik"
 
 #: src/modules/wizard/view-wizard-step-languages.php:50
 #: src/modules/wizard/view-wizard-step-languages.php:54
-#: src/settings/view-tab-lang.php:32 src/settings/view-tab-lang.php:172
+#: src/settings/view-tab-lang.php:32 src/settings/view-tab-lang.php:178
 msgid "Add new language"
 msgstr "Dodaj novi jezik"
 
-#: src/modules/Blocks/Language_Switcher/Standard/Block.php:60
-#: src/settings/view-tab-lang.php:53 src/widget-languages.php:88
+#: src/settings/view-tab-lang.php:53
+#: src/Switcher/Layout/Abstract_Layout.php:160
+#: src/Switcher/Layout/Select.php:57
 msgid "Choose a language"
 msgstr "Izaberite jezik"
 
@@ -2313,11 +2499,11 @@ msgstr "Izaberite jezik"
 msgid "You can choose a language in the list or directly edit it below."
 msgstr "Možete odabrati neki od jezika u listi ili ga direktno izmenite ispod."
 
-#: src/settings/table-languages.php:149 src/settings/view-tab-lang.php:74
+#: src/settings/table-languages.php:152 src/settings/view-tab-lang.php:74
 msgid "Full name"
 msgstr "Puno ime"
 
-#: src/modules/REST/V1/Languages.php:445 src/settings/view-tab-lang.php:81
+#: src/modules/REST/V1/Languages.php:459 src/settings/view-tab-lang.php:81
 msgid "The name is how it is displayed on your site (for example: English)."
 msgstr "Ime je kako se prikazuju na vašem sajtu (na primer : engleski) "
 
@@ -2341,12 +2527,12 @@ msgstr "Sa desna nalevo"
 msgid "Choose the text direction for the language"
 msgstr "Odaberite smer teksta za jezik"
 
-#: src/settings/view-tab-lang.php:151
+#: src/settings/view-tab-lang.php:157
 msgid "Position of the language in the language switcher"
 msgstr "Položaj jezika u izmenjivaču redosleda jezika"
 
-#: src/admin/admin-nav-menu.php:59 src/nav-menu.php:73
-#: src/widget-languages.php:32
+#: src/admin/admin-nav-menu.php:62 src/nav-menu.php:73
+#: src/Widgets/Languages.php:64
 msgid "Language switcher"
 msgstr "Promena jezika"
 
@@ -2364,7 +2550,7 @@ msgstr "Očisti svojstva prevoda databaze (Clean strings translation database)"
 #: src/modules/wizard/view-wizard-step-home-page.php:114
 #: src/modules/wizard/view-wizard-step-languages.php:71
 #: src/modules/wizard/view-wizard-step-languages.php:86
-#: src/settings/table-languages.php:133 src/settings/table-languages.php:152
+#: src/settings/table-languages.php:136 src/settings/table-languages.php:155
 msgid "Default language"
 msgstr "Podrazumevani jezik "
 
@@ -2400,23 +2586,19 @@ msgstr "Prilagođene nomenklature (Custom taxonomies)"
 msgid "Activate languages and translations for custom taxonomies."
 msgstr "Aktivirajte jezike i prevode za prilagođene nomenklature. (Activate languages and translations for custom taxonomies.)"
 
-#: src/settings/table-string.php:166
-msgid "String"
-msgstr "Veza"
-
-#: src/widget-languages.php:34
+#: src/Widgets/Languages.php:66
 msgid "Displays a language switcher"
 msgstr "Prikazuje izmenu jezika (Displays a language switcher)"
 
-#: src/install/upgrade.php:90
+#: src/install/upgrade.php:74
 msgid "Polylang has been deactivated because you upgraded from a too old version."
 msgstr "Polilang je deaktiviran jer ste nadogradili sa veoma stare verzije ."
 
-#: src/settings/table-string.php:368
+#: src/settings/table-string.php:392
 msgid "View all groups"
 msgstr "Pogledaj sve grupe"
 
-#: src/settings/table-languages.php:213
+#: src/settings/table-languages.php:216
 msgid "You are about to permanently delete this language. Are you sure?"
 msgstr "Vi hoćete da trajno izbrišete ovaj jezik. Da li ste sigurni?"
 
@@ -2428,7 +2610,7 @@ msgstr "Koristite ovo za uklanjanje neiskorišćenih žica iz baze podataka, na
 msgid "The synchronization options allow to maintain exact same values (or translations in the case of taxonomies and page parent) of meta content between the translations of a post or page."
 msgstr "Opcije sinhronizacije omogućavaju da se održe potpuno iste vrednosti (ili prevode u slučaju nomenklaturama i stranice roditelja ) od meta sadržaja između prevoda članka ili stranice."
 
-#: src/Model/Languages.php:1058 src/modules/wizard/wizard.php:496
+#: src/Model/Languages.php:1060 src/modules/wizard/wizard.php:497
 msgid "The language code contains invalid characters"
 msgstr "Jezički kod sadrži nevažeće znakove/slova"
 
@@ -2448,12 +2630,12 @@ msgstr "Jezik je namešten od sub-imena u lepim permalinkovima  (The language is
 msgid "The language is set from different domains"
 msgstr "Jezik je namešten za različito web ime (The language is set from different domains )"
 
-#: src/settings/table-languages.php:150 src/settings/view-tab-lang.php:85
+#: src/settings/table-languages.php:153 src/settings/view-tab-lang.php:85
 msgid "Locale"
 msgstr "Локализација"
 
 #: src/admin/admin-classic-editor.php:136
-#: src/admin/admin-filters-columns.php:215 src/admin/admin-filters-media.php:79
+#: src/admin/admin-filters-columns.php:226 src/admin/admin-filters-media.php:83
 #: src/admin/admin-filters-term.php:142 src/admin/admin-filters-term.php:214
 #: src/modules/wizard/view-wizard-step-languages.php:62
 msgid "Language"
@@ -2485,62 +2667,54 @@ msgstr "Url naslovne stranice sadrži jezičkii kod umesto imena stranice ili id
 msgid "Example: %1$s instead of %2$s"
 msgstr "На пример: %1$s уместо %2$s"
 
-#: src/settings/settings.php:184
+#: src/settings/settings.php:173
 msgid "Language added."
 msgstr "Језик је додат."
 
-#: src/settings/settings.php:216
+#: src/settings/settings.php:205
 msgid "Language updated."
 msgstr "Језик је ажуриран."
 
-#: src/settings/table-string.php:446
+#: src/settings/table-string.php:470
 msgid "Translations updated."
 msgstr "Преводи су ажурирани."
+
+#: src/settings/view-tab-lang.php:103
+msgid "Language code - preferably 2-letters ISO 639-1  (for example: en)"
+msgstr "Језички код - по могућству двословна ознака ISO 639-1 (на пример: ен)"
+
+#: src/settings/view-tab-lang.php:178
+msgid "Update"
+msgstr "Ажурирај"
+
+#: src/integrations/wp-importer/wordpress-importer.php:41
+msgid "Import <strong>posts, pages, comments, custom fields, categories, and tags</strong> from a WordPress export file."
+msgstr "Увези <strong>чланке, странице, коментаре, прилагођена поља, категорије и ознаке</strong> из Вордпрес датотеке за извоз."
 
 #. translators: %1$s is link start tag, %2$s is link end tag.
 #: src/settings/view-about.php:15
 msgid "Polylang is provided with an extensive %1$sdocumentation%2$s (in English). It includes information on how to set up your multilingual site and use it on a daily basis; FAQs, and documentation for developers to adapt their plugins and themes."
 msgstr "Polylang је опремљен обимном %1$sдокументацијом%2$s (на енглеском језику). Садржи информације о томе како да подесите своје вишејезично веб место и да га користите на дневној бази; Често постављана питања и документација за градитеље да прилагоде своје додатке и теме."
 
-#: src/settings/view-tab-lang.php:103
-msgid "Language code - preferably 2-letters ISO 639-1  (for example: en)"
-msgstr "Језички код - по могућству двословна ознака ISO 639-1 (на пример: ен)"
-
-#: src/settings/view-tab-lang.php:172
-msgid "Update"
-msgstr "Ажурирај"
-
-#: src/integrations/wp-importer/wordpress-importer.php:45
-msgid "Import <strong>posts, pages, comments, custom fields, categories, and tags</strong> from a WordPress export file."
-msgstr "Увези <strong>чланке, странице, коментаре, прилагођена поља, категорије и ознаке</strong> из Вордпрес датотеке за извоз."
-
 #: src/admin/admin-strings.php:70
 msgid "Widget text"
 msgstr "Текст виџета"
 
 #. translators: Hidden accessibility text.
-#: src/frontend/frontend-filters-search.php:122
-#: src/frontend/frontend-filters-search.php:124
+#: src/frontend/frontend-filters-search.php:116
+#: src/frontend/frontend-filters-search.php:118
 msgid "Search"
 msgstr "Претрага"
 
-#: src/switcher.php:46
-msgid "Displays as a dropdown"
-msgstr "Prikazuje se u opadajućem meniju"
-
-#: src/switcher.php:51
-msgid "Hides languages with no translation"
-msgstr "Сакрива језике без превода"
-
-#: src/admin/admin-classic-editor.php:258
+#: src/admin/admin-classic-editor.php:252
 msgid "(no parent)"
 msgstr "(без родитеља)"
 
-#: src/admin/admin-filters-columns.php:202
+#: src/admin/admin-filters-columns.php:213
 msgid "&mdash; No Change &mdash;"
 msgstr "&mdash; Нема промене &mdash;"
 
-#: src/modules/wizard/wizard.php:494
+#: src/modules/wizard/wizard.php:495
 msgid "Impossible to add the language."
 msgstr "Немогуће је додати овај језик."
 
@@ -2548,7 +2722,7 @@ msgstr "Немогуће је додати овај језик."
 msgid "Uncategorized"
 msgstr "Некатегоризовано"
 
-#: src/settings/table-languages.php:207
+#: src/settings/table-languages.php:210
 msgid "Edit"
 msgstr "Уреди"
 
@@ -2561,15 +2735,11 @@ msgstr "Таксономије"
 msgid "Example:"
 msgstr "Пример:"
 
-#: src/settings/table-languages.php:153 src/settings/view-tab-lang.php:144
-msgid "Order"
-msgstr "Наруџбина"
-
-#: src/settings/table-languages.php:151
+#: src/settings/table-languages.php:154
 msgid "Code"
 msgstr "Кôд"
 
-#: src/widget-languages.php:154
+#: src/Widgets/Languages.php:185
 msgid "Title:"
 msgstr "Наслов:"
 
@@ -2581,11 +2751,11 @@ msgstr "Смер текста"
 msgid "Comment status"
 msgstr "Стање коментара"
 
-#: src/settings/table-string.php:168
+#: src/settings/table-string.php:192
 msgid "Group"
 msgstr "Група"
 
-#: src/settings/table-string.php:167
+#: src/settings/table-string.php:191
 msgid "Name"
 msgstr "Име"
 
@@ -2597,10 +2767,10 @@ msgstr "Лепљиви чланци"
 msgid "Featured image"
 msgstr "Издвојена слика"
 
-#: src/admin/admin-base.php:664 src/admin/view-translations-media.php:14
+#: src/admin/admin-base.php:713 src/admin/view-translations-media.php:14
 #: src/admin/view-translations-post.php:14
 #: src/admin/view-translations-term.php:18
-#: src/admin/view-translations-term.php:25 src/settings/table-string.php:169
+#: src/admin/view-translations-term.php:25 src/settings/table-string.php:193
 msgid "Translations"
 msgstr "Преводи"
 
@@ -2608,41 +2778,74 @@ msgstr "Преводи"
 msgid "Custom fields"
 msgstr "Прилагођена поља"
 
-#: src/settings/table-languages.php:155
+#: src/settings/table-languages.php:158
 msgid "Posts"
 msgstr "Чланци"
 
-#: src/settings/table-languages.php:154 src/settings/view-tab-lang.php:124
+#: src/settings/table-languages.php:157 src/settings/view-tab-lang.php:124
 msgid "Flag"
 msgstr "Застава"
-
-#: src/settings/table-languages.php:214 src/settings/table-string.php:328
-msgid "Delete"
-msgstr "Обриши"
 
 #: src/modules/sync/settings-sync.php:112
 msgid "Page order"
 msgstr "Поредак страна"
 
-#: src/modules/wizard/view-wizard-step-media.php:17
-#: src/modules/wizard/wizard.php:620 src/settings/settings-media.php:31
-msgid "Media"
-msgstr "Садржај"
-
-#: src/admin/admin-filters-term.php:483
-msgid "None"
-msgstr "Ниједан"
-
-#: src/settings/settings.php:204
-msgid "Language deleted."
-msgstr "Језик је избрисан."
-
-#: src/settings/table-string.php:381
-msgid "Filter"
-msgstr "Филтер"
-
 #. translators: Calendar caption: 1: Month name, 2: 4-digit year.
-#: src/widget-calendar.php:219
+#: src/Widgets/Calendar.php:248
 msgctxt "calendar caption"
 msgid "%1$s %2$s"
 msgstr "%1$s %2$s."
+
+#: src/settings/table-languages.php:217 src/settings/table-string.php:352
+msgid "Delete"
+msgstr "Избриши"
+
+#: src/settings/table-string.php:190
+msgid "String"
+msgstr "Стринг"
+
+#: src/settings/table-languages.php:156 src/settings/view-tab-lang.php:150
+msgid "Order"
+msgstr "Поруџбина"
+
+#: src/settings/settings.php:193
+msgid "Language deleted."
+msgstr "Језик је обрисан."
+
+#: src/settings/table-string.php:405
+msgid "Filter"
+msgstr "Филтрирај"
+
+#: src/admin/admin-filters-term.php:485
+msgid "None"
+msgstr "Нема"
+
+#: src/admin/admin-base.php:716 src/admin/admin.php:104
+#: src/settings/settings-module.php:150
+msgid "Settings"
+msgstr "Подешавања"
+
+#: src/modules/wizard/view-wizard-step-media.php:17
+#: src/modules/wizard/wizard.php:621 src/settings/settings-media.php:31
+msgid "Media"
+msgstr "Медији"
+
+#: src/Switcher/Fields/Menu.php:48 src/Switcher/Fields/Widget.php:60
+#: js/build/blocks.js:884 js/build/blocks.js:971
+msgid "Display flags"
+msgstr "Прикажи заставице"
+
+#: src/Switcher/Fields/Menu.php:62 src/Switcher/Fields/Widget.php:78
+#: js/build/blocks.js:943
+msgid "Force link to front page"
+msgstr "Усмери везу на почетну страницу"
+
+#: src/Switcher/Fields/Menu.php:66 src/Switcher/Fields/Widget.php:82
+#: js/build/blocks.js:949
+msgid "Hide the current language"
+msgstr "Сакриј тренутни језик"
+
+#: src/Switcher/Fields/Menu.php:69 src/Switcher/Fields/Widget.php:85
+#: js/build/blocks.js:955
+msgid "Hide languages with no translation"
+msgstr "Сакриј језике без превода"

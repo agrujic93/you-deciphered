@@ -515,12 +515,19 @@ function acf_rest_reduce_reference( $formatted_value, $raw_value, $field ) {
  * attachment array in standard-format mode. The other variants (`dashicons`,
  * `url`, `svg`) carry user-provided data with no permission gate needed.
  *
+ * With the "Icon String" return format (the default), the formatted value is
+ * a string rather than an array; for `media_library` icons it is the
+ * attachment URL from `wp_get_attachment_url()`. In that case the type and
+ * attachment ID are read from the stored raw value instead.
+ *
  * When the type is `media_library` and the caller cannot read the target
  * attachment, the field is reduced to the same shape
- * `?acf_format=light` would return: `{ type: 'media_library', value: <int> }`.
- * Everything else passes through unchanged.
+ * `?acf_format=light` would return: `{ type: 'media_library', value: <int> }`,
+ * whatever the field's return format. Everything else passes through
+ * unchanged.
  *
  * @since ACF 6.8.10
+ * @since ACF 6.8.12 Media Library icons using the string return format are also reduced.
  *
  * @param mixed $formatted_value The formatted field value.
  * @param mixed $raw_value       The raw field value.
@@ -529,7 +536,25 @@ function acf_rest_reduce_reference( $formatted_value, $raw_value, $field ) {
  */
 function acf_rest_reduce_icon_picker_reference( $formatted_value, $raw_value, $field ) {
 	if ( ! is_array( $formatted_value ) ) {
-		return $formatted_value;
+		// String return format: a media_library icon is formatted to the bare attachment URL, so gate it on the stored ID.
+		if (
+			! is_array( $raw_value ) ||
+			'media_library' !== ( $raw_value['type'] ?? null ) ||
+			! isset( $raw_value['value'] ) ||
+			! is_numeric( $raw_value['value'] )
+		) {
+			return $formatted_value;
+		}
+
+		$target_id = (int) $raw_value['value'];
+		if ( $target_id <= 0 || acf_rest_reference_is_exposable( $target_id, $field ) ) {
+			return $formatted_value;
+		}
+
+		return array(
+			'type'  => 'media_library',
+			'value' => $target_id,
+		);
 	}
 
 	$type = $formatted_value['type'] ?? ( is_array( $raw_value ) ? $raw_value['type'] ?? null : null );
@@ -567,15 +592,18 @@ function acf_rest_reduce_icon_picker_reference( $formatted_value, $raw_value, $f
  * Determines whether the current user should see the fully-expanded target of
  * a reference field (Relationship, Post Object, Image, Gallery, File).
  *
- * Delegates to the target post type's REST controller (usually
- * `WP_REST_Posts_Controller`, or `WP_REST_Attachments_Controller` for
- * attachments, or a custom class declared via `rest_controller_class`) so this
- * stays in lockstep with what `/wp/v2/<post_type>/<id>` returns for the same
- * caller. Targets whose post type is not REST-exposed
- * (`show_in_rest === false`) are treated as non-exposable, matching core.
+ * Delegates to the REST controller core registered for the target post type
+ * (via `WP_Post_Type::get_rest_controller()`; usually `WP_REST_Posts_Controller`,
+ * or `WP_REST_Attachments_Controller` for attachments, or a custom class declared
+ * via `rest_controller_class`) so this stays in lockstep with what
+ * `/wp/v2/<post_type>/<id>` returns for the same caller. Targets whose post type
+ * is not REST-exposed (`show_in_rest === false`) are treated as non-exposable,
+ * matching core.
  *
- * Fail-closed contract: if the resolved REST controller does not implement
- * `check_read_permission()`, the target is treated as non-exposable. A
+ * Fail-closed contract: if core has no REST controller for the post type (for
+ * example, a `rest_controller_class` that doesn't extend `WP_REST_Controller`),
+ * or the controller does not implement `check_read_permission()`, the target is
+ * treated as non-exposable. A
  * bare `current_user_can( 'read_post', $id )` fallback is intentionally NOT
  * used because it evaluates to false for anonymous callers on published posts
  * (anon lacks the `read` cap on standard installs), so the fallback would
@@ -583,7 +611,12 @@ function acf_rest_reduce_icon_picker_reference( $formatted_value, $raw_value, $f
  * controller for a post type can re-expose targets via the
  * `acf/rest/expose_reference_target` filter after making an informed decision.
  *
+ * Password-protected targets whose password has not been entered are only
+ * exposable to users who can edit them, even though the REST controller's read
+ * check passes for published protected posts.
+ *
  * @since ACF 6.8.10
+ * @since ACF 6.8.11 Password-protected targets are only exposed to users who entered the password or can edit them.
  *
  * @param integer $target_id The referenced resource ID (post or attachment).
  * @param array   $field     The field array (context for filter subscribers).
@@ -597,16 +630,15 @@ function acf_rest_reference_is_exposable( $target_id, $field ) {
 		$post_type_obj = get_post_type_object( $post->post_type );
 
 		if ( $post_type_obj && ! empty( $post_type_obj->show_in_rest ) ) {
-			$controller_class = ! empty( $post_type_obj->rest_controller_class )
-				? $post_type_obj->rest_controller_class
-				: 'WP_REST_Posts_Controller';
+			$controller = $post_type_obj->get_rest_controller();
 
-			if ( class_exists( $controller_class ) ) {
-				$controller = new $controller_class( $post->post_type );
+			if ( $controller && method_exists( $controller, 'check_read_permission' ) ) {
+				$exposable = (bool) $controller->check_read_permission( $post );
+			}
 
-				if ( method_exists( $controller, 'check_read_permission' ) ) {
-					$exposable = (bool) $controller->check_read_permission( $post );
-				}
+			// Core's read check passes for published password-protected posts, so hide them from anyone who can't edit them.
+			if ( $exposable && post_password_required( $post ) && ! current_user_can( 'edit_post', $post->ID ) ) {
+				$exposable = false;
 			}
 		}
 	}

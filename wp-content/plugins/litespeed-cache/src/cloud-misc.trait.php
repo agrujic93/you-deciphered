@@ -51,9 +51,9 @@ trait Cloud_Misc {
 
 		// Try to update dash content
 		$data = self::post( self::SVC_D_DASH, [ 'action2' => ( 'cdn_dash_mini' === $type ? 'cdn_dash' : $type ) ] );
-		if ( ! empty( $data['qc_activated'] ) ) {
+		if ( ! empty( $data['qc_activated'] ) && in_array( $data['qc_activated'], [ 'anonymous', 'linked', 'cdn', 'deleted' ], true ) ) {
 			// Sync conf as changed
-			if ( empty( $this->_summary['qc_activated'] ) || $this->_summary['qc_activated'] !== $data['qc_activated'] ) {
+			if ( 'cdn' === $data['qc_activated'] && ( empty( $this->_summary['qc_activated'] ) || $this->_summary['qc_activated'] !== $data['qc_activated'] ) ) {
 				$msg = sprintf( __( 'Congratulations, %s successfully set this domain up for the online services with CDN service.', 'litespeed-cache' ), 'QUIC.cloud' );
 				Admin_Display::success( '🎊 ' . $msg );
 				$this->_clear_reset_qc_reg_msg();
@@ -62,8 +62,12 @@ trait Cloud_Misc {
 				$this->cls( 'CDN\Quic' )->try_sync_conf( true );
 			}
 
-			$this->_summary['qc_activated'] = $data['qc_activated'];
-			$this->save_summary();
+			if ( 'deleted' === $data['qc_activated'] ) {
+				$this->_reset_qc_reg();
+			} else {
+				$this->_summary['qc_activated'] = $data['qc_activated'];
+				$this->save_summary();
+			}
 		}
 
 		// Show the info
@@ -81,6 +85,11 @@ trait Cloud_Misc {
 	 */
 	public function check_dev_version() {
 		if ( ! preg_match( '/[^\d\.]/', Core::VER ) ) {
+			return;
+		}
+
+		// The banner's upgrade button runs a network-only action, so subsite administrators cannot use it.
+		if ( is_multisite() && ! current_user_can( 'manage_network_options' ) ) {
 			return;
 		}
 
@@ -113,10 +122,11 @@ trait Cloud_Misc {
 	 * @since 2.9
 	 * @access public
 	 *
-	 * @param string|false $src Source.
+	 * @param string|false $src      Source.
+	 * @param int|false    $time_out HTTP timeout in seconds, or false for the default.
 	 * @return mixed
 	 */
-	public static function version_check( $src = false ) {
+	public static function version_check( $src = false, $time_out = false ) {
 		$req_data = [
 			'v'   => defined( 'LSCWP_CUR_V' ) ? LSCWP_CUR_V : '',
 			'src' => $src,
@@ -130,7 +140,7 @@ trait Cloud_Misc {
 			$litespeed_err   = constant( 'LITESPEED_ERR' );
 			$req_data['err'] = base64_encode( ! is_string( $litespeed_err ) ? wp_json_encode( $litespeed_err ) : $litespeed_err ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 		}
-		$data = self::post( self::API_VER, $req_data );
+		$data = self::post( self::API_VER, $req_data, $time_out );
 
 		return $data;
 	}
@@ -221,9 +231,48 @@ trait Cloud_Misc {
 	 * @return int
 	 */
 	public function allowance( $service, &$err = false ) {
-		// Only auto sync usage at most one time per day
-		if ( empty( $this->_summary[ 'last_request.' . self::SVC_D_USAGE ] ) || time() - (int) $this->_summary[ 'last_request.' . self::SVC_D_USAGE ] > 86400 ) {
+		$allowance    = $this->_cached_allowance( $service, $err );
+		$last_request = (int) ( $this->_summary[ 'last_request.' . self::SVC_D_USAGE ] ?? 0 );
+		if ( ! $allowance ) {
+			// Exhausted credit keeps the daily interval; a failed usage request also counts as the last one.
+			$last_request = max( $last_request, (int) ( $this->_summary[ 'curr_request.' . self::SVC_D_USAGE ] ?? 0 ) );
+		}
+		if ( ! $last_request || time() - $last_request >= DAY_IN_SECONDS ) {
 			$this->sync_usage();
+			$allowance = $this->_cached_allowance( $service, $err );
+		}
+
+		return $allowance;
+	}
+
+	/**
+	 * Calculate allowance from cached usage without issuing a cloud request.
+	 *
+	 * @param string      $service Service.
+	 * @param string|bool $err     Error code by ref.
+	 * @return int
+	 */
+	private function _cached_allowance( $service, &$err ) {
+		// Usage v4: every optimization service draws from the shared `optm` units.
+		if ( ! empty( $this->_summary['usage.optm'] ) ) {
+			$usage = $this->_summary['usage.optm'];
+			$left  = 0;
+			// `remaining` decides when reported; without it: plan units first, then PAYG balance, then overage. -1 means unlimited.
+			$caps = isset( $usage['remaining'] ) ? [ 'remaining' => '' ] : [ 'quota' => 'used', 'pag_bal' => '', 'overage_cap' => 'overage_used' ];
+			foreach ( $caps as $cap => $spent ) {
+				$left = isset( $usage[ $cap ] ) ? (int) $usage[ $cap ] : 0;
+				if ( -1 === $left ) {
+					$left = PHP_INT_MAX;
+				} elseif ( $spent && isset( $usage[ $spent ] ) ) {
+					$left -= (int) $usage[ $spent ];
+				}
+				if ( $left > 0 ) {
+					// Image optimization sends one group per request; units are not converted into an image count.
+					return self::SVC_IMG_OPTM === $service ? self::IMG_OPTM_DEFAULT_GROUP : $left;
+				}
+			}
+			$err = 'out_of_quota';
+			return 0;
 		}
 
 		if ( in_array( $service, [ self::SVC_CCSS, self::SVC_UCSS, self::SVC_VPI ], true ) ) {
@@ -282,7 +331,7 @@ trait Cloud_Misc {
 	 */
 	public function sync_usage() {
 		$usage = $this->_post( self::SVC_D_USAGE );
-		if ( ! $usage ) {
+		if ( ! is_array( $usage ) || ! $usage ) {
 			return;
 		}
 
@@ -291,6 +340,13 @@ trait Cloud_Misc {
 		foreach ( self::$services as $v ) {
 			$this->_summary[ 'usage.' . $v ] = ! empty( $usage[ $v ] ) ? $usage[ $v ] : false;
 		}
+		// Usage v4 reports only `cdn` and `optm`; a stored `usage.optm` marks that format, and an older response clears it.
+		$this->_summary['usage.optm'] = ! empty( $usage['optm'] ) && is_array( $usage['optm'] ) ? $usage['optm'] : false;
+		$this->_summary['usage.plan'] = ! empty( $usage['plan'] ) && is_string( $usage['plan'] ) ? $usage['plan'] : false;
+		// End of the current billing cycle as a Unix timestamp; empty when there is no reset.
+		$this->_summary['usage.cycle_end'] = ! empty( $usage['cycle_end'] ) && is_numeric( $usage['cycle_end'] ) ? (int) $usage['cycle_end'] : false;
+		// The plan description is text.
+		$this->_summary['usage.plan_desc'] = ! empty( $usage['plan_desc'] ) && is_string( $usage['plan_desc'] ) ? $usage['plan_desc'] : false;
 
 		self::save_summary();
 
@@ -399,7 +455,7 @@ trait Cloud_Misc {
 	 * @access private
 	 */
 	private function _clear_promo() {
-		if ( count( $this->_summary['promo'] ) > 1 ) {
+		if ( isset( $this->_summary['promo'] ) && is_array( $this->_summary['promo'] ) && count( $this->_summary['promo'] ) > 1 ) {
 			array_shift( $this->_summary['promo'] );
 		} else {
 			$this->_summary['promo'] = [];

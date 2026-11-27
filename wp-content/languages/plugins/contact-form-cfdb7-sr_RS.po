@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Database Addon for Contact Form 7 &#8211; CFDB7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-09-29 15:45:20+0000\n"
+"PO-Revision-Date: 2026-10-08 05:21:33+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,26 @@ msgstr ""
 "X-Generator: GlotPress/4.1.0\n"
 "Language: sr_RS\n"
 "Project-Id-Version: Plugins - Database Addon for Contact Form 7 &#8211; CFDB7 - Stable (latest release)\n"
+
+#: inc/add-ons.php:43
+msgid "Get Offer →"
+msgstr "Искористи понуду →"
+
+#: inc/add-ons.php:30
+msgid "CFDB7 Pro Extension Bundle"
+msgstr "CFDB7 Pro пакет проширења"
+
+#: inc/add-ons.php:34
+msgid "Unlock the full power of CFDB7 with all Pro extensions."
+msgstr "Откључајте пуну снагу CFDB7 уз сва Pro проширења."
+
+#: inc/admin-subpage.php:299 inc/export-csv.php:89
+msgid "You are not allowed to perform this action."
+msgstr "Није вам дозвољено да извршите ову радњу."
+
+#: inc/add-ons.php:26
+msgid "76% OFF"
+msgstr "76% ПОПУСТА"
 
 #: inc/settings.php:202
 msgid "Automatically export entries"
@@ -110,11 +130,11 @@ msgstr[0] "🎉 Сјајно! CFDB7 је успешно сачувао унос 
 msgstr[1] "🎉 Сјајно! CFDB7 је успешно сачувао уносе из обрасца."
 msgstr[2] "🎉 Сјајно! CFDB7 је успешно сачувао уносе из обрасца."
 
-#: inc/add-ons.php:12
+#: inc/add-ons.php:63
 msgid "Addons"
 msgstr "Додаци"
 
-#: inc/add-ons.php:30
+#: inc/add-ons.php:82
 msgid "Add extra features to CFDB7 with these extensions."
 msgstr "Додајте нове могућности у CFDB7 помоћу ових проширења."
 
@@ -131,9 +151,9 @@ msgstr "https://ciphercoin.com/"
 msgid "Search"
 msgstr "Претрага"
 
-#: inc/add-ons.php:11
+#: inc/add-ons.php:62
 msgid "Extensions"
-msgstr "Проширења"
+msgstr "Екстензије"
 
 #. Author of the plugin
 #: contact-form-cfdb-7.php
@@ -150,11 +170,7 @@ msgstr "Чувајте и управљајте порукама из Contact For
 msgid "http://ciphercoin.com/"
 msgstr "http://ciphercoin.com/"
 
-#: inc/admin-subpage.php:458
-msgid "Bulk Actions"
-msgstr "Скупне радње"
-
-#: inc/admin-subpage.php:473
+#: inc/admin-subpage.php:493
 msgid "Export CSV"
 msgstr "Извези CSV"
 
@@ -163,11 +179,11 @@ msgstr "Извези CSV"
 msgid "Contact Form CFDB7"
 msgstr "Contact Form CFDB7"
 
-#: inc/admin-subpage.php:468
+#: inc/admin-subpage.php:488
 msgid "Apply"
 msgstr "Примени"
 
-#: inc/admin-subpage.php:456
+#: inc/admin-subpage.php:476
 msgid "Select bulk action"
 msgstr "Изаберите скупну радњу"
 
@@ -175,7 +191,7 @@ msgstr "Изаберите скупну радњу"
 msgid "Delete"
 msgstr "Избриши"
 
-#: inc/admin-mainpage.php:136
+#: inc/admin-mainpage.php:137
 msgid "Count"
 msgstr "Број"
 
@@ -187,22 +203,26 @@ msgstr "Прочитано"
 msgid "Unread"
 msgstr "Непрочитано"
 
-#: inc/admin-mainpage.php:135
+#: inc/admin-mainpage.php:136
 msgid "Name"
 msgstr "Име"
 
-#: inc/admin-mainpage.php:45 inc/admin-mainpage.php:82
+#: inc/admin-mainpage.php:46 inc/admin-mainpage.php:83
 msgid "Contact Forms"
 msgstr "Обрасци за контакт"
 
-#: inc/add-ons.php:59
+#: inc/add-ons.php:111
 msgid "There was an error retrieving the extensions list from the server. Please try again later."
 msgstr "Дошло је до грешке при преузимању списка проширења са сервера. Покушајте поново касније."
 
-#: inc/add-ons.php:27
+#: inc/add-ons.php:79
 msgid "Browse All Extensions"
 msgstr "Прегледај сва проширења"
 
-#: inc/add-ons.php:25
+#: inc/add-ons.php:77
 msgid "Extensions for CFDB7"
 msgstr "Проширења за CFDB7"
+
+#: inc/admin-subpage.php:478
+msgid "Bulk Actions"
+msgstr "Групне акције"

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - The Events Calendar - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-09-29 15:33:04+0000\n"
+"PO-Revision-Date: 2026-11-16 10:28:43+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,35 @@ msgstr ""
 "X-Generator: GlotPress/4.1.0\n"
 "Language: sr_RS\n"
 "Project-Id-Version: Plugins - The Events Calendar - Stable (latest release)\n"
+
+#: common/src/Common/Libraries/Migrations.php:124
+msgid "The migrations tables could not be created/updated. Migrations will not run until they are. Reach out to support if you need help."
+msgstr "Табеле миграција нису могле бити направљене/ажуриране. Миграције се неће покренути док то не буде обављено. Обратите се подршци ако вам је потребна помоћ."
+
+#. Translators: %1$s is a list of table names, %2$d the maximum table name
+#. length, %3$s the wp-config.php variable holding the prefix, %4$s the
+#. wp-config.php file name, %5$s an option name and %6$s a user meta key, both
+#. starting with the current prefix.
+#: common/src/Common/Libraries/Migrations.php:115
+msgid "The database table %1$s could not be created because its name is longer than the %2$d characters MySQL allows. Shorten the database table prefix (%3$s in %4$s), then rename the existing database tables to use the new prefix, along with the option and user meta keys that start with the old one, such as %5$s and %6$s."
+msgstr "Табела базе података %1$s није могла бити направљена зато што је њен назив дужи од %2$d знакова колико дозвољава MySQL. Скратите префикс табела базе података (%3$s у датотеци %4$s), а затим преименујте постојеће табеле базе података тако да користе нови префикс, заједно са кључевима могућности и метаподатака корисника који почињу старим префиксом, као што су %5$s и %6$s."
+
+#: common/src/admin-views/dashboard/table.php:31
+msgctxt "The Zapier endpoint dashboard description."
+msgid "The Zapier queue is currently limited to 15 items for each endpoint on your site."
+msgstr "Zapier ред је тренутно ограничен на 15 ставки за сваку крајњу тачку на вашем сајту."
+
+#: common/src/Common/Banners/Software_Packages_Banner.php:97
+msgid "Dismiss this banner"
+msgstr "Одбаци овај банер"
+
+#: common/src/Common/Banners/Software_Packages_Banner.php:93
+msgid "Changes are coming to your plan at your next renewal."
+msgstr "Промене у вашем плану ступају на снагу при следећој обнови."
+
+#: common/src/Common/Banners/Software_Packages_Banner.php:94
+msgid "Watch your inbox for details."
+msgstr "Проверите своје пријемно сандуче за детаље."
 
 #. translators: URL to the Liquid Web License Manager
 #: common/src/Common/Libraries/Harbor.php:565
@@ -108,13 +137,13 @@ msgstr "SEO и обрада URL-ова"
 msgid "Want to help shape the future of The Events Calendar? Opting in shares anonymous usage data with our team at Liquid Web, the company behind The Events Calendar, giving us the insights we need to keep improving the tools you rely on."
 msgstr "Желите ли да помогнете у обликовању будућности The Events Calendar-а? Пристанком делите анонимне податке о употреби са нашим тимом у Liquid Web-у, компанији која стоји иза The Events Calendar-а, што нам даје увиде потребне да наставимо да побољшавамо алате на које се ослањате."
 
-#: src/Tribe/Aggregator/Records.php:517 src/Tribe/Aggregator/Tabs/Edit.php:76
+#: src/Tribe/Aggregator/Records.php:529 src/Tribe/Aggregator/Tabs/Edit.php:76
 #: src/Tribe/Aggregator/Tabs/Edit.php:85
 msgid "You do not have permission to edit this import."
 msgstr "Немате дозволу да уређујете овај увоз."
 
-#: src/Tribe/Aggregator/Records.php:487 src/Tribe/Aggregator/Records.php:496
-#: src/Tribe/Aggregator/Records.php:503 src/Tribe/Aggregator/Records.php:510
+#: src/Tribe/Aggregator/Records.php:499 src/Tribe/Aggregator/Records.php:508
+#: src/Tribe/Aggregator/Records.php:515 src/Tribe/Aggregator/Records.php:522
 msgid "The import record could not be updated."
 msgstr "Запис увоза није могуће ажурирати."
 
@@ -165,7 +194,7 @@ msgid "past day"
 msgstr "прошли дан"
 
 #. Translators: %s is the query error message.
-#: common/src/Common/Libraries/Shepherd.php:83
+#: common/src/Common/Libraries/Tables_Error_Notice.php:47
 msgid "The below query failed with the message(s): %s"
 msgstr "Упит испод није успео са поруком (порукама): %s"
 
@@ -179,7 +208,7 @@ msgid "Select the item with id: %d"
 msgstr "Изабери ставку са ИБ-ом: %d"
 
 #. translators: 1: Event ID, 2: Error message.
-#: src/Tribe/Ignored_Events.php:972
+#: src/Tribe/Ignored_Events.php:979
 msgid "Event %1$d: %2$s"
 msgstr "Догађај %1$d: %2$s"
 
@@ -207,12 +236,12 @@ msgid "Dismiss this notice."
 msgstr "Занемари ову напомену."
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: common/src/Common/Admin/Conditional_Content/Black_Friday.php:157
+#: common/src/Common/Admin/Conditional_Content/Black_Friday.php:147
 msgid "%1$s %2$s for The Events Calendar 30%% off plugins, add-ons, bundles, everything!."
 msgstr "%1$s %2$s за The Events Calendar – 30%% попуста на додатке, проширења, пакете, на све!."
 
 #. translators: %1$s: Sale year (numeric), %2$s: Sale name
-#: common/src/Common/Admin/Conditional_Content/Black_Friday.php:147
+#: common/src/Common/Admin/Conditional_Content/Black_Friday.php:137
 msgid "%1$s %2$s for Event Tickets 30%% off plugins, add-ons, bundles, everything!."
 msgstr "%1$s %2$s за Event Tickets – 30%% попуста на додатке, проширења, пакете, на све!."
 
@@ -275,7 +304,7 @@ msgid "Import"
 msgstr "Увоз"
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: common/src/Tribe/PUE/Checker.php:818
+#: common/src/Tribe/PUE/Checker.php:829
 msgid "%1$sBuy a license%2$s for the Promoter service to access additional marketing features."
 msgstr "%1$sКупите лиценцу%2$s за услугу Promoter да бисте приступили додатним маркетиншким могућностима."
 
@@ -1012,9 +1041,9 @@ msgstr "Ентитет није могуће ажурирати."
 
 #: common/src/Common/REST/TEC/V1/Traits/Read_Custom_Entity_Response.php:41
 #: common/src/Common/REST/TEC/V1/Traits/Read_Custom_Entity_Response.php:52
-#: common/src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:43
-#: common/src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:52
-#: common/src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:79
+#: common/src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:45
+#: common/src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:54
+#: common/src/Common/REST/TEC/V1/Traits/Read_Entity_Response.php:95
 msgid "The entity could not be read."
 msgstr "Ентитет није могуће прочитати."
 
@@ -3276,7 +3305,7 @@ msgstr "Где је мој календар?"
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales, and more?"
 msgstr "Тражите додатну функционалност, укључујући понављајуће догађаје, произвољна мета поља, догађаје заједнице, продају улазница и још много тога?"
 
-#: common/src/Tribe/Settings.php:1120
+#: common/src/Tribe/Settings.php:1196
 msgid "For you, Jack!"
 msgstr "За тебе, Џек!"
 
@@ -3286,16 +3315,16 @@ msgstr "Проналажење и проширивање вашег календ
 
 #: common/src/admin-views/help-hub/navigation.php:33
 #: common/src/admin-views/help-hub/navigation.php:39
-#: common/src/Tribe/Settings.php:1097
+#: common/src/Tribe/Settings.php:1173
 msgid "Open settings navigation"
 msgstr "Отвори кретање кроз подешавања"
 
 #: common/src/admin-views/help-hub/navigation.php:21
-#: common/src/Tribe/Settings.php:901 common/src/Tribe/Settings.php:939
+#: common/src/Tribe/Settings.php:977 common/src/Tribe/Settings.php:1015
 msgid "Close"
 msgstr "Затвори"
 
-#: common/src/Tribe/Settings.php:864
+#: common/src/Tribe/Settings.php:940
 msgid "Skip to tab content"
 msgstr "Пређи на садржај језичка"
 
@@ -3327,7 +3356,7 @@ msgid "Monitor your Zapier endpoints (triggers and actions used by your connecto
 msgstr "Пратите своје Zapier крајње тачке (окидаче и радње које користе ваши конектори). <a href=\"%1$s\" target=\"_blank\">Прочитајте више о контролној табли крајњих тачака Zapier-а.</a>"
 
 #. Translators: %1$s: URL to the Zapier API documentation
-#: common/src/admin-views/zapier/api/intro-text.php:32
+#: common/src/admin-views/zapier/api/intro-text.php:33
 msgctxt "Settings help text and link for Zapier API."
 msgid "Please generate a consumer id and secret for each of our applications you are using with Zapier to enable its integrations. i.e.: one consumer id and secret for The Events Calendar and one consumer id and secret for Event Tickets. <a href=\"%1$s\" target=\"_blank\">Read more about adding and managing access.</a>"
 msgstr "Направите ИБ потрошача и тајну за сваку нашу апликацију коју користите са Zapier-ом да бисте укључили њене интеграције. Нпр.: један ИБ потрошача и тајну за The Events Calendar и један ИБ потрошача и тајну за Event Tickets. <a href=\"%1$s\" target=\"_blank\">Прочитајте више о додавању и управљању приступом.</a>"
@@ -4142,12 +4171,6 @@ msgctxt "Copy api key to clipboard success message"
 msgid "Copied"
 msgstr "Умножено"
 
-#: common/src/Common/Event_Automator/Integrations/Assets.php:40
-#: common/src/Common/Event_Automator/Zapier/Assets.php:40
-msgctxt "Copy to api key clipboard button text."
-msgid "Copy"
-msgstr "Умножи"
-
 #: common/src/Common/Event_Automator/Integrations/Admin/Abstract_Endpoints_Manager.php:362
 msgctxt "The message to display to confirm a user would like to enable an endpoint."
 msgid "Are you sure you want to enable this Endpoint?"
@@ -4404,7 +4427,13 @@ msgctxt "Label for the name of the API Key for Zapier."
 msgid "Description"
 msgstr "Опис"
 
-#: common/src/admin-views/zapier/api/intro-text.php:26
+#: common/src/Common/Event_Automator/Integrations/Assets.php:40
+#: common/src/Common/Event_Automator/Zapier/Assets.php:40
+msgctxt "Copy to api key clipboard button text."
+msgid "Copy"
+msgstr "Копирај"
+
+#: common/src/admin-views/zapier/api/intro-text.php:27
 msgctxt "API connection header"
 msgid "Zapier"
 msgstr "Zapier"
@@ -4413,11 +4442,6 @@ msgstr "Zapier"
 msgctxt "Removes a zapier page from the list of Zapier live pages."
 msgid "Revoke"
 msgstr "Опозови"
-
-#: common/src/admin-views/zapier/api/components/key.php:44
-msgctxt "Button text for copying the consumer id or secret."
-msgid "Copy"
-msgstr "Умножи"
 
 #: common/src/admin-views/zapier/api/components/key-pair.php:55
 msgctxt "Label for the consumer secret of the API Key for Zapier."
@@ -4537,11 +4561,6 @@ msgctxt "API connection header"
 msgid "Power Automate"
 msgstr "Power Automate"
 
-#: common/src/admin-views/power-automate/api/components/token.php:44
-msgctxt "Button text for copying the acess_token."
-msgid "Copy"
-msgstr "Умножи"
-
 #: common/src/admin-views/power-automate/api/components/access.php:43
 msgctxt "Label for the access token connection for Power Automate."
 msgid "Access Token"
@@ -4558,13 +4577,17 @@ msgctxt "Label for the consumer id and secret section."
 msgid "API Authentication Details"
 msgstr "Појединости потврде идентитета за API"
 
-#. Translators: 1: Opening anchor tag, 2: Closing anchor tag.
-#: common/src/admin-views/dashboard/table.php:32
-msgctxt "The Zapier endpoint dashboard description."
-msgid "The Zapier queue is currently limited to 15 items for each endpoint on your site. To increase that limit, check out the %1$sIncreasing the Zapier Queue Limit knowledgebase article%2$s."
-msgstr "Zapier ред је тренутно ограничен на 15 ставки за сваку крајњу тачку на вашем сајту. Да бисте повећали то ограничење, погледајте %1$sчланак из базе знања о повећању ограничења Zapier реда%2$s."
+#: common/src/admin-views/power-automate/api/components/token.php:44
+msgctxt "Button text for copying the acess_token."
+msgid "Copy"
+msgstr "Копирај"
 
-#: common/src/admin-views/dashboard/table.php:26
+#: common/src/admin-views/zapier/api/components/key.php:44
+msgctxt "Button text for copying the consumer id or secret."
+msgid "Copy"
+msgstr "Копирај"
+
+#: common/src/admin-views/dashboard/table.php:27
 msgctxt "The legend for the integration endpoint dashboard."
 msgid "Endpoint Dashboard"
 msgstr "Контролна табла крајњих тачака"
@@ -4708,7 +4731,7 @@ msgstr "Додај везу"
 msgid "The requested event is not accessible without a password"
 msgstr "Захтеваном догађају није могуће приступити без лозинке"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:297
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:313
 msgid "The event password"
 msgstr "Лозинка догађаја"
 
@@ -4779,12 +4802,12 @@ msgstr "Event Schedule Manager"
 msgid "Show"
 msgstr "Прикажи"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:930
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:978
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:949
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:997
 msgid "Phone Number"
 msgstr "Број телефона"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:661
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:680
 #: build/wizard.js:1
 msgid "Address"
 msgstr "Адреса"
@@ -4855,64 +4878,64 @@ msgstr "Контроле везе"
 msgid "Header Content"
 msgstr "Садржај заглавља"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1132
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1151
 msgid "Venue Map"
 msgstr "Мапа места одржавања"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1021
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1040
 msgid "Map Link"
 msgstr "Веза ка мапи"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1005
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1024
 msgid "Address Text"
 msgstr "Текст адресе"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:814
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:833
 msgid "Venue Header"
 msgstr "Заглавље места одржавања"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:795
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:814
 msgid "Show Two Venues"
 msgstr "Прикажи два места одржавања"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:787
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:806
 msgid "Mock Data"
 msgstr "Пробни подаци"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:668
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:687
 msgid "Show Address"
 msgstr "Прикажи адресу"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:641
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:660
 msgid "Make venue phone number a callable link."
 msgstr "Нека број телефона места одржавања буде веза за позив."
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:640
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:659
 msgid "Link venue phone."
 msgstr "Повежи телефон места одржавања."
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:629
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:689
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:742
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:648
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:708
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:761
 msgid "Header Tag"
 msgstr "Ознака заглавља"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:311
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:330
 msgctxt "The header string for the Elementor event venue widget address section."
 msgid "Address:"
 msgstr "Адреса:"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:284
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:303
 msgctxt "The header string for the Elementor event venue widget phone section."
 msgid "Phone:"
 msgstr "Телефон:"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:257
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:276
 msgctxt "The header string for the Elementor event venue widget website section."
 msgid "Website:"
 msgstr "Веб сајт:"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:228
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:247
 msgctxt "The main header string for the Elementor event venue widget."
 msgid "Venue"
 msgid_plural "Venues"
@@ -4920,12 +4943,12 @@ msgstr[0] "Место одржавања"
 msgstr[1] "Места одржавања"
 msgstr[2] "Места одржавања"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:147
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:148
 msgctxt "A mock venue name for the widget preview"
 msgid "Mock Venue 2"
 msgstr "Пробно место одржавања 2"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:133
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:134
 msgctxt "A mock venue name for the widget preview"
 msgid "Mock Venue"
 msgstr "Пробно место одржавања"
@@ -5068,107 +5091,107 @@ msgstr "одложено"
 msgid "Event Status"
 msgstr "Статус догађаја"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1097
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1098
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1114
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1117
 msgid "Website Url"
 msgstr "URL веб сајта"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1073
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1071
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1090
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1090
 msgid "Website Header"
 msgstr "Заглавље веб сајта"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1026
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1043
 msgid "Email Text"
 msgstr "Текст е-адресе"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1002
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1019
 msgid "Email Header"
 msgstr "Заглавље е-адресе"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:955
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:972
 msgid "Phone Text"
 msgstr "Текст телефона"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:931
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:903
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:948
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:922
 msgid "Phone Header"
 msgstr "Заглавље телефона"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:843
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:860
 msgid "Header"
 msgstr "Заглавље"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:803
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:722
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:820
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:741
 msgid "Show Website"
 msgstr "Прикажи веб сајт"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:773
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:790
 msgid "Make organizer email a mailto link."
 msgstr "Нека е-адреса организатора буде mailto веза."
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:772
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:789
 msgid "Link organizer email."
 msgstr "Повежи е-адресу организатора."
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:744
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:761
 msgid "Show Email"
 msgstr "Прикажи е-адресу"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:715
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:732
 msgid "Make organizer phone number a callable link."
 msgstr "Нека број телефона организатора буде веза за позив."
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:714
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:731
 msgid "Link organizer phone."
 msgstr "Повежи телефон организатора."
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:686
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:609
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:703
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:628
 msgid "Show Phone"
 msgstr "Прикажи телефон"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:660
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:677
 msgid "Name HTML Tag"
 msgstr "HTML ознака имена"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:652
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:577
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:669
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:596
 msgid "Show Name"
 msgstr "Прикажи име"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:645
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:881
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:570
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:662
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:898
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:589
 msgid "Name"
 msgstr "Назив"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:611
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:628
 msgid "Widget Header HTML Tag"
 msgstr "HTML ознака заглавља виџета"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:602
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:543
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:619
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:562
 msgid "Show Widget Header"
 msgstr "Прикажи заглавље виџета"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:240
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:257
 msgctxt "The header string for the Elementor event organizer widget website section."
 msgid "Website:"
 msgstr "Веб сајт:"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:213
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:230
 msgctxt "The header string for the Elementor event organizer widget phone section."
 msgid "Phone:"
 msgstr "Телефон:"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:186
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:203
 msgctxt "The header string for the Elementor event organizer widget email section."
 msgid "Email:"
 msgstr "Е-пошта:"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:128
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:129
 msgctxt "Placeholder name for widget preview"
 msgid "John Doe"
 msgstr "Петар Петровић"
@@ -5182,7 +5205,7 @@ msgid "Event Navigation"
 msgstr "Кретање кроз догађаје"
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:486
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1216
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1235
 msgid "Border Radius"
 msgstr "Полупречник ивице"
 
@@ -5194,20 +5217,11 @@ msgstr "Анимација при лебдењу"
 msgid "Transition Duration"
 msgstr "Трајање прелаза"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:419
-msgid "Hover"
-msgstr "Лебдење"
-
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:386
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Status.php:446
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Traits/With_Shared_Controls.php:325
 msgid "Normal"
 msgstr "Нормално"
-
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:393
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:426
-msgid "Opacity"
-msgstr "Прозирност"
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:365
 msgid "Bottom Right"
@@ -5262,7 +5276,7 @@ msgid "Fill"
 msgstr "Попуни"
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:313
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1181
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1200
 msgid "Height"
 msgstr "Висина"
 
@@ -5281,7 +5295,7 @@ msgid "Center"
 msgstr "Центрирано"
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:243
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1143
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1162
 msgid "Width"
 msgstr "Ширина"
 
@@ -5421,9 +5435,9 @@ msgstr "Цена:"
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Categories.php:282
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Cost.php:209
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Datetime.php:338
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:704
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:762
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:821
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:721
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:779
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:838
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Tags.php:289
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Website.php:200
 msgid "Header HTML Tag"
@@ -5450,22 +5464,31 @@ msgstr "Стил везе"
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Categories.php:274
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Cost.php:200
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Datetime.php:329
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:694
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:752
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:811
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:711
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:769
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:828
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Tags.php:281
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:617
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:677
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:730
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:636
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:696
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:749
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Website.php:192
 msgid "Show Header"
 msgstr "Прикажи заглавље"
+
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:419
+msgid "Hover"
+msgstr "Ховер"
+
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:393
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Image.php:426
+msgid "Opacity"
+msgstr "Степен непровидности"
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Calendar_Link.php:168
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Cost.php:236
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Datetime.php:409
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Title.php:156
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:585
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:604
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Traits/With_Shared_Controls.php:65
 msgid "HTML Tag"
 msgstr "HTML ознака"
@@ -5475,7 +5498,7 @@ msgstr "HTML ознака"
 msgid "Event Calendar Link"
 msgstr "Веза ка календару догађаја"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Contracts/Abstract_Widget.php:687
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Contracts/Abstract_Widget.php:690
 msgctxt "The default message shown when an event widget is empty."
 msgid "This widget is empty and won't display on the front end unless you add some content in the WordPress editor."
 msgstr "Овај виџет је празан и неће се приказати у јавном делу ако не додате садржај у Вордпрес уређивачу."
@@ -5574,15 +5597,6 @@ msgstr "Горња граница датума"
 msgid "Date Lower Boundary"
 msgstr "Доња граница датума"
 
-#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:195
-#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:232
-#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:245
-#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:309
-#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:346
-#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:359
-msgid "Enter a date using a standard date format or a relative string like: tomorrow, next week, +5 days, etc"
-msgstr "Унесите датум у уобичајеном облику или релативну ниску попут: tomorrow, next week, +5 days итд."
-
 #: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:160
 #: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:274
 msgid "Date Entry Format"
@@ -5591,6 +5605,15 @@ msgstr "Облик уноса датума"
 #: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:153
 msgid "On or After"
 msgstr "На дан или после"
+
+#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:195
+#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:232
+#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:245
+#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:309
+#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:346
+#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:359
+msgid "Enter a date using a standard date format or a relative string like: tomorrow, next week, +5 days, etc"
+msgstr "Унесите датум у уобичајеном облику или релативну ниску попут: tomorrow, next week, +5 days итд."
 
 #: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:152
 #: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:266
@@ -5804,25 +5827,25 @@ msgstr "Прикажи мапу"
 msgid "Map:"
 msgstr "Мапа:"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:678
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:919
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:603
-#: src/views/blocks/parts/organizer.php:63
-#: src/views/modules/meta/organizer.php:50 src/views/modules/meta/venue.php:48
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:695
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:936
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:622
+#: src/views/blocks/parts/organizer.php:64
+#: src/views/modules/meta/organizer.php:51 src/views/modules/meta/venue.php:49
 #: build/wizard.js:1
 msgid "Phone"
 msgstr "Телефон"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:794
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1061
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:715
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:811
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1078
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:734
 #: src/functions/template-tags/organizer.php:516
 #: src/functions/template-tags/venue.php:938
-#: src/views/blocks/parts/organizer.php:89 build/wizard.js:1
+#: src/views/blocks/parts/organizer.php:90 build/wizard.js:1
 msgid "Website"
 msgstr "Веб сајт"
 
-#: src/Tribe/iCal.php:902
+#: src/Tribe/iCal.php:912
 msgctxt "Description in iCal content for events with hidden/protected content."
 msgid "Content is protected."
 msgstr "Садржај је заштићен."
@@ -6030,7 +6053,7 @@ msgctxt "Title for the maintenance section of the general settings."
 msgid "Maintenance"
 msgstr "Одржавање"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:763
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:782
 #: build/wizard.js:1
 msgid "Map"
 msgstr "Мапа"
@@ -6087,11 +6110,6 @@ msgctxt "Label for the Week View checkbox."
 msgid "Week"
 msgstr "Недеља"
 
-#: src/Tribe/Admin/Settings.php:658
-msgctxt "Label for the Summary View checkbox."
-msgid "Summary"
-msgstr "Сажетак"
-
 #: src/Tribe/Admin/Settings.php:659
 msgctxt "Label for the Photo View checkbox."
 msgid "Photo"
@@ -6132,11 +6150,6 @@ msgctxt "Title for the viewing section of the general settings."
 msgid "Viewing"
 msgstr "Преглед"
 
-#: src/admin-views/settings/sidebars/default-sidebar.php:116
-#: src/admin-views/tribe-options-general.php:84
-msgid "Troubleshoot"
-msgstr "Решавање проблема"
-
 #: src/admin-views/settings/tabs/general/general-viewing.php:85
 msgid "If you’re enjoying The Events Calendar, give us kudos by including a link in the footer of calendar views. It really helps us a lot."
 msgstr "Ако уживате у The Events Calendar-у, похвалите нас тако што ћете укључити везу у подножју приказа календара. То нам заиста много помаже."
@@ -6166,6 +6179,16 @@ msgstr "Погледајте доступна проширења."
 #: src/admin-views/settings/tabs/display/display-maps.php:38
 msgid "%1$sThe Events Calendar comes with a default API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %2$sGoogle Maps API key%3$s.%4$s"
 msgstr "%1$sThe Events Calendar долази са подразумеваним API кључем за основну функционалност мапа. Ако желите да користите напредније могућности као што су произвољне ознаке на мапи или динамичко учитавање мапа, потребан вам је сопствени %2$sGoogle Maps API кључ%3$s.%4$s"
+
+#: src/Tribe/Admin/Settings.php:658
+msgctxt "Label for the Summary View checkbox."
+msgid "Summary"
+msgstr "Преглед"
+
+#: src/admin-views/settings/sidebars/default-sidebar.php:116
+#: src/admin-views/tribe-options-general.php:84
+msgid "Troubleshoot"
+msgstr "Проналажење проблема"
 
 #: src/admin-views/settings/tabs/display/display-maps.php:26
 msgid "Advanced Google Maps functionality"
@@ -6209,12 +6232,12 @@ msgctxt "The text label for the List View."
 msgid "List"
 msgstr "Списак"
 
-#: src/Tribe/Views/V2/View.php:1715
+#: src/Tribe/Views/V2/View.php:1761
 msgctxt "The default title text for the today button."
 msgid "Click to select today's date"
 msgstr "Притисните да изаберете данашњи датум"
 
-#: src/Tribe/Views/V2/Hooks.php:1274
+#: src/Tribe/Views/V2/Hooks.php:1288
 msgctxt "The default text for the 'today' button's title and aria-label on the Week View."
 msgid "Click to select the current month"
 msgstr "Притисните да изаберете текући месец"
@@ -6223,7 +6246,7 @@ msgstr "Притисните да изаберете текући месец"
 msgid "Dates set using the start_date/end_date, starts_*/ends_* are set to start at the specified times. The default behavior is to include the entire days."
 msgstr "Датуми подешени помоћу start_date/end_date, starts_*/ends_* почињу у наведено време. Подразумевано понашање је укључивање целих дана."
 
-#: src/Tribe/Views/V2/Hooks.php:1254
+#: src/Tribe/Views/V2/Hooks.php:1268
 msgctxt "The default text label for the \"today\" button on the Month View."
 msgid "This Month"
 msgstr "Овај месец"
@@ -6322,6 +6345,10 @@ msgstr "Пренос није успео"
 msgid "Migration attempted"
 msgstr "Пренос је покушан"
 
+#: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:393
+msgid "We detected an event that cannot be properly migrated. Please review the report below for more information. This issue must be resolved before you can migrate your site. Once you have updated or removed the problematic event, re-run the migration preview to make sure your site is ready to go."
+msgstr "Откривен је догађај који није могуће исправно пренети. Прегледајте извештај испод за више података. Овај проблем мора бити решен пре него што пренесете сајт. Када ажурирате или уклоните проблематични догађај, поново покрените преглед преноса да бисте се уверили да је сајт спреман."
+
 #: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:389
 msgid "Your site could not be safely migrated to the new events system."
 msgstr "Ваш сајт није могуће безбедно пренети у нови систем догађаја."
@@ -6337,10 +6364,6 @@ msgstr "У реду"
 #: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:377
 msgid "Migration reversed"
 msgstr "Пренос је поништен"
-
-#: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:393
-msgid "We detected an event that cannot be properly migrated. Please review the report below for more information. This issue must be resolved before you can migrate your site. Once you have updated or removed the problematic event, re-run the migration preview to make sure your site is ready to go."
-msgstr "Откривен је догађај који није могуће исправно пренети. Прегледајте извештај испод за више података. Овај проблем мора бити решен пре него што пренесете сајт. Када ажурирате или уклоните проблематични догађај, поново покрените преглед преноса да бисте се уверили да је сајт спреман."
 
 #: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:373
 msgid "Migration canceled"
@@ -6402,6 +6425,10 @@ msgctxt "Number of events previewed"
 msgid "%1$s%2$d%3$s events previewed"
 msgstr "Прегледано догађаја: %1$s%2$d%3$s"
 
+#: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:312
+msgid "We detected one or more events that cannot be properly migrated. Please review the report below for more information. These issues must be resolved before you can migrate your site. Once you have updated or removed problematic events, please re-run the migration preview."
+msgstr "Откривен је један или више догађаја које није могуће исправно пренети. Прегледајте извештај испод за више података. Ови проблеми морају бити решени пре него што пренесете сајт. Када ажурирате или уклоните проблематичне догађаје, поново покрените преглед преноса."
+
 #: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:308
 msgid "Migration help"
 msgstr "Помоћ при преносу"
@@ -6425,10 +6452,6 @@ msgstr "Догађаји се могу пренети без измена!"
 #: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:288
 msgid "We are reversing your site's migration to the new system. During this time, %1$syou cannot create, edit, or manage your events%2$s. Your calendar will still be visible on your site but some frontend actions will be paused."
 msgstr "Поништавамо пренос вашег сајта у нови систем. За то време %1$sне можете да правите, уређујете нити управљате догађајима%2$s. Ваш календар ће и даље бити видљив на сајту, али ће неке радње у јавном делу бити паузиране."
-
-#: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:312
-msgid "We detected one or more events that cannot be properly migrated. Please review the report below for more information. These issues must be resolved before you can migrate your site. Once you have updated or removed problematic events, please re-run the migration preview."
-msgstr "Откривен је један или више догађаја које није могуће исправно пренети. Прегледајте извештај испод за више података. Ови проблеми морају бити решени пре него што пренесете сајт. Када ажурирате или уклоните проблематичне догађаје, поново покрените преглед преноса."
 
 #: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:280
 msgid "Reverse migration complete."
@@ -6522,13 +6545,13 @@ msgstr "На основу овог прегледа процењујемо да 
 msgid "Preview complete"
 msgstr "Преглед је завршен"
 
-#: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:188
-msgid "The migration preview is done and ready for your review. No changes have been made to your events, but this report shows what adjustments will be made during the migration to the new system. If you have any questions, please %1$sreach out to our support team%2$s."
-msgstr "Преглед преноса је завршен и спреман за ваш преглед. Ваши догађаји нису мењани, али овај извештај показује која прилагођавања ће бити направљена током преноса у нови систем. Ако имате питања, %1$sобратите се нашем тиму подршке%2$s."
-
 #: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:180
 msgid "We're scanning your existing events so you'll know what to expect from the migration process. You can keep using your site and managing events. Check back later for the next step of migration."
 msgstr "Скенирамо ваше постојеће догађаје да бисте знали шта да очекујете од поступка преноса. Можете наставити да користите сајт и управљате догађајима. Вратите се касније за следећи корак преноса."
+
+#: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:188
+msgid "The migration preview is done and ready for your review. No changes have been made to your events, but this report shows what adjustments will be made during the migration to the new system. If you have any questions, please %1$sreach out to our support team%2$s."
+msgstr "Преглед преноса је завршен и спреман за ваш преглед. Ваши догађаји нису мењани, али овај извештај показује која прилагођавања ће бити направљена током преноса у нови систем. Ако имате питања, %1$sобратите се нашем тиму подршке%2$s."
 
 #: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:176
 msgid "Migration preview in progress"
@@ -6566,6 +6589,22 @@ msgstr "Надоградите систем за складиштење пода
 msgid "Get ready for the new recurring events!"
 msgstr "Припремите се за нове понављајуће догађаје!"
 
+#: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:92
+msgid ""
+"Are you sure you want to reverse the recurring event system migration process?\n"
+"\n"
+"- You will no longer be able to use the new recurring event and Series features.\n"
+"- All event edits you have made since migration will be lost.\n"
+"- As with migration, you will not be able to edit events or calendar options during this process and some frontend actions will be paused.\n"
+"- Reverse migration should take less time than the original migration, but there is no time estimate available.\n"
+msgstr ""
+"Да ли сигурно желите да поништите поступак преноса система понављајућих догађаја?\n"
+"\n"
+"- Више нећете моћи да користите нове могућности понављајућих догађаја и низова.\n"
+"- Све измене догађаја направљене од преноса биће изгубљене.\n"
+"- Као и код преноса, током овог поступка нећете моћи да уређујете догађаје нити могућности календара, а неке радње у јавном делу биће паузиране.\n"
+"- Поништавање преноса требало би да траје краће од првобитног преноса, али процена времена није доступна.\n"
+
 #: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:88
 msgid "To safely cancel the migration, we need to reverse the process on any data that has already been modified. Your site will remain in maintenance mode until we have safely reversed the process."
 msgstr "Да бисмо безбедно отказали пренос, морамо да поништимо поступак за све податке који су већ измењени. Ваш сајт ће остати у режиму одржавања док безбедно не поништимо поступак."
@@ -6582,22 +6621,6 @@ msgstr "Логотип пакета производа The Events Calendar"
 #: src/Events/Custom_Tables/V1/admin-views/migration/upgrade-box.php:27
 msgid "Upgrade FAQ"
 msgstr "ЧПП о надоградњи"
-
-#: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:92
-msgid ""
-"Are you sure you want to reverse the recurring event system migration process?\n"
-"\n"
-"- You will no longer be able to use the new recurring event and Series features.\n"
-"- All event edits you have made since migration will be lost.\n"
-"- As with migration, you will not be able to edit events or calendar options during this process and some frontend actions will be paused.\n"
-"- Reverse migration should take less time than the original migration, but there is no time estimate available.\n"
-msgstr ""
-"Да ли сигурно желите да поништите поступак преноса система понављајућих догађаја?\n"
-"\n"
-"- Више нећете моћи да користите нове могућности понављајућих догађаја и низова.\n"
-"- Све измене догађаја направљене од преноса биће изгубљене.\n"
-"- Као и код преноса, током овог поступка нећете моћи да уређујете догађаје нити могућности календара, а неке радње у јавном делу биће паузиране.\n"
-"- Поништавање преноса требало би да траје краће од првобитног преноса, али процена времена није доступна.\n"
 
 #: src/Events/Custom_Tables/V1/admin-views/migration/upgrade-box.php:26
 msgid "Version Compatibility"
@@ -6804,7 +6827,7 @@ msgid "Check out our Filter Bar add-on"
 msgstr "Погледајте наше проширење Filter Bar"
 
 #: common/src/admin-views/troubleshooting/ea-status/current-status.php:31
-#: src/Tribe/Views/V2/Hooks.php:1393
+#: src/Tribe/Views/V2/Hooks.php:1407
 msgid "Enabled"
 msgstr "Укључено"
 
@@ -6888,10 +6911,6 @@ msgstr "%1$sПрилагоди The Events Calendar%2$s"
 msgid "Adjust colors, fonts, and more with the WordPress Customizer."
 msgstr "Подесите боје, слова и још много тога помоћу Вордпрес прилагођавача."
 
-#: common/src/Tribe/Customizer.php:1054
-msgid "Customizer"
-msgstr "Прилагођавач"
-
 #: common/src/Tribe/Customizer.php:1029
 msgctxt "Menu item text for the TEC Customizer section link."
 msgid "Customize The Events Calendar"
@@ -6931,6 +6950,10 @@ msgstr "Разлог (необавезно)"
 msgctxt "Label for live stream URL field"
 msgid "Live Stream URL"
 msgstr "URL преноса уживо"
+
+#: common/src/Tribe/Customizer.php:1054
+msgid "Customizer"
+msgstr "Прилагођивач"
 
 #: common/src/Common/Admin/Help_Hub/Hub.php:453
 #: common/src/Tribe/Admin/Help_Page.php:148
@@ -7082,7 +7105,7 @@ msgstr "Ова подешавања одређују траку за претр�
 msgid "Events Bar"
 msgstr "Трака догађаја"
 
-#: src/Tribe/Main.php:3665
+#: src/Tribe/Main.php:3678
 msgid "News from The Events Calendar"
 msgstr "Новости од The Events Calendar"
 
@@ -7862,14 +7885,14 @@ msgstr "Подесите боје слова"
 #. Translators: %s: Event singular.
 #. Translators: %s: Organizer singular.
 #. Translators: %s: Venue singular.
-#: src/Tribe/Main.php:2163 src/Tribe/Organizer.php:120 src/Tribe/Venue.php:183
+#: src/Tribe/Main.php:2163 src/Tribe/Organizer.php:122 src/Tribe/Venue.php:185
 msgid "A link to a particular %s."
 msgstr "Веза до одређеног: %s."
 
 #. Translators: %s: Event singular.
 #. Translators: %s: Organizer singular.
 #. Translators: %s: Venue singular.
-#: src/Tribe/Main.php:2159 src/Tribe/Organizer.php:116 src/Tribe/Venue.php:178
+#: src/Tribe/Main.php:2159 src/Tribe/Organizer.php:118 src/Tribe/Venue.php:180
 msgid "%s Link"
 msgstr "Веза: %s"
 
@@ -7878,17 +7901,17 @@ msgctxt "The datepicker range definition when no more pages of events exist."
 msgid "Upcoming"
 msgstr "Предстојеће"
 
-#: src/Tribe/Views/V2/Hooks.php:1190
+#: src/Tribe/Views/V2/Hooks.php:1204
 msgctxt "Capitalized label for the organizer website link."
 msgid "View %s Website"
 msgstr "Погледај веб сајт: %s"
 
-#: src/Tribe/Views/V2/Hooks.php:1162
+#: src/Tribe/Views/V2/Hooks.php:1176
 msgctxt "Capitalized label for the venue website link."
 msgid "View %s Website"
 msgstr "Погледај веб сајт: %s"
 
-#: src/Tribe/Views/V2/Hooks.php:1134
+#: src/Tribe/Views/V2/Hooks.php:1148
 msgctxt "Capitalized label for the event website link."
 msgid "View %s Website"
 msgstr "Погледај веб сајт: %s"
@@ -7932,11 +7955,11 @@ msgstr "Користите Вордпрес 5.7 који садржи велик
 
 #. translators: the placeholder is the keyword(s), as the user entered it in
 #. the bar.
-#: src/Tribe/Views/V2/Messages.php:116
+#: src/Tribe/Views/V2/Messages.php:117
 msgid "There were no results found for <strong>\"%1$s\"</strong> this month."
 msgstr "Овог месеца нема резултата за <strong>„%1$s“</strong>."
 
-#: src/Tribe/Aggregator/Service.php:785
+#: src/Tribe/Aggregator/Service.php:807
 msgid "https://evnt.is/1afb"
 msgstr "https://evnt.is/1afb"
 
@@ -7980,7 +8003,7 @@ msgid "View Events"
 msgstr "Погледај догађаје"
 
 #. Translators: %1$s is the lowercase plural virtual event term.
-#: src/Tribe/Views/V2/Messages.php:99
+#: src/Tribe/Views/V2/Messages.php:100
 msgctxt "A message to indicate there are no upcoming events."
 msgid "There are no upcoming %1$s."
 msgstr "Нема предстојећих %1$s."
@@ -8009,7 +8032,7 @@ msgstr "Прва страница"
 msgid "Current Page"
 msgstr "Тренутна страница"
 
-#: src/functions/template-tags/general.php:1427
+#: src/functions/template-tags/general.php:1447
 #: src/views/v2/widgets/widget-events-list/event/date.php:26
 msgctxt "All day label for event"
 msgid "All day"
@@ -8251,7 +8274,7 @@ msgstr[0] "%1$d нова слика је заказана за увоз."
 msgstr[1] "%1$d нове слике су заказане за увоз."
 msgstr[2] "%1$d нових слика је заказано за увоз."
 
-#: src/Tribe/Linked_Posts.php:1272
+#: src/Tribe/Linked_Posts.php:1395
 msgid "Create: <%= term %>"
 msgstr "Направи: <%= term %>"
 
@@ -8508,23 +8531,23 @@ msgstr "Пређите на %1$sследеће предстојеће %2$s%3$s."
 
 #. translators: %1$s: events (plural), %2$s: the formatted date string, e.g.
 #. "February 22, 2020". %3$s html link to next day with available events.
-#: src/Tribe/Views/V2/Messages.php:131
+#: src/Tribe/Views/V2/Messages.php:132
 msgid "No %1$s scheduled for %2$s. %3$s"
 msgstr "Нема заказаних %1$s за %2$s. %3$s"
 
 #. translators: %1$s: events (plural), %2$s: the formatted date string, e.g.
 #. "February 22, 2020".
-#: src/Tribe/Views/V2/Messages.php:121
+#: src/Tribe/Views/V2/Messages.php:122
 msgid "No %1$s scheduled for %2$s."
 msgstr "Нема заказаних %1$s за %2$s."
 
 #. translators: the placeholder is an html link to the next month with
 #. available events.
-#: src/Tribe/Views/V2/Messages.php:126
+#: src/Tribe/Views/V2/Messages.php:127
 msgid "There were no results found for this view. %1$s"
 msgstr "Нису пронађени резултати за овај приказ. %1$s"
 
-#: src/Tribe/Views/V2/Messages.php:106
+#: src/Tribe/Views/V2/Messages.php:107
 msgid "There were no results found for this view."
 msgstr "Нису пронађени резултати за овај приказ."
 
@@ -8647,118 +8670,118 @@ msgstr "Притисните да укључите или искључите б�
 msgid "Previous month, %1$s"
 msgstr "Претходни месец, %1$s"
 
-#: src/Tribe/Views/V2/Hooks.php:818
+#: src/Tribe/Views/V2/Hooks.php:832
 msgid "The Events Calendar - View V2"
 msgstr "The Events Calendar - View V2"
 
-#: src/Tribe/Aggregator/Service.php:880
+#: src/Tribe/Aggregator/Service.php:902
 msgid "You do not have an active connection to Meetup through your account and Event Aggregator."
 msgstr "Немате активну везу са Meetup-ом преко свог налога и Event Aggregator-а."
 
-#: src/Tribe/Views/V2/Hooks.php:803
+#: src/Tribe/Views/V2/Hooks.php:817
 msgid "Recommended for all sites using the updated calendar views."
 msgstr "Препоручено за све сајтове који користе ажуриране приказе календара."
 
-#: src/Tribe/Aggregator/Service.php:873
+#: src/Tribe/Aggregator/Service.php:895
 msgctxt "Placeholder used for the meetup API changes link when the KEY is plain"
 msgid "Meetup is no longer supporting API keys, and has restricted access using your existing key starting from August 2019. As an alternative, you must use OAuth2 and update The Events Calendar to the latest version. Learn more at %1$s."
 msgstr "Meetup више не подржава API кључеве и ограничио је приступ помоћу вашег постојећег кључа од августа 2019. Као замену морате користити OAuth2 и ажурирати The Events Calendar на најновије издање. Сазнајте више на %1$s."
 
-#: src/Tribe/Aggregator/Service.php:865
+#: src/Tribe/Aggregator/Service.php:887
 msgctxt "Placeholder used for the meetup API changes"
 msgid "Meetup is no longer supporting API keys, and will restrict access using your existing key starting from August 2019. As an alternative, you should use OAuth2 and update The Events Calendar to the latest version. Learn more at %1$s"
 msgstr "Meetup више не подржава API кључеве и ограничиће приступ помоћу вашег постојећег кључа од августа 2019. Као замену треба да користите OAuth2 и ажурирате The Events Calendar на најновије издање. Сазнајте више на %1$s"
 
-#: src/Tribe/Aggregator/Service.php:863
+#: src/Tribe/Aggregator/Service.php:885
 msgid "Event not owned, you cannot edit it."
 msgstr "Догађај није ваш, не можете га уређивати."
 
-#: src/Tribe/Aggregator/Service.php:862
+#: src/Tribe/Aggregator/Service.php:884
 msgid "This webhook action is not currently supported."
 msgstr "Ова радња веб-куке тренутно није подржана."
 
-#: src/Tribe/Aggregator/Service.php:861
+#: src/Tribe/Aggregator/Service.php:883
 msgid "Webhook not registered properly."
 msgstr "Веб-кука није правилно регистрована."
 
-#: src/Tribe/Aggregator/Service.php:860
+#: src/Tribe/Aggregator/Service.php:882
 msgid "You do not have an active connection to Eventbrite through your account and Event Aggregator."
 msgstr "Немате активну везу са Eventbrite-ом преко свог налога и Event Aggregator-а."
 
-#: src/Tribe/Aggregator/Service.php:859
+#: src/Tribe/Aggregator/Service.php:881
 msgid "Eventbrite sync data invalid."
 msgstr "Подаци усклађивања са Eventbrite-ом су неисправни."
 
-#: src/Tribe/Aggregator/Service.php:858
+#: src/Tribe/Aggregator/Service.php:880
 msgid "Eventbrite user not found."
 msgstr "Eventbrite корисник није пронађен."
 
-#: src/Tribe/Aggregator/Service.php:857
+#: src/Tribe/Aggregator/Service.php:879
 msgid "Eventbrite venue not found."
 msgstr "Eventbrite место одржавања није пронађено."
 
-#: src/Tribe/Aggregator/Service.php:856
+#: src/Tribe/Aggregator/Service.php:878
 msgid "Eventbrite organizer not found."
 msgstr "Eventbrite организатор није пронађен."
 
-#: src/Tribe/Aggregator/Service.php:855
+#: src/Tribe/Aggregator/Service.php:877
 msgid "Eventbrite event not found."
 msgstr "Eventbrite догађај није пронађен."
 
-#: src/Tribe/Aggregator/Service.php:853
+#: src/Tribe/Aggregator/Service.php:875
 msgid "Eventbrite parsed object ID is empty."
 msgstr "ИБ рашчлањеног Eventbrite објекта је празан."
 
-#: src/Tribe/Aggregator/Service.php:852
+#: src/Tribe/Aggregator/Service.php:874
 msgid "Eventbrite parsed object type is empty."
 msgstr "Врста рашчлањеног Eventbrite објекта је празна."
 
-#: src/Tribe/Aggregator/Service.php:851 src/Tribe/Aggregator/Service.php:854
+#: src/Tribe/Aggregator/Service.php:873 src/Tribe/Aggregator/Service.php:876
 msgid "Eventbrite parsed object is empty."
 msgstr "Рашчлањени Eventbrite објекат је празан."
 
-#: src/Tribe/Aggregator/Service.php:848
+#: src/Tribe/Aggregator/Service.php:870
 msgid "Events cannot be imported because we received an error from Eventbrite: "
 msgstr "Догађаје није могуће увести јер смо од Eventbrite-а примили грешку: "
 
-#: src/Tribe/Aggregator/Service.php:849
+#: src/Tribe/Aggregator/Service.php:871
 msgid "Event cannot be synced to Eventbrite because we received an error from Eventbrite."
 msgstr "Догађај није могуће ускладити са Eventbrite-ом јер смо од Eventbrite-а примили грешку."
 
-#: src/Tribe/Aggregator/Service.php:850
+#: src/Tribe/Aggregator/Service.php:872
 msgid "Eventbrite token is not valid."
 msgstr "Eventbrite жетон није исправан."
 
-#: src/Tribe/Aggregator/Service.php:847
+#: src/Tribe/Aggregator/Service.php:869
 msgid "Events cannot be imported because we received an error from Facebook: "
 msgstr "Догађаје није могуће увести јер смо од Facebook-а примили грешку: "
 
-#: src/Tribe/Aggregator/Service.php:840
+#: src/Tribe/Aggregator/Service.php:862
 msgctxt "Placeholder used for the facebook restriction link"
 msgid "Events cannot be imported because Facebook has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Facebook. You can %1$s."
 msgstr "Догађаје није могуће увести јер је Facebook вратио грешку. То може значити да ИБ догађаја не постоји, да је догађај или извор означен као приватан или да га је Facebook на неки други начин ограничио. Можете %1$s."
 
-#: src/Tribe/Aggregator/Service.php:838
+#: src/Tribe/Aggregator/Service.php:860
 msgid "The import being fetched is not queued up for importing. Please try the import again."
 msgstr "Увоз који се преузима није стављен у ред за увоз. Покушајте поново са увозом."
 
-#: src/Tribe/Aggregator/Service.php:837
+#: src/Tribe/Aggregator/Service.php:859
 msgid "Successfully synced event to Eventbrite"
 msgstr "Догађај је успешно усклађен са Eventbrite-ом"
 
-#: src/Tribe/Aggregator/Service.php:836
+#: src/Tribe/Aggregator/Service.php:858
 msgid "Successfully marked event for import from Eventbrite"
 msgstr "Догађај је успешно означен за увоз са Eventbrite-а"
 
-#: src/Tribe/Aggregator/Service.php:835
+#: src/Tribe/Aggregator/Service.php:857
 msgid "Successfully disconnected Eventbrite"
 msgstr "Веза са Eventbrite-ом је успешно прекинута"
 
-#: src/Tribe/Aggregator/Service.php:834
+#: src/Tribe/Aggregator/Service.php:856
 msgid "Successfully connected to Eventbrite"
 msgstr "Успешно повезано са Eventbrite-ом"
 
-#: src/Tribe/Aggregator/Service.php:780
+#: src/Tribe/Aggregator/Service.php:802
 msgid "read more about Facebook restrictions in our knowledgebase"
 msgstr "прочитати више о Facebook ограничењима у нашој бази знања"
 
@@ -8819,6 +8842,19 @@ msgstr[0] "+ још %d"
 msgstr[1] "+ још %d"
 msgstr[2] "+ још %d"
 
+#: src/Tribe/Views/V2/View.php:2433 src/Tribe/Views/V2/View.php:2539
+#: src/views/v2/day/event/date/featured.php:28
+#: src/views/v2/latest-past/event/date/featured.php:28
+#: src/views/v2/list/event/date/featured.php:28
+#: src/views/v2/month/calendar-body/day/calendar-events/calendar-event/date/featured.php:28
+#: src/views/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/date/featured.php:28
+#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event/bar/featured.php:28
+#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event/hidden/link/featured.php:28
+#: src/views/v2/month/mobile-events/mobile-day/mobile-event/date/featured.php:28
+#: src/views/v2/widgets/widget-events-list/event/date/featured.php:28
+msgid "Featured"
+msgstr "Издвојен"
+
 #: src/views/v2/day/top-bar/datepicker.php:56
 #: src/views/v2/list/top-bar/datepicker.php:80
 #: src/views/v2/month/top-bar/datepicker.php:56
@@ -8834,19 +8870,6 @@ msgstr "Кретање кроз приказе"
 #: src/views/v2/components/events-bar/search/keyword.php:29
 msgid "Enter Keyword. Search for %s by Keyword."
 msgstr "Унесите кључну реч. Претражите %s по кључној речи."
-
-#: src/Tribe/Views/V2/View.php:2387 src/Tribe/Views/V2/View.php:2493
-#: src/views/v2/day/event/date/featured.php:28
-#: src/views/v2/latest-past/event/date/featured.php:28
-#: src/views/v2/list/event/date/featured.php:28
-#: src/views/v2/month/calendar-body/day/calendar-events/calendar-event/date/featured.php:28
-#: src/views/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/date/featured.php:28
-#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event/bar/featured.php:28
-#: src/views/v2/month/calendar-body/day/multiday-events/multiday-event/hidden/link/featured.php:28
-#: src/views/v2/month/mobile-events/mobile-day/mobile-event/date/featured.php:28
-#: src/views/v2/widgets/widget-events-list/event/date/featured.php:28
-msgid "Featured"
-msgstr "Издвојен"
 
 #: src/views/v2/components/read-more.php:22
 msgid "Continue Reading"
@@ -8935,6 +8958,10 @@ msgstr "Стигао је нови изглед The Events Calendar-а!"
 msgid "screenshot of updated calendar views"
 msgstr "снимак екрана ажурираних приказа календара"
 
+#: src/admin-views/tribe-options-upgrade.php:18
+msgid "Go check out your new calendar designs! Each calendar view has been updated, so feel free to enable views you may not have been using. If necessary, you can revert back to the legacy calendar views in the Display tab of your Event Settings."
+msgstr "Погледајте нове изгледе календара! Сваки приказ календара је ажуриран, па слободно укључите приказе које можда нисте користили. Ако је потребно, можете се вратити на застареле приказе календара на језичку Display у подешавањима догађаја."
+
 #: src/admin-views/tribe-options-upgrade.php:16
 msgid "You're all set!"
 msgstr "Све је спремно!"
@@ -8942,10 +8969,6 @@ msgstr "Све је спремно!"
 #: src/admin-views/admin-update-message.php:47
 msgid "Add me to the list"
 msgstr "Додај ме на списак"
-
-#: src/admin-views/tribe-options-upgrade.php:18
-msgid "Go check out your new calendar designs! Each calendar view has been updated, so feel free to enable views you may not have been using. If necessary, you can revert back to the legacy calendar views in the Display tab of your Event Settings."
-msgstr "Погледајте нове изгледе календара! Сваки приказ календара је ажуриран, па слободно укључите приказе које можда нисте користили. Ако је потребно, можете се вратити на застареле приказе календара на језичку Display у подешавањима догађаја."
 
 #: src/Tribe/Main.php:1405
 msgid "Themer's Guide"
@@ -8980,7 +9003,7 @@ msgstr "Пријавите се да бисте омогућили увоз до
 msgid "Import events directly from a public Eventbrite.com URL. Please note that only Live events (i.e. published events) can be imported via URL."
 msgstr "Увезите догађаје директно са јавног URL-а Eventbrite.com. Имајте на уму да се путем URL-а могу увести само активни (објављени) догађаји."
 
-#: src/Tribe/Editor/Compatibility.php:146
+#: src/Tribe/Editor/Compatibility.php:144
 msgid "Enable the Gutenberg block editor interface for creating events."
 msgstr "Укључите сучеље Gutenberg уређивача блокова за прављење догађаја."
 
@@ -9012,7 +9035,7 @@ msgstr "Избор UTC временске зоне за сајт или поје
 msgid "When using The Events Calendar, we recommend that you use a geographic timezone such as \"America/Los_Angeles\" and avoid using a UTC timezone offset such as “%2$s”."
 msgstr "Када користите The Events Calendar, препоручујемо да користите географску временску зону као што је „America/Los_Angeles“ и избегавате UTC помак као што је „%2$s“."
 
-#: src/Tribe/Main.php:2152 src/Tribe/Organizer.php:112 src/Tribe/Venue.php:174
+#: src/Tribe/Main.php:2152 src/Tribe/Organizer.php:114 src/Tribe/Venue.php:176
 msgid "%s scheduled."
 msgstr "%s заказан."
 
@@ -9021,15 +9044,15 @@ msgctxt "The datepicker label when the range start is now."
 msgid "Now"
 msgstr "Сада"
 
-#: src/Tribe/Views/V2/Hooks.php:716
+#: src/Tribe/Views/V2/Hooks.php:730
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr "За истакнуте слике препоручујемо однос страница 16:9."
 
-#: src/Tribe/Main.php:2149 src/Tribe/Organizer.php:111 src/Tribe/Venue.php:173
+#: src/Tribe/Main.php:2149 src/Tribe/Organizer.php:113 src/Tribe/Venue.php:175
 msgid "%s reverted to draft."
 msgstr "%s је враћен у нацрт."
 
-#: src/Tribe/Main.php:2146 src/Tribe/Organizer.php:110 src/Tribe/Venue.php:172
+#: src/Tribe/Main.php:2146 src/Tribe/Organizer.php:112 src/Tribe/Venue.php:174
 msgid "%s published privately."
 msgstr "%s је објављен приватно."
 
@@ -9254,8 +9277,8 @@ msgid "Tags"
 msgstr "Ознаке"
 
 #: src/Events/Admin/Onboarding/Landing_Page.php:293
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:53
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:594
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:54
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:611
 #: build/app/main.js:1
 msgid "Event Organizer"
 msgstr "Организатор догађаја"
@@ -9266,9 +9289,9 @@ msgid "Event Categories"
 msgstr "Категорије догађаја"
 
 #: src/Events/Admin/Onboarding/Landing_Page.php:315
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:55
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:535
-#: src/Tribe/Editor/Meta.php:80 build/app/main.js:1
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:56
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:554
+#: src/Tribe/Editor/Meta.php:109 build/app/main.js:1
 msgid "Event Venue"
 msgstr "Место одржавања догађаја"
 
@@ -9285,7 +9308,7 @@ msgstr "Цео дан"
 msgid "Enable Maps"
 msgstr "Укључи мапе"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:700
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:719
 msgid "Show Map Link"
 msgstr "Прикажи везу ка мапи"
 
@@ -9293,7 +9316,7 @@ msgstr "Прикажи везу ка мапи"
 msgid "Show Map Link:"
 msgstr "Прикажи везу ка мапи:"
 
-#: src/Tribe/Editor/Compatibility.php:145
+#: src/Tribe/Editor/Compatibility.php:143
 msgid "Activate Block Editor for Events"
 msgstr "Укључи уређивач блокова за догађаје"
 
@@ -9301,7 +9324,7 @@ msgstr "Укључи уређивач блокова за догађаје"
 msgid "Add Button Text"
 msgstr "Додај текст дугмета"
 
-#: src/Tribe/Editor/Meta.php:69
+#: src/Tribe/Editor/Meta.php:98
 msgid "Event Organizers"
 msgstr "Организатори догађаја"
 
@@ -9313,11 +9336,11 @@ msgstr "Непозната колона "
 msgid "There was an error building the record queue: "
 msgstr "Дошло је до грешке при изградњи реда записа: "
 
-#: src/Tribe/Editor.php:581 src/Tribe/Editor.php:614
+#: src/Tribe/Editor.php:702 src/Tribe/Editor.php:735
 msgid "Event Blocks"
 msgstr "Блокови догађаја"
 
-#: src/Tribe/Editor.php:289 src/Tribe/Editor.php:332
+#: src/Tribe/Editor.php:407 src/Tribe/Editor.php:450
 msgid "Add Description..."
 msgstr "Додај опис..."
 
@@ -9375,7 +9398,7 @@ msgstr "Прикажи мапу:"
 #: src/admin-views/tribe-options-imports.php:534
 #: src/admin-views/tribe-options-imports.php:597
 #: src/admin-views/tribe-options-imports.php:644
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:772
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:791
 msgid "Show Map"
 msgstr "Прикажи мапу"
 
@@ -9461,11 +9484,11 @@ msgstr[2] "Успешно је заустављено и очишћено %d а�
 msgid "No asynchronous queue processes to clear."
 msgstr "Нема асинхроних процеса реда за чишћење."
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:443
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:461
 msgid "The event tag ID or name"
 msgstr "ИБ или назив ознаке догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:436
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:454
 msgid "The event category ID or name"
 msgstr "ИБ или назив категорије догађаја"
 
@@ -9630,6 +9653,7 @@ msgid "None"
 msgstr "Нема"
 
 #: common/src/admin-views/troubleshooting/detected-issues.php:48
+#: common/src/Common/Banners/Software_Packages_Banner.php:95
 #: src/admin-views/admin-welcome-message.php:77
 #: src/admin-views/aggregator/banners/eventbrite-upsell.php:17
 #: src/admin-views/notices/update-6-0-0.php:29
@@ -9645,23 +9669,23 @@ msgstr "Увези са Eventbrite-а"
 msgid "Do more with Eventbrite Tickets"
 msgstr "Урадите више уз Eventbrite Tickets"
 
-#: src/Tribe/API.php:882
+#: src/Tribe/API.php:910
 msgid "An event having a post meta value of `%s` hour (24-hour) is not valid. Make sure it is from 0 to 23."
 msgstr "Догађај са мета вредношћу чланка од `%s` сати (24-часовно) није исправан. Уверите се да је од 0 до 23."
 
-#: src/Tribe/API.php:912 src/Tribe/API.php:923
+#: src/Tribe/API.php:940 src/Tribe/API.php:951
 msgid "An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59."
 msgstr "Догађај са мета вредношћу чланка од `%s` минута није исправан. Уверите се да је од 0 до 59."
 
-#: src/Tribe/API.php:875
+#: src/Tribe/API.php:903
 msgid "An event having a post meta value of `%s` hour (12-hour) is not valid. Make sure it is from 1 to 12."
 msgstr "Догађај са мета вредношћу чланка од `%s` сати (12-часовно) није исправан. Уверите се да је од 1 до 12."
 
-#: src/Tribe/API.php:830
+#: src/Tribe/API.php:858
 msgid "An event having a post meta value of `%s` meridian is not valid. Make sure it is either `am` or `pm`, or remove it entirely if using the 24-hour format."
 msgstr "Догађај са мета вредношћу чланка `%s` за меридијан није исправан. Уверите се да је `am` или `pm`, или га потпуно уклоните ако користите 24-часовни облик."
 
-#: src/Tribe/API.php:858
+#: src/Tribe/API.php:886
 msgid "An event having a post meta value of `%s` hour (am/pm) is not valid. Make sure it is from 1 to 12."
 msgstr "Догађај са мета вредношћу чланка од `%s` сати (am/pm) није исправан. Уверите се да је од 1 до 12."
 
@@ -9766,15 +9790,15 @@ msgstr "Једнократни увози обухватају све трену
 msgid "Please provide a Eventbrite URL when importing from Eventbrite."
 msgstr "Наведите Eventbrite URL при увозу са Eventbrite-а."
 
-#: src/Tribe/Aggregator/Service.php:811
+#: src/Tribe/Aggregator/Service.php:833
 msgid "Successfully fetched Eventbrite Token"
 msgstr "Eventbrite жетон је успешно преузет"
 
-#: src/Tribe/Aggregator/Service.php:793
+#: src/Tribe/Aggregator/Service.php:815
 msgid "No upcoming Eventbrite events found."
 msgstr "Нема предстојећих Eventbrite догађаја."
 
-#: src/Tribe/Aggregator/Service.php:792
+#: src/Tribe/Aggregator/Service.php:814
 msgid "Events cannot be imported because Eventbrite has returned an error. This could mean that the event ID does not exist, the event or source is marked as Private, or the event or source has been otherwise restricted by Eventbrite. You can <a href=\"https://theeventscalendar.com/knowledgebase/import-errors/\" target=\"_blank\">read more about Eventbrite restrictions in our knowledgebase</a>."
 msgstr "Догађаје није могуће увести јер је Eventbrite вратио грешку. То може значити да ИБ догађаја не постоји, да је догађај или извор означен као приватан или да га је Eventbrite на неки други начин ограничио. Можете <a href=\"https://theeventscalendar.com/knowledgebase/import-errors/\" target=\"_blank\">прочитати више о Eventbrite ограничењима у нашој бази знања</a>."
 
@@ -9820,7 +9844,6 @@ msgstr "Постоји JSON грешка на серверу Event Aggregator-а
 #: common/src/Tribe/Admin/Notice/Plugin_Download.php:134
 #: common/src/Tribe/PUE/Update_Prevention.php:181
 #: src/Tribe/Admin/Notice/Timezones.php:159
-#: src/Tribe/Editor/Compatibility.php:140
 msgid "Read more"
 msgstr "Прочитај више"
 
@@ -9865,7 +9888,7 @@ msgctxt "in human readable time"
 msgid "retrying in about %s"
 msgstr "поновни покушај за око %s"
 
-#: common/src/Tribe/Process/Queue.php:1025
+#: common/src/Tribe/Process/Queue.php:1037
 msgid "Every %d Minutes"
 msgstr "Сваких %d минута"
 
@@ -9949,11 +9972,11 @@ msgstr "Организатор са наведеним догађајем не �
 msgid "The organizer with the specified ID is not accessible."
 msgstr "Организатору са наведеним ИБ-ом није могуће приступити."
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:214
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:230
 msgid "An event with the specified ID does not exist."
 msgstr "Догађај са наведеним ИБ-ом не постоји."
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:211
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:227
 msgid "The event with the specified ID is not accessible."
 msgstr "Догађају са наведеним ИБ-ом није могуће приступити."
 
@@ -9966,7 +9989,7 @@ msgid "%s must not be empty"
 msgstr "%s не сме бити празно"
 
 #. translators: %s: The Events Calendar Link element.
-#: src/functions/template-tags/general.php:1532
+#: src/functions/template-tags/general.php:1552
 msgid "Calendar powered by %s"
 msgstr "Календар покреће %s"
 
@@ -9985,7 +10008,7 @@ msgstr "Подешавања испод одређују приказ вашег
 msgid "When importing from an event source, this is the maximum number of events that will be imported; on slower websites this may impact the success of imports. Setting this to a smaller number may improve results."
 msgstr "При увозу из извора догађаја, ово је највећи број догађаја који ће бити увезени; на споријим сајтовима ово може утицати на успешност увоза. Мањи број може побољшати резултате."
 
-#: src/Tribe/iCal.php:594
+#: src/Tribe/iCal.php:603
 msgctxt "iCal feed description"
 msgid "Events for %s"
 msgstr "Догађаји за %s"
@@ -10006,6 +10029,11 @@ msgstr "Ограничење количине увоза"
 #: src/admin-views/tribe-options-imports.php:656
 msgid "Import Date Range Limit"
 msgstr "Ограничење опсега датума увоза"
+
+#: src/admin-views/aggregator/settings.php:180
+#: src/admin-views/tribe-options-imports.php:234
+msgid "Limit the number of imported events by number, date range, or not at all; on slower websites this may impact the success of imports. Selecting a shorter time period or a smaller number of events may improve results."
+msgstr "Ограничите број увезених догађаја по броју, опсегу датума или уопште немојте ограничавати; на споријим сајтовима ово може утицати на успешност увоза. Избор краћег периода или мањег броја догађаја може побољшати резултате."
 
 #: src/admin-views/aggregator/settings.php:179
 #: src/admin-views/tribe-options-imports.php:233
@@ -10028,11 +10056,6 @@ msgstr "Захтевана страница архиве организатор�
 #: src/Tribe/REST/V1/Messages.php:102
 msgid "The requested venue archive page does not exist"
 msgstr "Захтевана страница архиве места одржавања не постоји"
-
-#: src/admin-views/aggregator/settings.php:180
-#: src/admin-views/tribe-options-imports.php:234
-msgid "Limit the number of imported events by number, date range, or not at all; on slower websites this may impact the success of imports. Selecting a shorter time period or a smaller number of events may improve results."
-msgstr "Ограничите број увезених догађаја по броју, опсегу датума или уопште немојте ограничавати; на споријим сајтовима ово може утицати на успешност увоза. Избор краћег периода или мањег броја догађаја може побољшати резултате."
 
 #: src/Tribe/REST/V1/Messages.php:101
 msgid "The organizer could not be updated"
@@ -10295,111 +10318,111 @@ msgstr "назив чланка догађаја"
 msgid "Returns the data of the organizer with the specified post ID"
 msgstr "Враћа податке организатора са наведеним ИБ-ом чланка"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:460
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:478
 msgid "The event organizer IDs or data"
 msgstr "ИБ-ови или подаци организатора догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:452
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:470
 msgid "The event venue IDs or data"
 msgstr "ИБ-ови или подаци места одржавања догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:428
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:446
 msgid "Whether the event should be featured on the site or not"
 msgstr "Да ли догађај треба да буде истакнут на сајту"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:423
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:441
 msgid "Whether the event should be sticky in the calendar view or not"
 msgstr "Да ли догађај треба да буде закачен у приказу календара"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:418
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:436
 msgid "Whether events should be hidden in the calendar view or not"
 msgstr "Да ли догађаји треба да буду сакривени у приказу календара"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:413
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:431
 msgid "Whether the event should show a map link or not"
 msgstr "Да ли догађај треба да приказује везу ка мапи"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:408
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:426
 msgid "Whether the event should show a map or not"
 msgstr "Да ли догађај треба да приказује мапу"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:395
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:413
 msgid "The event cost"
 msgstr "Цена догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:390
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:408
 msgid "The event featured image ID or URL"
 msgstr "ИБ или URL истакнуте слике догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:384
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:402
 msgid "The event end date and time"
 msgstr "Датум и време завршетка догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:378
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:396
 msgid "The event start date and time"
 msgstr "Датум и време почетка догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:372
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:390
 msgid "Whether the event lasts the whole day or not"
 msgstr "Да ли догађај траје цео дан"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:366
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:384
 msgid "The event time zone"
 msgstr "Временска зона догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:353
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:369
 msgid "The event excerpt"
 msgstr "Сажетак догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:341
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:357
 msgid "The event description"
 msgstr "Опис догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:329
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:345
 msgid "The event publication date (UTC time zone)"
 msgstr "Датум објављивања догађаја (UTC временска зона)"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:335
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:351
 msgid "The event title"
 msgstr "Наслов догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:323
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:339
 msgid "The event publication date"
 msgstr "Датум објављивања догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:317
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:333
 msgid "The event author ID"
 msgstr "ИБ аутора догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:273
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:289
 msgid "The event with the specified ID could not be deleted."
 msgstr "Догађај са наведеним ИБ-ом није могуће избрисати."
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:270
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:286
 msgid "The event with the specified ID has been deleted already."
 msgstr "Догађај са наведеним ИБ-ом је већ избрисан."
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:267
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:283
 msgid "The current user cannot delete the event with the specified ID."
 msgstr "Тренутни корисник не може да избрише догађај са наведеним ИБ-ом."
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:264
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:280
 msgid "The event post ID is missing or does not exist."
 msgstr "ИБ чланка догађаја недостаје или не постоји."
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:254
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:270
 msgid "Deletes an event and returns its data"
 msgstr "Брише догађај и враћа његове податке"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:246
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:262
 msgid "The user is not authorized to create events"
 msgstr "Корисник није овлашћен да прави догађаје"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:223
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:239
 msgid "Returns the data of the updated event"
 msgstr "Враћа податке ажурираног догађаја"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:233
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:249
 msgid "Returns the data of the created event"
 msgstr "Враћа податке направљеног догађаја"
 
@@ -10431,7 +10454,7 @@ msgstr "Корисник није овлашћен да прави катего�
 #: src/Events/REST/TEC/V1/Endpoints/Organizers.php:256
 #: src/Events/REST/TEC/V1/Endpoints/Venues.php:265
 #: src/Tribe/REST/V1/Endpoints/Single_Category.php:113
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:243
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:259
 #: src/Tribe/REST/V1/Endpoints/Single_Organizer.php:180
 #: src/Tribe/REST/V1/Endpoints/Single_Tag.php:107
 #: src/Tribe/REST/V1/Endpoints/Single_Venue.php:175
@@ -10559,7 +10582,7 @@ msgid "Events should be filtered by their featured status"
 msgstr "Догађаје треба филтрирати по статусу истакнутости"
 
 #: src/Tribe/REST/V1/Endpoints/Archive_Event.php:631
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:359
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:377
 msgid "The event post status"
 msgstr "Статус чланка догађаја"
 
@@ -10653,11 +10676,11 @@ msgid "The organizer status"
 msgstr "Статус организатора"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:81
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:347
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:363
 msgid "The event slug"
 msgstr "Кратко име догађаја"
 
-#: src/Tribe/Linked_Posts.php:1428
+#: src/Tribe/Linked_Posts.php:1551
 msgctxt "The \"Create or Find {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
 msgid "Create or Find %s"
 msgstr "Направи или пронађи: %s"
@@ -10666,43 +10689,43 @@ msgstr "Направи или пронађи: %s"
 msgid "The event status"
 msgstr "Статус догађаја"
 
-#: src/Tribe/Linked_Posts.php:1419
+#: src/Tribe/Linked_Posts.php:1542
 msgctxt "The \"Find a {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
 msgid "Find %1$s %2$s"
 msgstr "Пронађи %1$s %2$s"
 
-#: src/Tribe/Linked_Posts.php:1410
+#: src/Tribe/Linked_Posts.php:1533
 msgid "Find a Venue"
 msgstr "Пронађи место одржавања"
 
-#: src/Tribe/Linked_Posts.php:1409
+#: src/Tribe/Linked_Posts.php:1532
 msgid "Create or Find a Venue"
 msgstr "Направи или пронађи место одржавања"
 
-#: src/Tribe/Linked_Posts.php:1402
+#: src/Tribe/Linked_Posts.php:1525
 msgctxt "\"Create or Find Venue\", but when the word \"Venue\" is customized to something else."
 msgid "Create or Find %s"
 msgstr "Направи или пронађи: %s"
 
-#: src/Tribe/Linked_Posts.php:1393
+#: src/Tribe/Linked_Posts.php:1516
 msgctxt "\"Find a Venue\", but when the word \"Venue\" is customized to something else."
 msgid "Find %1$s %2$s"
 msgstr "Пронађи %1$s %2$s"
 
-#: src/Tribe/Linked_Posts.php:1382
+#: src/Tribe/Linked_Posts.php:1505
 msgid "Find an Organizer"
 msgstr "Пронађи организатора"
 
-#: src/Tribe/Linked_Posts.php:1381
+#: src/Tribe/Linked_Posts.php:1504
 msgid "Create or Find an Organizer"
 msgstr "Направи или пронађи организатора"
 
-#: src/Tribe/Linked_Posts.php:1374
+#: src/Tribe/Linked_Posts.php:1497
 msgctxt "\"Create or Find Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Create or Find %s"
 msgstr "Направи или пронађи: %s"
 
-#: src/Tribe/Linked_Posts.php:1365
+#: src/Tribe/Linked_Posts.php:1488
 msgctxt "\"Find an Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Find %1$s %2$s"
 msgstr "Пронађи %1$s %2$s"
@@ -10727,7 +10750,7 @@ msgstr "По броју догађаја"
 msgid "By date range"
 msgstr "По опсегу датума"
 
-#: src/Tribe/Aggregator/Service.php:827
+#: src/Tribe/Aggregator/Service.php:849
 msgctxt "The placeholder is for the localized version of the iCal UID specification link"
 msgid "Some events at the requested source are missing the UID attribute required by the iCalendar Specification. One-Time and ICS File imports are allowed but successive imports will create duplicated events on your site. Please contact the source provider to fix the UID issue; linking them to %s may help them more quickly resolve their feed's UID issue."
 msgstr "Неким догађајима у захтеваном извору недостаје атрибут UID који захтева спецификација iCalendar. Једнократни увози и увози ICS датотека су дозвољени, али узастопни увози ће направити дуплиране догађаје на вашем сајту. Обратите се добављачу извора да исправи проблем са UID-ом; ако их упутите на %s, можда ће брже решити проблем са UID-ом у свом доводу."
@@ -10744,12 +10767,12 @@ msgstr "идентификатор чланка организатора"
 msgid "the event category term ID"
 msgstr "идентификатор појма категорије догађаја"
 
-#: src/Tribe/Aggregator/Service.php:818
+#: src/Tribe/Aggregator/Service.php:840
 msgctxt "The placeholder is for the localized version of the iCal UID specification link"
 msgid "Some events at the requested source are missing the UID attribute required by the iCalendar Specification. Creating a scheduled import would generate duplicate events on each import. Instead, please use a One-Time import or contact the source provider to fix the UID issue; linking them to %s may help them more quickly resolve their feed's UID issue."
 msgstr "Неким догађајима у захтеваном извору недостаје атрибут UID који захтева спецификација iCalendar. Заказани увоз би при сваком увозу правио дуплиране догађаје. Уместо тога, користите једнократни увоз или се обратите добављачу извора да исправи проблем са UID-ом; ако их упутите на %s, можда ће брже решити проблем са UID-ом у свом доводу."
 
-#: src/Tribe/Aggregator/Service.php:775
+#: src/Tribe/Aggregator/Service.php:797
 msgid "the UID part of the iCalendar Specification"
 msgstr "део спецификације iCalendar о UID-у"
 
@@ -10820,12 +10843,12 @@ msgstr "уредите подешавања догађаја."
 msgid "Edit the %s slug"
 msgstr "Уреди кратко име за %s"
 
-#: src/Tribe/Linked_Posts.php:1351
+#: src/Tribe/Linked_Posts.php:1474
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
 msgid "an"
 msgstr "ставку:"
 
-#: src/Tribe/Linked_Posts.php:1344
+#: src/Tribe/Linked_Posts.php:1467
 msgctxt "Indefinite article for the phrase \"Find a {post type name}. Will be replaced with \"an\" if the {post type name} starts with a vowel."
 msgid "a"
 msgstr "ставку:"
@@ -10851,9 +10874,9 @@ msgstr "Изабери све странице"
 msgid "Add more sources"
 msgstr "Додај још извора"
 
-#: src/Tribe/Aggregator/Service.php:249
-msgid "Event Aggregator server has blocked your request. Please try your import again later or contact support to know why."
-msgstr "Сервер Event Aggregator-а је блокирао ваш захтев. Покушајте поново са увозом касније или се обратите подршци да сазнате зашто."
+#: src/Tribe/Aggregator/Service.php:249 src/Tribe/Aggregator/Service.php:340
+msgid "Event Aggregator server has blocked your request. Please try your import again later or contact support."
+msgstr "Сервер сервиса Event Aggregator је блокирао ваш захтев. Покушајте поново са увозом касније или контактирајте подршку."
 
 #: src/Tribe/Customizer/General_Theme.php:319
 msgid "Featured Highlight Color"
@@ -10868,12 +10891,12 @@ msgid "The Events Calendar could not write WPML default config file: please crea
 msgstr "The Events Calendar није могао да упише подразумевану WPML датотеку подешавања: направите датотеку ручно."
 
 #. Translators: %1$s is the plugin name. %2$s is the update now link.
-#: common/src/Tribe/PUE/Checker.php:1523
+#: common/src/Tribe/PUE/Checker.php:1534
 msgid "There is a new version of %1$s available. %2$s"
 msgstr "Ново издање %1$s је доступно. %2$s"
 
 #. Translators: %s is the plugin version number.
-#: common/src/Tribe/PUE/Checker.php:1508
+#: common/src/Tribe/PUE/Checker.php:1519
 msgid "Update now to version %s."
 msgstr "Ажурирајте сада на издање %s."
 
@@ -10906,9 +10929,13 @@ msgstr "Статус својих лиценци увек можете пров�
 msgid "Something went wrong while inserting the record in the database."
 msgstr "Нешто није у реду при уметању записа у базу података."
 
-#: common/src/Tribe/PUE/Checker.php:1390
+#: common/src/Tribe/PUE/Checker.php:1401
 msgid "Please refresh the page and try your request again."
 msgstr "Освежите страницу и поново пошаљите захтев."
+
+#: common/src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:29
+msgid "The image WordPress post ID"
+msgstr "ИБ Вордпрес чланка слике"
 
 #: common/src/Tribe/PUE/Notices.php:429
 msgid "It looks like you're using %1$s, but the license key is invalid. Please download the latest version %2$sfrom your account%3$s."
@@ -10916,10 +10943,6 @@ msgid_plural "It looks like you're using %1$s, but the license keys are invalid.
 msgstr[0] "Изгледа да користите %1$s, али лиценцни кључ није исправан. Преузмите најновије издање %2$sса свог налога%3$s."
 msgstr[1] "Изгледа да користите %1$s, али лиценцни кључеви нису исправни. Преузмите најновија издања %2$sса свог налога%3$s."
 msgstr[2] "Изгледа да користите %1$s, али лиценцни кључеви нису исправни. Преузмите најновија издања %2$sса свог налога%3$s."
-
-#: common/src/Tribe/Documentation/Swagger/Image_Definition_Provider.php:29
-msgid "The image WordPress post ID"
-msgstr "ИБ Вордпрес чланка слике"
 
 #: common/src/Tribe/Plugins_API.php:207
 msgid "Image Widget Plus"
@@ -10961,7 +10984,6 @@ msgstr "Веб сајт организатора"
 #: src/admin-views/aggregator/settings.php:476
 #: src/admin-views/settings/tabs/display/display-currency.php:72
 #: src/admin-views/settings/tabs/general/general-editing.php:40
-#: src/admin-views/tribe-options-imports.php:660
 #: src/Tribe/REST/V1/EA_Messages.php:40
 msgid "Learn more."
 msgstr "Сазнајте више."
@@ -11104,7 +11126,7 @@ msgstr "Месту одржавања са наведеним ИБ-ом није
 msgid "The Events Calendar REST API"
 msgstr "The Events Calendar REST API"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:208
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:224
 msgid "The event post ID is missing."
 msgstr "Недостаје ИБ чланка догађаја."
 
@@ -11341,7 +11363,7 @@ msgid "Whether the map should be shown for the event or not"
 msgstr "Да ли за догађај треба приказати мапу"
 
 #: src/Tribe/REST/V1/Documentation/Event_Definition_Provider.php:147
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:402
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:420
 msgid "The event website URL"
 msgstr "URL веб сајта догађаја"
 
@@ -11420,7 +11442,7 @@ msgid "The event creation date in the site time zone"
 msgstr "Датум прављења догађаја у временској зони сајта"
 
 #: common/src/Common/Event_Automator/Zapier/REST/V1/Endpoints/Actions/Update_Events.php:273
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:290
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:306
 msgid "the event post ID"
 msgstr "идентификатор чланка догађаја"
 
@@ -11508,7 +11530,7 @@ msgstr "Број телефона места одржавања"
 msgid "The 'categories' parameter contains invalid category slugs or IDs"
 msgstr "Параметар 'categories' садржи неисправна кратка имена или ИБ-ове категорија"
 
-#: src/Tribe/REST/V1/Endpoints/Single_Event.php:198
+#: src/Tribe/REST/V1/Endpoints/Single_Event.php:214
 msgid "Returns the data of the event with the specified post ID"
 msgstr "Враћа податке догађаја са наведеним ИБ-ом чланка"
 
@@ -11592,7 +11614,7 @@ msgstr "Две недеље"
 msgid "One week"
 msgstr "Једна недеља"
 
-#: src/Tribe/Aggregator/Service.php:816
+#: src/Tribe/Aggregator/Service.php:838
 msgid "The requested source does not have any upcoming and published events matching the search criteria."
 msgstr "Захтевани извор нема предстојећих и објављених догађаја који одговарају мерилима претраге."
 
@@ -11600,15 +11622,15 @@ msgstr "Захтевани извор нема предстојећих и об�
 msgid "24 hours"
 msgstr "24 сата"
 
-#: src/Tribe/Aggregator/Service.php:815
+#: src/Tribe/Aggregator/Service.php:837
 msgid "Events could not be imported. The URL provided could not be reached."
 msgstr "Догађаје није могуће увести. Наведени URL није доступан."
 
-#: src/Tribe/Aggregator/Service.php:799
+#: src/Tribe/Aggregator/Service.php:821
 msgid "Events could not be imported. The URL provided did not have events in the proper format."
 msgstr "Догађаји на наведеном URL-у нису у одговарајућем облику, па их није могуће увести."
 
-#: src/Tribe/Aggregator/Service.php:791
+#: src/Tribe/Aggregator/Service.php:813
 msgid "Events could not be imported. The import parameters were invalid."
 msgstr "Догађаје није могуће увести. Параметри увоза су неисправни."
 
@@ -11617,13 +11639,13 @@ msgstr "Догађаје није могуће увести. Параметри 
 msgid "Other URL"
 msgstr "Други URL"
 
-#: src/Tribe/Venue.php:307
+#: src/Tribe/Venue.php:309
 msgctxt "Metabox title"
 msgid "Location"
 msgstr "Локација"
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: common/src/Tribe/PUE/Checker.php:811
+#: common/src/Tribe/PUE/Checker.php:822
 msgid "%1$sBuy a license%2$s for the Event Aggregator service to access additional import features."
 msgstr "%1$sКупите лиценцу%2$s за услугу Event Aggregator да бисте приступили додатним могућностима увоза."
 
@@ -11870,11 +11892,6 @@ msgstr "Контрола Event Aggregator-а"
 msgid "Disable Event Aggregator imports"
 msgstr "Искључи увозе Event Aggregator-а"
 
-#: src/Tribe/Main.php:1003 src/Tribe/Rewrite.php:286
-msgctxt "featured events slug"
-msgid "featured"
-msgstr "featured"
-
 #: src/Tribe/Customizer/Widget.php:137
 msgid "Show Featured Event Images"
 msgstr "Прикажи слике истакнутих догађаја"
@@ -11929,14 +11946,6 @@ msgstr "Могућности изабране овде замениће оно �
 #: src/Tribe/Views/V2/Customizer/Section/Global_Elements.php:122
 msgid "Global Elements"
 msgstr "Глобални елементи"
-
-#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:170
-#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:284
-#: src/Tribe/Customizer/General_Theme.php:410
-#: src/Tribe/Views/V2/Customizer.php:190
-#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:133
-msgid "Custom"
-msgstr "Произвољно"
 
 #: src/Tribe/Customizer/General_Theme.php:404
 msgid "Sunshine"
@@ -12078,27 +12087,27 @@ msgstr "Уторак"
 msgid "Sunday"
 msgstr "Недеља"
 
-#: common/src/Tribe/PUE/Checker.php:2216
+#: common/src/Tribe/PUE/Checker.php:2252
 msgid "Expired license. Consult your network administrator."
 msgstr "Лиценца је истекла. Обратите се администратору мреже."
 
-#: common/src/Tribe/PUE/Checker.php:2215
+#: common/src/Tribe/PUE/Checker.php:2251
 msgid "No license entered. Consult your network administrator."
 msgstr "Лиценца није унета. Обратите се администратору мреже."
 
-#: common/src/Tribe/PUE/Checker.php:871
+#: common/src/Tribe/PUE/Checker.php:882
 msgid "Site License Key"
 msgstr "Лиценцни кључ сајта"
 
-#: common/src/Tribe/PUE/Checker.php:860
+#: common/src/Tribe/PUE/Checker.php:871
 msgid "Check this box if you wish to override the network license key with your own"
 msgstr "Означите ово поље ако желите да лиценцни кључ мреже замените сопственим"
 
-#: common/src/Tribe/PUE/Checker.php:859
+#: common/src/Tribe/PUE/Checker.php:870
 msgid "Override network license key"
 msgstr "Замени лиценцни кључ мреже"
 
-#: common/src/Tribe/PUE/Checker.php:850 common/src/Tribe/PUE/Checker.php:884
+#: common/src/Tribe/PUE/Checker.php:861 common/src/Tribe/PUE/Checker.php:895
 msgid "License Key Status:"
 msgstr "Статус лиценцног кључа:"
 
@@ -12147,7 +12156,7 @@ msgstr "Поштански број места одржавања"
 msgid "Month View"
 msgstr "Месечни приказ"
 
-#: common/src/Tribe/PUE/Checker.php:2214
+#: common/src/Tribe/PUE/Checker.php:2250
 msgid "A valid license has been entered by your network administrator."
 msgstr "Исправну лиценцу је унео ваш администратор мреже."
 
@@ -12179,6 +12188,19 @@ msgstr "Избриши ово"
 msgid "Sun"
 msgstr "Нед"
 
+#: src/Tribe/Main.php:1003 src/Tribe/Rewrite.php:286
+msgctxt "featured events slug"
+msgid "featured"
+msgstr "издвојен"
+
+#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:170
+#: src/Events/Integrations/Plugins/Elementor/Controls/Groups/Event_Query.php:284
+#: src/Tribe/Customizer/General_Theme.php:410
+#: src/Tribe/Views/V2/Customizer.php:190
+#: src/Tribe/Views/V2/Customizer/Section/Single_Event.php:133
+msgid "Custom"
+msgstr "Прилагођено"
+
 #: common/src/Tribe/Extension.php:406
 msgid "Unable to run Tribe Extensions. Your website host is running PHP 5.2 or older, and has likely disabled or misconfigured debug_backtrace(). You, or your website host, will need to upgrade PHP or properly configure debug_backtrace() for Tribe Extensions to work."
 msgstr "Није могуће покренути Tribe Extensions. Ваш хостинг користи PHP 5.2 или старији и вероватно је искључио или погрешно подесио debug_backtrace(). Ви или ваш добављач хостинга морате надоградити PHP или правилно подесити debug_backtrace() да би Tribe Extensions радили."
@@ -12203,7 +12225,7 @@ msgstr " и "
 msgid "Unknown"
 msgstr "Непознато"
 
-#: src/Tribe/Aggregator/Service.php:897
+#: src/Tribe/Aggregator/Service.php:919
 msgid "Unknown service message"
 msgstr "Непозната порука услуге"
 
@@ -12234,11 +12256,6 @@ msgstr "Стање:"
 #: src/admin-views/aggregator/tabs/import-form.php:235
 msgid "Select All"
 msgstr "Изабери све"
-
-#: src/admin-views/settings/tabs/integrations/integrations-import.php:58
-#: src/admin-views/settings/tabs/integrations/integrations-import.php:104
-msgid "Disconnect"
-msgstr "Раскини везу"
 
 #: src/admin-views/settings/tabs/integrations/integrations-import.php:57
 msgid "Refresh your connection to Meetup"
@@ -12284,6 +12301,11 @@ msgstr "Време почетка"
 #: src/admin-views/aggregator/tabs/import-form.php:207
 msgid "Column Mapping:"
 msgstr "Повезивање колона:"
+
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:58
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:104
+msgid "Disconnect"
+msgstr "Прекини"
 
 #: src/admin-views/aggregator/tabs/import-form.php:114
 msgid "Access more event sources and automatic imports!"
@@ -12526,23 +12548,6 @@ msgstr "Подразумевана категорија догађаја за д
 msgid "The default post status for events imported via iCalendar"
 msgstr "Подразумевани статус чланка за догађаје увезене преко iCalendar-а"
 
-#: src/admin-views/aggregator/settings.php:168
-#: src/admin-views/aggregator/settings.php:276
-#: src/admin-views/aggregator/settings.php:320
-#: src/admin-views/aggregator/settings.php:364
-#: src/admin-views/aggregator/settings.php:420
-#: src/admin-views/aggregator/settings.php:464
-#: src/admin-views/aggregator/settings.php:543
-#: src/admin-views/tribe-options-imports.php:222
-#: src/admin-views/tribe-options-imports.php:394
-#: src/admin-views/tribe-options-imports.php:441
-#: src/admin-views/tribe-options-imports.php:488
-#: src/admin-views/tribe-options-imports.php:535
-#: src/admin-views/tribe-options-imports.php:598
-#: src/admin-views/tribe-options-imports.php:645
-msgid "Show map by default on imported event and venues"
-msgstr "Подразумевано прикажи мапу на увезеним догађајима и местима одржавања"
-
 #: src/admin-views/aggregator/settings.php:144
 #: src/admin-views/tribe-options-imports.php:198
 msgid "The default post status for events"
@@ -12563,6 +12568,33 @@ msgstr "Глобална подешавања увоза"
 msgid "The default event category for events imported via CSV"
 msgstr "Подразумевана категорија догађаја за догађаје увезене преко CSV-а"
 
+#: src/admin-views/aggregator/settings.php:81
+#: src/admin-views/tribe-options-imports.php:322
+msgid "The default post status for events imported via CSV"
+msgstr "Подразумевани статус чланка за догађаје увезене преко CSV-а"
+
+#: src/admin-views/aggregator/settings.php:65
+#: src/admin-views/tribe-options-imports.php:172
+msgid "Do not re-import events. Changes made locally will be preserved."
+msgstr "Не увози поново догађаје. Локалне измене ће бити сачуване."
+
+#: src/admin-views/aggregator/settings.php:168
+#: src/admin-views/aggregator/settings.php:276
+#: src/admin-views/aggregator/settings.php:320
+#: src/admin-views/aggregator/settings.php:364
+#: src/admin-views/aggregator/settings.php:420
+#: src/admin-views/aggregator/settings.php:464
+#: src/admin-views/aggregator/settings.php:543
+#: src/admin-views/tribe-options-imports.php:222
+#: src/admin-views/tribe-options-imports.php:394
+#: src/admin-views/tribe-options-imports.php:441
+#: src/admin-views/tribe-options-imports.php:488
+#: src/admin-views/tribe-options-imports.php:535
+#: src/admin-views/tribe-options-imports.php:598
+#: src/admin-views/tribe-options-imports.php:645
+msgid "Show map by default on imported event and venues"
+msgstr "Подразумевано прикажи мапу на увезеним догађајима и местима одржавања"
+
 #: src/admin-views/aggregator/settings.php:92
 #: src/admin-views/aggregator/settings.php:155
 #: src/admin-views/aggregator/settings.php:263
@@ -12581,21 +12613,6 @@ msgstr "Подразумевана категорија догађаја за д
 #: src/admin-views/tribe-options-imports.php:632
 msgid "Default Event Category"
 msgstr "Подразумевана категорија догађаја"
-
-#: src/admin-views/aggregator/settings.php:81
-#: src/admin-views/tribe-options-imports.php:322
-msgid "The default post status for events imported via CSV"
-msgstr "Подразумевани статус чланка за догађаје увезене преко CSV-а"
-
-#: src/admin-views/aggregator/settings.php:65
-#: src/admin-views/tribe-options-imports.php:172
-msgid "Do not re-import events. Changes made locally will be preserved."
-msgstr "Не увози поново догађаје. Локалне измене ће бити сачуване."
-
-#: src/admin-views/aggregator/settings.php:64
-#: src/admin-views/tribe-options-imports.php:171
-msgid "Overwrite my event with any changes from the original source."
-msgstr "Замени мој догађај свим изменама из изворног извора."
 
 #: src/admin-views/aggregator/settings.php:80
 #: src/admin-views/aggregator/settings.php:143
@@ -12616,6 +12633,11 @@ msgstr "Замени мој догађај свим изменама из изв
 msgid "Default Status"
 msgstr "Подразумевани статус"
 
+#: src/admin-views/aggregator/settings.php:64
+#: src/admin-views/tribe-options-imports.php:171
+msgid "Overwrite my event with any changes from the original source."
+msgstr "Замени мој догађај свим изменама из изворног извора."
+
 #: src/admin-views/aggregator/settings.php:54
 msgid "You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed."
 msgstr "Увезене догађаје можете мењати путем The Events Calendar-а и видети те измене у календару свог сајта. Власник изворног извора догађаја (нпр. iCalendar довод или Meetup група) такође може мењати свој догађај. Ако изаберете да поново увезете измењени догађај (ручно или путем заказаног увоза), све измене направљене на извору или у вашем календару мораће да се реше."
@@ -12634,9 +12656,9 @@ msgstr "Надлежност за ажурирање догађаја"
 
 #: src/admin-views/aggregator/settings.php:40
 #: src/admin-views/tribe-options-imports.php:57
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:718
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:776
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:644
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:735
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:793
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:663
 msgid "No"
 msgstr "Не"
 
@@ -12909,49 +12931,45 @@ msgstr "%1$s (mi)"
 msgid "The %3$s \"%1$s\" uses the \"/%2$s\" slug: the Events Calendar plugin will show its calendar in place of the page."
 msgstr "%3$s „%1$s“ користи кратко име „/%2$s“: додатак Events Calendar ће приказати свој календар уместо странице."
 
-#: src/Tribe/Ignored_Events.php:923
-msgid "There were no Legacy Events to be Migrated, you are ready to rock!"
-msgstr "Нема застарелих догађаја за пренос, спремни сте!"
-
-#: src/Tribe/Ignored_Events.php:959
-msgid "Migration: %d Legacy Ignored Post failed to be migrated."
-msgid_plural "Migration: %d Legacy Ignored Posts failed to be migrated."
-msgstr[0] "Пренос: %d застарели занемарени чланак није пренет."
-msgstr[1] "Пренос: %d застарела занемарена чланка нису пренета."
-msgstr[2] "Пренос: %d застарелих занемарених чланака није пренето."
-
-#: src/Tribe/Ignored_Events.php:916
-msgid "You do not have permission to migrate Legacy Ignored Events"
-msgstr "Немате дозволу да преносите застареле занемарене догађаје"
-
-#: src/Tribe/Ignored_Events.php:906
-msgid "Error, a unknown bug happened and it was impossible to migrate the Legacy Ignored Events, try again later."
-msgstr "Грешка: дошло је до непознате грешке и није било могуће пренети застареле занемарене догађаје, покушајте поново касније."
-
-#: src/Tribe/Ignored_Events.php:979
+#: src/Tribe/Ignored_Events.php:986
 msgid "Migration: %d Legacy Ignored Post was migrated successfully. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %d Legacy Ignored Posts were migrated successfully. To see the migrated events you will first need to refresh this screen."
 msgstr[0] "Пренос: %d застарели занемарени чланак је успешно пренет. Да бисте видели пренети догађај, прво освежите овај екран."
 msgstr[1] "Пренос: %d застарела занемарена чланка су успешно пренета. Да бисте видели пренете догађаје, прво освежите овај екран."
 msgstr[2] "Пренос: %d застарелих занемарених чланака је успешно пренето. Да бисте видели пренете догађаје, прво освежите овај екран."
 
-#: src/Tribe/Ignored_Events.php:947
+#: src/Tribe/Ignored_Events.php:930
+msgid "There were no Legacy Events to be Migrated, you are ready to rock!"
+msgstr "Нема застарелих догађаја за пренос, спремни сте!"
+
+#: src/Tribe/Ignored_Events.php:966
+msgid "Migration: %d Legacy Ignored Post failed to be migrated."
+msgid_plural "Migration: %d Legacy Ignored Posts failed to be migrated."
+msgstr[0] "Пренос: %d застарели занемарени чланак није пренет."
+msgstr[1] "Пренос: %d застарела занемарена чланка нису пренета."
+msgstr[2] "Пренос: %d застарелих занемарених чланака није пренето."
+
+#: src/Tribe/Ignored_Events.php:954
 msgid "Migration: %1$d Legacy Ignored Post was migrated but %2$d failed. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %1$d Legacy Ignored Posts were migrated but %2$d failed. To see the migrated events you will first need to refresh this screen."
 msgstr[0] "Пренос: %1$d застарели занемарени чланак је пренет, али %2$d није. Да бисте видели пренети догађај, прво освежите овај екран."
 msgstr[1] "Пренос: %1$d застарела занемарена чланка су пренета, али %2$d нису. Да бисте видели пренете догађаје, прво освежите овај екран."
 msgstr[2] "Пренос: %1$d застарелих занемарених чланака је пренето, али %2$d није. Да бисте видели пренете догађаје, прво освежите овај екран."
 
-#: src/Tribe/Ignored_Events.php:787
+#: src/Tribe/Ignored_Events.php:923
+msgid "You do not have permission to migrate Legacy Ignored Events"
+msgstr "Немате дозволу да преносите застареле занемарене догађаје"
+
+#: src/Tribe/Ignored_Events.php:913
+msgid "Error, a unknown bug happened and it was impossible to migrate the Legacy Ignored Events, try again later."
+msgstr "Грешка: дошло је до непознате грешке и није било могуће пренети застареле занемарене догађаје, покушајте поново касније."
+
+#: src/Tribe/Ignored_Events.php:794
 msgid "Ignored <span class=\"count\">(%s)</span>"
 msgid_plural "Ignored <span class=\"count\">(%s)</span>"
 msgstr[0] "Занемарено <span class=\"count\">(%s)</span>"
 msgstr[1] "Занемарено <span class=\"count\">(%s)</span>"
 msgstr[2] "Занемарено <span class=\"count\">(%s)</span>"
-
-#: src/Tribe/Ignored_Events.php:465
-msgid "Restore"
-msgstr "Врати"
 
 #. translators: %s: post title
 #: src/Tribe/Ignored_Events.php:472
@@ -13008,16 +13026,20 @@ msgstr "Event Aggregator садржи нови, бољи систем за ук�
 msgid "Last Import"
 msgstr "Последњи увоз"
 
+#: src/Tribe/Ignored_Events.php:465
+msgid "Restore"
+msgstr "Поврати"
+
 #: src/Tribe/Aggregator/Tabs/History.php:55
 #: src/Tribe/Aggregator/Tabs/Scheduled.php:59
 msgid "Records per page"
 msgstr "Записи по страници"
 
-#: src/Tribe/Aggregator/Service.php:809
+#: src/Tribe/Aggregator/Service.php:831
 msgid "Success"
 msgstr "Успешно"
 
-#: src/Tribe/Aggregator/Service.php:805
+#: src/Tribe/Aggregator/Service.php:827
 msgid "The import is in progress."
 msgstr "Увоз је у току."
 
@@ -13075,7 +13097,7 @@ msgid "Hide & Ignore"
 msgstr "Сакриј и занемари"
 
 #: src/Tribe/Ignored_Events.php:55 src/Tribe/Ignored_Events.php:506
-#: src/Tribe/Ignored_Events.php:786
+#: src/Tribe/Ignored_Events.php:793
 msgid "Ignored"
 msgstr "Занемарено"
 
@@ -13108,7 +13130,7 @@ msgstr "Event Aggregator је успешно повезан са Facebook-ом"
 msgid "You must use an integer to reduce the daily import limit"
 msgstr "Морате користити цео број да бисте смањили дневно ограничење увоза"
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:392
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:417
 msgid "Enter Event Aggregator License"
 msgstr "Унесите Event Aggregator лиценцу"
 
@@ -13117,35 +13139,35 @@ msgid "Event Aggregator System Status"
 msgstr "Статус система Event Aggregator"
 
 #. Translators: %1$s: opening link tag, %2$s: closing link tag.
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:385
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:410
 msgid "To continue using scheduled imports, please enter a valid Event Aggregator license key under %1$sEvents > Settings > Licenses%2$s."
 msgstr "Да бисте наставили да користите заказане увозе, унесите исправан лиценцни кључ за Event Aggregator у %1$sEvents > Settings > Licenses%2$s."
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:378
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:403
 msgid "All scheduled imports are currently suspended, and no events will be imported."
 msgstr "Сви заказани увози су тренутно обустављени и ниједан догађај неће бити увезен."
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:263
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:275
 msgid "Successfully %s %d scheduled import"
 msgstr "Успешно %s заказаних увоза: %d"
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:200
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:212
 msgid "deactivated"
 msgstr "искључено"
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:253
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:265
 msgid "Error: %d scheduled import was not %s."
 msgstr "Грешка: заказаних увоза (%d) није %s."
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:196
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:208
 msgid "reactivated"
 msgstr "поново укључено"
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:192
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:204
 msgid "delete"
 msgstr "избрисано"
 
-#: src/Tribe/Aggregator/Tabs/Scheduled.php:188
+#: src/Tribe/Aggregator/Tabs/Scheduled.php:200
 msgid "queued"
 msgstr "стављено у ред"
 
@@ -13291,59 +13313,59 @@ msgstr "Дошло је до проблема при обради увоза. П
 msgid "Connection timed out while transferring the feed. If you are dealing with large feeds you may need to customize the tribe_aggregator_connection_timeout filter."
 msgstr "Истекло је време везе током преноса довода. Ако радите са великим доводима, можда ћете морати да прилагодите филтер tribe_aggregator_connection_timeout."
 
-#: src/Tribe/Aggregator/Service.php:814
+#: src/Tribe/Aggregator/Service.php:836
 msgid "Import queued"
 msgstr "Увоз је стављен у ред"
 
-#: src/Tribe/Aggregator/Service.php:813
+#: src/Tribe/Aggregator/Service.php:835
 msgid "Import is complete"
 msgstr "Увоз је завршен"
 
-#: src/Tribe/Aggregator/Service.php:812
+#: src/Tribe/Aggregator/Service.php:834
 msgid "Successfully loaded import origins"
 msgstr "Порекла увоза су успешно учитана"
 
-#: src/Tribe/Aggregator/Service.php:833
+#: src/Tribe/Aggregator/Service.php:855
 msgid "Successfully fetched Facebook Token"
 msgstr "Facebook жетон је успешно преузет"
 
-#: src/Tribe/Aggregator/Service.php:810
+#: src/Tribe/Aggregator/Service.php:832
 msgid "Import created"
 msgstr "Увоз је направљен"
 
-#: src/Tribe/Aggregator/Service.php:807
+#: src/Tribe/Aggregator/Service.php:829
 msgid "The import will be starting soon."
 msgstr "Увоз ће ускоро почети."
 
-#: src/Tribe/Aggregator/Service.php:802
+#: src/Tribe/Aggregator/Service.php:824
 msgid "Event Aggregator cannot reach Meetup.com because you exceeded the request limit for your Meetup API key."
 msgstr "Event Aggregator не може да приступи Meetup.com јер сте премашили ограничење захтева за свој Meetup API кључ."
 
-#: src/Tribe/Aggregator/Service.php:801
+#: src/Tribe/Aggregator/Service.php:823
 msgid "Your Meetup API key is invalid."
 msgstr "Ваш Meetup API кључ није исправан."
 
-#: src/Tribe/Aggregator/Service.php:800
+#: src/Tribe/Aggregator/Service.php:822
 msgid "The file provided could not be opened. Please confirm that it is a properly formatted .ics file."
 msgstr "Наведену датотеку није могуће отворити. Проверите да ли је исправно обликована .ics датотека."
 
-#: src/Tribe/Aggregator/Service.php:798
+#: src/Tribe/Aggregator/Service.php:820
 msgid "The import failed for an unknown reason. Please try again. If the problem persists, please contact support."
 msgstr "Увоз није успео из непознатог разлога. Покушајте поново. Ако се проблем настави, обратите се подршци."
 
-#: src/Tribe/Aggregator/Service.php:797
+#: src/Tribe/Aggregator/Service.php:819
 msgid "The image associated with your event is not accessible with your API key."
 msgstr "Слици повезаној са вашим догађајем није могуће приступити помоћу вашег API кључа."
 
-#: src/Tribe/Aggregator/Service.php:795
+#: src/Tribe/Aggregator/Service.php:817
 msgid "The URL provided failed to load."
 msgstr "Учитавање наведеног URL-а није успело."
 
-#: src/Tribe/Aggregator/Service.php:796
+#: src/Tribe/Aggregator/Service.php:818
 msgid "The image associated with your event could not be imported."
 msgstr "Слику повезану са вашим догађајем није могуће увести."
 
-#: src/Tribe/Aggregator/Service.php:794
+#: src/Tribe/Aggregator/Service.php:816
 msgid "The URL provided could not be reached."
 msgstr "Наведени URL није доступан."
 
@@ -13411,12 +13433,12 @@ msgstr "нова"
 msgid "Deleted Attachment: %d"
 msgstr "Избрисан прилог: %d"
 
-#: src/Tribe/Aggregator/Service.php:790
+#: src/Tribe/Aggregator/Service.php:812
 msgid "Sorry, but something went wrong. Please try again."
 msgstr "Нажалост, нешто није у реду. Покушајте поново."
 
 #. translators: %s is the number of draft records.
-#: src/Tribe/Aggregator/Records.php:287
+#: src/Tribe/Aggregator/Records.php:298
 msgctxt "event aggregator status"
 msgid "Draft <span class=\"count\">(%s)</span>"
 msgid_plural "Draft <span class=\"count\">(%s)</span>"
@@ -13425,7 +13447,7 @@ msgstr[1] "Нацрт <span class=\"count\">(%s)</span>"
 msgstr[2] "Нацрт <span class=\"count\">(%s)</span>"
 
 #. translators: %s is the number of pending records.
-#: src/Tribe/Aggregator/Records.php:270
+#: src/Tribe/Aggregator/Records.php:280
 msgctxt "event aggregator status"
 msgid "Pending <span class=\"count\">(%s)</span>"
 msgid_plural "Pending <span class=\"count\">(%s)</span>"
@@ -13433,18 +13455,18 @@ msgstr[0] "На чекању <span class=\"count\">(%s)</span>"
 msgstr[1] "На чекању <span class=\"count\">(%s)</span>"
 msgstr[2] "На чекању <span class=\"count\">(%s)</span>"
 
-#: src/Tribe/Aggregator/Records.php:285
+#: src/Tribe/Aggregator/Records.php:296
 msgctxt "event aggregator status"
 msgid "Draft"
 msgstr "Нацрт"
 
-#: src/Tribe/Aggregator/Records.php:268
+#: src/Tribe/Aggregator/Records.php:278
 msgctxt "event aggregator status"
 msgid "Pending"
 msgstr "На чекању"
 
 #. translators: %s is the number of schedule records.
-#: src/Tribe/Aggregator/Records.php:253
+#: src/Tribe/Aggregator/Records.php:262
 msgctxt "event aggregator status"
 msgid "Schedule <span class=\"count\">(%s)</span>"
 msgid_plural "Schedule <span class=\"count\">(%s)</span>"
@@ -13452,13 +13474,13 @@ msgstr[0] "Заказано <span class=\"count\">(%s)</span>"
 msgstr[1] "Заказано <span class=\"count\">(%s)</span>"
 msgstr[2] "Заказано <span class=\"count\">(%s)</span>"
 
-#: src/Tribe/Aggregator/Records.php:251
+#: src/Tribe/Aggregator/Records.php:260
 msgctxt "event aggregator status"
 msgid "Schedule"
 msgstr "Заказано"
 
 #. translators: %s is the number of failed records.
-#: src/Tribe/Aggregator/Records.php:236
+#: src/Tribe/Aggregator/Records.php:244
 msgctxt "event aggregator status"
 msgid "Failed <span class=\"count\">(%s)</span>"
 msgid_plural "Failed <span class=\"count\">(%s)</span>"
@@ -13467,7 +13489,7 @@ msgstr[1] "Неуспело <span class=\"count\">(%s)</span>"
 msgstr[2] "Неуспело <span class=\"count\">(%s)</span>"
 
 #. translators: %s is the number of imported records.
-#: src/Tribe/Aggregator/Records.php:219
+#: src/Tribe/Aggregator/Records.php:226
 msgctxt "event aggregator status"
 msgid "Imported <span class=\"count\">(%s)</span>"
 msgid_plural "Imported <span class=\"count\">(%s)</span>"
@@ -13475,12 +13497,12 @@ msgstr[0] "Увезено <span class=\"count\">(%s)</span>"
 msgstr[1] "Увезено <span class=\"count\">(%s)</span>"
 msgstr[2] "Увезено <span class=\"count\">(%s)</span>"
 
-#: src/Tribe/Aggregator/Records.php:234
+#: src/Tribe/Aggregator/Records.php:242
 msgctxt "event aggregator status"
 msgid "Failed"
 msgstr "Неуспело"
 
-#: src/Tribe/Aggregator/Records.php:217
+#: src/Tribe/Aggregator/Records.php:224
 msgctxt "event aggregator status"
 msgid "Imported"
 msgstr "Увезено"
@@ -13674,11 +13696,6 @@ msgstr "Извор"
 msgid "Apply"
 msgstr "Примени"
 
-#: src/Tribe/Aggregator/Record/List_Table.php:254
-#: src/Tribe/Aggregator/Record/List_Table.php:255
-msgid "Bulk Actions"
-msgstr "Групне радње"
-
 #: src/Tribe/Aggregator/Record/List_Table.php:193
 #: src/Tribe/Aggregator/Record/List_Table.php:194
 msgid "Filter By Frequency"
@@ -13721,6 +13738,11 @@ msgstr[2] "Изгледа да користите наше застареле д
 msgctxt "admin menu"
 msgid "Aggregator Records"
 msgstr "Записи агрегатора"
+
+#: src/Tribe/Aggregator/Record/List_Table.php:254
+#: src/Tribe/Aggregator/Record/List_Table.php:255
+msgid "Bulk Actions"
+msgstr "Групне акције"
 
 #: src/Tribe/Aggregator/Page.php:125
 msgid "If all goes according to plan, you will have your preview in a few moments."
@@ -13893,7 +13915,7 @@ msgid "Please wait while your preview is fetched."
 msgstr "Сачекајте док се преглед преузима."
 
 #: src/Tribe/Aggregator/Errors.php:144 src/Tribe/Aggregator/Service.php:259
-#: src/Tribe/Aggregator/Service.php:267 src/Tribe/Aggregator/Service.php:323
+#: src/Tribe/Aggregator/Service.php:267 src/Tribe/Aggregator/Service.php:349
 msgid "There may be an issue with the Event Aggregator server. Please try your import again later."
 msgstr "Можда постоји проблем са сервером Event Aggregator-а. Покушајте са увозом касније."
 
@@ -13936,7 +13958,7 @@ msgstr "Током заказаног увоза достигнуто је ог�
 msgid "You cannot delete a history record (ID: \"%d\"). "
 msgstr "Не можете избрисати запис историје (ИБ: „%d“). "
 
-#: src/Tribe/Aggregator/Errors.php:64 src/Tribe/Aggregator/Service.php:803
+#: src/Tribe/Aggregator/Errors.php:64 src/Tribe/Aggregator/Service.php:825
 msgid "The daily limit of %d import requests to the Event Aggregator service has been reached. Please try again later."
 msgstr "Достигнуто је дневно ограничење од %d захтева за увоз ка услузи Event Aggregator. Покушајте поново касније."
 
@@ -13984,7 +14006,7 @@ msgid "ICS File"
 msgstr "ICS датотека"
 
 #: src/Tribe/Aggregator/Admin_Bar.php:99
-#: src/Tribe/Aggregator/API/Origins.php:46 src/Tribe/Aggregator/Service.php:939
+#: src/Tribe/Aggregator/API/Origins.php:46 src/Tribe/Aggregator/Service.php:961
 msgid "CSV File"
 msgstr "CSV датотека"
 
@@ -14057,13 +14079,6 @@ msgstr "Да, аутоматски дели податке о мом систе�
 msgid "Your system information will only be used by The Events Calendar's support team. All information is stored securely. We do not share this information with any third parties."
 msgstr "Податке о вашем систему користиће само тим подршке The Events Calendar. Сви подаци се безбедно чувају. Ове податке не делимо ни са једном трећом страном."
 
-#: common/src/Tribe/PUE/Notices.php:524
-msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
-msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
-msgstr[0] "Имате лиценцни кључ за %1$s, али је кључ потрошио сва постављања. %2$sПосетите веб сајт Events Calendar%3$s да управљате постављањима, надоградите лиценцу или купите нову."
-msgstr[1] "Имате лиценцне кључеве за %1$s, али су кључеви потрошили сва постављања. %2$sПосетите веб сајт Events Calendar%3$s да управљате постављањима, надоградите лиценце или купите нове."
-msgstr[2] "Имате лиценцне кључеве за %1$s, али су кључеви потрошили сва постављања. %2$sПосетите веб сајт Events Calendar%3$s да управљате постављањима, надоградите лиценце или купите нове."
-
 #: common/src/Tribe/PUE/Notices.php:620 common/src/Tribe/PUE/Notices.php:663
 msgctxt "formatted plugin list"
 msgid "%1$s and %2$s"
@@ -14071,20 +14086,16 @@ msgstr "%1$s и %2$s"
 
 #. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing
 #. <a> tags, respectively.
-#: common/src/Tribe/PUE/Checker.php:1476
+#: common/src/Tribe/PUE/Checker.php:1487
 msgid "There is an update for %1$s. %2$sRenew your license%3$s to get access to bug fixes, security updates, and new features."
 msgstr "Постоји ажурирање за %1$s. %2$sОбновите лиценцу%3$s да бисте добили приступ исправкама грешака, безбедносним ажурирањима и новим могућностима."
 
-#. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing
-#. <a> tags, respectively.
-#: common/src/Tribe/PUE/Checker.php:1412
-msgid "There is an update for %1$s. You'll need to %2$scheck your license%3$s to have access to updates, downloads, and support."
-msgstr "Постоји ажурирање за %1$s. Морате %2$sпроверити лиценцу%3$s да бисте имали приступ ажурирањима, преузимањима и подршци."
-
-#: common/src/Tribe/PUE/Checker.php:1373 common/src/Tribe/PUE/Notices.php:498
-#: src/Tribe/Aggregator/Record/Abstract.php:1319
-msgid " (opens in a new window)"
-msgstr " (отвара се у новом прозору)"
+#: common/src/Tribe/PUE/Notices.php:524
+msgid "You have a license key for %1$s but the key is out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your license, or purchase a new one."
+msgid_plural "You have license keys for %1$s but your keys are out of installs. %2$sVisit the Events Calendar website%3$s to manage your installs, upgrade your licenses, or purchase new ones."
+msgstr[0] "Имате лиценцни кључ за %1$s, али је кључ потрошио сва постављања. %2$sПосетите веб сајт Events Calendar%3$s да управљате постављањима, надоградите лиценцу или купите нову."
+msgstr[1] "Имате лиценцне кључеве за %1$s, али су кључеви потрошили сва постављања. %2$sПосетите веб сајт Events Calendar%3$s да управљате постављањима, надоградите лиценце или купите нове."
+msgstr[2] "Имате лиценцне кључеве за %1$s, али су кључеви потрошили сва постављања. %2$sПосетите веб сајт Events Calendar%3$s да управљате постављањима, надоградите лиценце или купите нове."
 
 #: common/src/Tribe/PUE/Notices.php:483
 msgid "There is an update available for %1$s but your license has expired. %2$sVisit the Events Calendar website to renew your license.%3$s"
@@ -14093,11 +14104,22 @@ msgstr[0] "Доступно је ажурирање за %1$s, али је ва�
 msgstr[1] "Доступна су ажурирања за %1$s, али су ваши лиценцни кључеви истекли. %2$sПосетите веб сајт Events Calendar да обновите лиценце.%3$s"
 msgstr[2] "Доступна су ажурирања за %1$s, али су ваши лиценцни кључеви истекли. %2$sПосетите веб сајт Events Calendar да обновите лиценце.%3$s"
 
+#. Translators: %1$s is the plugin name. %2$s and %3$s are opening and closing
+#. <a> tags, respectively.
+#: common/src/Tribe/PUE/Checker.php:1423
+msgid "There is an update for %1$s. You'll need to %2$scheck your license%3$s to have access to updates, downloads, and support."
+msgstr "Постоји ажурирање за %1$s. Морате %2$sпроверити лиценцу%3$s да бисте имали приступ ажурирањима, преузимањима и подршци."
+
+#: common/src/Tribe/PUE/Checker.php:1384 common/src/Tribe/PUE/Notices.php:498
+#: src/Tribe/Aggregator/Record/Abstract.php:1319
+msgid " (opens in a new window)"
+msgstr " (отвара се у новом прозору)"
+
 #: common/src/Tribe/Main.php:496
 msgid ": Selected 1 row"
 msgstr ": изабран је 1 ред"
 
-#: common/src/Tribe/PUE/Checker.php:1371 common/src/Tribe/PUE/Notices.php:496
+#: common/src/Tribe/PUE/Checker.php:1382 common/src/Tribe/PUE/Notices.php:496
 msgid "Renew Your License Now"
 msgstr "Обновите лиценцу сада"
 
@@ -14135,7 +14157,7 @@ msgstr ": укључите да поређате колону растуће"
 
 #: common/src/admin-views/tribe-options-help.php:96
 #: common/src/admin-views/troubleshooting/system-information.php:40
-#: common/src/functions/utils.php:1413
+#: common/src/functions/utils.php:1425
 msgid "Copy to clipboard"
 msgstr "Умножи у оставу"
 
@@ -14175,15 +14197,15 @@ msgstr "Filter Bar"
 msgid "Rate %1$sThe Events Calendar%2$s %3$s"
 msgstr "Оцените %1$sThe Events Calendar%2$s %3$s"
 
-#: src/functions/template-tags/organizer.php:178 src/Tribe/Organizer.php:217
+#: src/functions/template-tags/organizer.php:178 src/Tribe/Organizer.php:219
 msgid "organizer"
 msgstr "организатор"
 
-#: src/Tribe/Venue.php:267
+#: src/Tribe/Venue.php:269
 msgid "venues"
 msgstr "места одржавања"
 
-#: src/functions/template-tags/venue.php:231 src/Tribe/Venue.php:258
+#: src/functions/template-tags/venue.php:231 src/Tribe/Venue.php:260
 msgid "venue"
 msgstr "место одржавања"
 
@@ -14192,9 +14214,9 @@ msgid "Event Time Zone"
 msgstr "Временска зона догађаја"
 
 #: src/functions/template-tags/venue.php:1035
-#: src/views/v2/day/event/venue.php:27
-#: src/views/v2/latest-past/event/venue.php:23
-#: src/views/v2/list/event/venue.php:27
+#: src/views/v2/day/event/venue.php:28
+#: src/views/v2/latest-past/event/venue.php:25
+#: src/views/v2/list/event/venue.php:28
 msgctxt "Address separator"
 msgid ", "
 msgstr ", "
@@ -14274,7 +14296,7 @@ msgstr "Само грешке"
 #: common/src/Tribe/Log.php:387
 #: src/admin-views/settings/tabs/general/general-maintenance.php:41
 #: src/admin-views/settings/tabs/general/general-maintenance.php:59
-#: src/Tribe/Views/V2/Hooks.php:1393
+#: src/Tribe/Views/V2/Hooks.php:1407
 msgid "Disabled"
 msgstr "Искључено"
 
@@ -14382,7 +14404,7 @@ msgstr "Задржите основни додатак %sБЕСПЛАТНИМ%s!
 msgid "No results were found for %1$s in or near %2$s."
 msgstr "Нису пронађени резултати за %1$s у или близу %2$s."
 
-#: src/Tribe/Main.php:3698
+#: src/Tribe/Main.php:3711
 msgid "Check out the %savailable add-ons%s."
 msgstr "Погледајте %sдоступна проширења%s."
 
@@ -14519,7 +14541,7 @@ msgstr "Увод за нове кориснике"
 msgid "CSV Import Settings"
 msgstr "Подешавања CSV увоза"
 
-#: src/Tribe/Organizer.php:412
+#: src/Tribe/Organizer.php:431
 msgid "Unnamed %s"
 msgstr "%s без назива"
 
@@ -14533,7 +14555,7 @@ msgstr "Додај још: %s"
 
 #: common/src/Tribe/Main.php:511
 msgid "Clear"
-msgstr "Очисти"
+msgstr "Уклони"
 
 #: common/src/admin-views/tribe-options-help.php:84
 msgid "Read more about our support policy"
@@ -14627,7 +14649,7 @@ msgid "Install Plugin"
 msgstr "Постави додатак"
 
 #. Translators: %s is the expiration date.
-#: common/src/Tribe/PUE/Checker.php:1333
+#: common/src/Tribe/PUE/Checker.php:1344
 msgid "Thanks for setting up a valid key. It will expire on %s"
 msgstr "Хвала што сте подесили исправан кључ. Истиче %s"
 
@@ -14705,7 +14727,7 @@ msgstr "Завршено!"
 msgid "Event ID"
 msgstr "ИБ догађаја"
 
-#: src/Tribe/Organizer.php:231
+#: src/Tribe/Organizer.php:233
 msgid "organizers"
 msgstr "организатори"
 
@@ -14815,7 +14837,7 @@ msgstr "Прошли: %s"
 msgid "+ Google Map"
 msgstr "+ Google мапа"
 
-#: src/functions/template-tags/general.php:857
+#: src/functions/template-tags/general.php:859
 msgid "Loading %s"
 msgstr "Учитавање: %s"
 
@@ -14905,14 +14927,14 @@ msgstr "Симбол валуте иде после вредности"
 msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr "Подесите подразумевани симбол валуте за цене догађаја. Имајте на уму да ово утиче само на будуће догађаје и да се измене неће примењивати уназад."
 
+#: src/admin-views/settings/tabs/general/general-maintenance.php:71
+msgid "Merge duplicate Venues &amp; Organizers"
+msgstr "Споји дупликате места одржавања и организатора"
+
 #. Translators: %1$s - wordpress.org link to the Debug Bar Plugin
 #: src/admin-views/settings/tabs/general/general-debugging.php:19
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %1$s and look for the \"Tribe\" tab in the debug output."
 msgstr "Укључите ову могућност да бележите податке за отклањање грешака. Подразумевано ће се бележити у PHP дневник грешака вашег сервера. Ако желите да видите поруке дневника у прегледачу, препоручујемо да поставите %1$s и потражите језичак „Tribe“ у излазу за отклањање грешака."
-
-#: src/admin-views/settings/tabs/general/general-maintenance.php:71
-msgid "Merge duplicate Venues &amp; Organizers"
-msgstr "Споји дупликате места одржавања и организатора"
 
 #: src/admin-views/create-venue-fields.php:100
 #: src/admin-views/venue-meta-box.php:70
@@ -15886,7 +15908,7 @@ msgstr "Дан"
 msgid "This %s has passed."
 msgstr "Овај %s је прошао."
 
-#: common/src/Tribe/Settings.php:1427
+#: common/src/Tribe/Settings.php:1503
 msgid "The above setting was not saved. Other settings were successfully saved."
 msgid_plural "The above settings were not saved. Other settings were successfully saved."
 msgstr[0] "Подешавање изнад није сачувано. Остала подешавања су сачувана успешно."
@@ -15897,14 +15919,14 @@ msgstr[2] "Подешавање изнад није сачувано. Остал
 msgid "No upcoming %1$s listed under %2$s. Check out upcoming %3$s for this category or view the full calendar."
 msgstr "Нема предстојећих %1$s наведених под %2$s. Погледајте предстојеће %3$s за ову категорију или погледајте цео календар."
 
-#: common/src/Tribe/Settings.php:815 src/Tribe/Aggregator/Page.php:107
+#: common/src/Tribe/Settings.php:891 src/Tribe/Aggregator/Page.php:107
 msgid "Save Changes"
 msgstr "Сачувај измене"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:736
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:990
-#: src/views/blocks/parts/organizer.php:76
-#: src/views/modules/meta/organizer.php:63 build/wizard.js:1
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:753
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:1007
+#: src/views/blocks/parts/organizer.php:77
+#: src/views/modules/meta/organizer.php:64 build/wizard.js:1
 msgid "Email"
 msgstr "Е-пошта"
 
@@ -16636,9 +16658,9 @@ msgstr "Прослеђено је неисправно или непотпуно
 
 #: src/admin-views/aggregator/settings.php:41
 #: src/admin-views/tribe-options-imports.php:58
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:717
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:775
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:643
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:734
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Organizer.php:792
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:662
 msgid "Yes"
 msgstr "Да"
 
@@ -16660,11 +16682,11 @@ msgstr "Нема одговарајућих %1$s под %2$s. Покушајте
 
 #. translators: the placeholder is the keyword(s), as the user entered it in
 #. the bar.
-#: src/Tribe/Views/V2/Messages.php:111
+#: src/Tribe/Views/V2/Messages.php:112
 msgid "There were no results found for <strong>\"%1$s\"</strong>."
 msgstr "Нема резултата за <strong>„%1$s“</strong>."
 
-#: src/Tribe/Template_Factory.php:225 src/Tribe/Views/V2/Messages.php:93
+#: src/Tribe/Template_Factory.php:225 src/Tribe/Views/V2/Messages.php:94
 msgid "There were no results found."
 msgstr "Нема резултата."
 
@@ -16681,11 +16703,11 @@ msgstr "Непознато или није подешено"
 msgid "System Information"
 msgstr "Подаци о систему"
 
-#: common/src/Tribe/Settings.php:1426
+#: common/src/Tribe/Settings.php:1502
 msgid "None of your settings were saved. Please try again."
 msgstr "Ниједно подешавање није сачувано. Покушајте поново."
 
-#: common/src/Tribe/Settings.php:1194
+#: common/src/Tribe/Settings.php:1270
 msgid "You don't have permission to do that."
 msgstr "Немате дозволу за то."
 
@@ -16694,33 +16716,33 @@ msgid "Event Settings"
 msgstr "Подешавања догађаја"
 
 #. Translators: %1$s and %2$s are opening and closing <a> tags, respectively.
-#: common/src/Tribe/PUE/Checker.php:1267
+#: common/src/Tribe/PUE/Checker.php:1278
 msgid "Hmmm... something's wrong with this validator. Please contact %1$ssupport%2$s."
 msgstr "Хмм... нешто није у реду са овим проверивачем. Обратите се %1$sподршци%2$s."
 
 #. Translators: %s is the expiration date.
-#: common/src/Tribe/PUE/Checker.php:1322
+#: common/src/Tribe/PUE/Checker.php:1333
 msgid "Valid Key! Expires on %s"
 msgstr "Кључ је исправан! Истиче %s"
 
-#: common/src/Tribe/PUE/Checker.php:1293
+#: common/src/Tribe/PUE/Checker.php:1304
 msgid "Sorry, key validation server is not available."
 msgstr "Нажалост, сервер за проверу кључева није доступан."
 
-#: common/src/Tribe/PUE/Checker.php:986
+#: common/src/Tribe/PUE/Checker.php:997
 msgid "License key(s) updated."
 msgstr "Лиценцни кључеви су ажурирани."
 
-#: common/src/Tribe/PUE/Checker.php:1287
+#: common/src/Tribe/PUE/Checker.php:1298
 msgid "unknown date"
 msgstr "непознат датум"
 
-#: common/src/Tribe/PUE/Checker.php:806
+#: common/src/Tribe/PUE/Checker.php:817
 msgid "A valid license key is required for support and updates"
 msgstr "За подршку и ажурирања потребан је исправан лиценцни кључ"
 
 #: common/src/admin-views/troubleshooting/ea-status/license-key.php:45
-#: common/src/Tribe/PUE/Checker.php:830 common/src/Tribe/PUE/Checker.php:841
+#: common/src/Tribe/PUE/Checker.php:841 common/src/Tribe/PUE/Checker.php:852
 #: src/admin-views/aggregator/status.php:41
 msgid "License Key"
 msgstr "Лиценцни кључ"
@@ -16730,19 +16752,19 @@ msgstr "Лиценцни кључ"
 msgid "Error"
 msgstr "Грешка"
 
-#: src/Tribe/Main.php:3840
+#: src/Tribe/Main.php:3853
 msgid "Once Every 30 Mins"
 msgstr "Једном на сваких 30 мин."
 
 #: common/src/admin-views/help.php:48
 #: src/admin-views/settings/tabs/display/display-calendar.php:197
-#: src/Tribe/Main.php:3803
+#: src/Tribe/Main.php:3816
 msgid "Calendar"
 msgstr "Календар"
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:91
 #: src/Tribe/Admin/Settings.php:119 src/Tribe/Admin/Settings.php:215
-#: src/Tribe/Main.php:3802 build/wizard.js:1
+#: src/Tribe/Main.php:3815 build/wizard.js:1
 msgid "Settings"
 msgstr "Подешавања"
 
@@ -16766,7 +16788,7 @@ msgstr "Иран, Исламска Република"
 msgid "There are no fields set up for this tab yet."
 msgstr "За овај језичак још нису подешена поља."
 
-#: common/src/Tribe/Settings.php:752
+#: common/src/Tribe/Settings.php:818
 msgid "You've requested a non-existent tab."
 msgstr "Затражили сте непостојећи језичак."
 
@@ -16778,15 +16800,15 @@ msgstr "%s мора бити број између 0 и 21."
 msgid "Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom."
 msgstr "Списак држава мора бити обликован као једна држава по реду у следећем облику: <br>US, Сједињене Америчке Државе <br> UK, Уједињено Краљевство."
 
-#: common/src/Tribe/Settings.php:1206
+#: common/src/Tribe/Settings.php:1282
 msgid "The request wasn't sent from this tab."
 msgstr "Захтев није послат са овог језичка."
 
-#: common/src/Tribe/Settings.php:1416
+#: common/src/Tribe/Settings.php:1492
 msgid "Your form had the following errors:"
 msgstr "Ваш образац садржи следеће грешке:"
 
-#: common/src/Tribe/Settings.php:1200
+#: common/src/Tribe/Settings.php:1276
 msgid "The request was sent insecurely."
 msgstr "Захтев је послат на небезбедан начин."
 
@@ -16795,7 +16817,7 @@ msgid "No previous %s "
 msgstr "Нема претходних: %s "
 
 #: src/admin-views/tribe-options-upgrade.php:20
-#: src/Tribe/Admin/Bar/Default_Configurator.php:47 src/Tribe/Main.php:3750
+#: src/Tribe/Admin/Bar/Default_Configurator.php:47 src/Tribe/Main.php:3763
 #: src/Tribe/Views/V2/Views/Widgets/Widget_View.php:61
 msgid "View Calendar"
 msgstr "Погледај календар"
@@ -16806,7 +16828,7 @@ msgid "%s must have a value that's part of its options."
 msgstr "%s мора имати вредност која је део његових могућности."
 
 #. Translators: %s is the name of the menu item.
-#: common/src/Tribe/Settings.php:616
+#: common/src/Tribe/Settings.php:689
 msgid "%s Settings"
 msgstr "Подешавања (%s)"
 
@@ -16815,7 +16837,7 @@ msgstr "Подешавања (%s)"
 msgid "Delete"
 msgstr "Избриши"
 
-#: src/Tribe/Main.php:3692
+#: src/Tribe/Main.php:3705
 msgid "Additional Functionality"
 msgstr "Додатна функционалност"
 
@@ -16823,7 +16845,7 @@ msgstr "Додатна функционалност"
 msgid "all"
 msgstr "све"
 
-#: src/Tribe/Main.php:3640
+#: src/Tribe/Main.php:3653
 msgid "Support"
 msgstr "Подршка"
 
@@ -16857,7 +16879,7 @@ msgstr "дан"
 msgid "today"
 msgstr "данас"
 
-#: common/src/admin-views/help.php:40 common/src/Tribe/Settings.php:828
+#: common/src/admin-views/help.php:40 common/src/Tribe/Settings.php:904
 #: src/admin-views/settings/sidebars/default-sidebar.php:111
 #: src/admin-views/tribe-options-general.php:80
 #: src/Tribe/Admin/Bar/Default_Configurator.php:106
@@ -16865,17 +16887,10 @@ msgstr "данас"
 msgid "Help"
 msgstr "Помоћ"
 
-#: src/admin-views/aggregator/tabs/import-form.php:307
-#: src/admin-views/settings/tabs/integrations/integrations-import.php:135
-#: src/Tribe/Admin/Bar/Default_Configurator.php:75
-#: src/Tribe/Aggregator/Page.php:396
-msgid "Import"
-msgstr "Увоз"
-
 #: src/Tribe/Admin/Bar/Default_Configurator.php:64
 #: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:222 src/Tribe/Main.php:2122
-#: src/Tribe/Organizer.php:103 src/Tribe/Organizer.php:812
-#: src/Tribe/Venue.php:165 src/Tribe/Venue.php:956
+#: src/Tribe/Organizer.php:105 src/Tribe/Organizer.php:836
+#: src/Tribe/Venue.php:167 src/Tribe/Venue.php:993
 msgid "Edit %s"
 msgstr "Уреди %s"
 
@@ -16899,7 +16914,7 @@ msgstr "Не увози"
 msgid "Organizer Website"
 msgstr "Веб сајт организатора"
 
-#: src/Tribe/Venue.php:531
+#: src/Tribe/Venue.php:550
 msgid "Unnamed Venue"
 msgstr "Неименовано место одржавања"
 
@@ -16910,8 +16925,8 @@ msgid "Date:"
 msgstr "Датум:"
 
 #: src/functions/template-tags/deprecated.php:22
-#: src/functions/template-tags/deprecated.php:44 src/Tribe/Main.php:3399
-#: src/Tribe/Main.php:3438
+#: src/functions/template-tags/deprecated.php:44 src/Tribe/Main.php:3412
+#: src/Tribe/Main.php:3451
 msgid "Date out of range."
 msgstr "Датум ван опсега."
 
@@ -16927,12 +16942,12 @@ msgstr "Датум почетка"
 msgid "End Date"
 msgstr "Датум завршетка"
 
-#: src/functions/template-tags/organizer.php:124 src/Tribe/Organizer.php:190
+#: src/functions/template-tags/organizer.php:124 src/Tribe/Organizer.php:192
 #: build/app/main.js:1 build/wizard.js:1
 msgid "Organizer"
 msgstr "Организатор"
 
-#: src/functions/template-tags/organizer.php:152 src/Tribe/Organizer.php:204
+#: src/functions/template-tags/organizer.php:152 src/Tribe/Organizer.php:206
 msgid "Organizers"
 msgstr "Организатори"
 
@@ -16962,7 +16977,7 @@ msgstr "категорија"
 msgid "tag"
 msgstr "ознака"
 
-#: src/Tribe/Main.php:2117 src/Tribe/Organizer.php:101 src/Tribe/Venue.php:163
+#: src/Tribe/Main.php:2117 src/Tribe/Organizer.php:103 src/Tribe/Venue.php:165
 msgid "Add New"
 msgstr "Додај нови"
 
@@ -16970,7 +16985,7 @@ msgstr "Додај нови"
 msgid "Prev"
 msgstr "Претходни"
 
-#: src/Tribe/Main.php:2134 src/Tribe/Organizer.php:106 src/Tribe/Venue.php:168
+#: src/Tribe/Main.php:2134 src/Tribe/Organizer.php:108 src/Tribe/Venue.php:170
 msgid "Search %s"
 msgstr "Претражи %s"
 
@@ -16996,7 +17011,7 @@ msgstr "Почетак:"
 msgid "Event Category"
 msgstr "Категорија догађаја"
 
-#: common/src/Tribe/Settings.php:1448
+#: common/src/Tribe/Settings.php:1524
 msgid "Settings saved."
 msgstr "Подешавања су сачувана."
 
@@ -17007,7 +17022,7 @@ msgstr "Подешавања су сачувана."
 msgid "Event"
 msgstr "Догађај"
 
-#: common/src/Tribe/Settings.php:277
+#: common/src/Tribe/Settings.php:278
 #: src/functions/template-tags/general.php:127 src/Tribe/Main.php:1508
 msgid "Events"
 msgstr "Догађаји"
@@ -17032,11 +17047,7 @@ msgstr "Све: %s"
 msgid "Next"
 msgstr "Следеће"
 
-#: src/Tribe/Main.php:2563
-msgid "page"
-msgstr "страна"
-
-#: src/Tribe/Main.php:2125 src/Tribe/Organizer.php:104 src/Tribe/Venue.php:166
+#: src/Tribe/Main.php:2125 src/Tribe/Organizer.php:106 src/Tribe/Venue.php:168
 msgid "New %s"
 msgstr "Ново: %s"
 
@@ -17051,24 +17062,24 @@ msgid "Free"
 msgstr "Бесплатно"
 
 #: src/Tribe/Main.php:2119 src/Tribe/Main.php:2329 src/Tribe/Main.php:2330
-#: src/Tribe/Organizer.php:102 src/Tribe/Venue.php:164
+#: src/Tribe/Organizer.php:104 src/Tribe/Venue.php:166
 msgid "Add New %s"
 msgstr "Додај ново: %s"
 
-#: src/Tribe/Main.php:2128 src/Tribe/Main.php:2131 src/Tribe/Organizer.php:105
-#: src/Tribe/Venue.php:167
+#: src/Tribe/Main.php:2128 src/Tribe/Main.php:2131 src/Tribe/Organizer.php:107
+#: src/Tribe/Venue.php:169
 msgid "View %s"
 msgstr "Погледај: %s"
 
-#: src/Tribe/Main.php:3697
+#: src/Tribe/Main.php:3710
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
 msgstr "Тражите додатну функционалност, укључујући понављајуће догађаје, продају улазница, јавно предате догађаје, нове приказе и још много тога?"
 
-#: src/Tribe/Linked_Posts.php:1083
+#: src/Tribe/Linked_Posts.php:1206
 msgid "My %s"
 msgstr "Моји: %s"
 
-#: src/Tribe/Linked_Posts.php:1296
+#: src/Tribe/Linked_Posts.php:1419
 msgid "No saved %s exists."
 msgstr "Не постоји сачувано: %s."
 
@@ -17077,7 +17088,7 @@ msgid "%s draft updated."
 msgstr "Нацрт (%s) је ажуриран."
 
 #: src/Tribe/Main.php:2143 src/Tribe/Main.php:2282 src/Tribe/Main.php:2304
-#: src/Tribe/Organizer.php:109 src/Tribe/Venue.php:171
+#: src/Tribe/Organizer.php:111 src/Tribe/Venue.php:173
 msgid "%s published."
 msgstr "%s је објављен."
 
@@ -17095,13 +17106,13 @@ msgstr "past"
 #. translators: %s: The Events Calendar Link element.
 #: the-events-calendar.php common/src/admin-views/help-calendar.php:107
 #: common/src/Common/REST/TEC/V1/Documentation.php:121
-#: common/src/Common/TrustedLogin/Trusted_Login_Config.php:319
+#: common/src/Common/TrustedLogin/Trusted_Login_Config.php:331
 #: common/src/Tribe/Admin/Help_Page.php:171 common/src/Tribe/Customizer.php:666
 #: common/src/Tribe/Plugins_API.php:25
 #: src/admin-views/admin-welcome-message.php:31
 #: src/Events/Integrations/Plugins/Elementor/Controller.php:116
 #: src/Events/Site_Health/Info_Section.php:73
-#: src/functions/template-tags/general.php:1532 src/Tribe/Main.php:992
+#: src/functions/template-tags/general.php:1552 src/Tribe/Main.php:992
 #: src/Tribe/Main.php:1446 src/Tribe/Privacy.php:29 the-events-calendar.php:62
 #: build/app/main.js:1
 msgid "The Events Calendar"
@@ -17111,7 +17122,7 @@ msgstr "The Events Calendar"
 msgid "Temporary file not found. Could not save %s."
 msgstr "Привремена датотека није пронађена. Није могуће сачувати %s."
 
-#: src/Tribe/Importer/File_Importer.php:298
+#: src/Tribe/Importer/File_Importer.php:321
 msgid "%s (post ID %d) updated."
 msgstr "%s (ИБ чланка %d) је ажуриран."
 
@@ -17119,7 +17130,7 @@ msgstr "%s (ИБ чланка %d) је ажуриран."
 msgid "Failed to import record in row %d."
 msgstr "Увоз записа у реду %d није успео."
 
-#: src/Tribe/Importer/File_Importer.php:466
+#: src/Tribe/Importer/File_Importer.php:489
 msgid "Missing required fields in row %d."
 msgstr "Недостају обавезна поља у реду %d."
 
@@ -17154,7 +17165,8 @@ msgstr "Затражите од администратора сајта да у�
 #: common/src/Tribe/Languages/Locations.php:79
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:97
 #: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php:178
-#: src/functions/template-tags/venue.php:583 src/Tribe/Venue.php:463
+#: src/Events/Linked_Posts/Existing_Match.php:219
+#: src/functions/template-tags/venue.php:583 src/Tribe/Venue.php:479
 msgid "United States"
 msgstr "Сједињене Америчке Државе"
 
@@ -17163,7 +17175,7 @@ msgstr "Сједињене Америчке Државе"
 msgid "M j, Y @ G:i"
 msgstr "j. M Y. @ G:i"
 
-#: src/Tribe/Organizer.php:741 src/Tribe/Venue.php:326
+#: src/Tribe/Organizer.php:765 src/Tribe/Venue.php:328
 msgid "%s Information"
 msgstr "Подаци (%s)"
 
@@ -17173,7 +17185,7 @@ msgstr "%1$s је враћен на преправку од %2$s"
 
 #: src/Tribe/Main.php:2155 src/Tribe/Main.php:2238 src/Tribe/Main.php:2274
 #: src/Tribe/Main.php:2277 src/Tribe/Main.php:2296 src/Tribe/Main.php:2299
-#: src/Tribe/Organizer.php:113 src/Tribe/Venue.php:175
+#: src/Tribe/Organizer.php:115 src/Tribe/Venue.php:177
 msgid "%s updated."
 msgstr "%s је ажуриран."
 
@@ -17198,7 +17210,7 @@ msgid "Go to plugins page"
 msgstr "Иди на страницу додатака"
 
 #: src/admin-views/create-venue-fields.php:82
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:964
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:983
 #: src/Tribe/Importer/Column_Mapper.php:144
 msgid "Venue Address"
 msgstr "Адреса места одржавања"
@@ -17208,7 +17220,7 @@ msgstr "Адреса места одржавања"
 msgid "Venue Country"
 msgstr "Држава места одржавања"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:852
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:871
 #: src/Tribe/Importer/Column_Mapper.php:141
 msgid "Venue Name"
 msgstr "Назив места одржавања"
@@ -17254,7 +17266,7 @@ msgstr "Име организатора"
 msgid "Organizer Email"
 msgstr "Е-адреса организатора"
 
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1059
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1078
 #: src/Tribe/Importer/Column_Mapper.php:150
 msgid "Venue Website"
 msgstr "Веб сајт места одржавања"
@@ -17268,7 +17280,7 @@ msgid "Venue State/Province"
 msgstr "Савезна држава/покрајина места одржавања"
 
 #: src/admin-views/create-venue-fields.php:190
-#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:891
+#: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:910
 #: src/Tribe/Importer/Column_Mapper.php:149
 msgid "Venue Phone"
 msgstr "Телефон места одржавања"
@@ -17282,7 +17294,7 @@ msgstr "Град места одржавања"
 msgid "Venue Address 2"
 msgstr "Адреса места одржавања 2"
 
-#: src/Tribe/Linked_Posts.php:1087
+#: src/Tribe/Linked_Posts.php:1210
 msgid "Available %s"
 msgstr "Доступно: %s"
 
@@ -17305,7 +17317,7 @@ msgstr "Категорија (%s)"
 msgid "Event Tags"
 msgstr "Ознаке догађаја"
 
-#: src/Tribe/Main.php:3643
+#: src/Tribe/Main.php:3656
 msgid "View All Add-Ons"
 msgstr "Погледај сва проширења"
 
@@ -17313,12 +17325,12 @@ msgstr "Погледај сва проширења"
 msgid "Parent %s Category"
 msgstr "Родитељска категорија (%s)"
 
-#: src/functions/template-tags/venue.php:259 src/Tribe/Venue.php:249
+#: src/functions/template-tags/venue.php:259 src/Tribe/Venue.php:251
 msgid "Venues"
 msgstr "Места одржавања"
 
 #: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Apple_Wallet/Event_Modifier.php:336
-#: src/functions/template-tags/venue.php:205 src/Tribe/Venue.php:240
+#: src/functions/template-tags/venue.php:205 src/Tribe/Venue.php:242
 #: build/wizard.js:1
 msgid "Venue"
 msgstr "Место одржавања"
@@ -17348,7 +17360,7 @@ msgstr "Све категорије (%s)"
 msgid "Event Add-Ons"
 msgstr "Проширења за догађаје"
 
-#: src/Tribe/Aggregator/Record/CSV.php:219
+#: src/Tribe/Aggregator/Record/CSV.php:222
 msgid "The following fields are required for a successful import:"
 msgstr "Следећа поља су обавезна за успешан увоз:"
 
@@ -17365,7 +17377,7 @@ msgstr "Веб сајт догађаја"
 msgid "Return to WordPress Updates"
 msgstr "Врати се на Вордпрес ажурирања"
 
-#: src/Tribe/Main.php:2140 src/Tribe/Organizer.php:108 src/Tribe/Venue.php:170
+#: src/Tribe/Main.php:2140 src/Tribe/Organizer.php:110 src/Tribe/Venue.php:172
 msgid "No %s found in Trash"
 msgstr "Нема %s у отпаду"
 
@@ -17377,7 +17389,7 @@ msgstr "%s је сачуван."
 msgid "Could not save %s."
 msgstr "Није могуће сачувати %s."
 
-#: src/Tribe/Main.php:2137 src/Tribe/Organizer.php:107 src/Tribe/Venue.php:169
+#: src/Tribe/Main.php:2137 src/Tribe/Organizer.php:109 src/Tribe/Venue.php:171
 msgid "No %s found"
 msgstr "Нема %s"
 
@@ -17423,7 +17435,7 @@ msgstr "Готово"
 msgid "Display"
 msgstr "Приказ"
 
-#: src/Tribe/Main.php:3468
+#: src/Tribe/Main.php:3481
 msgid "%s Options"
 msgstr "Могућности (%s)"
 
@@ -17439,6 +17451,17 @@ msgstr "Нажалост, The Events Calendar захтева Вордпрес %s
 msgid "No radio options specified"
 msgstr "Нису наведене могућности радио дугмади"
 
-#: src/Tribe/Importer/File_Importer.php:303
+#: src/Tribe/Importer/File_Importer.php:326
 msgid "%s (post ID %d) created."
 msgstr "%s (ИБ чланка %d) је направљен."
+
+#: src/admin-views/aggregator/tabs/import-form.php:307
+#: src/admin-views/settings/tabs/integrations/integrations-import.php:135
+#: src/Tribe/Admin/Bar/Default_Configurator.php:75
+#: src/Tribe/Aggregator/Page.php:396
+msgid "Import"
+msgstr "Увези"
+
+#: src/Tribe/Main.php:2563
+msgid "page"
+msgstr "страница"

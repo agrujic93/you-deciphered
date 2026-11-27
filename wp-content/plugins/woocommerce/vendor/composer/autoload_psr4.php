@@ -6,7 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'WP\\MCP\\' => array($vendorDir . '/wordpress/mcp-adapter/includes'),
     'Opis\\Uri\\' => array($vendorDir . '/opis/uri/src'),
     'Opis\\String\\' => array($vendorDir . '/opis/string/src'),
     'Opis\\JsonSchema\\' => array($vendorDir . '/opis/json-schema/src'),
@@ -15,5 +14,6 @@ return array(
     'Automattic\\WooCommerce\\Vendor\\' => array($baseDir . '/lib/packages'),
     'Automattic\\WooCommerce\\Blueprint\\' => array($baseDir . '/packages/blueprint/src'),
     'Automattic\\WooCommerce\\' => array($baseDir . '/src'),
+    'Automattic\\TracksSharedUtils\\' => array($vendorDir . '/automattic/tracks-shared-utils/php/src'),
     'Automattic\\Jetpack\\Autoloader\\' => array($vendorDir . '/automattic/jetpack-autoloader/src'),
 );

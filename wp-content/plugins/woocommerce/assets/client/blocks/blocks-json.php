@@ -487,8 +487,7 @@ return array(
 			),
 			'spacing' => array(
 				'margin' => true,
-				'padding' => true,
-				'blockGap' => true
+				'padding' => true
 			),
 			'typography' => array(
 				'fontSize' => true,
@@ -574,7 +573,21 @@ return array(
 		'textdomain' => 'woocommerce',
 		'apiVersion' => 3,
 		'supports' => array(
-			'interactivity' => true
+			'interactivity' => true,
+			'color' => array(
+				'background' => true,
+				'text' => true
+			),
+			'__experimentalBorder' => array(
+				'color' => true,
+				'radius' => true,
+				'style' => true,
+				'width' => true
+			),
+			'shadow' => true
+		),
+		'selectors' => array(
+			'root' => '.wp-block-woocommerce-add-to-cart-with-options-quantity-selector, .wc-block-add-to-cart-with-options-grouped-product-item-selector .wc-block-components-quantity-selector, .wc-block-cart-item__quantity .wc-block-components-quantity-selector'
 		),
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'viewScriptModule' => 'woocommerce/add-to-cart-with-options-quantity-selector'
@@ -759,7 +772,6 @@ return array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
 		'name' => 'woocommerce/add-to-wishlist-button',
-		'version' => '1.0.0',
 		'title' => 'Add to Wishlist Button',
 		'description' => 'Lets shoppers add the current product to their wishlist from the single-product page.',
 		'category' => 'woocommerce',
@@ -1037,13 +1049,24 @@ return array(
 			'interactivity' => true,
 			'color' => array(
 				'text' => true,
-				'background' => false
+				'background' => true,
+				'gradients' => true
 			),
 			'typography' => array(
-				'fontSize' => true
+				'fontSize' => true,
+				'textAlign' => true,
+				'__experimentalFontFamily' => true,
+				'__experimentalFontWeight' => true,
+				'__experimentalFontStyle' => true,
+				'__experimentalLetterSpacing' => true
+			),
+			'spacing' => array(
+				'margin' => true,
+				'padding' => true
 			)
 		),
 		'viewScriptModule' => 'woocommerce/catalog-sorting',
+		'style' => 'file:../woocommerce/catalog-sorting-style.css',
 		'attributes' => array(
 			'fontSize' => array(
 				'type' => 'string',
@@ -1074,18 +1097,36 @@ return array(
 			'align' => false,
 			'color' => array(
 				'background' => true,
-				'text' => true
+				'text' => true,
+				'gradients' => true,
+				'link' => true
 			),
 			'html' => false,
 			'spacing' => array(
 				'margin' => true,
 				'padding' => true
 			),
-			'typography' => true
+			'typography' => array(
+				'fontSize' => true,
+				'lineHeight' => true,
+				'__experimentalFontFamily' => true,
+				'__experimentalFontWeight' => true,
+				'__experimentalFontStyle' => true,
+				'__experimentalTextTransform' => true,
+				'__experimentalTextDecoration' => true,
+				'__experimentalLetterSpacing' => true
+			),
+			'__experimentalBorder' => array(
+				'color' => true,
+				'radius' => true,
+				'style' => true,
+				'width' => true
+			)
 		),
 		'usesContext' => array(
 			'termId',
-			'termTaxonomy'
+			'termTaxonomy',
+			'taxonomy'
 		)
 	),
 	'category-title' => array(
@@ -1120,23 +1161,40 @@ return array(
 			'align' => false,
 			'color' => array(
 				'background' => true,
-				'text' => true
+				'text' => true,
+				'gradients' => true,
+				'link' => true
 			),
 			'html' => false,
 			'spacing' => array(
 				'margin' => true,
 				'padding' => true
 			),
-			'typography' => true
+			'typography' => array(
+				'fontSize' => true,
+				'lineHeight' => true,
+				'__experimentalFontFamily' => true,
+				'__experimentalFontWeight' => true,
+				'__experimentalFontStyle' => true,
+				'__experimentalTextTransform' => true,
+				'__experimentalTextDecoration' => true,
+				'__experimentalLetterSpacing' => true
+			),
+			'__experimentalBorder' => array(
+				'color' => true,
+				'radius' => true,
+				'style' => true,
+				'width' => true
+			)
 		),
 		'usesContext' => array(
 			'termId',
-			'termTaxonomy'
+			'termTaxonomy',
+			'taxonomy'
 		)
 	),
 	'checkout' => array(
 		'name' => 'woocommerce/checkout',
-		'version' => '1.0.0',
 		'title' => 'Checkout',
 		'description' => 'Display a checkout form so your customers can submit orders.',
 		'category' => 'woocommerce',
@@ -1232,7 +1290,6 @@ return array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
 		'name' => 'woocommerce/coupon-code',
-		'version' => '1.0.0',
 		'title' => 'Coupon Code',
 		'category' => 'woocommerce',
 		'description' => 'Include a coupon code to entice customers to make a purchase.',
@@ -1474,7 +1531,10 @@ return array(
 			'ariaLabel' => true,
 			'color' => array(
 				'background' => true,
-				'text' => true
+				'text' => true,
+				'gradients' => true,
+				'link' => true,
+				'enableContrastChecker' => false
 			),
 			'html' => false,
 			'filter' => array(
@@ -1482,24 +1542,49 @@ return array(
 			),
 			'spacing' => array(
 				'padding' => true,
-				'__experimentalDefaultControls' => array(
-					'padding' => true
+				'margin' => array(
+					'top',
+					'bottom'
 				),
-				'__experimentalSkipSerialization' => true
+				'blockGap' => true,
+				'__experimentalDefaultControls' => array(
+					'padding' => true,
+					'blockGap' => true
+				)
 			),
 			'__experimentalBorder' => array(
 				'color' => true,
 				'radius' => true,
+				'style' => true,
 				'width' => true,
 				'__experimentalDefaultControls' => array(
 					'color' => true,
 					'radius' => true,
+					'style' => true,
 					'width' => true
-				),
-				'__experimentalSkipSerialization' => true
-			)
+				)
+			),
+			'anchor' => true,
+			'shadow' => true,
+			'typography' => array(
+				'__experimentalTextTransform' => true,
+				'__experimentalTextDecoration' => true
+			),
+			'dimensions' => array(
+				'aspectRatio' => true,
+				'minHeight' => true
+			),
+			'allowedBlocks' => true
 		),
 		'attributes' => array(
+			'verticalAlignment' => array(
+				'type' => 'string',
+				'enum' => array(
+					'top',
+					'center',
+					'bottom'
+				)
+			),
 			'alt' => array(
 				'type' => 'string',
 				'default' => ''
@@ -1540,8 +1625,7 @@ return array(
 				'default' => ''
 			),
 			'minHeight' => array(
-				'type' => 'number',
-				'default' => 500
+				'type' => 'number'
 			),
 			'linkText' => array(
 				'default' => 'Shop now',
@@ -1560,6 +1644,9 @@ return array(
 			'previewCategory' => array(
 				'type' => 'object',
 				'default' => null
+			),
+			'anchor' => array(
+				'type' => 'string'
 			)
 		),
 		'selectors' => array(
@@ -1572,11 +1659,8 @@ return array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'usesContext' => array(
 			'termId',
-			'termTaxonomy'
-		),
-		'providesContext' => array(
-			'termId' => 'categoryId',
-			'termTaxonomy' => 'termTaxonomy'
+			'termTaxonomy',
+			'taxonomy'
 		)
 	),
 	'featured-product' => array(
@@ -1602,29 +1686,57 @@ return array(
 			),
 			'color' => array(
 				'background' => true,
-				'text' => true
+				'text' => true,
+				'gradients' => true,
+				'link' => true,
+				'enableContrastChecker' => false
 			),
 			'spacing' => array(
 				'padding' => true,
-				'__experimentalDefaultControls' => array(
-					'padding' => true
+				'margin' => array(
+					'top',
+					'bottom'
 				),
-				'__experimentalSkipSerialization' => true
+				'blockGap' => true,
+				'__experimentalDefaultControls' => array(
+					'padding' => true,
+					'blockGap' => true
+				)
 			),
 			'__experimentalBorder' => array(
 				'color' => true,
 				'radius' => true,
+				'style' => true,
 				'width' => true,
 				'__experimentalDefaultControls' => array(
 					'color' => true,
 					'radius' => true,
+					'style' => true,
 					'width' => true
-				),
-				'__experimentalSkipSerialization' => true
+				)
 			),
-			'multiple' => true
+			'multiple' => true,
+			'anchor' => true,
+			'shadow' => true,
+			'typography' => array(
+				'__experimentalTextTransform' => true,
+				'__experimentalTextDecoration' => true
+			),
+			'dimensions' => array(
+				'aspectRatio' => true,
+				'minHeight' => true
+			),
+			'allowedBlocks' => true
 		),
 		'attributes' => array(
+			'verticalAlignment' => array(
+				'type' => 'string',
+				'enum' => array(
+					'top',
+					'center',
+					'bottom'
+				)
+			),
 			'alt' => array(
 				'type' => 'string',
 				'default' => ''
@@ -1665,8 +1777,7 @@ return array(
 				'default' => ''
 			),
 			'minHeight' => array(
-				'type' => 'number',
-				'default' => 500
+				'type' => 'number'
 			),
 			'linkText' => array(
 				'type' => 'string',
@@ -1685,6 +1796,9 @@ return array(
 			'previewProduct' => array(
 				'type' => 'object',
 				'default' => null
+			),
+			'anchor' => array(
+				'type' => 'string'
 			)
 		),
 		'selectors' => array(
@@ -1815,7 +1929,6 @@ return array(
 	),
 	'mini-cart' => array(
 		'name' => 'woocommerce/mini-cart',
-		'version' => '1.0.0',
 		'title' => 'Mini-Cart',
 		'icon' => 'miniCartAlt',
 		'description' => 'Display a button for shoppers to quickly view their cart.',
@@ -1824,7 +1937,6 @@ return array(
 			'WooCommerce'
 		),
 		'textdomain' => 'woocommerce',
-		'viewScriptModule' => 'woocommerce/mini-cart',
 		'style' => 'file:../woocommerce/mini-cart-style.css',
 		'editorStyle' => 'file:../woocommerce/mini-cart-editor.css',
 		'supports' => array(
@@ -1893,7 +2005,6 @@ return array(
 	),
 	'mini-cart-contents' => array(
 		'name' => 'woocommerce/mini-cart-contents',
-		'version' => '1.0.0',
 		'title' => 'Mini-Cart Contents',
 		'description' => 'Display a Mini-Cart widget.',
 		'category' => 'woocommerce',
@@ -1932,7 +2043,6 @@ return array(
 	),
 	'order-confirmation-additional-fields' => array(
 		'name' => 'woocommerce/order-confirmation-additional-fields',
-		'version' => '1.0.0',
 		'title' => 'Additional Field List',
 		'description' => 'Display the list of additional field values from the current order.',
 		'category' => 'woocommerce',
@@ -1981,7 +2091,6 @@ return array(
 	),
 	'order-confirmation-additional-fields-wrapper' => array(
 		'name' => 'woocommerce/order-confirmation-additional-fields-wrapper',
-		'version' => '1.0.0',
 		'title' => 'Additional Fields',
 		'description' => 'Display additional checkout fields from the \'contact\' and \'order\' locations.',
 		'category' => 'woocommerce',
@@ -2015,7 +2124,6 @@ return array(
 	),
 	'order-confirmation-additional-information' => array(
 		'name' => 'woocommerce/order-confirmation-additional-information',
-		'version' => '1.0.0',
 		'title' => 'Additional Information',
 		'description' => 'Displays additional information provided by third-party extensions for the current order.',
 		'category' => 'woocommerce',
@@ -2064,7 +2172,6 @@ return array(
 	),
 	'order-confirmation-billing-address' => array(
 		'name' => 'woocommerce/order-confirmation-billing-address',
-		'version' => '1.0.0',
 		'title' => 'Billing Address',
 		'description' => 'Display the order confirmation billing address.',
 		'category' => 'woocommerce',
@@ -2131,7 +2238,6 @@ return array(
 	),
 	'order-confirmation-billing-wrapper' => array(
 		'name' => 'woocommerce/order-confirmation-billing-wrapper',
-		'version' => '1.0.0',
 		'title' => 'Billing Address Section',
 		'description' => 'Display the order confirmation billing section.',
 		'category' => 'woocommerce',
@@ -2165,7 +2271,6 @@ return array(
 	),
 	'order-confirmation-create-account' => array(
 		'name' => 'woocommerce/order-confirmation-create-account',
-		'version' => '1.0.0',
 		'title' => 'Account Creation',
 		'description' => 'Allow customers to create an account after their purchase.',
 		'category' => 'woocommerce',
@@ -2229,7 +2334,6 @@ return array(
 	),
 	'order-confirmation-downloads' => array(
 		'name' => 'woocommerce/order-confirmation-downloads',
-		'version' => '1.0.0',
 		'title' => 'Order Downloads',
 		'description' => 'Display links to purchased downloads.',
 		'category' => 'woocommerce',
@@ -2302,7 +2406,6 @@ return array(
 	),
 	'order-confirmation-downloads-wrapper' => array(
 		'name' => 'woocommerce/order-confirmation-downloads-wrapper',
-		'version' => '1.0.0',
 		'title' => 'Downloads Section',
 		'description' => 'Display the downloadable products section.',
 		'category' => 'woocommerce',
@@ -2336,7 +2439,6 @@ return array(
 	),
 	'order-confirmation-shipping-address' => array(
 		'name' => 'woocommerce/order-confirmation-shipping-address',
-		'version' => '1.0.0',
 		'title' => 'Shipping Address',
 		'description' => 'Display the order confirmation shipping address.',
 		'category' => 'woocommerce',
@@ -2403,7 +2505,6 @@ return array(
 	),
 	'order-confirmation-shipping-wrapper' => array(
 		'name' => 'woocommerce/order-confirmation-shipping-wrapper',
-		'version' => '1.0.0',
 		'title' => 'Shipping Address Section',
 		'description' => 'Display the order confirmation shipping section.',
 		'category' => 'woocommerce',
@@ -2438,7 +2539,6 @@ return array(
 	),
 	'order-confirmation-status' => array(
 		'name' => 'woocommerce/order-confirmation-status',
-		'version' => '1.0.0',
 		'title' => 'Order Status',
 		'description' => 'Display a "thank you" message, or a sentence regarding the current order status.',
 		'category' => 'woocommerce',
@@ -2499,7 +2599,6 @@ return array(
 	),
 	'order-confirmation-summary' => array(
 		'name' => 'woocommerce/order-confirmation-summary',
-		'version' => '1.0.0',
 		'title' => 'Order Summary',
 		'description' => 'Display the order summary on the order confirmation page.',
 		'category' => 'woocommerce',
@@ -2569,7 +2668,6 @@ return array(
 	),
 	'order-confirmation-totals' => array(
 		'name' => 'woocommerce/order-confirmation-totals',
-		'version' => '1.0.0',
 		'title' => 'Order Totals',
 		'description' => 'Display the items purchased and order totals.',
 		'category' => 'woocommerce',
@@ -2642,7 +2740,6 @@ return array(
 	),
 	'order-confirmation-totals-wrapper' => array(
 		'name' => 'woocommerce/order-confirmation-totals-wrapper',
-		'version' => '1.0.0',
 		'title' => 'Order Totals Section',
 		'description' => 'Display the order details section.',
 		'category' => 'woocommerce',
@@ -2694,16 +2791,11 @@ return array(
 				'default' => ''
 			)
 		),
-		'providesContext' => array(
-			'postId' => 'postId',
-			'postType' => 'postType'
-		),
 		'apiVersion' => 3,
 		'$schema' => 'https://schemas.wp.org/trunk/block.json'
 	),
 	'payment-method-icons' => array(
 		'name' => 'woocommerce/payment-method-icons',
-		'version' => '1.0.0',
 		'title' => 'Payment Method Icons',
 		'description' => 'Display icons for available payment methods.',
 		'category' => 'woocommerce',
@@ -2946,14 +3038,6 @@ return array(
 			),
 			'width' => array(
 				'type' => 'number'
-			),
-			'isDescendentOfSingleProductBlock' => array(
-				'type' => 'boolean',
-				'default' => false
-			),
-			'isDescendentOfQueryLoop' => array(
-				'type' => 'boolean',
-				'default' => false
 			)
 		),
 		'supports' => array(
@@ -2989,12 +3073,18 @@ return array(
 			'spacing' => array(
 				'margin' => true,
 				'padding' => true,
-				'__experimentalSkipSerialization' => true
+				'__experimentalSkipSerialization' => array(
+					'padding'
+				)
 			),
 			'email' => true
 		),
 		'selectors' => array(
-			'root' => '.wp-block-woocommerce-product-button .wc-block-components-product-button__button'
+			'root' => '.wp-block-woocommerce-product-button .wc-block-components-product-button__button',
+			'spacing' => array(
+				'margin' => '.wp-block-woocommerce-product-button',
+				'padding' => '.wp-block-woocommerce-product-button .wc-block-components-product-button__button'
+			)
 		),
 		'ancestor' => array(
 			'woocommerce/all-products',
@@ -3035,9 +3125,20 @@ return array(
 				'full'
 			),
 			'html' => false,
+			'spacing' => array(
+				'margin' => true,
+				'padding' => true
+			),
 			'color' => array(
-				'background' => false,
+				'background' => true,
+				'gradients' => true,
 				'link' => true
+			),
+			'__experimentalBorder' => array(
+				'color' => true,
+				'radius' => true,
+				'style' => true,
+				'width' => true
 			),
 			'typography' => array(
 				'fontSize' => true,
@@ -3063,6 +3164,9 @@ return array(
 			'isDropdown' => array(
 				'type' => 'boolean',
 				'default' => false
+			),
+			'isPreview' => array(
+				'type' => 'boolean'
 			),
 			'isHierarchical' => array(
 				'type' => 'boolean',
@@ -3253,10 +3357,6 @@ return array(
 			'forcePageReload' => array(
 				'type' => 'boolean',
 				'default' => false
-			),
-			'__privatePreviewState' => array(
-				'type' => 'object',
-				'role' => 'local'
 			)
 		),
 		'providesContext' => array(
@@ -3266,12 +3366,12 @@ return array(
 			'dimensions' => 'dimensions',
 			'queryContextIncludes' => 'queryContextIncludes',
 			'collection' => 'collection',
-			'forcePageReload' => 'forcePageReload',
-			'__privateProductCollectionPreviewState' => '__privatePreviewState'
+			'forcePageReload' => 'forcePageReload'
 		),
 		'usesContext' => array(
 			'templateSlug',
-			'postId'
+			'postId',
+			'woocommerce/productCollection/referenceType'
 		),
 		'supports' => array(
 			'align' => array(
@@ -3371,7 +3471,6 @@ return array(
 				'minHeight' => true
 			),
 			'spacing' => array(
-				'blockGap' => true,
 				'padding' => true,
 				'margin' => true,
 				'__experimentalDefaultControls' => array(
@@ -3696,6 +3795,50 @@ return array(
 			'interactivity' => true,
 			'woocommerce' => array(
 				'innerBlockDisplayStyle' => true
+			),
+			'typography' => array(
+				'fontSize' => true,
+				'__experimentalLetterSpacing' => true,
+				'__experimentalTextTransform' => true
+			),
+			'__experimentalBorder' => array(
+				'radius' => true,
+				'__experimentalSkipSerialization' => true
+			),
+			'layout' => array(
+				'default' => array(
+					'type' => 'flex',
+					'flexWrap' => 'wrap',
+					'orientation' => 'horizontal'
+				),
+				'allowSwitching' => false,
+				'allowInheriting' => false,
+				'allowEditing' => false,
+				'allowJustification' => false,
+				'allowVerticalAlignment' => false,
+				'allowOrientation' => false,
+				'allowSizingOnChildren' => false
+			),
+			'spacing' => array(
+				'padding' => true,
+				'blockGap' => true,
+				'__experimentalSkipSerialization' => array(
+					'padding'
+				),
+				'__experimentalDefaultControls' => array(
+					'blockGap' => true
+				)
+			),
+			'__experimentalStyle' => array(
+				'spacing' => array(
+					'blockGap' => '0.5em'
+				)
+			)
+		),
+		'selectors' => array(
+			'border' => '.wp-block-woocommerce-product-filter-chips:not(.is-style-swatch) .wc-block-product-filter-chips__item',
+			'spacing' => array(
+				'padding' => '.wp-block-woocommerce-product-filter-chips:not(.is-style-swatch) .wc-block-product-filter-chips__item'
 			)
 		),
 		'usesContext' => array(
@@ -4164,6 +4307,9 @@ return array(
 				),
 				'allowEditing' => false
 			),
+			'position' => array(
+				'sticky' => true
+			),
 			'spacing' => array(
 				'blockGap' => true
 			)
@@ -4180,9 +4326,20 @@ return array(
 				'type' => 'boolean',
 				'default' => false
 			),
-			'showFilterDrawer' => array(
-				'type' => 'boolean',
-				'default' => true
+			'overlayMode' => array(
+				'type' => 'string',
+				'enum' => array(
+					'off',
+					'mobile',
+					'always'
+				)
+			),
+			'overlayPosition' => array(
+				'type' => 'string',
+				'enum' => array(
+					'left',
+					'right'
+				)
 			)
 		),
 		'example' => array(
@@ -4390,14 +4547,6 @@ return array(
 				'type' => 'number',
 				'default' => 0
 			),
-			'isDescendentOfQueryLoop' => array(
-				'type' => 'boolean',
-				'default' => false
-			),
-			'isDescendentOfSingleProductBlock' => array(
-				'type' => 'boolean',
-				'default' => false
-			),
 			'width' => array(
 				'type' => 'string'
 			),
@@ -4418,6 +4567,9 @@ return array(
 			),
 			'html' => false,
 			'__experimentalBorder' => array(
+				'color' => true,
+				'width' => true,
+				'style' => true,
 				'radius' => true,
 				'__experimentalSkipSerialization' => true
 			),
@@ -4427,7 +4579,10 @@ return array(
 			),
 			'spacing' => array(
 				'margin' => true,
-				'padding' => true
+				'padding' => true,
+				'__experimentalSkipSerialization' => array(
+					'padding'
+				)
 			),
 			'dimensions' => array(
 				'aspectRatio' => true,
@@ -4436,7 +4591,10 @@ return array(
 			'email' => true
 		),
 		'selectors' => array(
-			'root' => '.wp-block-woocommerce-product-image.wc-block-components-product-image, .wp-block-woocommerce-product-image .wc-block-components-product-image'
+			'root' => '.wp-block-woocommerce-product-image.wc-block-components-product-image, .wp-block-woocommerce-product-image .wc-block-components-product-image',
+			'spacing' => array(
+				'padding' => '.wp-block-woocommerce-product-image .wc-block-components-product-image__inner-container'
+			)
 		),
 		'ancestor' => array(
 			'woocommerce/all-products',
@@ -4710,21 +4868,9 @@ return array(
 				'type' => 'number',
 				'default' => 0
 			),
-			'isDescendentOfQueryLoop' => array(
-				'type' => 'boolean',
-				'default' => false
-			),
 			'textAlign' => array(
 				'type' => 'string',
 				'default' => ''
-			),
-			'isDescendentOfSingleProductTemplate' => array(
-				'type' => 'boolean',
-				'default' => false
-			),
-			'isDescendentOfSingleProductBlock' => array(
-				'type' => 'boolean',
-				'default' => false
 			)
 		),
 		'usesContext' => array(
@@ -4792,21 +4938,9 @@ return array(
 				'type' => 'number',
 				'default' => 0
 			),
-			'isDescendentOfQueryLoop' => array(
-				'type' => 'boolean',
-				'default' => false
-			),
 			'textAlign' => array(
 				'type' => 'string',
 				'default' => ''
-			),
-			'isDescendentOfSingleProductBlock' => array(
-				'type' => 'boolean',
-				'default' => false
-			),
-			'isDescendentOfSingleProductTemplate' => array(
-				'type' => 'boolean',
-				'default' => false
 			)
 		),
 		'supports' => array(
@@ -4859,21 +4993,9 @@ return array(
 				'type' => 'number',
 				'default' => 0
 			),
-			'isDescendentOfQueryLoop' => array(
-				'type' => 'boolean',
-				'default' => false
-			),
 			'textAlign' => array(
 				'type' => 'string',
 				'default' => ''
-			),
-			'isDescendentOfSingleProductBlock' => array(
-				'type' => 'boolean',
-				'default' => false
-			),
-			'isDescendentOfSingleProductTemplate' => array(
-				'type' => 'boolean',
-				'default' => false
 			)
 		),
 		'supports' => array(
@@ -4923,21 +5045,9 @@ return array(
 				'type' => 'number',
 				'default' => 0
 			),
-			'isDescendentOfQueryLoop' => array(
-				'type' => 'boolean',
-				'default' => false
-			),
 			'textAlign' => array(
 				'type' => 'string',
 				'default' => ''
-			),
-			'isDescendentOfSingleProductBlock' => array(
-				'type' => 'boolean',
-				'default' => false
-			),
-			'isDescendentOfSingleProductTemplate' => array(
-				'type' => 'boolean',
-				'default' => false
 			)
 		),
 		'usesContext' => array(
@@ -4992,10 +5102,20 @@ return array(
 			),
 			'color' => array(
 				'text' => true,
-				'background' => false
+				'background' => true,
+				'gradients' => true
+			),
+			'spacing' => array(
+				'margin' => true,
+				'padding' => true
 			),
 			'typography' => array(
-				'fontSize' => true
+				'fontSize' => true,
+				'textAlign' => true,
+				'__experimentalFontFamily' => true,
+				'__experimentalFontWeight' => true,
+				'__experimentalFontStyle' => true,
+				'__experimentalLetterSpacing' => true
 			)
 		),
 		'usesContext' => array(
@@ -5724,17 +5844,17 @@ return array(
 				'type' => 'number',
 				'default' => 0
 			),
-			'isDescendentOfQueryLoop' => array(
-				'type' => 'boolean',
-				'default' => false
+			'badgeContent' => array(
+				'type' => 'string'
 			),
-			'isDescendentOfSingleProductBlock' => array(
-				'type' => 'boolean',
-				'default' => false
+			'saleText' => array(
+				'type' => 'string'
 			),
-			'isDescendentOfSingleProductTemplate' => array(
-				'type' => 'boolean',
-				'default' => false
+			'prefix' => array(
+				'type' => 'string'
+			),
+			'suffix' => array(
+				'type' => 'string'
 			)
 		),
 		'supports' => array(
@@ -5767,7 +5887,8 @@ return array(
 				'__experimentalSkipSerialization' => true
 			),
 			'spacing' => array(
-				'margin' => true
+				'margin' => true,
+				'__experimentalSkipSerialization' => true
 			),
 			'email' => true
 		),
@@ -5871,7 +5992,6 @@ return array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
 		'name' => 'woocommerce/product-specifications',
-		'version' => '1.0.0',
 		'title' => 'Product Specifications',
 		'description' => 'Display product weight, dimensions, and attributes.',
 		'category' => 'woocommerce',
@@ -5983,18 +6103,6 @@ return array(
 			'productId' => array(
 				'type' => 'number',
 				'default' => 0
-			),
-			'isDescendentOfQueryLoop' => array(
-				'type' => 'boolean',
-				'default' => false
-			),
-			'isDescendentOfSingleProductTemplate' => array(
-				'type' => 'boolean',
-				'default' => false
-			),
-			'isDescendentOfSingleProductBlock' => array(
-				'type' => 'boolean',
-				'default' => false
 			),
 			'isDescendantOfAllProducts' => array(
 				'type' => 'boolean',
@@ -6175,6 +6283,7 @@ return array(
 			'displayLayout',
 			'templateSlug',
 			'postId',
+			'singleProduct',
 			'queryContextIncludes',
 			'collection',
 			'__privateProductCollectionPreviewState'
@@ -6189,6 +6298,17 @@ return array(
 				'full'
 			),
 			'anchor' => true,
+			'spacing' => array(
+				'padding' => true,
+				'margin' => true
+			),
+			'__experimentalBorder' => array(
+				'color' => true,
+				'style' => true,
+				'width' => true,
+				'radius' => true
+			),
+			'shadow' => true,
 			'color' => array(
 				'gradients' => true,
 				'link' => true,
@@ -6226,7 +6346,6 @@ return array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
 		'name' => 'woocommerce/product-title',
-		'version' => '1.0.0',
 		'title' => 'Product Title',
 		'category' => 'woocommerce-product-elements',
 		'description' => 'Display the title of a product.',
@@ -6618,7 +6737,6 @@ return array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
 		'name' => 'woocommerce/saved-for-later',
-		'version' => '1.0.0',
 		'title' => 'Saved for Later',
 		'description' => 'Display items the shopper has saved from their cart for later.',
 		'category' => 'woocommerce',
@@ -6627,10 +6745,12 @@ return array(
 			'Saved for Later'
 		),
 		'textdomain' => 'woocommerce',
+		'blockHooks' => array(
+			'woocommerce/cart' => 'after'
+		),
 		'attributes' => array(
 			'columnCount' => array(
-				'type' => 'number',
-				'default' => 5
+				'type' => 'number'
 			)
 		),
 		'allowedBlocks' => array(
@@ -6643,6 +6763,7 @@ return array(
 			),
 			'interactivity' => true,
 			'html' => false,
+			'multiple' => false,
 			'reusable' => false,
 			'spacing' => array(
 				'margin' => true,
@@ -6681,7 +6802,30 @@ return array(
 			'align' => array(
 				'wide',
 				'full'
-			)
+			),
+			'color' => array(
+				'background' => true,
+				'gradients' => true,
+				'text' => false,
+				'__experimentalDefaultControls' => array(
+					'background' => true
+				)
+			),
+			'spacing' => array(
+				'padding' => true,
+				'margin' => array(
+					'top',
+					'bottom'
+				)
+			),
+			'__experimentalBorder' => array(
+				'color' => true,
+				'style' => true,
+				'width' => true,
+				'radius' => true
+			),
+			'listView' => true,
+			'shadow' => true
 		),
 		'attributes' => array(
 			'productId' => array(
@@ -6696,6 +6840,7 @@ return array(
 			'postType',
 			'queryId'
 		),
+		'style' => 'file:../woocommerce/single-product-style.css',
 		'textdomain' => 'woocommerce',
 		'apiVersion' => 3,
 		'$schema' => 'https://schemas.wp.org/trunk/block.json'
@@ -6788,7 +6933,6 @@ return array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
 		'name' => 'woocommerce/wishlist',
-		'version' => '1.0.0',
 		'title' => 'Wishlist',
 		'description' => 'Display the shopper\'s wishlist.',
 		'category' => 'woocommerce',
@@ -6838,7 +6982,6 @@ return array(
 	),
 	'cart-accepted-payment-methods-block' => array(
 		'name' => 'woocommerce/cart-accepted-payment-methods-block',
-		'version' => '1.0.0',
 		'title' => 'Accepted Payment Methods',
 		'description' => 'Display accepted payment methods.',
 		'category' => 'woocommerce',
@@ -6858,7 +7001,6 @@ return array(
 	),
 	'cart-cross-sells-block' => array(
 		'name' => 'woocommerce/cart-cross-sells-block',
-		'version' => '1.0.0',
 		'title' => 'Cart Cross-Sells',
 		'description' => 'Shows the Cross-Sells block.',
 		'category' => 'woocommerce',
@@ -6878,7 +7020,6 @@ return array(
 	),
 	'cart-cross-sells-products-block' => array(
 		'name' => 'woocommerce/cart-cross-sells-products-block',
-		'version' => '1.0.0',
 		'title' => 'Cart Cross-Sells Products',
 		'description' => 'Shows the Cross-Sells products.',
 		'category' => 'woocommerce',
@@ -6913,7 +7054,6 @@ return array(
 	),
 	'cart-express-payment-block' => array(
 		'name' => 'woocommerce/cart-express-payment-block',
-		'version' => '1.0.0',
 		'title' => 'Express Checkout',
 		'description' => 'Allow customers to breeze through with quick payment options.',
 		'category' => 'woocommerce',
@@ -6955,7 +7095,6 @@ return array(
 	),
 	'cart-items-block' => array(
 		'name' => 'woocommerce/cart-items-block',
-		'version' => '1.0.0',
 		'title' => 'Cart Items',
 		'description' => 'Column containing cart items.',
 		'category' => 'woocommerce',
@@ -6985,7 +7124,6 @@ return array(
 	),
 	'cart-line-items-block' => array(
 		'name' => 'woocommerce/cart-line-items-block',
-		'version' => '1.0.0',
 		'title' => 'Cart Line Items',
 		'description' => 'Block containing current line items in Cart.',
 		'category' => 'woocommerce',
@@ -7015,7 +7153,6 @@ return array(
 	),
 	'cart-order-summary-block' => array(
 		'name' => 'woocommerce/cart-order-summary-block',
-		'version' => '1.0.0',
 		'title' => 'Order Summary',
 		'description' => 'Show customers a summary of their order.',
 		'category' => 'woocommerce',
@@ -7045,7 +7182,6 @@ return array(
 	),
 	'cart-order-summary-coupon-form-block' => array(
 		'name' => 'woocommerce/cart-order-summary-coupon-form-block',
-		'version' => '1.0.0',
 		'title' => 'Coupon Form',
 		'description' => 'Shows the apply coupon form.',
 		'category' => 'woocommerce',
@@ -7077,7 +7213,6 @@ return array(
 	),
 	'cart-order-summary-discount-block' => array(
 		'name' => 'woocommerce/cart-order-summary-discount-block',
-		'version' => '1.0.0',
 		'title' => 'Discount',
 		'description' => 'Shows the cart discount row.',
 		'category' => 'woocommerce',
@@ -7110,7 +7245,6 @@ return array(
 	),
 	'cart-order-summary-fee-block' => array(
 		'name' => 'woocommerce/cart-order-summary-fee-block',
-		'version' => '1.0.0',
 		'title' => 'Fees',
 		'description' => 'Shows the cart fee row.',
 		'category' => 'woocommerce',
@@ -7143,7 +7277,6 @@ return array(
 	),
 	'cart-order-summary-heading-block' => array(
 		'name' => 'woocommerce/cart-order-summary-heading-block',
-		'version' => '1.0.0',
 		'title' => 'Heading',
 		'description' => 'Shows the heading row.',
 		'category' => 'woocommerce',
@@ -7179,7 +7312,6 @@ return array(
 	),
 	'cart-order-summary-shipping-block' => array(
 		'name' => 'woocommerce/cart-order-summary-shipping-block',
-		'version' => '1.0.0',
 		'title' => 'Shipping',
 		'description' => 'Shows the cart shipping row.',
 		'category' => 'woocommerce',
@@ -7208,7 +7340,6 @@ return array(
 	),
 	'cart-order-summary-subtotal-block' => array(
 		'name' => 'woocommerce/cart-order-summary-subtotal-block',
-		'version' => '1.0.0',
 		'title' => 'Subtotal',
 		'description' => 'Shows the cart subtotal row.',
 		'category' => 'woocommerce',
@@ -7241,7 +7372,6 @@ return array(
 	),
 	'cart-order-summary-taxes-block' => array(
 		'name' => 'woocommerce/cart-order-summary-taxes-block',
-		'version' => '1.0.0',
 		'title' => 'Taxes',
 		'description' => 'Shows the cart taxes row.',
 		'category' => 'woocommerce',
@@ -7274,7 +7404,6 @@ return array(
 	),
 	'cart-order-summary-totals-block' => array(
 		'name' => 'woocommerce/cart-order-summary-totals-block',
-		'version' => '1.0.0',
 		'title' => 'Totals',
 		'description' => 'Shows the subtotal, fees, discounts, shipping and taxes.',
 		'category' => 'woocommerce',
@@ -7307,7 +7436,6 @@ return array(
 	),
 	'cart-totals-block' => array(
 		'name' => 'woocommerce/cart-totals-block',
-		'version' => '1.0.0',
 		'title' => 'Cart Totals',
 		'description' => 'Column containing the cart totals.',
 		'category' => 'woocommerce',
@@ -7344,7 +7472,6 @@ return array(
 	),
 	'checkout-actions-block' => array(
 		'name' => 'woocommerce/checkout-actions-block',
-		'version' => '1.0.0',
 		'title' => 'Actions',
 		'description' => 'Allow customers to place their order.',
 		'category' => 'woocommerce',
@@ -7390,7 +7517,6 @@ return array(
 	),
 	'checkout-additional-information-block' => array(
 		'name' => 'woocommerce/checkout-additional-information-block',
-		'version' => '1.0.0',
 		'title' => 'Additional information',
 		'description' => 'Render additional fields in the \'Additional information\' location.',
 		'category' => 'woocommerce',
@@ -7422,7 +7548,6 @@ return array(
 	),
 	'checkout-billing-address-block' => array(
 		'name' => 'woocommerce/checkout-billing-address-block',
-		'version' => '1.0.0',
 		'title' => 'Billing Address',
 		'description' => 'Collect your customer\'s billing address.',
 		'category' => 'woocommerce',
@@ -7452,7 +7577,6 @@ return array(
 	),
 	'checkout-contact-information-block' => array(
 		'name' => 'woocommerce/checkout-contact-information-block',
-		'version' => '1.0.0',
 		'title' => 'Contact Information',
 		'description' => 'Collect your customer\'s contact information.',
 		'category' => 'woocommerce',
@@ -7482,7 +7606,6 @@ return array(
 	),
 	'checkout-express-payment-block' => array(
 		'name' => 'woocommerce/checkout-express-payment-block',
-		'version' => '1.0.0',
 		'title' => 'Express Checkout',
 		'description' => 'Allow customers to breeze through with quick payment options.',
 		'category' => 'woocommerce',
@@ -7528,7 +7651,6 @@ return array(
 	),
 	'checkout-fields-block' => array(
 		'name' => 'woocommerce/checkout-fields-block',
-		'version' => '1.0.0',
 		'title' => 'Checkout Fields',
 		'description' => 'Column containing checkout address fields.',
 		'category' => 'woocommerce',
@@ -7562,7 +7684,6 @@ return array(
 	),
 	'checkout-order-note-block' => array(
 		'name' => 'woocommerce/checkout-order-note-block',
-		'version' => '1.0.0',
 		'title' => 'Order Note',
 		'description' => 'Allow customers to add a note to their order.',
 		'category' => 'woocommerce',
@@ -7594,7 +7715,6 @@ return array(
 	),
 	'checkout-order-summary-block' => array(
 		'name' => 'woocommerce/checkout-order-summary-block',
-		'version' => '1.0.0',
 		'title' => 'Order Summary',
 		'description' => 'Show customers a summary of their order.',
 		'category' => 'woocommerce',
@@ -7623,7 +7743,6 @@ return array(
 	),
 	'checkout-order-summary-cart-items-block' => array(
 		'name' => 'woocommerce/checkout-order-summary-cart-items-block',
-		'version' => '1.0.0',
 		'title' => 'Cart Items',
 		'description' => 'Shows cart items.',
 		'category' => 'woocommerce',
@@ -7660,7 +7779,6 @@ return array(
 	),
 	'checkout-order-summary-coupon-form-block' => array(
 		'name' => 'woocommerce/checkout-order-summary-coupon-form-block',
-		'version' => '1.0.0',
 		'title' => 'Coupon Form',
 		'description' => 'Shows the apply coupon form.',
 		'category' => 'woocommerce',
@@ -7692,7 +7810,6 @@ return array(
 	),
 	'checkout-order-summary-discount-block' => array(
 		'name' => 'woocommerce/checkout-order-summary-discount-block',
-		'version' => '1.0.0',
 		'title' => 'Discount',
 		'description' => 'Shows the cart discount row.',
 		'category' => 'woocommerce',
@@ -7725,7 +7842,6 @@ return array(
 	),
 	'checkout-order-summary-fee-block' => array(
 		'name' => 'woocommerce/checkout-order-summary-fee-block',
-		'version' => '1.0.0',
 		'title' => 'Fees',
 		'description' => 'Shows the cart fee row.',
 		'category' => 'woocommerce',
@@ -7758,7 +7874,6 @@ return array(
 	),
 	'checkout-order-summary-shipping-block' => array(
 		'name' => 'woocommerce/checkout-order-summary-shipping-block',
-		'version' => '1.0.0',
 		'title' => 'Shipping',
 		'description' => 'Shows the cart shipping row.',
 		'category' => 'woocommerce',
@@ -7787,7 +7902,6 @@ return array(
 	),
 	'checkout-order-summary-subtotal-block' => array(
 		'name' => 'woocommerce/checkout-order-summary-subtotal-block',
-		'version' => '1.0.0',
 		'title' => 'Subtotal',
 		'description' => 'Shows the cart subtotal row.',
 		'category' => 'woocommerce',
@@ -7820,7 +7934,6 @@ return array(
 	),
 	'checkout-order-summary-taxes-block' => array(
 		'name' => 'woocommerce/checkout-order-summary-taxes-block',
-		'version' => '1.0.0',
 		'title' => 'Taxes',
 		'description' => 'Shows the cart taxes row.',
 		'category' => 'woocommerce',
@@ -7853,7 +7966,6 @@ return array(
 	),
 	'checkout-order-summary-totals-block' => array(
 		'name' => 'woocommerce/checkout-order-summary-totals-block',
-		'version' => '1.0.0',
 		'title' => 'Totals',
 		'description' => 'Shows the subtotal, fees, discounts, shipping and taxes.',
 		'category' => 'woocommerce',
@@ -7886,7 +7998,6 @@ return array(
 	),
 	'checkout-payment-block' => array(
 		'name' => 'woocommerce/checkout-payment-block',
-		'version' => '1.0.0',
 		'title' => 'Payment Options',
 		'description' => 'Payment options for your store.',
 		'category' => 'woocommerce',
@@ -7916,7 +8027,6 @@ return array(
 	),
 	'checkout-pickup-options-block' => array(
 		'name' => 'woocommerce/checkout-pickup-options-block',
-		'version' => '1.0.0',
 		'title' => 'Pickup Method',
 		'description' => 'Shows local pickup locations.',
 		'category' => 'woocommerce',
@@ -7946,7 +8056,6 @@ return array(
 	),
 	'checkout-shipping-address-block' => array(
 		'name' => 'woocommerce/checkout-shipping-address-block',
-		'version' => '1.0.0',
 		'title' => 'Shipping Address',
 		'description' => 'Collect your customer\'s shipping address.',
 		'category' => 'woocommerce',
@@ -7976,7 +8085,6 @@ return array(
 	),
 	'checkout-shipping-method-block' => array(
 		'name' => 'woocommerce/checkout-shipping-method-block',
-		'version' => '1.0.0',
 		'title' => 'Delivery',
 		'description' => 'Select between shipping or local pickup.',
 		'category' => 'woocommerce',
@@ -8006,7 +8114,6 @@ return array(
 	),
 	'checkout-shipping-methods-block' => array(
 		'name' => 'woocommerce/checkout-shipping-methods-block',
-		'version' => '1.0.0',
 		'title' => 'Shipping Options',
 		'description' => 'Display shipping options and rates for your store.',
 		'category' => 'woocommerce',
@@ -8036,7 +8143,6 @@ return array(
 	),
 	'checkout-terms-block' => array(
 		'name' => 'woocommerce/checkout-terms-block',
-		'version' => '1.0.0',
 		'title' => 'Terms and Conditions',
 		'description' => 'Ensure that customers agree to your Terms & Conditions and Privacy Policy.',
 		'category' => 'woocommerce',
@@ -8073,7 +8179,6 @@ return array(
 	),
 	'checkout-totals-block' => array(
 		'name' => 'woocommerce/checkout-totals-block',
-		'version' => '1.0.0',
 		'title' => 'Checkout Totals',
 		'description' => 'Column containing the checkout totals.',
 		'category' => 'woocommerce',
@@ -8108,7 +8213,6 @@ return array(
 	),
 	'empty-cart-block' => array(
 		'name' => 'woocommerce/empty-cart-block',
-		'version' => '1.0.0',
 		'title' => 'Empty Cart',
 		'description' => 'Contains blocks that are displayed when the cart is empty.',
 		'category' => 'woocommerce',
@@ -8140,7 +8244,6 @@ return array(
 	),
 	'empty-mini-cart-contents-block' => array(
 		'name' => 'woocommerce/empty-mini-cart-contents-block',
-		'version' => '1.0.0',
 		'title' => 'Empty Mini-Cart view',
 		'description' => 'Blocks that are displayed when the Mini-Cart is empty.',
 		'category' => 'woocommerce',
@@ -8171,7 +8274,6 @@ return array(
 	),
 	'filled-cart-block' => array(
 		'name' => 'woocommerce/filled-cart-block',
-		'version' => '1.0.0',
 		'title' => 'Filled Cart',
 		'description' => 'Contains blocks that are displayed when the cart contains products.',
 		'category' => 'woocommerce',
@@ -8203,7 +8305,6 @@ return array(
 	),
 	'filled-mini-cart-contents-block' => array(
 		'name' => 'woocommerce/filled-mini-cart-contents-block',
-		'version' => '1.0.0',
 		'title' => 'Filled Mini-Cart view',
 		'description' => 'Contains blocks that display the content of the Mini-Cart.',
 		'category' => 'woocommerce',
@@ -8234,7 +8335,6 @@ return array(
 	),
 	'mini-cart-cart-button-block' => array(
 		'name' => 'woocommerce/mini-cart-cart-button-block',
-		'version' => '1.0.0',
 		'title' => 'Mini-Cart View Cart Button',
 		'description' => 'Block that displays the cart button when the Mini-Cart has products.',
 		'category' => 'woocommerce',
@@ -8285,7 +8385,6 @@ return array(
 	),
 	'mini-cart-checkout-button-block' => array(
 		'name' => 'woocommerce/mini-cart-checkout-button-block',
-		'version' => '1.0.0',
 		'title' => 'Mini-Cart Proceed to Checkout Button',
 		'description' => 'Block that displays the checkout button when the Mini-Cart has products.',
 		'category' => 'woocommerce',
@@ -8336,7 +8435,6 @@ return array(
 	),
 	'mini-cart-footer-block' => array(
 		'name' => 'woocommerce/mini-cart-footer-block',
-		'version' => '1.0.0',
 		'title' => 'Mini-Cart Footer',
 		'description' => 'Block that displays the footer of the Mini-Cart block.',
 		'category' => 'woocommerce',
@@ -8367,7 +8465,6 @@ return array(
 	),
 	'mini-cart-items-block' => array(
 		'name' => 'woocommerce/mini-cart-items-block',
-		'version' => '1.0.0',
 		'title' => 'Mini-Cart Items',
 		'description' => 'Contains the products table and other custom blocks of filled mini-cart.',
 		'category' => 'woocommerce',
@@ -8400,7 +8497,6 @@ return array(
 	),
 	'mini-cart-products-table-block' => array(
 		'name' => 'woocommerce/mini-cart-products-table-block',
-		'version' => '1.0.0',
 		'title' => 'Mini-Cart Products Table',
 		'description' => 'Block that displays the products table of the Mini-Cart block.',
 		'category' => 'woocommerce',
@@ -8431,7 +8527,6 @@ return array(
 	),
 	'mini-cart-shopping-button-block' => array(
 		'name' => 'woocommerce/mini-cart-shopping-button-block',
-		'version' => '1.0.0',
 		'title' => 'Mini-Cart Shopping Button',
 		'description' => 'Block that displays the shopping button when the Mini-Cart is empty.',
 		'category' => 'woocommerce',
@@ -8482,7 +8577,6 @@ return array(
 	),
 	'mini-cart-title-block' => array(
 		'name' => 'woocommerce/mini-cart-title-block',
-		'version' => '1.0.0',
 		'title' => 'Mini-Cart Title',
 		'description' => 'Block that displays the title of the Mini-Cart block.',
 		'category' => 'woocommerce',
@@ -8522,7 +8616,6 @@ return array(
 	),
 	'mini-cart-title-items-counter-block' => array(
 		'name' => 'woocommerce/mini-cart-title-items-counter-block',
-		'version' => '1.0.0',
 		'title' => 'Mini-Cart Title Items Counter',
 		'description' => 'Block that displays the items counter part of the Mini-Cart Title block.',
 		'category' => 'woocommerce',
@@ -8554,7 +8647,6 @@ return array(
 	),
 	'mini-cart-title-label-block' => array(
 		'name' => 'woocommerce/mini-cart-title-label-block',
-		'version' => '1.0.0',
 		'title' => 'Mini-Cart Title Label',
 		'description' => 'Block that displays the \'Your cart\' part of the Mini-Cart Title block.',
 		'category' => 'woocommerce',
@@ -8594,7 +8686,6 @@ return array(
 	),
 	'proceed-to-checkout-block' => array(
 		'name' => 'woocommerce/proceed-to-checkout-block',
-		'version' => '1.0.0',
 		'title' => 'Proceed to Checkout',
 		'description' => 'Allow customers proceed to Checkout.',
 		'category' => 'woocommerce',

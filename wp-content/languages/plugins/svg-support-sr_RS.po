@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - SVG Support - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-09-28 12:40:26+0000\n"
+"PO-Revision-Date: 2026-11-16 12:59:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,15 +11,75 @@ msgstr ""
 "Language: sr_RS\n"
 "Project-Id-Version: Plugins - SVG Support - Stable (latest release)\n"
 
+#: functions/attachment.php:403
+msgid "PHP Fileinfo extension not loaded - unable to sanitize SVG."
+msgstr "PHP екстензија Fileinfo није учитана — није могуће пречистити SVG."
+
+#: functions/enqueue.php:63
+msgid "Finish sign-up"
+msgstr "Заврши пријаву"
+
+#: functions/enqueue.php:62
+msgid "One more step — Kit needs to check you're human before your sign-up completes."
+msgstr "Још један корак — Kit мора да провери да нисте робот пре завршетка пријаве."
+
+#: functions/enqueue.php:61
+msgid "That didn't go through — please try again, or sign up at svg.support."
+msgstr "Слање није успело — покушајте поново или се пријавите на сајту svg.support."
+
+#: functions/enqueue.php:60
+msgid "Almost in — check your inbox and confirm your email to lock in your spot."
+msgstr "Скоро готово — проверите пријемно сандуче и потврдите адресу е-поште да обезбедите своје место."
+
+#: admin/svgs-settings-page.php:304
+msgid "Kit privacy policy"
+msgstr "Kit политика приватности"
+
+#: admin/svgs-settings-page.php:303
+msgid "Nothing is sent until you submit the form. Your email address then goes to Kit, the newsletter service for SVG Support, and you can unsubscribe any time."
+msgstr "Ништа се не шаље док не пошаљете образац. Ваша адреса е-поште тада иде на Kit, сервис за билтен додатка SVG Support, а можете се одјавити у сваком тренутку."
+
+#: admin/svgs-settings-page.php:299
+msgid "Join the waitlist"
+msgstr "Пријави се на листу чекања"
+
+#: admin/svgs-settings-page.php:294
+msgid "Get launch news & early access"
+msgstr "Добијте вести о објави и рани приступ"
+
+#: admin/svgs-settings-page.php:286
+msgid "No spam — just launch news"
+msgstr "Без непожељних порука — само вести о објави"
+
+#: admin/svgs-settings-page.php:285
+msgid "Founding-supporter lifetime pricing, strictly limited"
+msgstr "Доживотна цена за прве подржаваоце, строго ограничено"
+
+#: admin/svgs-settings-page.php:284
+msgid "Early access before the public launch"
+msgstr "Рани приступ пре јавне објаве"
+
+#: admin/svgs-settings-page.php:282
+msgid "A visual way to animate, recolour and optimise your SVGs — no code required. The free plugin stays free, like always."
+msgstr "Визуелни начин да анимирате, пребојите и оптимизујете своје SVG датотеке — без писања кода. Бесплатни додатак остаје бесплатан, као и увек."
+
+#: admin/svgs-settings-page.php:281
+msgid "SVG Support Pro is on the way"
+msgstr "SVG Support Pro ускоро стиже"
+
+#: admin/svgs-settings-page.php:280
+msgid "Coming soon"
+msgstr "Ускоро"
+
 #: functions/enqueue.php:56
 msgid "Couldn't save — retrying on next change"
 msgstr "Није могуће сачувати — покушаће се поново при следећој измени"
 
-#: admin/svgs-settings-page.php:348
+#: admin/svgs-settings-page.php:377
 msgid "ShortPixel reduces the size of your JPG and PNG images with no visible quality loss — originals are kept in a backup folder. If you upgrade to a paid plan, I'll receive a small commission."
 msgstr "ShortPixel смањује величину ваших JPG и PNG слика без видљивог губитка квалитета — оригинали се чувају у фасцикли за резерве. Ако надоградите на плаћени план, добићу малу провизију."
 
-#: admin/svgs-settings-page.php:350
+#: admin/svgs-settings-page.php:379
 msgid "Try ShortPixel for free"
 msgstr "Испробајте ShortPixel бесплатно"
 
@@ -35,71 +95,71 @@ msgstr "Чување..."
 msgid "Saved"
 msgstr "Сачувано"
 
-#: admin/svgs-settings-page.php:334
+#: admin/svgs-settings-page.php:363
 msgid "Leave a review"
 msgstr "Оставите рецензију"
 
-#: admin/svgs-settings-page.php:340
+#: admin/svgs-settings-page.php:369
 msgid "Optimize your images"
 msgstr "Оптимизујте своје слике"
 
-#: admin/svgs-settings-page.php:319
+#: admin/svgs-settings-page.php:348
 msgid "GitHub"
 msgstr "GitHub"
 
-#: admin/svgs-settings-page.php:326
+#: admin/svgs-settings-page.php:355
 msgid "Need a hand? Support is handled personally through the WordPress.org forums. And if you're enjoying SVG Support, a quick five-star review means the world."
 msgstr "Потребна вам је помоћ? Подршка се пружа лично преко WordPress.org форума. А ако уживате у SVG Support-у, кратка рецензија са пет звездица много значи."
 
-#: admin/svgs-settings-page.php:329
+#: admin/svgs-settings-page.php:358
 msgid "Get support"
 msgstr "Тражи подршку"
 
-#: admin/svgs-settings-page.php:325
+#: admin/svgs-settings-page.php:354
 msgid "Support & reviews"
 msgstr "Подршка и рецензије"
 
-#: admin/svgs-settings-page.php:319
+#: admin/svgs-settings-page.php:348
 msgid "WordPress.org"
 msgstr "sr.WordPress.org"
 
-#: admin/svgs-settings-page.php:315
+#: admin/svgs-settings-page.php:344
 msgid "Visit svg.support"
 msgstr "Посетите svg.support"
 
-#: admin/svgs-settings-page.php:313
+#: admin/svgs-settings-page.php:342
 msgid "Guides for inline rendering, styling and animating SVGs — plus handy tools for animating and optimizing your files — all on the new site."
 msgstr "Водичи за уметнути приказ, обликовање и анимирање SVG-ова — уз корисне алате за анимирање и оптимизацију датотека — све на новом сајту."
 
-#: admin/svgs-settings-page.php:304
+#: admin/svgs-settings-page.php:333
 msgid "Ethereum donation address QR code"
 msgstr "QR кôд Ethereum адресе за донације"
 
-#: admin/svgs-settings-page.php:312
+#: admin/svgs-settings-page.php:341
 msgid "Tutorials & tools"
 msgstr "Упутства и алати"
 
-#: admin/svgs-settings-page.php:294
+#: admin/svgs-settings-page.php:323
 msgid "Bitcoin donation address QR code"
 msgstr "QR кôд Bitcoin адресе за донације"
 
-#: admin/svgs-settings-page.php:290 admin/svgs-settings-page.php:300
+#: admin/svgs-settings-page.php:319 admin/svgs-settings-page.php:329
 msgid "Show QR code"
 msgstr "Прикажи QR кôд"
 
-#: admin/svgs-settings-page.php:285
+#: admin/svgs-settings-page.php:314
 msgid "Donate via PayPal"
 msgstr "Донирај преко PayPal-а"
 
-#: admin/svgs-settings-page.php:282
+#: admin/svgs-settings-page.php:311
 msgid "If it's useful, a donation keeps it going."
 msgstr "Ако вам је користан, донација помаже да се настави."
 
-#: admin/svgs-settings-page.php:282
+#: admin/svgs-settings-page.php:311
 msgid "Maintained by one person since 2013."
 msgstr "Одржава га једна особа од 2013."
 
-#: admin/svgs-settings-page.php:281
+#: admin/svgs-settings-page.php:310
 msgid "active installs and counting"
 msgstr "активних постављања и број расте"
 
@@ -203,15 +263,15 @@ msgstr "Застарела подешавања"
 msgid "SVG Support: SVG Sanitizer library not found. Some features may be limited."
 msgstr "SVG Support: библиотека SVG Sanitizer није пронађена. Неке функције могу бити ограничене."
 
-#: functions/attachment.php:521
+#: functions/attachment.php:757
 msgid "SVG sanitization failed for security reasons."
 msgstr "Чишћење SVG-а није успело из безбедносних разлога."
 
-#: functions/attachment.php:339 functions/attachment.php:364
+#: functions/attachment.php:427 functions/attachment.php:452
 msgid "File is not a valid SVG."
 msgstr "Датотека није исправан SVG."
 
-#: functions/attachment.php:380
+#: functions/attachment.php:468
 msgid "Security check failed."
 msgstr "Безбедоносна провера није успела."
 
@@ -219,7 +279,7 @@ msgstr "Безбедоносна провера није успела."
 msgid "Skip nested SVGs"
 msgstr "Прескочи угнежђене SVG-ове"
 
-#: admin/svgs-settings-page.php:345
+#: admin/svgs-settings-page.php:374
 msgid "ShortPixel logo"
 msgstr "Логотип ShortPixel"
 
@@ -253,7 +313,7 @@ msgstr "Побољшајте безбедност чишћењем SVG слик�
 msgid "Sanitize SVG on front-end"
 msgstr "Чисти SVG на предњем крају"
 
-#: functions/attachment.php:402
+#: functions/attachment.php:480 functions/attachment.php:536
 msgid "Sorry, this file couldn't be sanitized for security reasons and wasn't uploaded."
 msgstr "Нажалост, ова датотека није могла да се очисти из безбедносних разлога и није отпремљена."
 

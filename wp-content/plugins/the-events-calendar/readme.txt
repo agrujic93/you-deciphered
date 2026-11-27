@@ -1,10 +1,10 @@
 === The Events Calendar ===
 
-Contributors: theeventscalendar, nexcess, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
+Contributors: theeventscalendar, stellarwp, nexcess, bordoni, deblynprado, dpantazis, filipecouto, jehromegriffiths1, jentheo, larodiel, leahkoerper, sdokus, vicskf
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.17.5.1
-Requires at least: 6.8
+Stable tag: 6.18.5
+Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -111,6 +111,13 @@ Ready to dig deeper? Check out these resources:
 We check in on the [The Events Calendar forum here on WordPress.org](https://wordpress.org/support/plugin/the-events-calendar/) about once a week to help users with basic troubleshooting and identifying bugs. If you’re looking for premium, personalized support, consider upgrading to Events Calendar Pro.
 
 Still have a question? Shoot us an email at support@theeventscalendar.com.
+
+== All Time Contributors ==
+
+We want to thank the people that have contributed over the years !
+
+aguseo, bordoni, borkweb, brianjessee, camwynsp, deblynprado, dpantazis, filipecouto, jehromegriffiths1, jentheo,
+larodiel, leahkoerper, lucatume, neillmcshea, rafsuntaskin, redscar, sdokus, tribalmike, vicskf, zbtirrell
 
 == Installation ==
 
@@ -231,6 +238,91 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.18.5] 2026-11-25 =
+
+* Fix - Corrected the domain sent with license validation and plugin download requests on multisite networks whose network site address was saved without http:// or https://, so licenses validate instead of failing with "missing a valid domain".
+* Fix - Kept the Event Date Time panel open when navigating months in a recurrence date picker in the block editor, so the calendar no longer closed the panel or jumped to the corner of the screen.
+* Fix - Kept the QR Code modal's sizing from shrinking other dialogs on the event and series edit screens, so the Move Ticket dialog opens full size with its Finish button in view.
+* Fix - Restored the readable label on today's date, the current month and the current year in the views' date picker when a Customizer accent color is set, and made the Customizer live preview apply style changes again.
+* Fix - Restored the Support Access grant on the Help page, which failed with "Encryption key could not be fetched" because the vendor public key was requested from an address that had started redirecting to another site.
+* Fix - Stopped event forms from creating a duplicate organizer when an existing organizer's name was typed instead of selected.
+* Fix - Stopped event forms from erasing or replacing an existing venue's address and phone when its name was typed instead of selected.
+* Fix - Treated a password-protected event as unlocked while the REST API single event endpoint builds its data for a request that sent the right password, so add-ons no longer hide content from it.
+* Security - Added additional protection when saving events through the REST API. Props to HyeonGyun Yim for reporting.
+* Security - Limited the calendar view scripts to the calendars The Events Calendar rendered and to the tooltip content those calendars printed. Props to Santh for reporting.
+* Language - 0 new strings added, 79 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.18.4.1] 2026-11-19 =
+
+* Fix - Resolved a multisite fatal error, "Cannot redeclare check_upload_size()", that could happen when a plugin or theme loaded WordPress admin files after an Events Calendar database query.
+* Security - Added additional protection to how Venues and Organizers are saved. Props to Dthangws for reporting.
+* Security - Added additional protection to the details of password-protected Events, Venues and Organizers in the WordPress REST API.
+* Security - Added additional protection to the Venue and Organizer details shown on Event pages and in the calendar views.
+* Security - Hardened how dependent form fields look up the field they depend on. Props to ytaero for reporting.
+* Security - Hardened the CSV importer. Props to Cavid Gulaliyev for reporting.
+* Security - Strengthened the permission checks on organizer and venue statuses set through the REST API.
+* Security - Tightened access checks on the calendar export. Props to peppa for reporting.
+* Security - Tightened shortcode handling in the Single Event block. Props to Pham Cong Lap (Clapboiz) of HPT VN for reporting.
+* Tweak - Added filters: `tec_events_editor_password_protected_meta`
+* Tweak - Changed views: `blocks/event-organizer`, `blocks/event-venue`, `blocks/parts/map`, `blocks/parts/organizer`, `blocks/parts/venue`, `integrations/elementor/widgets/event-organizer/details`, `integrations/elementor/widgets/event-venue/single-venue`, `modules/meta/map`, `modules/meta/organizer`, `modules/meta/venue`, `v2/day/event/venue`, `v2/latest-past/event/venue`, `v2/list/event/venue`
+* Language - 1 new strings added, 74 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.18.4] 2026-11-12 =
+
+* Fix - Avoided a fatal error when a database table prefix of 31 or more characters pushed the migrations table name past MySQL's 64-character limit, added an admin notice explaining how to shorten the prefix, and stopped the Shepherd tables error notice from causing an error when displayed.
+* Fix - Changed the System Information copy button on the Troubleshooting page to copy plain text, so pasted system details take the destination's text color instead of arriving as invisible white text.
+* Fix - Corrected the arguments passed to the before and after event HTML filters, so a callback that requires both no longer causes a fatal error on single event pages.
+* Fix - Loaded the event editor stylesheets directly into the WordPress 7.1 editor canvas, removing the "added to the iframe incorrectly" browser console warnings.
+* Fix - Loaded the shared block editor stylesheet directly into the WordPress 7.1 editor canvas, removing the "added to the iframe incorrectly" browser console warning.
+* Fix - Prevented a fatal error on sites with Event Aggregator active when a comment query passed its comment type as an array.
+* Fix - Prevented a fatal error when another plugin runs the save_post action with only the post ID.
+* Fix - Prevented a fatal error, and skipped event saves later in the same request, when another plugin runs the save_post action without the post.
+* Fix - Stopped a critical error on the Scheduled Imports tab when Apply was clicked without choosing a bulk action.
+* Security - Hardened the output of the settings page closing form element.
+* Tweak - Pointed the "Learn how to get an active license" link on the Setup Guide page to a working page instead of a removed article.
+* Tweak - Pointed the "Learn how to get live support" link on the Help page to a working page instead of a removed article.
+* Tweak - Pointed the Zapier API keys help link to the Zapier knowledgebase article and removed an outdated link from the Zapier Endpoint Dashboard.
+* Tweak - Removed outdated "Read more" and "Learn more" links from the block editor and URL import settings, and pointed the Meetup API key link to the Integrations Import tab.
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.18.3.1] 2026-11-05 =
+
+* Fix - Passed the input attributes a date picker is given, such as its accessible name and disabled state, through to its input field.
+* Security - Hardened how calendar views handle shortcodes. Props to Filip Kowalski for reporting.
+* Security - Hardened how HTML attributes are printed in templates. Props to Hatim Madmoune -DELTA for reporting.
+* Security - Hardened shortcode handling in post content shown by calendar views. Props to Filip Kowalski for reporting.
+* Security - Hardened the rendering of copied Events widgets. Props to Hatim Madmoune -DELTA for reporting.
+* Language - 0 new strings added, 8 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.18.3] 2026-10-29 =
+
+* Language - 0 new strings added, 34 updated, 0 fuzzied, and 0 obsoleted.
+* Security - Hardened access control checks for linked Organizers, Venues, and the Ignored Events admin action. Props to fcc for reporting.
+* Security - Hardened how Event details are saved. Props to fcc for reporting.
+* Security - Hardened the calendar export and add-to-calendar links. Props to ngvuthdanh for reporting.
+* Security - Hardened the rendering of the Event timezone-change link in the classic Event editor. Props to fcc for reporting.
+
+= [6.18.2] 2026-10-15 =
+
+* Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted.
+* Security - Restricted the HTML tag settings of the Elementor widgets to a fixed list of tags.
+* Tweak - Added filters: `tec_events_elementor_widget_allowed_tags`
+
+= [6.18.1] 2026-10-13 =
+
+* Fix - Prevented a fatal error when manually running a Scheduled Import whose child record could not be created, reporting the failure as an import error instead.
+* Fix - Resolved an issue where the List view exposed an internal pagination look-ahead value in generated navigation and canonical URLs, and capped the number of events fetched per page to prevent unbounded queries.
+* Language - 0 new strings added, 61 updated, 1 fuzzied, and 0 obsoleted.
+* Tweak - Added filters: `tec_events_views_v2_max_events_per_page`
+* Tweak - Improved specificity of error handling when syncing events with Event Aggregator.
+* Tweak - Improved the unified licensing page experience.
+
+= [6.18.0] 2026-09-30 =
+
+* Fix - Prevented a rejected CSV import column mapping from being saved as the default, which caused later imports to pre-select "Do Not Import" for required columns.
+* Language - 0 new strings added, 13 updated, 0 fuzzied, and 0 obsoleted.
+* Tweak - Changed views: `v2/widgets/widget-events-qr-code`
 
 = [6.17.5.1] 2026-09-24 =
 

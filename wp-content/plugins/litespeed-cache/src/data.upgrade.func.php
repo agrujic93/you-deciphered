@@ -11,8 +11,8 @@
 defined( 'WPINC' ) || exit();
 
 use LiteSpeed\Debug2;
-use LiteSpeed\Cloud;
 use LiteSpeed\Conf;
+use LiteSpeed\Htaccess;
 
 /**
  * Check whether a DB table exists.
@@ -75,43 +75,6 @@ function litespeed_update_7_0_1() {
 		}
 		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery
 		$wpdb->query( $wpdb->prepare( "UPDATE `{$tb_url}` SET url = %s WHERE id = %d", $new_url, $v['id'] ) );
-	}
-}
-
-/**
- * Migrate from domain key to pk/sk for QC
- *
- * @since 7.0
- */
-function litespeed_update_7() {
-	Debug2::debug('[Data] v7 upgrade started');
-
-	$__cloud = Cloud::cls();
-
-	$domain_key = $__cloud->conf('api_key');
-	if (!$domain_key) {
-		Debug2::debug('[Data] No domain key, bypassed migration');
-		return;
-	}
-
-	$new_prepared = $__cloud->init_qc_prepare();
-	if (!$new_prepared && $__cloud->activated()) {
-		Debug2::debug('[Data] QC previously activated in v7, bypassed migration');
-		return;
-	}
-	$data = array(
-		'domain_key' => $domain_key,
-	);
-	$resp = $__cloud->post(Cloud::SVC_D_V3UPGRADE, $data);
-	if ( ! empty( $resp['qc_activated'] ) ) {
-		if ( 'deleted' !== $resp['qc_activated'] ) {
-			$cloud_summary_updates = array( 'qc_activated' => $resp['qc_activated'] );
-			if (!empty($resp['main_domain'])) {
-				$cloud_summary_updates['main_domain'] = $resp['main_domain'];
-			}
-			Cloud::save_summary($cloud_summary_updates);
-			Debug2::debug('[Data] Updated QC activated status to ' . $resp['qc_activated']);
-		}
 	}
 }
 
@@ -198,4 +161,31 @@ function litespeed_update_7_9() {
 		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.SchemaChange
 		$wpdb->query( "DROP TABLE IF EXISTS `{$tb}`" );
 	}
+}
+
+/**
+ * Remove debug, purge and crawler logs still named by the v7.9.1 formula. [2026-10-14]
+ *
+ * The log files were renamed in v7.9.2, so the old copies were neither cleared nor downloadable; this runs regardless of the debug setting.
+ * Also flags LiteSpeed blocks v7.9.1 left in an ancestor .htaccess, which v7.9.2 no longer manages.
+ *
+ * @since 7.9.2
+ * @return void
+ */
+function litespeed_update_7_9_2() {
+	Debug2::remove_legacy_logs();
+
+	// v7.9.2 no longer writes outside the WordPress/frontend roots; point the administrator to any block left there.
+	Htaccess::cls()->notice_orphan_rules();
+}
+
+/**
+ * Drop the removed Inline CSS Async Lib option. [2026-11-11]
+ *
+ * @since 7.9.4
+ * @return void
+ */
+function litespeed_update_7_9_4() {
+	Conf::delete_option( 'optm-css_async_inline' );
+	Conf::delete_site_option( 'optm-css_async_inline' );
 }

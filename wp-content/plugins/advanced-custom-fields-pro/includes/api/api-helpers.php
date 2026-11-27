@@ -54,16 +54,100 @@ function acf_raw_setting( $name = '' ) {
  *
  * @since   5.0.0
  *
- * @param   $name (string)
- * @param   $value (mixed)
- * @return  n/a
+ * Saving to the database doesn't check the current user's capabilities, so callers acting on
+ * user input must check them first.
+ *
+ * Settings that can be saved in the database, but are updated here without $save_to_db
+ * (e.g. from a theme or plugin on "acf/init"), are treated as set in code, even if they're
+ * registered with "acf/settings/allowed_db_settings" afterwards. Their in-memory value then
+ * takes precedence over the database value, and they are locked in the settings UI.
+ *
+ * @param string  $name       The name of the setting.
+ * @param mixed   $value      The value for the setting.
+ * @param boolean $save_to_db Whether to save to the db (true) or not (false). Defaults to false.
  */
-function acf_update_setting( $name, $value ) {
+function acf_update_setting( $name, $value, $save_to_db = false ) {
 	// validate name.
 	$name = acf_validate_setting( $name );
 
+	$allowed_in_db_settings = acf_get_allowed_db_settings();
+
+	// If this setting is allowed to be saved in the database, save it there.
+	if ( $save_to_db && array_key_exists( $name, $allowed_in_db_settings ) ) {
+		// Sanitize and save value to database.
+		$sanitizer              = $allowed_in_db_settings[ $name ]['sanitize_callback'];
+		$sanitized_for_db_value = call_user_func( $sanitizer, $value );
+
+		// Store booleans as integers: WordPress serialises false as '' which update_option
+		// treats as a missing option and skips, so it would never insert false.
+		$db_value        = is_bool( $sanitized_for_db_value ) ? (int) $sanitized_for_db_value : $sanitized_for_db_value;
+		$db_save_success = update_option( 'acf_' . $name, $db_value, $allowed_in_db_settings[ $name ]['autoload'] );
+		$current         = get_option( 'acf_' . $name, null );
+
+		// update_option also returns false when the value is unchanged, so check the stored value.
+		// Use null default: get_option returns false for missing options, which loose-equals 0
+		// and would mask a genuine failure when saving boolean false (stored as 0).
+		// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+		if ( ! $db_save_success && ( null === $current || $current != $db_value ) ) {
+			// Return before acf()->update_setting so that the setting in memory always aligns with the setting in the database.
+			return new \WP_Error(
+				'acf_update_setting_failed',
+				__( 'Failed to save setting to database.', 'acf' ),
+				array(
+					'status'  => 500,
+					'setting' => $name,
+				)
+			);
+		}
+	} elseif ( ! $save_to_db ) {
+		// Record every setting updated in code, not only those already allowed in the database: a plugin may register
+		// its setting with "acf/settings/allowed_db_settings" after a theme sets it here. acf_is_setting_set_in_code()
+		// only reports settings that are allowed in the database.
+		$set_in_code = (array) acf_get_data( 'settings_set_in_code' );
+		if ( empty( $set_in_code[ $name ] ) ) {
+			$set_in_code[ $name ] = true;
+			acf_set_data( 'settings_set_in_code', $set_in_code );
+		}
+	}
+
+	// Keep the setting in memory as it was saved to the database, not as it was passed in.
+	if ( isset( $sanitized_for_db_value ) ) {
+		$value = $sanitized_for_db_value;
+	}
+
 	// update.
 	return acf()->update_setting( $name, $value );
+}
+
+/**
+ * Returns true if a database-backed setting has been set in code via acf_update_setting().
+ *
+ * This holds whether the setting was registered with "acf/settings/allowed_db_settings" before or after it was
+ * set in code. Settings that aren't allowed in the database always return false.
+ *
+ * @since 6.8.12
+ *
+ * @param string $name The name of the setting.
+ * @return boolean
+ */
+function acf_is_setting_set_in_code( $name ) {
+	$name        = acf_validate_setting( $name );
+	$set_in_code = (array) acf_get_data( 'settings_set_in_code' );
+
+	return ! empty( $set_in_code[ $name ] ) && array_key_exists( $name, acf_get_allowed_db_settings() );
+}
+
+/**
+ * Returns true if a setting is managed in code, either via an "acf/settings/{$name}" filter
+ * or via acf_update_setting(), and so cannot be changed in the settings UI.
+ *
+ * @since 6.8.12
+ *
+ * @param string $name The name of the setting.
+ * @return boolean
+ */
+function acf_is_setting_managed( $name ) {
+	return false !== has_filter( "acf/settings/{$name}" ) || acf_is_setting_set_in_code( $name );
 }
 
 /**
@@ -95,6 +179,20 @@ function acf_get_setting( $name, $value = null ) {
 	// replace default setting value if it exists.
 	if ( acf_has_setting( $name ) ) {
 		$value = acf_raw_setting( $name );
+	}
+
+	// Prior to running filters, check if this setting has been saved in the database.
+	// Values set in code via acf_update_setting() take precedence over the database.
+	$allowed_in_db_settings = acf_get_allowed_db_settings();
+
+	if ( array_key_exists( $name, $allowed_in_db_settings ) && ! acf_is_setting_set_in_code( $name ) ) {
+		$value = get_option( 'acf_' . $name, $value );
+
+		// Booleans are saved as 1/0 and come back from the database as strings, so restore the boolean.
+		// Only the boolean sanitizer is applied: other sanitize callbacks are written to run on save, not on every read.
+		if ( null !== $value && 'wp_validate_boolean' === $allowed_in_db_settings[ $name ]['sanitize_callback'] ) {
+			$value = wp_validate_boolean( $value );
+		}
 	}
 
 	// filter.
@@ -1342,6 +1440,11 @@ function acf_get_grouped_posts( $args ) {
 		$args['post_status'] = array_values( array_unique( $viewable_post_statuses ) );
 	}
 
+	// `perm=readable` only covers private posts, so also hide other posts and attachments the user can't read.
+	if ( is_user_logged_in() && isset( $args['perm'] ) && 'readable' === $args['perm'] ) {
+		$args['acf_restrict_unreadable_posts'] = true;
+	}
+
 	// find array of post_type
 	$post_types          = acf_get_array( $args['post_type'] );
 	$is_single_post_type = ( count( $post_types ) === 1 );
@@ -1482,6 +1585,166 @@ function acf_ensure_perm_readable_post_status( $args ) {
 }
 
 /**
+ * The internal ACF function to return the statuses of a post type's posts that the current user can't
+ * read when another user wrote them, following how core maps the `read_post` capability.
+ *
+ * Core lets users read other users' draft, pending and scheduled posts only if they can edit them, which
+ * for scheduled posts also requires the capability to edit published posts. Other users' private posts
+ * require the capability to read private posts. Post types that don't map meta capabilities let users
+ * with the post type's read capability read all of its posts.
+ *
+ * Access granted to individual posts can't be known here, so sites that grant it can use the
+ * `acf/fields/relational/unreadable_post_statuses` filter.
+ *
+ * @since 6.8.11
+ *
+ * @param string $post_type The post type.
+ * @return string[]
+ */
+function _acf_get_unreadable_post_statuses( $post_type ) {
+	$post_type_object   = get_post_type_object( $post_type );
+	$protected_statuses = get_post_stati( array( 'protected' => true ) );
+	$private_statuses   = get_post_stati( array( 'private' => true ) );
+
+	if ( ! $post_type_object ) {
+		return array_values( array_merge( $protected_statuses, $private_statuses ) );
+	}
+
+	$statuses = array();
+
+	if ( ! $post_type_object->map_meta_cap ) {
+		// `read_post` and `read_page` are meta capabilities, which can't be checked without a post.
+		$read_cap = $post_type_object->cap->read_post;
+		$can_read = ! in_array( $read_cap, array( 'read_post', 'read_page' ), true ) && current_user_can( $read_cap );
+
+		if ( ! $can_read ) {
+			$statuses = array_merge( $protected_statuses, $private_statuses );
+		}
+	} else {
+		if ( ! current_user_can( $post_type_object->cap->edit_others_posts ) ) {
+			$statuses = $protected_statuses;
+		} elseif ( ! current_user_can( $post_type_object->cap->edit_published_posts ) ) {
+			$statuses = array_intersect( $protected_statuses, array( 'future' ) );
+		}
+
+		if ( ! current_user_can( $post_type_object->cap->read_private_posts ) ) {
+			$statuses = array_merge( $statuses, $private_statuses );
+		}
+	}
+
+	/**
+	 * Filters the statuses of other users' posts that relational field searches hide from the current user.
+	 *
+	 * Posts with a status removed here are included in the search query, and each is then checked with
+	 * `acf_current_user_can_read_post()`, so posts the user can't read are still left out. Use this when
+	 * access to individual posts is granted, such as through the `acf/user_can_read_post` filter
+	 * or a `map_meta_cap` callback. Pages of results may then contain fewer posts, or none, and the next
+	 * page being loaded can show that the search matched posts the user can't read.
+	 *
+	 * @since 6.8.11
+	 *
+	 * @param string[] $statuses  The statuses hidden from the current user.
+	 * @param string   $post_type The post type.
+	 */
+	$statuses = apply_filters( 'acf/fields/relational/unreadable_post_statuses', array_values( $statuses ), $post_type );
+
+	return array_values( array_filter( (array) $statuses, 'is_string' ) );
+}
+
+/**
+ * The internal ACF function to hide posts the current user can't read from `acf_get_grouped_posts()`
+ * queries.
+ *
+ * `WP_Query` only applies `perm=readable` to private posts, and checks an attachment's own `inherit`
+ * status rather than its parent's. This also hides other users' draft, pending and scheduled posts the
+ * current user can't edit, and attachments that inherit a status from a parent the user can't read.
+ *
+ * When the query has the field's post types in `acf_field_post_types`, it also hides other users' posts
+ * of post types that aren't public, unless the field lists them or the user can open their list of posts
+ * in the admin or edit other users' posts, matching `acf_user_can_read_post()`.
+ *
+ * @since 6.8.11
+ *
+ * @param string   $where    The WHERE clause of the query.
+ * @param WP_Query $wp_query The WP_Query.
+ * @return string The potentially modified WHERE clause.
+ */
+function _acf_query_restrict_unreadable_posts( $where, $wp_query ) {
+	global $wpdb;
+
+	if ( ! $wp_query->get( 'acf_restrict_unreadable_posts' ) ) {
+		return $where;
+	}
+
+	$post_types = acf_get_array( $wp_query->get( 'post_type' ) );
+
+	if ( empty( $post_types ) || in_array( 'any', $post_types, true ) ) {
+		$post_types = get_post_types();
+	}
+
+	$field_post_types    = $wp_query->get( 'acf_field_post_types', null );
+	$readable_post_types = array();
+	$conditions          = array( $wpdb->prepare( "{$wpdb->posts}.post_author = %d", get_current_user_id() ) );
+
+	foreach ( $post_types as $post_type ) {
+		// Other users' posts of these post types are left out, so only the user's own posts are found.
+		if ( is_array( $field_post_types ) && _acf_post_type_is_hidden_from_search( $post_type, $field_post_types ) ) {
+			continue;
+		}
+
+		$statuses = _acf_get_unreadable_post_statuses( $post_type );
+
+		if ( empty( $statuses ) ) {
+			$readable_post_types[] = $post_type;
+			continue;
+		}
+
+		$statuses  = implode( "','", array_map( 'esc_sql', $statuses ) );
+		$condition = $wpdb->prepare( "{$wpdb->posts}.post_type = %s", $post_type ) . " AND {$wpdb->posts}.post_status NOT IN ('$statuses')";
+
+		// Attachments inherit their parent's status, so their parent must be readable too.
+		if ( 'attachment' === $post_type ) {
+			$condition .= " AND NOT ( {$wpdb->posts}.post_status = 'inherit' AND EXISTS ( SELECT 1 FROM {$wpdb->posts} AS acf_parent WHERE acf_parent.ID = {$wpdb->posts}.post_parent AND acf_parent.post_status IN ('$statuses') ) )";
+		}
+
+		$conditions[] = "( $condition )";
+	}
+
+	if ( count( $readable_post_types ) === count( $post_types ) ) {
+		return $where;
+	}
+
+	if ( $readable_post_types ) {
+		$readable_post_types = implode( "','", array_map( 'esc_sql', $readable_post_types ) );
+		$conditions[]        = "{$wpdb->posts}.post_type IN ('$readable_post_types')";
+	}
+
+	return $where . ' AND (' . implode( ' OR ', $conditions ) . ')';
+}
+add_filter( 'posts_where', '_acf_query_restrict_unreadable_posts', 10, 2 );
+
+/**
+ * The internal ACF function to check whether relational field searches leave out other users' posts of a
+ * post type, because it isn't public and the current user can't see its posts in the admin.
+ *
+ * @since 6.8.11
+ *
+ * @param string   $post_type        The post type.
+ * @param string[] $field_post_types The post types listed by the field's "Filter by Post Type" setting.
+ * @return boolean
+ */
+function _acf_post_type_is_hidden_from_search( $post_type, $field_post_types ) {
+	if ( is_post_type_viewable( $post_type ) || in_array( $post_type, $field_post_types, true ) ) {
+		return false;
+	}
+
+	$post_type_object = get_post_type_object( $post_type );
+
+	return ! $post_type_object
+		|| ( ! _acf_user_can_list_post_type( wp_get_current_user(), $post_type ) && ! current_user_can( $post_type_object->cap->edit_others_posts ) );
+}
+
+/**
  * The internal ACF function to add order by post types for use in `acf_get_grouped_posts`
  *
  * @param string $orderby  The current orderby value for a query.
@@ -1542,6 +1805,494 @@ function acf_get_post_title( $post = 0, $is_search = false ) {
 
 	// return
 	return $title;
+}
+
+/**
+ * Checks whether a user can read a post referenced by a relational field.
+ *
+ * Matches WordPress core: published posts can be read by anyone (as in the REST API, and as the
+ * relational field search already shows them), and other posts need to be publicly viewable or
+ * need the `read_post` capability (which needs edit access for other users' drafts).
+ *
+ * Posts of post types that aren't public, such as WooCommerce coupons, can only be seen in the admin.
+ * Published ones are readable if the field's "Filter by Post Type" setting lists their post type, or
+ * the user can open the post type's list of posts in the admin, which shows their titles. Others need
+ * the user to be able to edit them. Revisions are never public, so they need edit access, which for a
+ * revision means edit access to its parent.
+ *
+ * Unlike `acf_rest_reference_is_exposable()`, this doesn't require the post type to be shown in the
+ * REST API, because these fields can reference any post type in the editor.
+ *
+ * @since 6.8.11
+ *
+ * @param integer|WP_User $user  The user ID or object. 0 for visitors who aren't logged in.
+ * @param integer|WP_Post $post  The post ID or object.
+ * @param array           $field Optional. The field referencing the post.
+ * @return boolean
+ */
+function acf_user_can_read_post( $user, $post, $field = array() ) {
+	$user = $user instanceof WP_User ? $user : new WP_User( (int) $user );
+	$post = get_post( $post );
+
+	if ( ! $post ) {
+		$can_read = false;
+	} elseif ( 'revision' === $post->post_type ) {
+		$can_read = user_can( $user, 'edit_post', $post->ID );
+	} elseif ( ! is_post_type_viewable( $post->post_type ) && ! in_array( $post->post_type, acf_get_array( $field['post_type'] ?? array() ), true ) ) {
+		$can_read = ( 'publish' === get_post_status( $post ) && _acf_user_can_list_post_type( $user, $post->post_type ) )
+			|| user_can( $user, 'edit_post', $post->ID );
+	} else {
+		$can_read = 'publish' === get_post_status( $post )
+			|| is_post_publicly_viewable( $post )
+			|| user_can( $user, 'read_post', $post->ID );
+	}
+
+	/**
+	 * Filters whether a user can read a post referenced by a relational field.
+	 *
+	 * The user is usually the current user. While an ACF Block saved in a post or synced pattern renders,
+	 * other than in a preview, it's the author of that post, so check `$user` rather than the current user.
+	 *
+	 * Relational field searches leave out other users' posts the user can't read before this filter runs,
+	 * so returning true doesn't add them to search results. Use the
+	 * `acf/fields/relational/unreadable_post_statuses` filter to include them.
+	 *
+	 * @since 6.8.11
+	 *
+	 * @param boolean      $can_read Whether the user can read the post.
+	 * @param WP_Post|null $post     The post object, or null if the post doesn't exist.
+	 * @param array        $field    The field referencing the post, if any.
+	 * @param WP_User      $user     The user.
+	 */
+	return (bool) apply_filters( 'acf/user_can_read_post', $can_read, $post, $field, $user );
+}
+
+/**
+ * Checks whether the current user can read a post referenced by a relational field.
+ *
+ * @since 6.8.11
+ *
+ * @see acf_user_can_read_post()
+ *
+ * @param integer|WP_Post $post  The post ID or object.
+ * @param array           $field Optional. The field referencing the post.
+ * @return boolean
+ */
+function acf_current_user_can_read_post( $post, $field = array() ) {
+	return acf_user_can_read_post( wp_get_current_user(), $post, $field );
+}
+
+/**
+ * The internal ACF function to check whether a user can open a post type's list of posts in the admin,
+ * which shows the titles of all its published posts.
+ *
+ * @since 6.8.11
+ *
+ * @param integer|WP_User $user      The user ID or object.
+ * @param string          $post_type The post type.
+ * @return boolean
+ */
+function _acf_user_can_list_post_type( $user, $post_type ) {
+	$post_type_object = get_post_type_object( $post_type );
+
+	return $post_type_object && $post_type_object->show_ui && user_can( $user, $post_type_object->cap->edit_posts );
+}
+
+/**
+ * Removes posts the current user can't read from a relational field's search results.
+ *
+ * The query already hides posts core doesn't let the user read, but the `acf/user_can_read_post`
+ * filter can deny others. Searches that a site has opted out of `perm=readable` aren't checked.
+ *
+ * @since 6.8.11
+ *
+ * @param array $groups The posts from `acf_get_grouped_posts()`, grouped by post type label.
+ * @param array $args   The query args.
+ * @param array $field  The relational field being searched.
+ * @return array An array with `groups`, the groups without posts the user can't read, and `more`, whether
+ *               there may be more pages of results, judged before any posts were removed.
+ */
+function acf_remove_unreadable_grouped_posts( $groups, $args, $field ) {
+	$groups   = acf_get_array( $groups );
+	$per_page = isset( $args['posts_per_page'] ) ? (int) $args['posts_per_page'] : 0;
+	$more     = $per_page > 0 && array_sum( array_map( 'count', $groups ) ) >= $per_page;
+
+	if ( isset( $args['perm'] ) && 'readable' === $args['perm'] ) {
+		foreach ( array_keys( $groups ) as $label ) {
+			$groups[ $label ] = array_filter(
+				$groups[ $label ],
+				function ( $post ) use ( $field ) {
+					return acf_current_user_can_read_post( $post, $field );
+				}
+			);
+
+			if ( empty( $groups[ $label ] ) ) {
+				unset( $groups[ $label ] );
+			}
+		}
+	}
+
+	return array(
+		'groups' => $groups,
+		'more'   => $more,
+	);
+}
+
+/**
+ * Returns the label shown in place of a selected post the current user can't read.
+ *
+ * @since 6.8.11
+ *
+ * @return string
+ */
+function acf_get_restricted_post_title() {
+	return __( '(Restricted item)', 'acf' );
+}
+
+/**
+ * The internal ACF function to return the object whose stored values a save is compared against.
+ * Revisions don't store values of their own yet, so they're compared against their parent post.
+ *
+ * @since 6.8.11
+ *
+ * @param integer|string $post_id The ACF post ID being saved.
+ * @return integer|string
+ */
+function _acf_get_stored_values_post_id( $post_id ) {
+	$decoded = acf_decode_post_id( $post_id );
+	$parent  = 'post' === $decoded['type'] ? wp_is_post_revision( (int) $decoded['id'] ) : false;
+
+	return $parent ? $parent : $post_id;
+}
+
+/**
+ * The internal ACF function to check whether relational fields should check the post IDs being saved.
+ * That's while ACF saves submitted values. Values code saves with update_field() during that save, such
+ * as back-references written by bidirectional sync, aren't checked.
+ *
+ * @since 6.8.11
+ *
+ * @return boolean
+ */
+function _acf_is_checking_submitted_post_ids() {
+	return (bool) acf_get_data( 'acf_saving_submitted_values' );
+}
+
+/**
+ * The internal ACF function to return whether a field is, or contains, a Relationship, Post Object or
+ * Page Link field, at any depth inside Repeater, Group, Clone and Flexible Content fields.
+ *
+ * @since 6.8.11
+ *
+ * @param array $field The field array.
+ * @return boolean
+ */
+function _acf_field_has_relational_fields( $field ) {
+	static $cache = array();
+
+	$key = isset( $field['key'] ) ? (string) $field['key'] : '';
+
+	if ( '' !== $key && isset( $cache[ $key ] ) ) {
+		return $cache[ $key ];
+	}
+
+	$has_relational = in_array( $field['type'] ?? '', array( 'relationship', 'post_object', 'page_link' ), true );
+	$children       = acf_get_array( $field['sub_fields'] ?? array() );
+
+	foreach ( acf_get_array( $field['layouts'] ?? array() ) as $layout ) {
+		$children = array_merge( $children, acf_get_array( $layout['sub_fields'] ?? array() ) );
+	}
+
+	foreach ( $children as $child ) {
+		if ( $has_relational ) {
+			break;
+		}
+
+		$has_relational = is_array( $child ) && _acf_field_has_relational_fields( $child );
+	}
+
+	if ( '' !== $key ) {
+		$cache[ $key ] = $has_relational;
+	}
+
+	return $has_relational;
+}
+
+/**
+ * The internal ACF function to return the post IDs stored in an object's relational fields before the
+ * current user-submitted save changed them.
+ *
+ * Repeater and Flexible Content rows are saved one at a time, and can be moved, added or removed, so a
+ * selection may be saved to a different row than it was stored in, after that row was already updated.
+ * The IDs are recorded, by field key, before the first relational field is updated, and kept until the
+ * save finishes. A sub field has the same key in every row, so this covers moved rows at any depth.
+ *
+ * @since 6.8.11
+ *
+ * @param integer|string $post_id The ACF post ID being saved.
+ * @return array An array with `ids`, the sets of post IDs stored in each relational field, keyed by field
+ *               key, and `names`, the meta names that have a field key reference.
+ */
+function _acf_get_stored_post_ids_snapshot( $post_id ) {
+	$post_id   = _acf_get_stored_values_post_id( $post_id );
+	$snapshots = (array) acf_get_data( 'acf_stored_post_ids_snapshots' );
+
+	if ( ! isset( $snapshots[ $post_id ] ) ) {
+		$meta       = (array) acf_get_meta( $post_id );
+		$relational = array();
+		$snapshot   = array(
+			'ids'   => array(),
+			'names' => array(),
+		);
+
+		// Each stored value has a reference to the key of the field it belongs to.
+		foreach ( $meta as $name => $value ) {
+			if ( ! isset( $meta[ '_' . $name ] ) ) {
+				continue;
+			}
+
+			$field_key = $meta[ '_' . $name ];
+
+			// Other plugins can store their own data under a `_` prefixed meta name, such as an array.
+			if ( ! is_string( $field_key ) || ! acf_is_field_key( $field_key ) ) {
+				continue;
+			}
+
+			$snapshot['names'][ $name ] = true;
+
+			if ( ! isset( $relational[ $field_key ] ) ) {
+				$field                    = acf_get_field( $field_key );
+				$relational[ $field_key ] = $field && in_array( $field['type'], array( 'relationship', 'post_object', 'page_link' ), true );
+			}
+
+			if ( ! $relational[ $field_key ] ) {
+				continue;
+			}
+
+			foreach ( acf_get_array( acf_maybe_unserialize( $value ) ) as $id ) {
+				if ( is_numeric( $id ) ) {
+					$snapshot['ids'][ $field_key ][ (string) $id ] = true;
+				}
+			}
+		}
+
+		$snapshots[ $post_id ] = $snapshot;
+		acf_set_data( 'acf_stored_post_ids_snapshots', $snapshots );
+	}
+
+	return $snapshots[ $post_id ];
+}
+
+/**
+ * The internal ACF function to record an object's stored post IDs during a user-submitted save, when the
+ * first field that is, or contains, a relational field is updated, before any of them are changed. Saves
+ * without relational fields don't record anything.
+ *
+ * @since 6.8.11
+ *
+ * @param mixed          $check   The short-circuit value, returned unchanged.
+ * @param mixed          $value   The value being updated.
+ * @param integer|string $post_id The ACF post ID being saved.
+ * @param array          $field   The field being updated.
+ * @return mixed
+ */
+function _acf_snapshot_stored_post_ids( $check, $value, $post_id, $field ) {
+	if ( ! _acf_is_checking_submitted_post_ids() ) {
+		return $check;
+	}
+
+	$snapshots = (array) acf_get_data( 'acf_stored_post_ids_snapshots' );
+
+	if ( ! isset( $snapshots[ _acf_get_stored_values_post_id( $post_id ) ] ) && is_array( $field ) && _acf_field_has_relational_fields( $field ) ) {
+		_acf_get_stored_post_ids_snapshot( $post_id );
+	}
+
+	return $check;
+}
+add_filter( 'acf/pre_update_value', '_acf_snapshot_stored_post_ids', 1, 4 );
+
+/**
+ * The internal ACF function to discard an object's stored post ID snapshot once its save has finished.
+ *
+ * @since 6.8.11
+ *
+ * @param integer|string $post_id The ACF post ID that was saved.
+ * @return void
+ */
+function _acf_clear_stored_post_ids_snapshot( $post_id ) {
+	$snapshots = (array) acf_get_data( 'acf_stored_post_ids_snapshots' );
+	unset( $snapshots[ _acf_get_stored_values_post_id( $post_id ) ] );
+	acf_set_data( 'acf_stored_post_ids_snapshots', $snapshots );
+}
+add_action( 'acf/save_post', '_acf_clear_stored_post_ids_snapshot', 99 );
+
+/**
+ * The internal ACF function to discard stored post ID snapshots after each REST request (including each
+ * request in a batch), which updates fields without firing `acf/save_post`.
+ *
+ * REST requests made while a submitted save is still running, such as with `rest_do_request()` from an
+ * `acf/update_value` callback, leave the snapshots alone, as that save still needs them.
+ *
+ * @since 6.8.11
+ *
+ * @param mixed $response The REST response, returned unchanged.
+ * @return mixed
+ */
+function _acf_clear_rest_stored_post_ids_snapshots( $response ) {
+	if ( _acf_is_checking_submitted_post_ids() ) {
+		return $response;
+	}
+
+	acf_set_data( 'acf_stored_post_ids_snapshots', array() );
+
+	return $response;
+}
+add_filter( 'rest_request_after_callbacks', '_acf_clear_rest_stored_post_ids_snapshots' );
+
+/**
+ * Removes newly selected post IDs that the current user isn't allowed to add to a relational field.
+ *
+ * Only runs while ACF is saving submitted values. A new ID must belong to an existing post that the
+ * current user can read. IDs already stored in the field, in any Repeater or Flexible Content row, are
+ * kept, so a selection the user can't read isn't lost when they save.
+ *
+ * Stored values are matched by field key. A value stored under a different key, such as by a field that
+ * was later recreated or imported with a new key, isn't matched, so a user who can't read its posts drops
+ * them when they save it.
+ *
+ * @since 6.8.11
+ *
+ * @param mixed          $value   The normalized field value: an ID, or an array of IDs.
+ * @param integer|string $post_id The ACF post ID being saved.
+ * @param array          $field   The field array.
+ * @return mixed The value with disallowed IDs removed.
+ */
+function acf_remove_disallowed_post_ids( $value, $post_id, $field ) {
+	if ( empty( $value ) || ! _acf_is_checking_submitted_post_ids() ) {
+		return $value;
+	}
+
+	$snapshot   = _acf_get_stored_post_ids_snapshot( $post_id );
+	$stored_ids = isset( $snapshot['ids'][ $field['key'] ] ) ? $snapshot['ids'][ $field['key'] ] : array();
+
+	// A seamless Clone saved by a form references the cloned field's key, but the REST API saves it under the
+	// Clone's prefixed key.
+	if ( ! empty( $field['__key'] ) && isset( $snapshot['ids'][ $field['__key'] ] ) ) {
+		$stored_ids = $stored_ids + $snapshot['ids'][ $field['__key'] ];
+	}
+
+	// Values saved without a field key reference, such as by an import, can only be found by name. This reads
+	// the stored value directly, before this field is updated, so `acf/load_value` filters can't add to it.
+	if ( ! isset( $snapshot['names'][ $field['name'] ] ) ) {
+		$legacy_ids = acf_get_array( acf_get_metadata_by_field( _acf_get_stored_values_post_id( $post_id ), $field ) );
+		$stored_ids = $stored_ids + array_fill_keys( array_map( 'strval', array_filter( $legacy_ids, 'is_numeric' ) ), true );
+	}
+
+	$is_allowed = function ( $id ) use ( $stored_ids, $field ) {
+		// Page Link URLs aren't post IDs, so they're kept. Other fields only store post IDs, and other code,
+		// such as bidirectional sync, decodes values like `post_42` or `user_3` as objects to update.
+		if ( ! is_numeric( $id ) ) {
+			return 'page_link' === $field['type'];
+		}
+
+		// Other code, such as bidirectional sync, converts negative IDs to the positive post ID.
+		if ( (int) $id <= 0 ) {
+			return false;
+		}
+
+		// Only check new post IDs. Existing selections are kept.
+		if ( isset( $stored_ids[ (string) $id ] ) ) {
+			return true;
+		}
+
+		return acf_current_user_can_read_post( (int) $id, $field );
+	};
+
+	if ( ! is_array( $value ) ) {
+		return $is_allowed( $value ) ? $value : '';
+	}
+
+	$value = array_filter( $value, $is_allowed );
+
+	return acf_is_sequential_array( $value ) ? array_values( $value ) : $value;
+}
+
+/**
+ * Removes posts that can't be read from a relational field's value before it's formatted.
+ *
+ * Applies to values formatted while rendering an ACF Block by default. Block data is stored in the post
+ * content, which anyone who can edit the post controls, and the block editor renders previews from data
+ * that hasn't been saved yet, so selections in it are never checked when they're saved.
+ *
+ * Previews are checked against the current user. Other blocks are checked against the author of the post
+ * or synced pattern they're saved in, so posts that author picked show to every visitor but posts they
+ * couldn't have picked don't. Blocks that aren't saved in either are checked against the current user when
+ * rendered in the admin, by AJAX or by a REST API endpoint, and aren't checked on the front end, where
+ * they're in places like template parts and widgets that only administrators can edit. See
+ * `_acf_get_block_reader()`.
+ *
+ * The `acf/fields/relational/hide_unreadable_posts` filter can apply this to other values too, or turn it
+ * off.
+ *
+ * @since 6.8.11
+ *
+ * @param mixed          $value   The value: an ID, or an array of IDs (and Page Link URLs).
+ * @param integer|string $post_id The ACF post ID the value is formatted for.
+ * @param array          $field   The field array.
+ * @return mixed The value without posts that can't be read.
+ */
+function acf_remove_unreadable_formatted_post_ids( $value, $post_id, $field ) {
+	if ( empty( $value ) ) {
+		return $value;
+	}
+
+	$user = wp_get_current_user();
+	$hide = false;
+
+	if ( is_string( $post_id ) && 0 === strpos( $post_id, 'block_' ) ) {
+		// Set while an ACF Block renders: false when it isn't checked, otherwise the user to check.
+		$reader = acf_get_data( 'acf_block_reader' );
+		$hide   = false !== $reader;
+		$user   = $reader instanceof WP_User ? $reader : $user;
+	}
+
+	/**
+	 * Filters whether a relational field's formatted value leaves out posts that can't be read.
+	 *
+	 * True by default for values formatted while rendering an ACF Block, such as by get_field() in a block
+	 * template, except for blocks on the front end that aren't saved in a post or synced pattern. Return
+	 * true to also leave them out elsewhere, such as from get_field() in theme templates, or false to show
+	 * them in blocks again. Values other than those of blocks are checked against the current user.
+	 * Visitors who aren't logged in can only read published posts and posts with a public status.
+	 *
+	 * @since 6.8.11
+	 *
+	 * @param boolean        $hide    Whether to leave out posts that can't be read.
+	 * @param integer|string $post_id The ACF post ID the value is formatted for.
+	 * @param array          $field   The field array.
+	 */
+	if ( ! apply_filters( 'acf/fields/relational/hide_unreadable_posts', $hide, $post_id, $field ) ) {
+		return $value;
+	}
+
+	$is_readable = function ( $id ) use ( $user, $field ) {
+		// Page Link URLs aren't post IDs, so they're kept. Other fields convert values like `123x` to post IDs.
+		if ( ! is_numeric( $id ) ) {
+			return 'page_link' === $field['type'];
+		}
+
+		return acf_user_can_read_post( $user, (int) $id, $field );
+	};
+
+	if ( ! is_array( $value ) ) {
+		return $is_readable( $value ) ? $value : '';
+	}
+
+	_prime_post_caches( array_map( 'intval', array_filter( $value, 'is_numeric' ) ), false, false );
+
+	$value = array_filter( $value, $is_readable );
+
+	return acf_is_sequential_array( $value ) ? array_values( $value ) : $value;
 }
 
 function acf_order_by_search( $array, $search ) {
@@ -2326,6 +3077,21 @@ function acf_get_valid_post_id( $post_id = 0 ) {
 	return $post_id;
 }
 
+/**
+ * Checks whether field values stored on an ACF post ID belong to a password-protected
+ * post whose password has not been entered yet.
+ *
+ * @since 6.8.11
+ *
+ * @param integer|string $post_id ACF encoded post ID.
+ * @return boolean
+ */
+function acf_post_password_required( $post_id ) {
+	$decoded = acf_decode_post_id( $post_id );
+
+	return 'post' === $decoded['type'] && (int) $decoded['id'] > 0 && post_password_required( (int) $decoded['id'] );
+}
+
 
 
 /**
@@ -2427,12 +3193,14 @@ function acf_isset_termmeta( $taxonomy = '' ) {
  * This function will walk through the $_FILES data and upload each found.
  *
  * @since   5.0.9
+ * @since   6.8.11 Uploader nonces are verified against the render IDs set by acf_set_upload_render_ids() for
+ *                 this save, or the post ID being saved. See _acf_verify_file_uploader_nonce().
  *
  * @param array $ancestors An internal parameter, not required.
  */
 function acf_upload_files( $ancestors = array() ) {
 
-	if ( empty( $_FILES['acf'] ) ) {
+	if ( empty( $_FILES['acf'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Each file's uploader nonce is verified below.
 		return;
 	}
 
@@ -2463,10 +3231,9 @@ function acf_upload_files( $ancestors = array() ) {
 		return;
 	}
 
-	$field_key  = end( $ancestors );
-	$nonce_name = $field_key . '_file_nonce';
+	$field_key = end( $ancestors );
 
-	if ( empty( $_REQUEST['acf'][ $nonce_name ] ) || ! wp_verify_nonce( sanitize_text_field( $_REQUEST['acf'][ $nonce_name ] ), 'acf/file_uploader_nonce/' . $field_key ) ) {
+	if ( ! _acf_verify_file_uploader_nonce( $field_key ) ) {
 		return;
 	}
 
@@ -2479,6 +3246,51 @@ function acf_upload_files( $ancestors = array() ) {
 	// update $_POST
 	array_unshift( $ancestors, 'acf' );
 	acf_update_nested_array( $_POST, $ancestors, $attachment_id );
+}
+
+/**
+ * Returns true if the basic uploader nonce submitted for a field verifies for the object being saved.
+ *
+ * The nonce is verified against the render IDs set by acf_set_upload_render_ids() for this save, or
+ * the post ID being saved. Saves that never set render IDs, such as other plugins' form handlers,
+ * also accept the render IDs of the field lists in the request. The nonce itself is signed for the
+ * current user and render, so this only accepts nonces the user was served.
+ *
+ * @since 6.8.11
+ * @access private
+ *
+ * @param string $field_key The field key.
+ * @return boolean
+ */
+function _acf_verify_file_uploader_nonce( $field_key ) {
+	$nonce_name = $field_key . '_file_nonce';
+
+	if ( empty( $_REQUEST['acf'][ $nonce_name ] ) || ! is_string( $_REQUEST['acf'][ $nonce_name ] ) ) {
+		return false;
+	}
+
+	$nonce = sanitize_text_field( wp_unslash( $_REQUEST['acf'][ $nonce_name ] ) );
+
+	$upload_render_ids = acf_get_form_data( 'upload_render_ids' );
+	$render_ids        = is_array( $upload_render_ids ) && $upload_render_ids ? $upload_render_ids : array( (string) acf_get_form_data( 'post_id' ) );
+
+	foreach ( $render_ids as $render_id ) {
+		if ( '' !== (string) $render_id && wp_verify_nonce( $nonce, acf_get_file_uploader_nonce_action( (string) $render_id, $field_key ) ) ) {
+			return true;
+		}
+	}
+
+	if ( null !== $upload_render_ids || ! isset( $_POST['_acf_fields'] ) || ! is_array( $_POST['_acf_fields'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Only the keys are read, as render IDs to verify the uploader nonce against.
+		return false;
+	}
+
+	foreach ( array_map( 'strval', array_keys( $_POST['_acf_fields'] ) ) as $render_id ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Only the keys are read.
+		if ( '' !== $render_id && wp_verify_nonce( $nonce, acf_get_file_uploader_nonce_action( $render_id, $field_key ) ) ) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 /**
@@ -2545,8 +3357,49 @@ function acf_upload_file( $uploaded_file ) {
 	// Save the data
 	$id = wp_insert_attachment( $object, $file );
 
-	// Add the meta-data
-	wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $file ) );
+	/**
+	 * Filters whether a file uploaded through a basic uploader gets preview images.
+	 *
+	 * Applies to File, Image and Gallery fields using the basic uploader, such as in
+	 * front-end forms. When false, WordPress won't render PDF previews or save cover
+	 * art embedded in audio and video files while generating the attachment metadata.
+	 *
+	 * @since 6.8.11
+	 *
+	 * @param boolean $generate_previews Whether to generate preview images. Default true only for users who can upload files.
+	 * @param string  $file              Path to the uploaded file.
+	 * @param integer $id                Attachment ID.
+	 */
+	$skip_previews = ! apply_filters( 'acf/upload/generate_previews', current_user_can( 'upload_files' ), $file, $id );
+
+	if ( $skip_previews ) {
+		// Dedicated callbacks, so removing them can't also remove a matching filter added by a site.
+		$no_preview_sizes = static function () {
+			return array();
+		};
+		$no_cover_art     = static function ( $metadata ) {
+			if ( is_array( $metadata ) ) {
+				unset( $metadata['image'] );
+			}
+			return $metadata;
+		};
+
+		add_filter( 'fallback_intermediate_image_sizes', $no_preview_sizes, PHP_INT_MAX );
+		add_filter( 'wp_read_audio_metadata', $no_cover_art, PHP_INT_MAX );
+		add_filter( 'wp_read_video_metadata', $no_cover_art, PHP_INT_MAX );
+	}
+
+	try {
+		// Add the meta-data
+		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $file ) );
+	} finally {
+		// Always detach the temporary filters so they can't affect anything else in this request.
+		if ( $skip_previews ) {
+			remove_filter( 'fallback_intermediate_image_sizes', $no_preview_sizes, PHP_INT_MAX );
+			remove_filter( 'wp_read_audio_metadata', $no_cover_art, PHP_INT_MAX );
+			remove_filter( 'wp_read_video_metadata', $no_cover_art, PHP_INT_MAX );
+		}
+	}
 
 	/** This action is documented in wp-admin/custom-header.php */
 	do_action( 'wp_create_file_in_uploads', $file, $id ); // For replication
@@ -3245,7 +4098,7 @@ function acf_validate_is_image_attachment_prepare( $errors, $file, $attachment, 
 	$attachment_id = (int) acf_maybe_get( $attachment, 'id', 0 );
 
 	if ( $attachment_id ) {
-		if ( ! wp_attachment_is_image( $attachment_id ) ) {
+		if ( ! acf_is_valid_image_attachment_id( $attachment_id ) ) {
 			$errors['invalid_image'] = $error_message;
 		}
 
@@ -3323,6 +4176,31 @@ function acf_validate_is_image_attachment( $errors, $file, $attachment, $field, 
 	}
 
 	return acf_validate_is_image_attachment_basic_upload( $errors, $file, $attachment, $field, $context, $error_message );
+}
+
+/**
+ * Returns whether an attachment ID passes save-time image validation.
+ *
+ * Trusts post_mime_type rather than wp_attachment_is_image(), which bails when
+ * get_attached_file() is empty (stream-wrapped filesystems / some offload
+ * plugins). Deleted IDs, non-attachment posts, and non-image mimes fail.
+ *
+ * @since 6.8.12
+ *
+ * @param integer|string $attachment_id The attachment ID.
+ * @return boolean
+ */
+function acf_is_valid_image_attachment_id( $attachment_id ) {
+	if ( ! is_numeric( $attachment_id ) ) {
+		return false;
+	}
+
+	$attachment = get_post( (int) $attachment_id );
+	if ( ! $attachment || 'attachment' !== $attachment->post_type ) {
+		return false;
+	}
+
+	return is_string( $attachment->post_mime_type ) && strpos( $attachment->post_mime_type, 'image/' ) === 0;
 }
 
 /**
@@ -4502,3 +5380,227 @@ function acf_settings_enable_meta_box_cb_edit( $enable_meta_box_cb_edit ): bool 
 	return (bool) $enable_meta_box_cb_edit;
 }
 add_filter( 'acf/settings/enable_meta_box_cb_edit', 'acf_settings_enable_meta_box_cb_edit', 1 );
+
+
+/**
+ * Returns the ACF settings and corresponding callbacks/defaults allowed in the database.
+ * PRO-only settings are added by ACF PRO via the "acf/settings/allowed_db_settings" filter.
+ *
+ * This is called from acf_get_setting(), so the filtered result is cached until the callbacks
+ * on the filter change.
+ *
+ * @since 6.8.1
+ *
+ * @return array<string, array{sanitize_callback: callable, autoload: bool}>
+ */
+function acf_get_allowed_db_settings(): array {
+	global $wp_filter;
+
+	static $cache     = null;
+	static $cache_key = null;
+	static $building  = false;
+
+	// Key the cache on the registered callbacks so filters added or removed later are respected.
+	// Keeping a copy of the callbacks array is cheap to compare: while no filter is added or removed,
+	// it's the same array in memory, so === returns without walking it.
+	$key = isset( $wp_filter['acf/settings/allowed_db_settings'] ) ? $wp_filter['acf/settings/allowed_db_settings']->callbacks : array();
+
+	if ( null !== $cache && $key === $cache_key ) {
+		return $cache;
+	}
+
+	$db_settings = array(
+		// Interface.
+		'enable_post_types'  => array(
+			'sanitize_callback' => 'wp_validate_boolean',
+			'autoload'          => true,
+		),
+		'remove_wp_meta_box' => array(
+			'sanitize_callback' => 'wp_validate_boolean',
+			'autoload'          => true,
+		),
+		// API & Scripts.
+		'enable_shortcode'   => array(
+			'sanitize_callback' => 'wp_validate_boolean',
+			'autoload'          => true,
+		),
+		'rest_api_enabled'   => array(
+			'sanitize_callback' => 'wp_validate_boolean',
+			'autoload'          => true,
+		),
+		'rest_api_format'    => array(
+			'sanitize_callback' => 'acf_sanitize_rest_api_format',
+			'autoload'          => true,
+		),
+		'enable_abilities'   => array(
+			'sanitize_callback' => 'wp_validate_boolean',
+			'autoload'          => true,
+		),
+		'enable_schema'      => array(
+			'sanitize_callback' => 'wp_validate_boolean',
+			'autoload'          => true,
+		),
+		// Field Specific Settings.
+		'google_api_key'     => array(
+			'sanitize_callback' => 'sanitize_text_field',
+			'autoload'          => true,
+		),
+		'google_api_client'  => array(
+			'sanitize_callback' => 'sanitize_text_field',
+			'autoload'          => true,
+		),
+	);
+
+	// A filter callback that calls acf_get_setting() would otherwise recurse forever.
+	if ( $building ) {
+		return $db_settings;
+	}
+
+	$building = true;
+	try {
+		$filtered = apply_filters( 'acf/settings/allowed_db_settings', $db_settings );
+	} finally {
+		$building = false;
+	}
+
+	// acf_get_setting() and acf_update_setting() read 'sanitize_callback' and 'autoload' directly.
+	$db_settings = acf_normalize_allowed_db_settings( $filtered, $db_settings );
+
+	$cache     = $db_settings;
+	$cache_key = $key;
+
+	// Options that haven't been saved yet aren't autoloaded, so load them all in one query
+	// rather than one query each from acf_get_setting(). Requires WordPress 6.4.
+	if ( function_exists( 'wp_prime_option_caches' ) ) {
+		wp_prime_option_caches(
+			array_map(
+				function ( $name ) {
+					return 'acf_' . $name;
+				},
+				array_keys( $db_settings )
+			)
+		);
+	}
+
+	return $db_settings;
+}
+
+/**
+ * Normalizes the settings returned by the "acf/settings/allowed_db_settings" filter.
+ *
+ * Each entry needs a callable 'sanitize_callback'. It runs on every save and ACF can't pick one for an unknown
+ * setting, so entries without one are dropped and can't be saved. 'autoload' defaults to true, like ACF's own
+ * settings. A filter that doesn't return an array leaves ACF's own settings in place.
+ *
+ * @since 6.8.12
+ *
+ * @param mixed $settings The filtered settings.
+ * @param array $defaults ACF's own settings, used when the filter doesn't return an array.
+ * @return array<string, array{sanitize_callback: callable, autoload: bool}>
+ */
+function acf_normalize_allowed_db_settings( $settings, array $defaults ): array {
+	$problems = array();
+
+	if ( ! is_array( $settings ) ) {
+		$problems[] = array( 'not_array', '' );
+		$settings   = $defaults;
+	}
+
+	$normalized = array();
+
+	foreach ( $settings as $name => $entry ) {
+		if ( ! is_string( $name ) || '' === $name ) {
+			$problems[] = array( 'invalid_name', (string) $name );
+			continue;
+		}
+
+		if ( ! is_array( $entry ) || ! isset( $entry['sanitize_callback'] ) || ! is_callable( $entry['sanitize_callback'] ) ) {
+			$problems[] = array( 'no_sanitizer', $name );
+			continue;
+		}
+
+		$normalized[ $name ] = array_merge(
+			$entry,
+			array(
+				'sanitize_callback' => $entry['sanitize_callback'],
+				'autoload'          => isset( $entry['autoload'] ) ? (bool) $entry['autoload'] : true,
+			)
+		);
+	}
+
+	if ( $problems ) {
+		acf_report_invalid_allowed_db_settings( $problems );
+	}
+
+	return $normalized;
+}
+
+/**
+ * Reports problems with the "acf/settings/allowed_db_settings" filter with _doing_it_wrong(), once each.
+ *
+ * The allowed settings are often built before "init", when loading ACF's translations would itself trigger a
+ * notice, so the report waits for "init" if it hasn't run yet.
+ *
+ * @since 6.8.12
+ *
+ * @param array[] $problems Each an array of the problem type and the setting name.
+ * @return void
+ */
+function acf_report_invalid_allowed_db_settings( array $problems ) {
+	static $reported = array();
+
+	$new = array();
+	foreach ( $problems as $problem ) {
+		$id = implode( ':', $problem );
+		if ( ! isset( $reported[ $id ] ) ) {
+			$reported[ $id ] = true;
+			$new[]           = $problem;
+		}
+	}
+
+	if ( ! $new ) {
+		return;
+	}
+
+	$report = function () use ( $new ) {
+		foreach ( $new as $problem ) {
+			list( $type, $name ) = $problem;
+
+			if ( 'not_array' === $type ) {
+				$message = esc_html__( 'The "acf/settings/allowed_db_settings" filter must return an array of settings.', 'acf' );
+			} elseif ( 'invalid_name' === $type ) {
+				$message = sprintf(
+					/* translators: %s: the array key used for the setting */
+					esc_html__( 'Settings registered with the "acf/settings/allowed_db_settings" filter must be keyed by their name. The setting keyed "%s" can\'t be saved to the database.', 'acf' ),
+					esc_html( $name )
+				);
+			} else {
+				$message = sprintf(
+					/* translators: %s: the setting name */
+					esc_html__( 'The "%s" setting registered with the "acf/settings/allowed_db_settings" filter needs a callable "sanitize_callback". It can\'t be saved to the database.', 'acf' ),
+					esc_html( $name )
+				);
+			}
+
+			_doing_it_wrong( 'acf_get_allowed_db_settings', $message, '6.8.12' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above.
+		}
+	};
+
+	if ( did_action( 'init' ) ) {
+		$report();
+	} else {
+		add_action( 'init', $report );
+	}
+}
+
+/**
+ * Sanitizes the REST API format setting value.
+ *
+ * @since 6.8.5
+ *
+ * @param mixed $value The incoming value.
+ * @return string The sanitized value, defaulting to 'light'.
+ */
+function acf_sanitize_rest_api_format( $value ) {
+	return in_array( $value, array( 'light', 'standard' ), true ) ? $value : 'light';
+}

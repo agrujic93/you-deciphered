@@ -2,9 +2,9 @@
 Contributors: deliciousbrains, wpengine, elliotcondon, mattshaw, lgladdy, antpb, johnstonphilip, dalewilliams, polevaultweb
 Tags: acf, fields, custom fields, meta, repeater
 Requires at least: 6.2
-Tested up to: 7.1
+Tested up to: 7.1.5
 Requires PHP: 7.4
-Stable tag: 6.8.10
+Stable tag: 6.8.12
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -100,6 +100,65 @@ ACF includes an optional email signup to receive plugin updates and news. No dat
 
 
 == Changelog ==
+
+= 6.8.12 =
+*Release Date 19th November 2026*
+
+* Security - `<script>` tags in ACF Block preview HTML, including ones that load an external file, no longer run in the block editor unless the block opts in with `allowDangerousPreviewScripts` in `block.json` (or `allow_dangerous_preview_scripts` in `acf_register_block_type()`), or the site opts in with the new `acf/blocks/allow_dangerous_preview_scripts` filter
+* Security - The `[acf]` shortcode no longer shows fields from draft or private posts referenced by a prefixed ID such as `post_123` when used inside an ACF Block, or outside the loop such as in a widget on a 404 or search page
+* Security - Icon Picker fields set to return an icon string no longer reveal the URLs of private Media Library images in the REST API
+* New - ACF now has a new Settings page with a Features tab for turning ACF features on and off without code. In ACF PRO, the License and Updates screens are now tabs on this page. Settings defined in code are shown as "Managed via code" and can't be changed in the UI
+* New - Developers can add their own tabs, sections and fields to the Settings page with the new `acf/settings_page/tabs`, `acf/settings_page/general/sections` and `acf/settings_page/general/{$section}/fields` filters. The Features tab can be hidden with the new acf/settings/show_settings filter
+* New - ACF Abilities are now enabled by default for all field groups, post types and taxonomies on WordPress 6.9 and later. They can be turned off for each object, or for the whole site from the Settings page. The `enable_acf_ai` setting has been renamed to `enable_abilities`, and existing `allow_ai_access` values are not carried over
+* Enhancement - The "Edit Block" button text on ACF Blocks V3 that turn off the preview with "renderPreview": false can now be changed with acf.placeholderButtonText in block.json or the new acf/blocks/default_placeholder_button_text filter
+* New - ACF Blocks registered with `acf_register_block_type()` can now set the InnerBlocks `default_block` and `direct_insert` options
+* Enhancement - ACF Abilities now publish valid JSON Schema, so MCP clients such as ChatGPT can discover and use them. Schemas now describe conditional logic, Repeater and Group sub fields, and Flexible Content layouts
+* Enhancement - Breaking change: generated post type and taxonomy ability names now include the object type, so they no longer collide. For example, `acf/create-book` is now `acf/create-book-post` and `acf/books` is now `acf/list-book-posts`. Agent prompts and MCP configurations that use the old names need updating
+* Enhancement - The `acf/field-groups` Ability now includes the list of fields within each field group
+* Enhancement - The Date Picker field's bundled jQuery UI stylesheet has been updated to version 1.14.2
+* Enhancement - New `acf/blocks/auto_inline_editing/field_return_type_supports_auto_inline_editing` filter allows customizing which fields support auto inline editing in ACF Blocks
+* Enhancement - Child options pages now appear in their parent's menu in Menu Position order, whether they were registered in the UI or in PHP. A parent page that redirects to its first child now opens the child with the lowest Menu Position
+* Enhancement - Google Map fields now find the city for more addresses, such as those that only have a neighborhood or sublocality
+* Fix - ACF Blocks no longer crash in the block editor when WordPress or Gutenberg loads React 19
+* Fix - ACF Blocks V3 now save default field values when a block is inserted and left unedited
+* Fix - Auto inline editing in ACF Blocks now works with field values that contain `&`, and saves inline edits as plain text instead of HTML-encoded text
+* Fix - Auto inline editing in ACF Blocks no longer replaces empty array or object field values with a placeholder string
+* Fix - Passing a post object to `wp_insert_post()` no longer causes a fatal error, a regression in 6.8.11
+* Fix - Saving relational fields no longer causes a fatal error when another plugin stores an array in meta whose name starts with `_`, a regression in 6.8.11
+* Fix - Reading a field before the main query is set up no longer triggers an `is_preview()` notice, a regression in 6.8.10
+* Fix - Viewing a draft, pending or scheduled post without a preview link no longer loads field values from its latest revision, and front-end forms on those views no longer save into the revision, a regression in 6.8.10
+* Fix - Image fields no longer fail validation with "File must be a valid image." on hosts that use stream-wrapped file systems
+* Fix - Image and Gallery fields now respect the `acf/is_image_field` filter when validating values
+* Fix - Disabled Flexible Content layouts no longer appear in post previews
+* Fix - Number and Range field validation messages now show decimal minimum and maximum values correctly
+* Fix - The ACF media modal no longer stops showing new uploads after a search returns no results
+* Fix - Field group metaboxes that appear without a page reload can now be collapsed and expanded
+* Fix - True/False fields using the stylized UI now show the switch correctly in right-to-left languages
+* Fix - Field group settings no longer show an incorrect top border on small screens
+* Fix - The Icon Picker field no longer attempts to load an attachment preview when the selected icon is not from the Media Library
+* Fix - Options pages no longer trigger a "Using null as an array offset" deprecation notice on PHP 8.5
+* Fix - Field groups and other ACF internal post types no longer trigger PHP warnings when an `acf/load_{$post_type}` filter returns an invalid value
+* Fix - The license status no longer shows as Active after a license is deactivated
+
+= 6.8.11 =
+*Release Date 2nd November 2026*
+
+* Security - Custom values submitted to Checkbox, Radio, and Select fields with "Save Custom Values" enabled can no longer corrupt the field's settings or add HTML attributes to the field's wrapper. The new `acf/fields/allow_append_choices` filter can be used to restrict who can add new choices to a field. Thanks to Jakub Herman via WPScan for the responsible disclosure
+* Security - ACF now sanitizes field, field group, post type, taxonomy, and options page settings saved by users without the `unfiltered_html` capability. For those users, a field's wrapper settings are limited to width, class, and id. Event handler (`on*`) attributes in a field's wrapper setting are no longer output for any field, including fields registered in PHP or local JSON
+* Security - Field values of password-protected posts are no longer shown by the `[acf]` shortcode, block bindings, JSON-LD output, or the REST API until the password is entered. REST responses also no longer expand a referenced password-protected post into a full post object
+* Security - The `[acf]` shortcode and ACF block bindings now output only user IDs for User fields, rather than personal data such as names and email addresses. The previous output can be restored with the new `acf/bindings/allow_user_data` filter
+* Security - Files uploaded through the basic uploader by users without the `upload_files` capability no longer generate PDF preview images or save embedded audio and video cover art. This can be changed with the new `acf/upload/generate_previews` filter
+* Security - ACF now discards submitted field values unless the field was rendered for the content being saved or its field group's location rules match it.
+ Inputs outside these rules, such as fields added with JavaScript, can be allowed with the `acf/form/{context}/allowed_field_keys` and `acf/options_page/allowed_field_keys` filters. Registration forms no longer save fields from field groups set to "User Form is Add / Edit". Thanks to vuxvinh via WPScan for the responsible disclosure
+* Security - WordPress's Custom Fields meta box, its AJAX handler, and XML-RPC can no longer change meta that belongs to ACF fields
+* Security - Basic uploader nonces are now tied to the content being edited
+* Security - The AJAX request that loads field groups while editing a post no longer returns field groups assigned to other content
+* Security - The Relationship, Post Object, and Page Link fields no longer reveal the titles or statuses of posts the current user cannot read, and no longer save newly selected posts the user cannot read. Existing selections the user cannot read are shown as "(Restricted item)" and are kept when the user saves. Thanks to vuxvinh via WPScan for the responsible disclosure
+* Security - Relationship, Post Object, and Page Link values rendered in ACF Blocks now leave out posts the author of the post cannot read, such as another user's unpublished drafts. This can be disabled with the new acf/fields/relational/hide_unreadable_posts filter
+* Security - Bidirectional fields now only add references to posts the current user can edit, terms they can assign, and users they can edit or set as a post's author. Saves made with update_field(), WP-CLI, or cron are not checked, and the new acf/bidirectional/can_update_target and acf/is_trusted_save_context filters can adjust this. Thanks to vuxvinh via WPScan for the responsible disclosure
+* Fix - The [acf] shortcode and ACF block bindings no longer cause a fatal error on PHP 8 when a field returns objects, such as a Relationship field set to return post objects. These values, and arrays containing nested values such as an Image field set to return an array, now output nothing, except for User fields, which output user IDs
+* Fix - Field settings containing `&`, `<`, or certain HTML entities no longer cause the field to revert to its default settings after saving
+* Fix - Saving a custom choice no longer removes backslashes from the field's other settings
 
 = 6.8.10 =
 *Release Date 10th September 2026*

@@ -1,7 +1,11 @@
 <?php
 /**
-** A base module for [captchac] and [captchar]
-**/
+ * Really Simple CAPTCHA
+ *
+ * @link https://contactform7.com/captcha/
+ */
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /* form_tag handler */
 
@@ -15,6 +19,7 @@ function wpcf7_add_form_tag_captcha() {
 			'name-attr' => true,
 			'zero-controls-container' => true,
 			'not-for-mail' => true,
+			'not-for-stripe' => true,
 		)
 	);
 
@@ -25,6 +30,7 @@ function wpcf7_add_form_tag_captcha() {
 			'name-attr' => true,
 			'do-not-store' => true,
 			'not-for-mail' => true,
+			'not-for-stripe' => true,
 		)
 	);
 }

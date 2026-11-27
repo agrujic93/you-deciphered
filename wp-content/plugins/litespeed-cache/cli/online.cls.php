@@ -186,6 +186,13 @@ class Online {
 	 */
 	public function sync( $args, $assoc_args ) {
 		$json = $this->cloud->sync_usage();
+		if ( ! is_array( $json ) ) {
+			WP_CLI::error( 'Could not sync QUIC.cloud usage.' );
+			return;
+		}
+		$json = array_filter( $json, static function ( $key ) {
+			return is_string( $key ) && 0 === strpos( $key, 'usage.' );
+		}, ARRAY_FILTER_USE_KEY );
 
 		if ( ! empty( $assoc_args['format'] ) ) {
 			WP_CLI::print_value( $json, $assoc_args );
@@ -195,7 +202,8 @@ class Online {
 		WP_CLI::success( 'Sync successfully' );
 
 		$list = array();
-		foreach ( Cloud::$services as $v ) {
+		// Usage v4 only reports optimization units and CDN.
+		foreach ( ! empty( $json['usage.optm'] ) ? [ 'optm', 'cdn' ] : Cloud::$services as $v ) {
 			$list[] = array(
 				'key' => $v,
 				'used' => ! empty( $json['usage.' . $v]['used'] ) ? $json['usage.' . $v]['used'] : 0,

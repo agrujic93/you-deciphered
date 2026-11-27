@@ -386,6 +386,8 @@ if ( ! class_exists( 'acf_admin_field_group' ) ) :
 			// phpcs:disable WordPress.Security.ValidatedSanitizedInput
 			$_POST['acf_field_group']['title'] = isset( $_POST['post_title'] ) ? $_POST['post_title'] : ''; // Post title is stored unsafe like WordPress, escaped on output.
 
+			$_POST['acf_field_group'] = acf_preserve_unsubmitted_abilities_settings( $_POST['acf_field_group'], $post );
+
 			// save field group.
 			acf_update_field_group( $_POST['acf_field_group'] );
 			// phpcs:enable WordPress.Security.ValidatedSanitizedInput
@@ -552,8 +554,8 @@ if ( ! class_exists( 'acf_admin_field_group' ) ) :
 				$field['parent']            = $new_field_group['ID'];
 				$field['conditional_logic'] = 0;
 
-				// Update the field in the database.
-				acf_update_field( $field );
+				// Update the field in the database. Its settings come from the database, so skip sanitization.
+				acf_skip_internal_post_sanitization( 'acf_update_field', $field );
 
 				// Fire `acf/update_field_group` action hook so JSON can sync if necessary.
 				do_action( 'acf/update_field_group', $old_field_group );

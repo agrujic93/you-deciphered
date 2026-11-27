@@ -13,7 +13,6 @@ namespace LiteSpeed;
 defined( 'WPINC' ) || exit;
 
 $closest_server = Cloud::get_summary( 'server.' . Cloud::SVC_IMG_OPTM );
-$usage_cloud    = Cloud::get_summary( 'usage.' . Cloud::SVC_IMG_OPTM );
 $allowance      = Cloud::cls()->allowance( Cloud::SVC_IMG_OPTM );
 
 $img_optm = Img_Optm::cls();
@@ -26,7 +25,7 @@ $optm_summary = Img_Optm::get_summary();
 list($last_run, $is_running) = $img_optm->cron_running( false );
 $finished_percentage         = 0;
 if ( $img_count['groups_all'] ) {
-	$finished_percentage = 100 - floor( $img_count['groups_new'] * 100 / $img_count['groups_all'] );
+	$finished_percentage = 100 - (int) floor( $img_count['groups_new'] * 100 / $img_count['groups_all'] );
 }
 if ( 100 === $finished_percentage && $img_count['groups_new'] ) {
 	$finished_percentage = 99;
